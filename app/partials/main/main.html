@@ -1,0 +1,186 @@
+<nav class="navbar navbar-inverse" role="navigation">
+   <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <i class="icon-cog"></i>
+         </button>
+         <a class="navbar-brand" href="./index.html"><img src="./img/acufuelLOGOwhite.png" class="img-logo"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+               <a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
+               <i class="icon-plane"></i> 
+               Latitiude Jet Center
+               <b class="caret"></b>
+               </a>
+               <ul class="dropdown-menu">
+                  <li><a href="javascript:;">FBO Profile</a></li>
+                  <li><a href="javascript:;">Account Settings</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#" ng-click="logout();">Logout</a></li>
+               </ul>
+            </li>
+         </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+   </div>
+   <!-- /.container -->
+</nav>
+<div class="subnavbar">
+   <div class="subnavbar-inner">
+      <div class="container">
+         <a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <i class="icon-reorder"></i>
+         </a>
+         <div class="collapse subnav-collapse">
+            <ul class="mainnav">
+               <li>
+                  <a ui-sref="app.dashboard">
+                  <i class="fa fa-home"></i>
+                  <span>Home</span>
+                  </a>              
+               </li>
+               <li class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-tint"></i>
+                  <span>Fuel Manager</span>
+                  <b class="caret"></b>
+                  </a>  
+                  <ul class="dropdown-menu">
+                     <li><a ui-sref="app.updateFuelManager" href="#/updateFuelManager">Update Fuel Manager</a></li>
+                     <li><a ui-sref="app.fuelManager" href="#/fuelManager">Ramp Free Manager</a></li>
+                     <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#">Tax Manager</a>
+                        <ul class="dropdown-menu">
+                           <li><a tabindex="-1" href="#">Federal Taxes</a></li>
+                           <li><a href="#">State & Country Taxes</a></li>
+                           <li><a href="#">Airport Taxes</a></li>
+                        </ul>
+                     </li>
+                     <li class="dropdown-submenu">
+                        <a tabindex="-1" href="#">Fuel Orders</a>
+                        <ul class="dropdown-menu">
+                           <li><a tabindex="-1" href="#">Pending</a></li>
+                           <li><a href="#">Invoiced</a></li>
+                           <li><a href="#">Canceled</a></li>
+                           <li><a href="#">Archived</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li class="dropdown">
+                  <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-user"></i>
+                  <span>Customers</span>
+                  <b class="caret"></b>
+                  </a>      
+                  <ul class="dropdown-menu">
+                     <li><a  ui-sref="app.viewCompany">View Companies</a></li>
+                     <li><a  ui-sref="app.customers">View Contacts</a></li>
+                     <li><a  ui-sref="app.account">View Fuel Vendors</a></li>
+                     <li><a  ui-sref="app.analytics">Research Flight Dept</a></li>
+                  </ul>
+               </li>
+               <li class="">
+                  <a  ui-sref="app.scheduler">
+                  <i class="fa fa-calendar"></i>
+                  <span>Scheduler</span>
+                  </a>              
+               </li>
+               <li class="dropdown">
+                  <a href="app.analytics:;" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-signal"></i>
+                  <span>Analytics</span>
+                  <b class="caret"></b>
+                  </a>      
+                  <ul class="dropdown-menu">
+                     <li><a href="#">Live Flight tracking</a></li>
+                     <li><a href="#">Research Flight Dept</a></li>
+                     <li><a href="#">Historical Fuel Prices</a></li>
+                     <li><a href="#">Regional Pricing</a></li>
+                     <li><a href="#">Actual vs. Canceled Fuelings</a></li>
+                     <li><a href="#">Customer Lead Sources</a></li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+         <!-- /.subnav-collapse -->
+      </div>
+      <!-- /container -->
+   </div>
+   <!-- /subnavbar-inner -->
+</div>
+<!-- /subnavbar -->
+<div ui-view></div>
+<!-- </body> -->
+<!-- footer -->
+<div class="extra">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-3">
+            <h4>About</h4>
+            <ul>
+               <li><a href="javascript:;">About Us</a></li>
+               <li><a href="javascript:;">Twitter</a></li>
+               <li><a href="javascript:;">Facebook</a></li>
+               <li><a href="javascript:;">Google+</a></li>
+            </ul>
+         </div>
+         <!-- /span3 -->
+         <div class="col-md-3">
+            <h4>Support</h4>
+            <ul>
+               <li><a href="javascript:;">Frequently Asked Questions</a></li>
+               <li><a href="javascript:;">Ask a Question</a></li>
+               <li><a href="javascript:;">Video Tutorial</a></li>
+               <li><a href="javascript:;">Feedback</a></li>
+            </ul>
+         </div>
+         <!-- /span3 -->
+         <div class="col-md-3">
+            <h4>Legal</h4>
+            <ul>
+               <li><a href="javascript:;">License</a></li>
+               <li><a href="javascript:;">Terms of Use</a></li>
+               <li><a href="javascript:;">Privacy Policy</a></li>
+               <li><a href="javascript:;">Security</a></li>
+            </ul>
+         </div>
+         <!-- /span3 -->
+         <div class="col-md-3">
+            <h4>Settings</h4>
+            <ul>
+               <li><a href="javascript:;">Consectetur adipisicing</a></li>
+               <li><a href="javascript:;">Eiusmod tempor </a></li>
+               <li><a href="javascript:;">Fugiat nulla pariatur</a></li>
+               <li><a href="javascript:;">Officia deserunt</a></li>
+            </ul>
+         </div>
+         <!-- /span3 -->
+      </div>
+      <!-- /row -->
+   </div>
+   <!-- /container -->
+</div>
+<!-- /extra -->
+<div class="footer">
+   <div class="container">
+      <div class="row">
+         <div id="footer-copyright" class="col-md-6">
+            &copy; 2012-13 Jumpstart UI.
+         </div>
+         <!-- /span6 -->
+         <div id="footer-terms" class="col-md-6">
+            Theme by <a href="http://jumpstartui.com" target="_blank">Jumpstart UI</a>
+         </div>
+         <!-- /.span6 -->
+      </div>
+      <!-- /row -->
+   </div>
+   <!-- /container -->
+</div>

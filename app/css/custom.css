@@ -1,0 +1,72 @@
+/*------------------------------------------------------------------
+
+[Custom Stylesheet]
+
+
+Last change:	03/25/2013
+Assigned to:	You
+
+-------------------------------------------------------------------*/
+
+body{
+	color: #333;
+}
+
+.custom-widget-content{
+	width: 100%;
+	height: auto;
+	padding: 15px 0;
+	background-color: #fff;
+	border: 1px solid #D5D5D5;
+	border-radius: 0 0 5px 5px;
+}
+.hr{
+	margin: 5px 0;
+}
+.disableSelect:disabled{
+	border: 0;
+	background-color: transparent;
+	color: #f90;
+	box-shadow: none;
+	-webkit-appearance: none;
+    appearance: none;
+}
+.disableInput:disabled{
+	border: 0;
+	background-color: transparent;
+	color: #222;
+	box-shadow: none;
+}
+.img-logo{
+	height: 25px;
+	padding-left: 10%;
+}
+
+.widget-header > i{
+	display: inline-block;
+    margin-top: -3px;
+    margin-left: 13px;
+    margin-right: -2px;
+    font-size: 16px;
+    color: #555;
+    vertical-align: middle;
+}
+
+
+table{
+	width: 100%;
+}
+table th, td{
+	font-size: 13px;
+}
+.navbar-brand{
+	height: auto;
+}
+.custom-widget-content .btn-xs{
+	padding: 3px 5px;
+}
+.fc-event{
+	background-color: #ff9900 !important;
+	color: #fff !important;
+	border: 1px solid #ff9900 !important;
+}

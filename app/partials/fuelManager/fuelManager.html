@@ -1,0 +1,211 @@
+<style>
+   .subnavbar .mainnav > li:nth-child(2) > a{
+   color: #ff9900;
+   }
+</style>
+<div class="container">
+   <div class="row">
+      <div class="col-md-10">
+         <div class="widget stacked">
+            <div class="widget-header">
+               <i class="icon-calendar"></i>
+               <h3>Ramp Fee Manager</h3>
+               <select>
+                  <option>Ramp Fee By Category</option>
+                  <option>Make And Model</option>
+                  <option>Weight</option>
+                  <option>Wingspan</option>
+               </select>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <h3>Ramp Fees & Avoidance</h3>
+               <section id="accordions">
+                  <div class="panel-group accordion">
+                     <div class="panel panel-default open">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" id="jaTab1" data-toggle="collapse" data-parent=".accordion" href="#collapseOne">
+                              <span style="float: left; margin-right: 20px; line-height: 22px;">Jet Aircraft</span>
+                              </a>
+                              <select class="form-control" id="ja1" style="width: 150px; margin-right: 20px; float: left; height: 26px; padding: 0 6px;">
+                                 <option value="" disabled selected>Pricing Structure</option>
+                                 <option value="">Retail-(minus)</option>
+                                 <option value="">Cost+(plus)</option>
+                                 <option value="">Direct=(equals)</option>
+                              </select>
+                              <input type="text" id="ja2" class="form-control" value="$1.7500" style="width: 80px; height: 26px; padding: 0 6px;" name="">
+                           </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                           <div class="panel-body">
+                              <div class="row" style="margin-left: 0px;">
+                                 <div class="col-md-8">
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <h5 style="color: blue;font-weight: bold;">Omit</h5>
+                                       </div>
+                                       <div class="col-md-5">
+                                          <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p>Very Light Jet</p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p> Light Jet</p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" id="jaTab2" data-toggle="collapse" data-parent=".accordion" href="#collapseTwo">
+                              <span style="float: left; margin-right: 20px; line-height: 22px;">TurboPop AirCraft</span>
+                              </a>
+                              <select class="form-control disableSelect" disabled="true" id="ja11" style="width: 150px; margin-right: 20px; float: left; height: 26px; padding: 0 6px;">
+                                 <option value="" disabled selected>Pricing Structure</option>
+                                 <option value="">Retail-(minus)</option>
+                                 <option value="">Cost+(plus)</option>
+                                 <option value="">Direct=(equals)</option>
+                              </select>
+                              <input type="text" id="ja22" class="form-control disableInput" disabled="true" value="$1.7500" style="width: 80px; height: 26px; padding: 0 6px;" name="">
+                           </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row" style="margin-left: 0px;">
+                                 <div class="col-md-8">
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <h5 style="color: blue;font-weight: bold;">Omit</h5>
+                                       </div>
+                                       <div class="col-md-5">
+                                          <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p>Very Light Jet</p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p> Light Jet</p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" id="jaTab3" data-toggle="collapse" data-parent=".accordion" href="#collapseThree">
+                              <span style="float: left; margin-right: 20px; line-height: 22px;">Collapsible Group Item #3</span>
+                              </a>
+                              <select class="form-control disableSelect" id="ja111" disabled="true" style="width: 150px; margin-right: 20px; float: left; height: 26px; padding: 0 6px;">
+                                 <option value="" disabled selected>Pricing Structure</option>
+                                 <option value="">Retail-(minus)</option>
+                                 <option value="">Cost+(plus)</option>
+                                 <option value="">Direct=(equals)</option>
+                              </select>
+                              <input type="text" id="ja222" disabled="true" class="form-control disableInput" value="$1.7500" style="width: 80px; height: 26px; padding: 0 6px;" name="">
+                           </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+               <div class="row">&nbsp;</div>
+               <div class="row">
+                  <div class="col-md-7">
+                  </div>
+                  <div class="col-md-5">
+                     <div class="form-group">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-8">
+                           <button type="submit" class="btn btn-success"><i class="icon-ok"></i> Save Form</button>&nbsp;&nbsp;
+                           <button type="reset" class="btn btn-default">Cancel</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->
+      </div>
+      <!-- /span6 -->
+   </div>
+   <!-- /span12 -->
+</div>
+<!-- /row -->
+</div> <!-- /container -->
+<!-- Le javascript
+   ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->

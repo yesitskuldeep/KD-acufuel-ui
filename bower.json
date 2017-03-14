@@ -1,0 +1,30 @@
+{
+  "name": "acufuel",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Rishav <rsingla.rishu@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.2",
+    "angular-animate": "^1.6.2",
+    "angular-route": "^1.6.2",
+    "jquery": "^3.1.1",
+    "animate.css": "^3.5.2",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "fontawesome#^4.7.0",
+    "angular-ui-router": "^0.4.2",
+    "bootstrap-toggle": "^2.2.2",
+    "fullcalendar": "^3.2.0",
+    "toastr": "^2.1.3"
+  }
+}
