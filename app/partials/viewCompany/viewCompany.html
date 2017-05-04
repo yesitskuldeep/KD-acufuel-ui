@@ -2,47 +2,104 @@
    .subnavbar .mainnav > li:nth-child(3) > a{
    color: #ff9900;
    }
+   .widget-content{
+      padding: 10px !important;
+   }
+   .widget-content input[type="text"], .widget-content select{
+      height: 31px;
+      padding: 0;
+   }
+   .new-label span{
+      float: left;
+      line-height: 31px;
+   }
+   .new-label span:first-child{
+      margin-right: 5px;
+      font-weight: bold;
+   }
+   .new-label span:last-child{
+      margin-left: 5px;
+   }
+   .new-label select{
+      display: -webkit-inline-box;
+      display: inline-box;
+      float: left;
+   }
+   .new-address p{
+      margin-bottom: 0;
+   }
+   .new-add-select{
+      padding-left: 15px;
+      margin: 10px 0;
+   }
+   .new-add-select select{
+      width: 100px;
+   }
+   .widget{
+      -moz-box-shadow: 0px 3px 8px rgba(100,100,100, 0.7);
+      -webkit-box-shadow: 0px 3px 8px rgba(100,100,100, 0.7);
+      box-shadow: 0px 3px 8px rgba(100,100,100, 0.7);
+   }
+   .optionclass {
+      background: #fff;
+   }
+   .timess {
+      float: right !important;
+      margin-top: 10px !important;
+      margin-right: 10px !important;
+      color: #999 !important;
+      cursor: pointer !important;
+   }
 </style>
-<div class="container">
+<div class="col-xs-12 col-md-11">
    <div class="row" style="margin-left:0px">
       <div class="col-md-12">
-         <div class="widget stacked">
+         <div class="widget">
             <div class="widget-header">
-               <i class="fa fa-building"></i>
-               <h3>Schedule</h3>
+               <i class="fa fa-building-o" aria-hidden="true"></i>
+               <h3>Antioch Flight Department</h3>
+               <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
                <div class="row" style="margin-left:0px">
                   <div class="col-md-6">
-                     <div class="widget stacked">
+                     <div class="widget">
                         <div class="widget-header">
-                           <i class="fa fa-building"></i>
+                           <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3>Company Details</h3>
-                           <div style="float:right;margin-right:15px;"><input type="checkbox" style="margin-top: 13px;" data-toggle="toggle" data-size="mini"></div>
+                           <div class="pull-right my-toggle-switch" style="margin-top: 10px; margin-right: 10px;">
+                              <div><input id="toggle-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Dactive">
+                              </div>
+                           </div>
                         </div>
                         <div class="widget-content">
                            <div class="row" style="margin-left:0px">
-                              <div class="col-md-9">
+                              <div class="col-md-8" style="padding-left: 0;">
                                  <h3 style="color:#F90;">
                                     <b>Antioch Flight Department</b>
                                  </h3>
                               </div>
-                              <div class="col-md-3">
-                                 <select class="form-control" style="height:31px;">
-                                    <option>Margin1</option>
-                                    <option>Margin2</option>
+                              <div class="col-md-4">
+                                 <select class="form-control" style="height:31px;background: #ebebeb;">
+                                    <option class="optionclass" disabled selected>Certificate Type</option>
+                                    <option class="optionclass">Part 91 (Corporate)</option>
+                                    <option class="optionclass">Part 135 (Charter)</option>
+                                    <option class="optionclass">Part 121 (Scheduled)</option>
+                                    <option class="optionclass">Military</option>
+                                    <option class="optionclass">Government</option>
                                  </select>
                               </div>
                            </div>
                            <div>
-                              <p>
-                                 <b>Master Margin Setting </b> 
-                                 <select>
+                              <p class="new-label">
+                                 <span>Master Margin Setting </span> 
+                                 <select class="form-control" style="width: 100px;">
                                     <option>Margin1</option>
                                     <option>Margin2</option>
                                  </select>
-                                 See Aircrart List
+                                 <span>See Aircrart List</span>
+                                 <div class="clearfix"></div>
                               </p>
                            </div>
                            <div>
@@ -52,27 +109,37 @@
                               <input type="checkbox" name=""> CAA Member
                            </div>
                            </br>
-                           <div>
-                              <p><i class="fa fa-map-marker"></i> Reviera State Rd32 </p>
-                              <p><i class="fa fa-phone"></i> (310) 2342-3433 </p>
-                              <p><i class="fa fa-envelope"></i> freed@gmail.com</p>
+                           <div class="new-address">
+                              <p><i class="fa fa-map-marker"></i> Reviera State Rd32 <input type="checkbox"> </p>
+                              <p><i class="fa fa-phone"></i> (310) 2342-3433 <input type="checkbox"></p>
+                              <p><i class="fa fa-envelope"></i> freed@gmail.com <input type="checkbox"></p>
                            </div>
-                           </br>
+                           <div class="new-add-select">
+                              <select class="form-control" style="background: #ebebeb;">
+                                 <option disabled selected>Add Field</option>
+                                 <option class="optionclass">Add Phone</option>
+                                 <option class="optionclass">Add Email</option>
+                              </select>
+                           </div>
                            <div>
-                              <p><b>Company Notes</b></p>
+                              <p style="margin-bottom: 0;"><b>Company Notes</b> <input type="checkbox"></p>
                               <p>This is the test data. note will be written in this</p>
                            </div>
-                           <div>
+                           <div class="dis">
                               <button type="button" class="btn btn-primary">Distribute Price to Company Contacts</button>
                            </div>
+                           <div><button type="button" class="btn btn-info">Setup Fuel</button></div>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="widget stacked">
+                     <div class="widget">
                         <div class="widget-header">
                            <i class="fa fa-plane"></i>
                            <h3>Aircraft List</h3>
+                           <div class="pull-right">
+                              <button type="submit" class="btn btn-success btn-sm" ng-click="open()" style="margin-top: 4px; margin-right: 9px;"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+                           </div>
                         </div>
                         <div class="widget-content" style="padding:0px">
                            <div class="table-responsive">
@@ -83,8 +150,10 @@
                                        <th>Make</th>
                                        <th>Model</th>
                                        <th>JET-A</th>
-                                       <th>JET-A(All in)</th>
+                                       <th>All in</th>
                                        <th>AVGAS</th>
+                                       <th>All in</th>
+                                       <th></th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -105,6 +174,8 @@
                                              <option>Margin2</option>
                                           </select>
                                        </td>
+                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td></td>
                                     </tr>
                                     <tr>
                                        <td>N817C6</td>
@@ -123,6 +194,8 @@
                                              <option>Margin2</option>
                                           </select>
                                        </td>
+                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td></td>
                                     </tr>
                                     <tr>
                                        <td>N817C6</td>
@@ -141,6 +214,8 @@
                                              <option>Margin2</option>
                                           </select>
                                        </td>
+                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td></td>
                                     </tr>
                                     <tr>
                                        <td>N817C6</td>
@@ -159,6 +234,8 @@
                                              <option>Margin2</option>
                                           </select>
                                        </td>
+                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td></td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -169,10 +246,13 @@
                </div>
                <div class="row" style="margin-left:0px">
                   <div class="col-md-6">
-                     <div class="widget stacked">
+                     <div class="widget">
                         <div class="widget-header">
                            <i class="fa fa-user"></i>
                            <h3>Contact List</h3>
+                           <div class="pull-right">
+                              <button type="submit" class="btn btn-success btn-sm" style="margin-top: 4px; margin-right: 9px;"><i class="icon-ok"></i>+ &nbsp Add Contact</button>
+                           </div>
                         </div>
                         <div class="widget-content" style="padding:0px">
                            <div class="table-responsive">
@@ -187,25 +267,25 @@
                                  </thead>
                                  <tbody>
                                     <tr>
-                                       <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
+                                       <td><input id="toggle-one1" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
                                        <td>Mark</td>
                                        <td>Otto</td>
                                        <td>Dispatcher</td>
                                     </tr>
                                     <tr>
-                                       <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
+                                       <td><input id="toggle-two" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
                                        <td>Mark</td>
                                        <td>Otto</td>
                                        <td>Dispatcher</td>
                                     </tr>
                                     <tr>
-                                       <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
+                                       <td><input id="toggle-three" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
                                        <td>Mark</td>
                                        <td>Otto</td>
                                        <td>Dispatcher</td>
                                     </tr>
                                     <tr>
-                                       <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
+                                       <td><input id="toggle-four" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
                                        <td>Mark</td>
                                        <td>Otto</td>
                                        <td>Dispatcher</td>
@@ -217,7 +297,7 @@
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="widget stacked">
+                     <div class="widget">
                         <div class="widget-header">
                            <i class="fa fa-pencil"></i>
                            <h3>Price Manager Reference</h3>
@@ -286,12 +366,13 @@
    <!-- /widget -->
 </div>
 <!-- /container -->
+<div class="clearfix"></div>
 <!-- Le javascript
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script>
+<!-- <script
    CKEDITOR.replace( 'editor2', {
       height: 250,
       extraPlugins: 'divarea'
    } );
-</script>
+   </script> -->

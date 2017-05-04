@@ -70,3 +70,89 @@ table th, td{
 	color: #fff !important;
 	border: 1px solid #ff9900 !important;
 }
+.pull-right-color{
+	background-image: linear-gradient(to bottom, #1c84c6  0%, #1c84c6  100%);
+}
+.pull-right-setup{
+	margin-bottom: 10px;
+	background-image: linear-gradient(to bottom, #1c84c6  0%, #1c84c6  100%);
+}
+.Airport{
+	padding-top: 5px;
+}
+.src-image{
+	width: 50px;
+	height: 50px;
+}
+.Accept{
+	padding-top: 25px;	
+}
+.dis{
+	float: left;
+	margin-right:100px;
+}
+/*.email-password{
+	width: 40px;
+	height: 24px;
+}*/
+.email-password-icon{
+	width: 10px;
+	height: 10px;
+}
+@media( max-width: 768px;){
+.btn{
+font-size: 10px !important;
+}
+.dis{
+	float: none;
+	margin-right: 0px;
+}
+}
+.Search-tabs{
+	border-bottom: 0px solid #ddd; */
+}
+
+.customer-table table{
+	width: 100%;
+}
+.customer-table input{
+	border-radius: 0;
+	box-shadow: none;
+	border: 1px solid #e4e3e3;
+	padding: 0px;
+	font-size: 10px;
+	display: -webkit-inline-box;
+	display: inline-box;
+	height: 31px;
+}
+.customer-table select{
+	border-radius: 0;
+	box-shadow: none;
+	border: 1px solid #e4e3e3;
+	padding: 0px;
+	font-size: 10px;
+	height: 31px;
+	display: -webkit-inline-box;
+	display: inline-box;
+}
+.customer-table th > label{
+	font-weight: bold;
+	padding: 10px 5px 2px 5px;
+	margin-bottom: 0;
+}
+.customer-table td{
+	padding: 5px !important;
+	height: auto !important;
+	vertical-align: middle !important;
+}
+.customer-table td > select{
+	height: 22px !important;
+}
+.customer-table td > button{
+	font-size: 10px;
+}
+
+/*.new-input-label{
+	margin-bottom: 0;
+	line-height: 34px;
+}*/

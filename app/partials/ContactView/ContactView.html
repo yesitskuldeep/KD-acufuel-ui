@@ -1,0 +1,243 @@
+<style>
+   .subnavbar .mainnav > li:nth-child(3) > a{
+   color: #ff9900;
+   }
+</style>
+<div class="main">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="widget stacked ">
+               <div class="widget-content">
+                  <div class="tabbable">
+                     <ul class="nav nav-tabs">
+                        <li>
+                           <a ui-sref="app.customers">Company View 
+                              <i class="fa fa-caret-down" aria-hidden="true"></i>
+                           </a>
+                        </li>
+                        <li class="active">
+                           <a ui-sref="app.ContactView">Contact View 
+                              <i class="fa fa-caret-down" aria-hidden="true"></i>
+                           </a>
+                        </li>
+                        <li>
+                           <a ui-sref="app.FuelVendors">Fuel Vendors 
+                              <i class="fa fa-caret-down" aria-hidden="true"></i>
+                           </a>
+                        </li>
+                        <li style="margin: 0px 10px 4px 40px;"><input type="text" style="height:31px;"class="form-control" name="name" id="name" placeholder="Search In Table"></li>
+                        <li><button type="button" class="btn btn-default btn-sm">Clear Search And Filters</button></li>
+                        <li style="float:right"><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add Company</button></li>
+                     </ul>
+                     <br>  
+                     <div class="tab-content customer-table" style="margin:0px">
+                        <div class="tab-pane active" id="companyView">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Last Name <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">First Name <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Company Name <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Work Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Mobile Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company"> Title <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Username <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       
+                                       <label class="font-company">Pricing Email <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Password <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <!-- <th></th>
+                                    <th></th> -->
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td class="font-company">colony</td>
+                                    <td class="font-company">Gerry</td>
+                                    <td class="font-company">Est LLC</td>
+                                    <td class="font-company">(310) 555-1212</td>
+                                    <td class="font-company">(310) 555-1212</td>
+                                    <td class="font-company">Acufuel</td>
+                                    <td class="font-company">Usel 1</td>
+                                    <td class="font-company"><input id="toggle-one12" checked type="checkbox" data-size="mini" data-toggle="toggle">
+                                    </td>
+                                    <td class="font-company">Password 123</td>
+                                    <!-- <td ></td>
+                                    <td></td> -->
+                                 </tr>
+                                 <tr>
+                                    <td class="font-company">colony</td>
+                                    <td class="font-company">Gerry</td>
+                                    <td class="font-company">Est LLC</td>
+                                    <td class="font-company">(310) 555-1212</td>
+                                    <td class="font-company">(310) 555-1212</td>
+                                    <td class="font-company">Acufuel</td>
+                                    <td class="font-company">Usel 1</td>
+                                    <td class="font-company"><input id="toggle-two21" checked type="checkbox" data-size="mini" data-toggle="toggle">
+                                       
+                                    </td>
+                                    <td class="font-company">Password 123</td>
+                                    <!-- <td></td>
+                                    <td></td> -->
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <div class="row" style="margin-left: 0px;">
+                              <div class="col-md-2">
+                                 <button type="button" class="btn btn-warning">Export Customers</button>
+                              </div>
+                              <div class="col-md-10">
+                                 <div class="row" style="margin-left: 0px;">
+                                    <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-2">
+                                       <select class="form-control">
+                                          <option>20 Records Per Page</option>
+                                          <option>50 Records Per Page</option>
+                                          <option>100 Records Per Page</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <ul class="pagination" style="margin:0px">
+                                          <li><a href="javascript:;">«</a></li>
+                                          <li class="active"><a href="#">1</a></li>
+                                          <li><a href="javascript:;">2</a></li>
+                                          <li><a href="javascript:;">3</a></li>
+                                          <li><a href="javascript:;">4</a></li>
+                                          <li><a href="javascript:;">5</a></li>
+                                          <li><a href="javascript:;">»</a></li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="tab-pane" id="contactView">
+                           <table class="table table-striped">
+                              <thead>
+                                 <tr>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name"> Last Name</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">First Name</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Company Name</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Work Phone</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Mobile Phone</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Title</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Pricing Email</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Username</th>
+                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Password</th>
+                                    <th></th>
+                                    <th></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>Name and inc.</td>
+                                    <td>3</td>
+                                    <td>03423233</td>
+                                    <td>Jemmy</td>
+                                    <td>KIAD</td>
+                                    <td></td>
+                                    <td><input id="toggle-one12" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>                                    <td></td>
+                                    <td>$123</td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                                 <tr>
+                                    <td>Name and inc.</td>
+                                    <td>3</td>
+                                    <td>03423233</td>
+                                    <td>Jemmy</td>
+                                    <td>KIAD</td>
+                                    <td></td>
+                                    <td><input id="toggle-two21" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
+                                    <td></td>
+                                    <td>$123</td>
+                                    <td></td>
+                                    <td></td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <div class="row" style="margin-left: 0px;">
+                              <div class="col-md-2">
+                              <button type="button" class="btn btn-info">Export CSV</button>
+
+                              </div>
+                              <div class="col-md-10">
+                                 <div class="row" style="margin-left: 0px;">
+                                    <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-2">
+                                       <select class="form-control">
+                                          <option>20 Records Per Page</option>
+                                          <option>50 Records Per Page</option>
+                                          <option>100 Records Per Page</option>
+                                       </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <ul class="pagination" style="margin:0px">
+                                          <li><a href="javascript:;">«</a></li>
+                                          <li class="active"><a href="#">1</a></li>
+                                          <li><a href="javascript:;">2</a></li>
+                                          <li><a href="javascript:;">3</a></li>
+                                          <li><a href="javascript:;">4</a></li>
+                                          <li><a href="javascript:;">5</a></li>
+                                          <li><a href="javascript:;">»</a></li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="tab-pane" id="fuelVendors">
+                           <table class="table table-striped table-bordered">
+                              <thead>
+                                 <tr>
+                                    <th>Engine</th>
+                                    <th>Browser</th>
+                                    <th class="td-actions"></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- /widget-content -->
+            </div>
+            <!-- /widget -->
+         </div>
+         <!-- /span8 -->
+      </div>
+      <!-- /row -->
+   </div>
+   <!-- /container -->
+</div>
+<!-- /main -->

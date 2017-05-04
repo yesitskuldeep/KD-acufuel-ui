@@ -3,23 +3,19 @@
     'use strict'
     
     angular.module('acufuel')
-        .controller('LoginController', [ '$scope', '$filter', '$rootScope', '$state', LoginController]);
+        .controller('LoginController', [ '$scope', '$filter', '$rootScope', '$state', 'LoginService', LoginController]);
         
-    function LoginController($scope, $filter, $rootScope, $state) {
+    function LoginController($scope, $filter, $rootScope, $state, LoginService) {
     	$scope.data = {};
-        $scope.submitLogin = function() {
-
-        	$scope.data.username;
-        	$scope.data.password;
-            $state.go('app.dashboard');
-        	// if($scope.data.username == "acufuel" && $scope.data.password == "Acufuelelite123") {
-        	// 	localStorage.setItem('loginStatus', true);
-         //    	$state.go('#/main/dashboard');
-        	// } else {
-        	// 	alert('Invalid credentials');
-        	// }
-        	
-        }
+      $scope.submitLogin = function() {
+          var loginData = "username=" + $scope.data.username + "&password=" + $scope.data.password;
+          LoginService.loginUser(loginData).then(function(result) {
+                LoginService.authenticate();
+                //LoginService.setAuth(true);
+                
+          })
+          //$state.go('app.dashboard');
+      }
     }
 })();
 

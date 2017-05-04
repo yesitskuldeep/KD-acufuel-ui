@@ -8,13 +8,13 @@
       <div class="col-md-5">
          <div class="widget stacked">
             <div class="widget-header">
-               <i class="icon-pencil"></i>
+               <i class="fa fa-pencil"></i>
                <h3>Price Manager</h3>
-               <select style="float: right;margin:10px">
-                  <option>Ramp Fee By Category</option>
-                  <option>Make And Model</option>
-                  <option>Weight</option>
-                  <option>Wingspan</option>
+               <select style="float: right;margin:10px;" ng-model="priceManager" ng-change="yes(priceManager)">
+                  <option value="1">Send Pricing Email</option>
+                  <option value="2">Margin 1</option>
+                  <option value="3">Margin 2</option>
+                  <option value="4">Margin Tenants</option>
                </select>
             </div>
             <!-- /widget-header -->
@@ -57,11 +57,15 @@
          </div>
          <!-- /widget -->  
       </div>
+
       <div class="col-md-7">
          <div class="widget stacked">
             <div class="widget-header">
-               <i class="icon-pencil"></i>
+               <i class="fa fa-pencil"></i>
                <h3><b>JET-A</b> Customer Margin Template</h3>
+               <div class="pull-right">
+                  <button type="submit" class="btn btn-success btn-sm"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+               </div>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -234,13 +238,246 @@
    <!-- /span12 -->
 </div>
 <!-- /row -->
+<div class="container">
+<div class="row">
+   <div class="col-md-5">
+         <div class="widget stacked">
+            <div class="widget-header">
+               <i class="fa fa-pencil"></i>
+               <h3>Queue Future Pricing </h3>
+               <!-- <select style="float: right;margin:10px;background-color:#cd7b00;">
+                  <option>Send Pricing Email</option>
+                  <option>Margin 1</option>
+                  <option>Margin 2</option>
+                  <option>Margin Tenants</option>
+               </select> -->
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <h6>Queue Future Fuel Pricing Here</h6>
+               <table class="table table-striped">
+                  <thead>
+                     <tr>
+                        <th> Product</th>
+                        <th> Cost</th>
+                        <th>PAP(Total)</th>
+                        <th>Deploy</th>
+                        <th>Next Expiration</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Name and inc.</td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                        <td>Jemmy</td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                     </tr>
+                     <tr>
+                        <td>Name and inc.</td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                        <td>Jemmy</td>
+                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                     </tr>
+                  </tbody>
+               </table>
+               <div class="row" style="margin-left: 0px;">
+                  <div class="col-md-12" style= "text-align: right;">
+                     <button type="button" class="btn btn-success btn-xs">Save</button>
+                  </div>
+               </div>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->  
+   </div>
+   <div class="col-md-7">
+         <div class="widget stacked">
+            <div class="widget-header">
+               <i class="fa fa-pencil"></i>
+               <h3><b>JET-A</b> Customer Margin Template</h3>
+               <div class="pull-right">
+                  <button type="submit" class="btn btn-success btn-sm"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+               </div>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <!-- <section id="accordions">
+                  <div class="panel-group accordion">
+                     <div class="panel panel-default open">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" style="float:left;" data-toggle="collapse" data-parent=".accordion" href="#collapseOne">
+                              Margin 1  
+                              </a>
+                              <span style="color:#ff9900;font-size:12px;margin-left:50px">Retail- (minus) </span><span style="font-size:12px">$1.1500</span>
+                           </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                           <div class="panel-body">
+                              <div id="editor2" style="visibility: hidden;">
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseTwo">
+                              TurboPop AirCraft
+                              </a>
+                           </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              <div class="row" style="margin-left: 0px;">
+                                 <div class="col-md-8">
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <h5 style="color: blue;font-weight: bold;">Omit</h5>
+                                       </div>
+                                       <div class="col-md-5">
+                                          <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p>Very Light Jet
+                                          </p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 5px;">
+                                       <div class="col-md-1" style="text-align: right;">
+                                          <input type="checkbox" name="validateCheckbox" value="1">
+                                       </div>
+                                       <div class="col-md-5">
+                                          <p> Light Jet
+                                          </p>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                       <div class="col-md-3">
+                                          <input type="text" class="form-control" name="name" id="name">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h4 class="panel-title">
+                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseThree">
+                              Collapsible Group Item #3
+                              </a>
+                           </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                           <div class="panel-body">
+                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  </section> -->
+               <uib-accordion close-others="oneAtATime">
+                  <div uib-accordion-group class="panel-default" heading="Margin 1 Retail- (minus) $1.1500">
+                     <div id="editor2" style="visibility: hidden;"></div>
+                  </div>
+                  <div uib-accordion-group class="panel-default" heading="TurboPop AirCraft">
+                     <div class="panel-body">
+                        <div class="row" style="margin-left: 0px;">
+                           <div class="col-md-8">
+                              <div class="row" style="margin-bottom: 5px;">
+                                 <div class="col-md-1" style="text-align: right;">
+                                    <h5 style="color: blue;font-weight: bold;">Omit</h5>
+                                 </div>
+                                 <div class="col-md-5">
+                                    <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
+                                 </div>
+                              </div>
+                              <div class="row" style="margin-bottom: 5px;">
+                                 <div class="col-md-1" style="text-align: right;">
+                                    <input type="checkbox" name="validateCheckbox" value="1">
+                                 </div>
+                                 <div class="col-md-5">
+                                    <p>Very Light Jet
+                                    </p>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <input type="text" class="form-control" name="name" id="name">
+                                 </div>
+                                 <div class="col-md-3">
+                                    <input type="text" class="form-control" name="name" id="name">
+                                 </div>
+                              </div>
+                              <div class="row" style="margin-bottom: 5px;">
+                                 <div class="col-md-1" style="text-align: right;">
+                                    <input type="checkbox" name="validateCheckbox" value="1">
+                                 </div>
+                                 <div class="col-md-5">
+                                    <p> Light Jet
+                                    </p>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <input type="text" class="form-control" name="name" id="name">
+                                 </div>
+                                 <div class="col-md-3">
+                                    <input type="text" class="form-control" name="name" id="name">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-4">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div uib-accordion-group class="panel-default" heading="Collapsible Group Item #3">
+                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  </div>
+               </uib-accordion>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->
+   </div>
+      <!-- /span6 -->
+</div>
+</div>
+</div>
 </div> <!-- /container -->
 <!-- Le javascript
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script>
+<!-- <script>
    CKEDITOR.replace( 'editor2', {
       height: 250,
       extraPlugins: 'divarea'
    } );
-</script>
+</script> -->

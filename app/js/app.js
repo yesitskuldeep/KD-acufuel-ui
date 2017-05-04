@@ -1,8 +1,58 @@
-
 'use strict';
 
 
-  angular.module('acufuel', ['ui.router', 'ngAnimate', 'ui.bootstrap'])
+  angular.module('acufuel', ['ngCookies', 'ngResource', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'xeditable'])
+
+    .config(['$httpProvider', function($httpProvider) {
+      $httpProvider.defaults.withCredentials = true;
+      $httpProvider.interceptors.push('myCSRF');
+      $httpProvider.interceptors.push('httpRequestInterceptor');
+    }])
+
+
+    .factory('httpRequestInterceptor', ['$q', '$rootScope', '$location', function($q, $rootScope, $location) {
+       return {
+           request: function($config) {
+             return $config;
+           },
+           responseError: function(rejection) {
+             if (rejection.status === 401) {
+               if($location.path() != "/login"){
+                   localStorage.clear();
+                   window.location.reload();
+               }  
+             }
+             return $q.reject(rejection);
+           }
+         }
+     }])
+    
+    .provider('myCSRF',[function(){
+      var headerName = 'X-CSRFToken';
+      var cookieName = 'csrftoken';
+      var allowedMethods = ['GET'];
+
+      this.setHeaderName = function(n) {
+        headerName = n;
+      }
+      this.setCookieName = function(n) {
+        cookieName = n;
+      }
+      this.setAllowedMethods = function(n) {
+        allowedMethods = n;
+      }
+      this.$get = ['$cookies', function($cookies){
+        return {
+          'request': function(config) {
+            if(allowedMethods.indexOf(config.method) === -1) {
+              // do something on success
+              config.headers[headerName] = $cookies[cookieName];
+            }
+            return config;
+          }
+        }
+      }];
+    }])
 
   .config(
       ['$locationProvider', '$stateProvider', '$urlRouterProvider',
@@ -32,6 +82,16 @@
               templateUrl: "partials/customers/customers.html",
               controller: "customersController"
             })
+            .state("app.ContactView", {
+              url: "/ContactView",
+              templateUrl: "partials/ContactView/ContactView.html",
+              controller: "ContactViewController"
+            })
+            .state("app.FuelVendors", {
+              url: "/FuelVendors",
+              templateUrl: "partials/FuelVendors/FuelVendors.html",
+              controller: "FuelVendorsController"
+            })
 
             .state("app.analytics", {
               url: "/analytics",
@@ -51,6 +111,11 @@
               controller: "dashboardController"
             })
 
+              .state("app.AirList", {
+              url: "/AirList",
+              templateUrl: "partials/AirList/AirList.html",
+              controller: "AirListController"
+            })
 
             .state("app.elements", {
               url: "/elements",
@@ -133,7 +198,10 @@
             .state("app.updateFuelManager", {
               url: "/updateFuelManager",
               templateUrl: "partials/updateFuelManager/updateFuelManager.html",
-              controller: "updateFuelManagerController"
+              controller: "updateFuelManagerController",
+              // data: {
+              //     authorizedRoles: ["fbo"],
+              // }
             })
 
              .state("app.viewCompany", {
@@ -147,8 +215,89 @@
               templateUrl: "partials/widgetTemplate/widgetTemplate.html",
               controller: "widgetTemplateController"
             })
+
+             .state("app.fuelOrders", {
+              url: "/fuelOrders",
+              templateUrl: "partials/fuelOrders/fuelOrders.html",
+              controller: "fuelOrdersController"
+            })
+
+             .state("app.DispatchFuel", {
+              url: "/DispatchFuel",
+              templateUrl: "partials/DispatchFuel/DispatchFuel.html",
+              controller: "DispatchFuelController"
+            })
+
+             .state("app.searchDispatchFuel", {
+              url: "/searchDispatchFuel",
+              templateUrl: "partials/searchDispatchFuel/searchDispatchFuel.html",
+              controller: "searchDispatchFuelController"
+            })
+
+             .state("app.NewCompany", {
+              url: "/NewCompany",
+              templateUrl: "partials/NewCompany/NewCompany.html",
+              controller: "NewCompanyController"
+            })
+
+             .state("app.Accept", {
+              url: "/Accept",
+              templateUrl: "partials/Accept/Accept.html",
+              controller: "AcceptController"
+            })
+             .state("app.delselected", {
+              url: "/delselected",
+              templateUrl: "partials/delselected/delselected.html",
+              controller: "delselectedController"
+            })
+            
+            .state("app.pricingcontact", {
+              url: "/pricingcontact",
+              templateUrl: "partials/pricingcontact/pricingcontact.html",
+              controller: "pricingcontactController"
+            })
+
+             .state("app.AntiochFlightDepartment", {
+              url: "/AntiochFlightDepartment",
+              templateUrl: "partials/AntiochFlightDepartment/AntiochFlightDepartment.html",
+              controller: "AntiochFlightDepartmentcontroller"
+            })
         }
-  ]);
+  ])
+
+  .run(['$rootScope', '$state', 'LoginService', 'AUTH_EVENTS', function($rootScope, $state, LoginService, AUTH_EVENTS) {
+      $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
+          $rootScope.currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
+
+          LoginService.isAuthorized = function (authorizedRoles) {
+              if (!angular.isArray(authorizedRoles)) {
+                  authorizedRoles = [authorizedRoles];
+              }
+              var userdata = JSON.parse(window.localStorage.getItem('currentUser'));
+              return (userdata? (authorizedRoles.indexOf(userdata.type) !== -1): false);
+          }
+          
+          if ('data' in next && 'authorizedRoles' in next.data) {
+            var authorizedRoles = next.data.authorizedRoles;
+            if (!LoginService.isAuthorized(authorizedRoles)) {
+              event.preventDefault();
+              if($state.current.name.length == 0) {
+                $state.go('login')
+              } else {
+                $state.go($state.current, {}, {reload: true});
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized); 
+              }
+            }
+          }
+
+          if (LoginService.isAuthenticated()) {
+            if (next.name == 'login') {
+              event.preventDefault();
+              $state.go('app.dashboard');
+            }
+          }
+      });
+  }])
 
 
 
