@@ -156,3 +156,136 @@ font-size: 10px !important;
 	margin-bottom: 0;
 	line-height: 34px;
 }*/
+
+
+
+
+
+/*  new custom css for accrodian tabs */
+
+.customAccordianHeader{
+	width: 100%;
+	height: auto;
+	background-color: #F3F3F3;
+	border: 1px solid #ddd;
+    color: #333;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 3px 3px 3px 3px;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+.customAccordianHeader.customActive{
+	background-image: -webkit-gradient(linear, left 0%, left 100%, from(#555555), to(#3b3b3b));
+	background-image: linear-gradient(to bottom, #555555 0%, #3b3b3b 100%);
+	background-repeat: repeat-x;
+	border: 1px solid #222222;
+    color: #FFF;
+    border-radius: 3px 3px 0 0;
+}
+.customAccordianHeader > span{
+	font-size: 15px;
+	margin-right: 20px;
+	line-height: 22px;
+	float: left;
+}
+.customAccordianHeader .btn{
+	padding: 2px 12px;
+}
+.customAccordianHeader > .form-control{
+	outline: none;
+	box-shadow: none;
+}
+.customAccordianHeader > select.form-control{
+	width: 150px;
+	height: 26px;
+	padding: 0 6px;
+	margin-right: 20px;
+	float: left;
+}
+.customAccordianHeader > select.form-control[disabled]{
+	border: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	color: #f90;
+	width: auto;
+}
+.customAccordianHeader > input.form-control{
+	width: 80px;
+	height: 26px;
+	padding: 0 6px;
+	float: left;
+}
+.customAccordianHeader > input.form-control[disabled]{
+	border: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	color: #333;
+}
+.customAccordianTabBody{
+	width: 100%;
+	height: auto;
+	padding: 15px;
+	border: 1px solid #ddd;
+	border-top: 0;
+	border-radius: 0 0 3px 3px;
+}
+.customTableWithFilter{
+	width: auto;
+	height: auto;
+}
+.customTableWithFilter th{
+	padding: 5px;
+	background-color: #f3f3f3;
+	border: 1px solid #ddd;
+}
+.customTableWithFilter th i{
+	margin-top: 3px;
+}
+.customTableWithFilter th span{
+	font-size: 11px;
+	color: #222;
+}
+.customTableWithFilter th input{
+	width: 50px;
+}
+.customTableWithFilter td{
+	padding: 5px;
+	border: 1px solid #ddd;
+}
+.customTableWithFilter td span{
+	font-size: 11px;
+}
+.customTableWithFilter td span:first-child{
+	color: #449d44;
+	font-weight: bold;
+}
+.customTableWithFilter td span:last-child{
+	color: #c9302c;
+	font-style: italic;
+	font-weight: bold;
+}
+.customTableWithFilter td .tierTextBox{
+	width: 70px;
+}
+.customTableWithFilter .addTierButton{
+	color: #fff;
+	background-color: #2196f3;
+	border: none;
+	padding: 3px 5px;
+}
+.customTableWithFilter td .fa-trash-o{
+	color: #fff;
+	background-color: #c9302c;
+	padding: 5px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.resizeTextarea{
+	resize: vertical;
+	margin-top: 20px;
+}
