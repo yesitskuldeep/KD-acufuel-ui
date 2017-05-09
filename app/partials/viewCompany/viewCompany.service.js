@@ -1,12 +1,58 @@
 (function(){
  'use strict';    
     angular.module('acufuel')
-      .service('viewCompanyService', ['$q', '$http', 'BE', viewCompanyService]);
+      .service('ViewCompanyService', ['$q', '$http', 'BASE_URL', ViewCompanyService]);
 
-      function viewCompanyService($q, $http, BE) {        
-        var temp = {};
-
+      function ViewCompanyService($q, $http, BASE_URL) {        
         
+      	this.getCompany = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/company/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.getContact = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/company/contact/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.addContact = function(data) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/company/add/contact',
+              data : data,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
       }
       

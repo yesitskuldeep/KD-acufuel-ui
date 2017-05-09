@@ -205,7 +205,7 @@
             })
 
              .state("app.viewCompany", {
-              url: "/viewCompany",
+              url: "/viewCompany/:id",
               templateUrl: "partials/viewCompany/viewCompany.html",
               controller: "viewCompanyController"
             }) 
