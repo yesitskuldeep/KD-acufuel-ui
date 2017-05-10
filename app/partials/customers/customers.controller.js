@@ -103,7 +103,7 @@
 	        
 	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
 	        	console.log(result)
-	        	if(result.success){
+	        	if(result != null && result.success){
 	        		toastr.success(''+result.success+'', {
 		            	closeButton: true
 		          	})

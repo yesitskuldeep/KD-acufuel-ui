@@ -367,8 +367,10 @@
                                     <div class="pull-left">
                                        <select required class="form-control" style="max-width: 250px;" ng-model="data.masterMargin">
                                           <option value="" disabled selected hidden>Select </option>
-                                          <option value="good">Open when powered (most valves do this)</option>
-                                          <option value="perfect">Closed when powered, auto-opens when power is cut</option>
+                                          <option value="margin1">Margin1</option>
+                                          <option value="margin2">Margin2</option>
+                                          <option value="vendorsonly">Vendors Only</option>
+                                          <option value="margintenants">Margin Tenants</option>
                                        </select>
                                     </div>
                                     <div class="clearfix"></div>
@@ -380,8 +382,11 @@
                                  <div class="col-md-3 Airport">
                                     <select required class="form-control" ng-model="data.certificateType">
                                        <option value="" disabled selected hidden>Select </option>
-                                       <option value="good">Open when powered (most valves do this)</option>
-                                       <option value="perfect">Closed when powered, auto-opens when power is cut</option>
+                                       <option value="corporate">Part 91 (Corporate)</option>
+                                       <option value="charter">Part 135 (Charter)</option>
+                                       <option value="scheduled">Part 121 (Scheduled)</option>
+                                       <option value="military">Military</option>
+                                       <option value="government">Government</option>
                                     </select>
                                  </div>
                               </div>

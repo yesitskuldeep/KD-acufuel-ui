@@ -53,6 +53,22 @@
           })
           return deferred.promise;
         }
+
+        this.getAircraft = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/company/aircrafts/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
       }
       
