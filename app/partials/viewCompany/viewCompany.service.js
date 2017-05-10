@@ -54,6 +54,22 @@
           return deferred.promise;
         }
 
+        this.sendMail = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/mailPriceToContacts/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.updateContact = function(data) {
 
           var deferred = $q.defer();

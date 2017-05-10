@@ -202,4 +202,18 @@
             
         }
 
+        $scope.sendMail = function(){
+          ViewCompanyService.sendMail(companyId).then(function(result) {
+              if(result != null && result.success){
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+              }else{
+                toastr.error(''+result.statusText+'', {
+                  closeButton: true
+                })
+              }
+          })
+        }
+
   }]);
