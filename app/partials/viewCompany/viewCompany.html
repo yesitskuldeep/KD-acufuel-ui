@@ -136,35 +136,37 @@
                            <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3>Company Details</h3>
                            <div class="pull-right my-toggle-switch" style="margin-top: 10px; margin-right: 10px;">
-                              <div><input id="toggle-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Dactive">
+                              <div><input id="company-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Dactive">
                               </div>
                            </div>
                         </div>
                         <div class="widget-content">
                            <div class="row" style="margin-left:0px;">
-                              <div class="col-md-8" style="padding-left: 0;">
+                              <div class="col-md-7" style="padding-left: 0;">
                                  <h4 ng-show="showCompanyName">
                                     <b style="color:#F90;">{{companyData.companyName}}</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 14px;" aria-hidden="true"></i>
                                  </h4>
                                  <input type="tel" ng-hide="showCompanyName" ng-model="companyData.companyName" class="form-control" ng-blur="editData('showCompanyName')"/>
                               </div>
-                              <div class="col-md-4">
-                                 <select class="form-control" style="height:31px;background: #ebebeb;">
+                              <div class="col-md-5">
+                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType" ng-click="editData()">
                                     <option class="optionclass" disabled selected>Certificate Type</option>
-                                    <option class="Corporate">Part 91 (Corporate)</option>
-                                    <option class="Charter">Part 135 (Charter)</option>
-                                    <option class="Scheduled">Part 121 (Scheduled)</option>
-                                    <option class="Military">Military</option>
-                                    <option class="Government">Government</option>
+                                    <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
+                                    <option class="optionclass" value="charter">Part 135 (Charter)</option>
+                                    <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
+                                    <option class="optionclass" value="military">Military</option>
+                                    <option class="optionclass" value="government">Government</option>
                                  </select>
                               </div>
                            </div>
                            <div>
                               <p class="new-label">
                                  <span>Master Margin Setting </span> 
-                                 <select class="form-control" style="width: 100px;">
-                                    <option>Margin1</option>
-                                    <option>Margin2</option>
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="companyData.masterMargin" ng-click="editData()">
+                                    <option value="margin1">Margin1</option>
+                                    <option value="margin2">Margin2</option>
+                                    <option value="vendorsonly">Vendors Only</option>
+                                    <option value="margintenants">Margin Tenants</option>
                                  </select>
                                  <span>&nbsp;See Aircrart List</span>
                                  <div class="clearfix"></div>
@@ -172,23 +174,31 @@
                            </div>
                            <div class="row"  style="margin-left:0px;"> 
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-model="companyData.baseTenant"> Tenant/Base Customer
+                                 <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.baseTenant"> Tenant/Base Customer
                               </div>
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-model="companyData.fuelerlinxCustomer"> FuelerLinx Customer
+                                 <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.fuelerlinxCustomer"> FuelerLinx Customer
                               </div>
                            </div>
                            <div>
-                              <input type="checkbox" name="" ng-model="companyData.contractFuelVendor"> CAA Member
+                              <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.contractFuelVendor"> CAA Member
                            </div>
                            </br>
                            <div class="new-address">
-                              <p><i class="fa fa-map-marker"></i> Reviera State Rd32 &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i> </p>
+                              <p ng-show="showAddress"><i class="fa fa-map-marker"></i> {{companyData.addressOne}} {{companyData.addressTwo}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="addressChange()" aria-hidden="true"></i> </p>
+                              
+                              <div ng-hide="showAddress">
+                                 <label>Address1</label>
+                                 <input type="tel" ng-hide="showAddress" ng-model="companyData.addressOne" class="form-control" ng-blur="editData('showAddress')"/>
+                                 <label>Address2</label>
+                                 <input type="tel" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" ng-blur="editData('showAddress')"/>
+                              </div>
+                              
                               <p><i class="fa fa-phone"></i> (310) 2342-3433 &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
                               <p><i class="fa fa-envelope"></i> freed@gmail.com &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
                            </div>
                            <div class="new-add-select">
-                              <select class="form-control" style="background: #ebebeb;">
+                              <select class="form-control" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
                                  <option disabled selected>Add Field</option>
                                  <option class="optionclass">Add Phone</option>
                                  <option class="optionclass">Add Email</option>

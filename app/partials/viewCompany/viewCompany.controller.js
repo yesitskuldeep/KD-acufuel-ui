@@ -17,7 +17,7 @@
         // }
 
         $(function() {
-         $('#toggle-one2').bootstrapToggle();
+         $('#company-one2').bootstrapToggle();
         })
 
         $(function() {
@@ -41,14 +41,24 @@
           })
         })
 
+        var value = "";
         var companyId = $stateParams.id;
         ViewCompanyService.getCompany(companyId).then(function(result) {
           $scope.companyData = result;
+          if($scope.companyData.activate == true){
+            value = 'on';
+          }else{
+            value = 'off'
+          }
+          $('#company-one2').bootstrapToggle(value)
         })
 
-        ViewCompanyService.getContact(companyId).then(function(result) {
-          $scope.companyContactList = result;
-        })
+        getContactList();
+        function getContactList(){
+          ViewCompanyService.getContact(companyId).then(function(result) {
+            $scope.companyContactList = result;
+          })
+        }
 
         getAircraftList();
         function getAircraftList(){
@@ -69,6 +79,7 @@
                   closeButton: true
                 })
                 $('#contact-modal-3').modal('hide');
+                getContactList();
             }else{
               toastr.error(''+result.statusText+'', {
                   closeButton: true
@@ -147,6 +158,7 @@
         }
         $scope.showNoteData = true;
         $scope.showCompanyName = true;
+        $scope.showAddress = true;
         $scope.showNote = function(){
           $scope.showNoteData = false;
         }
@@ -155,12 +167,38 @@
           $scope.showCompanyName = false;
         }
 
+        $scope.addressChange = function(){
+          $scope.showAddress = false;
+        }
+
         $scope.editData = function(inputName) {
+            console.log($scope.companyData)
             if(inputName == 'showNoteData'){
               $scope.showNoteData = true;
             }else if(inputName == 'showCompanyName'){
               $scope.showCompanyName = true;
+            }else if(inputName == 'showAddress'){
+              $scope.showAddress = true;              
             }
+
+            var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
+              + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
+              + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
+              + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
+              + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
+              + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
+
+            ViewCompanyService.updateContact(companyData).then(function(result) {
+              if(result != null && result.success){
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+              }else{
+                toastr.error(''+result.statusText+'', {
+                  closeButton: true
+                })
+              }
+            })
             
         }
 
