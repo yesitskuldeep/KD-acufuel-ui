@@ -210,12 +210,6 @@
               controller: "searchDispatchFuelController"
             })
 
-             .state("app.NewCompany", {
-              url: "/NewCompany",
-              templateUrl: "partials/NewCompany/NewCompany.html",
-              controller: "NewCompanyController"
-            })
-
              .state("app.Accept", {
               url: "/Accept",
               templateUrl: "partials/Accept/Accept.html",

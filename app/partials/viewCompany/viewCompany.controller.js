@@ -8,13 +8,6 @@
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
-        // $scope.open = function(){
-        //     $scope.editSmsModal = $uibModal.open({
-        //         templateUrl: 'partials/NewCompany/NewCompany.html',
-        //         backdrop: true,
-        //         scope: $scope,
-        //     })
-        // }
 
         $(function() {
          $('#company-one2').bootstrapToggle();
