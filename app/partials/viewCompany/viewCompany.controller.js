@@ -57,6 +57,17 @@
         function getContactList(){
           ViewCompanyService.getContact(companyId).then(function(result) {
             $scope.companyContactList = result;
+            for(var i=0;i<$scope.companyContactList.length; i++){
+              if($scope.companyContactList[i].priceEmail == true){
+                $scope.companyContactList[i].value1 = 'on';
+                console.log('aya')
+              }else{
+                $scope.companyContactList[i].value1 = 'off';
+
+              }
+              console.log($scope.companyContactList[i])
+              $('#'+$scope.companyContactList[i].id).bootstrapToggle($scope.companyContactList[i].value1)
+            }
           })
         }
 

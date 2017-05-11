@@ -154,24 +154,6 @@
               controller: "fuelManagerController"
             })
 
-            .state("app.gallery", {
-              url: "/gallery",
-              templateUrl: "partials/gallery/gallery.html",
-              controller: "galleryController"
-            })
-
-            .state("app.jqueryui", {
-              url: "/jqueryui",
-              templateUrl: "partials/jqueryui/jqueryui.html",
-              controller: "jqueryuiController"
-            })
-
-            .state("app.popups", {
-              url: "/popups",
-              templateUrl: "partials/popups/popups.html",
-              controller: "popupsController"
-            })
-
             .state("app.pricing", {
               url: "/pricing",
               templateUrl: "partials/pricing/pricing.html",
@@ -210,13 +192,7 @@
               controller: "viewCompanyController"
             }) 
 
-             .state("app.widgetTemplate", {
-              url: "/widgetTemplate",
-              templateUrl: "partials/widgetTemplate/widgetTemplate.html",
-              controller: "widgetTemplateController"
-            })
-
-             .state("app.fuelOrders", {
+            .state("app.fuelOrders", {
               url: "/fuelOrders",
               templateUrl: "partials/fuelOrders/fuelOrders.html",
               controller: "fuelOrdersController"

@@ -293,7 +293,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList">
-                                       <td><input id="toggle-one1" ng-model="contact.priceEmail" ng-true-value="true" ng-false-value="false" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
+                                       <td class="my-toggle-switch"><input id="{{contact.id}}" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
                                        <td>{{contact.firstName}}</td>
                                        <td>{{contact.lastName}}</td>
                                        <td>{{contact.title}}</td>
