@@ -10,9 +10,9 @@
             isAuthenticated = false;
 
         var currentUserDetail = JSON.parse(window.localStorage.getItem("currentUser"));
-        console.log(currentUserDetail)
+       // console.log(currentUserDetail)
         if (currentUserDetail) {
-            console.log('aaya')
+            //console.log('aaya')
             if(currentUserDetail.type == 'ADMIN' || currentUserDetail.type == 'FBO'){
                 $rootScope.isAuthenticated = true;
                 role = USER_ROLES.admin;
@@ -34,7 +34,7 @@
           .then(function (result){
               deferred.resolve(result.data);
           },function (result){
-            console.log(result.data)
+            //console.log(result.data)
               deferred.resolve(result.data);
           })
           return deferred.promise;
@@ -92,6 +92,7 @@
       
         authService.setUser = function (authData) {
             window.localStorage.setItem("currentUser", JSON.stringify(authData.userProfile.userType));
+            window.localStorage.setItem("userProfileId", JSON.stringify(authData.userProfile.id));
             if(authData.userProfile.userType.type == 'ADMIN' || authData.userProfile.userType.type == 'FBO'){
                 role = USER_ROLES.admin;
                 $rootScope.isAuthenticated = true;
