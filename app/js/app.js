@@ -111,12 +111,6 @@
               controller: "dashboardController"
             })
 
-              .state("app.AirList", {
-              url: "/AirList",
-              templateUrl: "partials/AirList/AirList.html",
-              controller: "AirListController"
-            })
-
             .state("app.elements", {
               url: "/elements",
               templateUrl: "partials/elements/elements.html",
@@ -227,10 +221,10 @@
               controller: "pricingcontactController"
             })
 
-             .state("app.AntiochFlightDepartment", {
-              url: "/AntiochFlightDepartment",
-              templateUrl: "partials/AntiochFlightDepartment/AntiochFlightDepartment.html",
-              controller: "AntiochFlightDepartmentcontroller"
+             .state("app.viewContact", {
+              url: "/viewContact/:id",
+              templateUrl: "partials/viewcontact/viewcontact.html",
+              controller: "viewcontactController"
             })
         }
   ])

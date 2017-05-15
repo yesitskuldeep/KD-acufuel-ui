@@ -26,7 +26,7 @@
           var deferred = $q.defer();
           $http({
               method : 'GET',
-              url : BASE_URL.url +'/company/contact/'+id,
+              url : BASE_URL.url +'/company/contacts/'+id,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){

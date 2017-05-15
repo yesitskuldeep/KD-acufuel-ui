@@ -1,0 +1,66 @@
+<div class="container">
+   <div class="row">
+      <div class="col-md-10" style="padding-right: 60px; margin-bottom: 30px;">
+         <div class="widget">
+            <div class="widget-header">
+               <i class="icon-pencil"></i>
+                <i class="fa fa-building-o" aria-hidden="true"></i>
+               <h3>Antioch Flight Department</h3>
+            </div>
+            <div class="widget-content" style="padding-left: 0; padding-right: 0; ">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-6" style="margin-left: 20px;">
+                     <div class="widget stacked">
+                        <div class="widget-header">
+                           <i class="fa fa-building-o" aria-hidden="true"></i>
+                           <h3>Contact Detail</h3>
+                            <div class="pull-right my-toggle-switch" style="margin-top: 10px; margin-right: 30px;">
+                               <div><input id="toggle-five" checked type="checkbox" data-size="mini" data-width="110" data-toggle="toggle" data-on="PRICE EMAIL ON" data-off="PRICE EMAIL OFF">
+                               </div>
+                            </div>
+                        </div>
+                        <div class="widget-content">
+                           <div class="row" style="margin-left:0px">
+                              <div class="col-md-6" style="padding-left: 0px;">
+                                 <h3>
+                                    <b style="color:#F90;">{{contactDetail.firstName}} {{contactDetail.lastName}}</b>
+                                    &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i>
+                                 </h3>
+                                 {{contactDetail.owner.companyName}}
+                              </div>
+                              <div class="col-md-6">
+                                  <div style="margin-bottom: 10px" class="input-group email-password">
+                                      <span class="input-group-addon email-password"><i class="glyphicon glyphicon-user email-password-icon"></i></span>
+                                      <input id="login-username" type="text" ng-model="contatctDetail.userName" class="form-control email-password" name="username" value="" placeholder="username or email">                                        
+                                  </div>
+                              
+                                 <!--  <div class="input-group email-password">
+                                      <span class="input-group-addon email-password"><i class="fa fa-key" aria-hidden="true"></i></span>
+                                      <input id="login-password" type="password" class="form-control email-password" name="password" placeholder="password">
+                                  </div> -->
+                              </div>
+                           </div>
+                           <div>
+                              <p><i class="fa fa-map-marker"></i> {{contactDetail.address}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p><i class="fa fa-phone"></i> (310) 2342-3433 &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p><i class="fa fa-envelope"></i> {{contactDetail.email}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                           </div>
+                           </br>
+                           <div>
+                              <p><b>Contact Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i>
+                              <p>{{contactDetail.note}}</p>
+                              <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
+                           </div>
+                           <!-- <div class="col-md-6">
+                              <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
+                           </div> -->
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

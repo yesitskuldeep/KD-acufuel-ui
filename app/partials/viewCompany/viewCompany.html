@@ -294,7 +294,11 @@
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList">
                                        <td class="my-toggle-switch"><input id="{{contact.id}}" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
-                                       <td>{{contact.firstName}}</td>
+                                       <td>
+                                          <a href="#!/viewContact/{{contact.id}}">
+                                            {{contact.firstName}}
+                                          </a>
+                                        </td>
                                        <td>{{contact.lastName}}</td>
                                        <td>{{contact.title}}</td>
                                     </tr>
