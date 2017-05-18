@@ -4,6 +4,22 @@
       .service('fuelManagerService', ['$q', '$http', 'BASE_URL', fuelManagerService]);
 
       function fuelManagerService($q, $http, BASE_URL) {
+
+        this.getOptions = function() {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/rampFeesAndAvoidance/getCustomCategorySize',
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
         this.getFullList = function() {
 

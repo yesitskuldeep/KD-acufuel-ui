@@ -12,7 +12,6 @@
       $scope.currentUserData = JSON.parse(localStorage.getItem('userProfileId'));
 
       fuelManagerService.getFullList().then(function(result) {
-        console.log('result', result)
         $scope.fullJetList = result;
       })
 
@@ -56,6 +55,19 @@
         }
             
       }
+
+
+      fuelManagerService.getOptions().then(function(result) {
+          $scope.dropOptions = result;
+      })
+
+      //$scope.rampFeeType = '';
+
+      $scope.openRampModal = function(rampFeeType){
+        console.log('rampFeeType', rampFeeType);
+        
+      }
+
       $scope.parentOpen = function(index){
         $('#parentOpen'+index).css('display', 'none');
         $('#parentClose'+index).css('display', 'initial');
@@ -79,6 +91,12 @@
       }
 
       $(document).ready(function(){
+
+        setInterval(function(){ 
+          var newHeight = $('.feeManagerLeft').height();
+          $('.feeManagerRight').css('height', newHeight);
+        }, 3);
+
         $('#customTabToggle1').click(function(){
           console.log('tab 1');
           $('#customTabsBody1').slideDown();
