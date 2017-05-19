@@ -21,8 +21,25 @@
 		      return deferred.promise;
 		    }
 
+		    this.addVendor = function(data) {
+	      		console.log("data",data);
 
-	      	this.addVendor = function(data) {
+	          var deferred = $q.defer();
+	          $http({
+	              method : 'POST',
+	              url : BASE_URL.url +'/vendor',
+	              headers : {'Content-Type': 'application/json'},
+	              data: data
+	          })
+	          .then(function (result){
+	              deferred.resolve(result.data);
+	          },function (result){
+	              deferred.resolve(result.data);
+	          })
+	          return deferred.promise;
+	        }
+
+	      	this.addVendorAicraft = function(data) {
 	      		console.log("data",data);
 
 	          var deferred = $q.defer();

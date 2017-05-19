@@ -180,10 +180,16 @@
               // }
             })
 
-             .state("app.viewCompany", {
+            .state("app.viewCompany", {
               url: "/viewCompany/:id",
               templateUrl: "partials/viewCompany/viewCompany.html",
               controller: "viewCompanyController"
+            }) 
+
+            .state("app.viewFuelOrder", {
+              url: "/viewFuelOrder/:id",
+              templateUrl: "partials/viewFuelOrder/viewFuelOrder.html",
+              controller: "ViewFuelOrderController"
             }) 
 
             .state("app.fuelOrders", {

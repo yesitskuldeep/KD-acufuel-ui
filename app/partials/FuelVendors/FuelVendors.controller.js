@@ -7,47 +7,6 @@
 
 	function FuelVendorsController($scope, $rootScope, $uibModal, $filter, $http, FuelVendorsService, CustomersService) {
 
-      $scope.vendorList = [{
-			"companyName": "Name and inc",
-		    "phone":"1010101010",
-		    "contact":"jimmy",
-		    "status":'Active',
-		    "source": "tenant",
-		    "allIn" : "$123"
-		},{
-			"companyName": "Name and inc",
-		    "phone":"1010101010",
-		    "contact":"jimmy",
-		    "status":'Active',
-		    "source": "tenant",
-		    "allIn" : "$123"
-		},{
-			"companyName": "Name and inc",
-		    "Fleet": 3,
-		    "phone":"1010101010",
-		    "contact":"jimmy",
-		    "Base":"Kiad",
-		    "status":'Inactive',
-		    "source": "tenant",
-		    "allIn" : "$123"
-		},{
-			"companyName": "Name and inc",
-		    "phone":"1010101010",
-		    "contact":"jimmy",
-		    "status":'Active',
-		    "source": "tenant",
-		    "allIn" : "$123"
-		},{
-			"companyName": "Name and inc",
-		    "phone":"1010101010",
-		    "contact":"kuldeep",
-		    "Base":"Kiad",
-		    "status":'Inactive',
-		    "source": "tenant",
-		    "allIn" : "$123"
-		}]
-
-
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
@@ -55,10 +14,15 @@
 		$scope.aircraft = {};
 		$scope.data.activate = true;
 		
-		// FuelVendorsService.getAllVendor().then(function(result) {
-		// 	console.log(result)
-		// 	$scope.vendorList = result;
-		// })
+		getAllVendor();
+
+		function getAllVendor(){
+			FuelVendorsService.getAllVendor().then(function(result) {
+				console.log(result)
+				$scope.vendorList = result;
+			})
+		}
+		
 
         $(function() {
 	     	$('#vendor-toggle-one2').bootstrapToggle();
@@ -87,10 +51,8 @@
 
 	    	FuelVendorsService.addVendor(vendorData).then(function(result) {
             	console.log("result",result)
-            	$scope.vendorId = result;
-            	console.log("$scope.vendorId",$scope.vendorId)
-      			$scope.aircraft.vendorId = $scope.vendorId;
-      			console.log("$scope.aircraft.vendorId",$scope.aircraft.vendorId);
+            	$scope.accountId = result;
+      			$scope.aircraft.accountId = $scope.accountId;
           	})
     	 	$(sel).trigger('next.m.' + step);
     	 	getData();
@@ -143,15 +105,17 @@
 	            });
       		}
 	        $scope.aircraftListData.aircraftList = $scope.addData;
-	        $scope.aircraftListData.vendorId = $scope.aircraft.vendorId;
+	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
 	        
-	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
+	        FuelVendorsService.addVendorAicraft($scope.aircraftListData).then(function(result) {
 	        	console.log(result)
+
 	        	if(result != null && result.success){
 	        		toastr.success(''+result.success+'', {
 		            	closeButton: true
 		          	})
-		          	$('#demo-modal-3').modal('hide');
+		          	$('#vendor-modal-3').modal('hide');
+		          	getAllVendor();
 	        	}else{
 	        		toastr.error(''+result.statusText+'', {
 		            	closeButton: true
