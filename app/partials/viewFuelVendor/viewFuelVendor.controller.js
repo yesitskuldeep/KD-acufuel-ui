@@ -4,7 +4,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('ViewFuelOrderController', ['$scope','$uibModal', '$stateParams', 'ViewFuelOrderService', 'CustomersService', function($scope , $uibModal, $stateParams, ViewFuelOrderService, CustomersService) {
+	.controller('ViewFuelVendorController', ['$scope','$uibModal', '$stateParams', 'ViewFuelVendorService', 'CustomersService', function($scope , $uibModal, $stateParams, ViewFuelVendorService, CustomersService) {
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
@@ -36,7 +36,7 @@
 
         var value = "";
         var vendorId = $stateParams.id;
-        ViewFuelOrderService.getFuelOrder(vendorId).then(function(result) {
+        ViewFuelVendorService.getFuelOrder(vendorId).then(function(result) {
           $scope.vendorData = result;
           if($scope.vendorData.activate == true){
             value = 'on';
@@ -48,7 +48,7 @@
 
         getContactList();
         function getContactList(){
-          ViewFuelOrderService.getContact(vendorId).then(function(result) {
+          ViewFuelVendorService.getContact(vendorId).then(function(result) {
             $scope.vendorContactList = result;
             for(var i=0;i<$scope.vendorContactList.length; i++){
               if($scope.vendorContactList[i].priceEmail == true){
@@ -66,7 +66,7 @@
 
         getAircraftList();
         function getAircraftList(){
-          ViewFuelOrderService.getAircraft(vendorId).then(function(result) {
+          ViewFuelVendorService.getAircraft(vendorId).then(function(result) {
             $scope.contactAircraftList = result;
           })
         }
@@ -77,7 +77,7 @@
         $scope.addContact = function(){
           $scope.data.vendorId = vendorId;
           $scope.contactData.contactList.push($scope.data);
-          ViewFuelOrderService.addContact($scope.contactData).then(function(result) {
+          ViewFuelVendorService.addContact($scope.contactData).then(function(result) {
             if(result.success){
               toastr.success(''+result.success+'', {
                   closeButton: true
@@ -194,7 +194,7 @@
               + "&fuelerlinxCustomer=" + $scope.vendorData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.vendorData.contractFuelVendor 
               + "&activate=" + $scope.vendorData.activate + "&baseIcao=" + $scope.vendorData.baseIcao + "&vendorId=" + vendorId;
 
-            ViewFuelOrderService.updateContact(vendorData).then(function(result) {
+            ViewFuelVendorService.updateContact(vendorData).then(function(result) {
               if(result != null && result.success){
                 toastr.success(''+result.success+'', {
                   closeButton: true
@@ -209,7 +209,7 @@
         }
 
         $scope.sendMail = function(){
-          ViewFuelOrderService.sendMail(vendorId).then(function(result) {
+          ViewFuelVendorService.sendMail(vendorId).then(function(result) {
               if(result != null && result.success){
                 toastr.success(''+result.success+'', {
                   closeButton: true

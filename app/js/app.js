@@ -186,10 +186,10 @@
               controller: "viewCompanyController"
             }) 
 
-            .state("app.viewFuelOrder", {
-              url: "/viewFuelOrder/:id",
-              templateUrl: "partials/viewFuelOrder/viewFuelOrder.html",
-              controller: "ViewFuelOrderController"
+            .state("app.viewFuelVendor", {
+              url: "/viewFuelVendor/:id",
+              templateUrl: "partials/viewFuelVendor/viewFuelVendor.html",
+              controller: "ViewFuelVendorController"
             }) 
 
             .state("app.fuelOrders", {

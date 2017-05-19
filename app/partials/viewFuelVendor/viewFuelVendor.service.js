@@ -1,9 +1,9 @@
 (function(){
  'use strict';    
     angular.module('acufuel')
-      .service('ViewFuelOrderService', ['$q', '$http', 'BASE_URL', ViewFuelOrderService]);
+      .service('ViewFuelVendorService', ['$q', '$http', 'BASE_URL', ViewFuelVendorService]);
 
-      function ViewFuelOrderService($q, $http, BASE_URL) {        
+      function ViewFuelVendorService($q, $http, BASE_URL) {        
         
       	this.getFuelOrder = function(id) {
 
