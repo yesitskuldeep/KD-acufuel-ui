@@ -154,7 +154,6 @@
                                        <button type="button" ng-if="customer.activate == true" class="btn btn-success btn-xs">Active</button>
                                        <button type="button" ng-if="customer.activate == false" class="btn btn-warning btn-xs">InActive</button>
                                     </td>
-                                    </td>
                                     <td class="font-company">
                                        <select class="form-control" style="height:31px;">
                                           <option>Margin1</option>
@@ -577,9 +576,10 @@
                                                     </select>
                                                 </td>
                                                 <td style="width: 20%">
-                                                    <select class="form-control" ng-model="aircraftData.size">
+                                                    <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList"></select>
+                                                    <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
-                                                    </select>
+                                                    </select> -->
                                                 </td>
                                             </tr>
                                           </tbody>

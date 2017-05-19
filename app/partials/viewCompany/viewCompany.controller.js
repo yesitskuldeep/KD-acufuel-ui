@@ -103,7 +103,7 @@
             'tail':'',
             'make': '',
             'model': '',
-            'size' : ''
+            'sizeId' : ''
         }];
     
         $scope.addNew = function(){
@@ -111,8 +111,9 @@
               'tail':'',
               'make': '',
               'model': '',
-              'size' : ''
+              'sizeId' : ''
             });
+            console.log($scope.aircraftDetails)
         };
 
         $scope.getModal = function(makeId, index){
@@ -139,9 +140,10 @@
                 'tail': $scope.aircraftDetails[i].tail,
                 'make': $scope.aircraftDetails[i].make,
                 'model': $scope.aircraftDetails[i].model,
-                'size' : $scope.aircraftDetails[i].size
+                'sizeId' : $scope.aircraftDetails[i].sizeId
               });
           }
+          console.log($scope.addData)
           $scope.aircraftListData.aircraftList = $scope.addData;
           $scope.aircraftListData.accountId = companyId;
           
