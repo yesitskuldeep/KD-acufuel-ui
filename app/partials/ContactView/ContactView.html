@@ -28,7 +28,7 @@
                         </li>
                         <li style="margin: 0px 10px 4px 40px;"><input type="text" style="height:31px;"class="form-control" name="name" id="name" placeholder="Search In Table"></li>
                         <li><button type="button" class="btn btn-default btn-sm">Clear Search And Filters</button></li>
-                        <li style="float:right"><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add Company</button></li>
+                        <li style="float: right"> <button type="submit" data-toggle="modal" data-target="#contact-modal-3" class="btn btn-success btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i> Add Contact </button></li>
                      </ul>
                      <br>  
                      <div class="tab-content customer-table" style="margin:0px">
@@ -38,75 +38,47 @@
                                  <tr>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Last Name <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">First Name <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
                                        <label class="font-company">Company Name <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
+                                    
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Work Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Mobile Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Main Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company"> Title <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Primary Contact <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Status <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Source <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Username <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       
-                                       <label class="font-company">Pricing Email <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Margin Setting <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Password <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">All In <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
-                                    <!-- <th></th>
-                                    <th></th> -->
                                  </tr>
                               </thead>
                               <tbody>
-                                 <tr>
-                                    <td class="font-company">colony</td>
-                                    <td class="font-company">Gerry</td>
-                                    <td class="font-company">Est LLC</td>
-                                    <td class="font-company">(310) 555-1212</td>
-                                    <td class="font-company">(310) 555-1212</td>
-                                    <td class="font-company">Acufuel</td>
-                                    <td class="font-company">Usel 1</td>
-                                    <td class="font-company"><input id="toggle-one12" checked type="checkbox" data-size="mini" data-toggle="toggle">
-                                    </td>
-                                    <td class="font-company">Password 123</td>
-                                    <!-- <td ></td>
-                                    <td></td> -->
-                                 </tr>
-                                 <tr>
-                                    <td class="font-company">colony</td>
-                                    <td class="font-company">Gerry</td>
-                                    <td class="font-company">Est LLC</td>
-                                    <td class="font-company">(310) 555-1212</td>
-                                    <td class="font-company">(310) 555-1212</td>
-                                    <td class="font-company">Acufuel</td>
-                                    <td class="font-company">Usel 1</td>
-                                    <td class="font-company"><input id="toggle-two21" checked type="checkbox" data-size="mini" data-toggle="toggle">
-                                       
-                                    </td>
-                                    <td class="font-company">Password 123</td>
-                                    <!-- <td></td>
-                                    <td></td> -->
-                                 </tr>
-                              </tbody>
+									<tr ng-repeat="contact in contactList">
+										<td>{{contact.lastName}}</td>
+										<td>{{contact.firstName}}</td>
+										<td>{{contact.owner.companyName}}</td>
+										<td>{{contact.workPhone}}</td>
+										<td>{{contact.mobilePhone}}</td>
+										<td>{{contact.title}}</td>
+										<td>{{contact.username}}</td>
+										<td>{{contact.priceEmail}}</td>
+									</tr>
+								</tbody>
                            </table>
                            <div class="row" style="margin-left: 0px;">
                               <div class="col-md-2">
@@ -138,95 +110,6 @@
                               </div>
                            </div>
                         </div>
-                        <div class="tab-pane" id="contactView">
-                           <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name"> Last Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">First Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Company Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Work Phone</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Mobile Phone</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Title</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Pricing Email</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Username</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Password</th>
-                                    <th></th>
-                                    <th></th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Name and inc.</td>
-                                    <td>3</td>
-                                    <td>03423233</td>
-                                    <td>Jemmy</td>
-                                    <td>KIAD</td>
-                                    <td></td>
-                                    <td><input id="toggle-one12" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>                                    <td></td>
-                                    <td>$123</td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr>
-                                 <tr>
-                                    <td>Name and inc.</td>
-                                    <td>3</td>
-                                    <td>03423233</td>
-                                    <td>Jemmy</td>
-                                    <td>KIAD</td>
-                                    <td></td>
-                                    <td><input id="toggle-two21" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
-                                    <td></td>
-                                    <td>$123</td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                           <div class="row" style="margin-left: 0px;">
-                              <div class="col-md-2">
-                              <button type="button" class="btn btn-info">Export CSV</button>
-
-                              </div>
-                              <div class="col-md-10">
-                                 <div class="row" style="margin-left: 0px;">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <select class="form-control">
-                                          <option>20 Records Per Page</option>
-                                          <option>50 Records Per Page</option>
-                                          <option>100 Records Per Page</option>
-                                       </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul class="pagination" style="margin:0px">
-                                          <li><a href="javascript:;">«</a></li>
-                                          <li class="active"><a href="#">1</a></li>
-                                          <li><a href="javascript:;">2</a></li>
-                                          <li><a href="javascript:;">3</a></li>
-                                          <li><a href="javascript:;">4</a></li>
-                                          <li><a href="javascript:;">5</a></li>
-                                          <li><a href="javascript:;">»</a></li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="tab-pane" id="fuelVendors">
-                           <table class="table table-striped table-bordered">
-                              <thead>
-                                 <tr>
-                                    <th>Engine</th>
-                                    <th>Browser</th>
-                                    <th class="td-actions"></th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                           </table>
-                        </div>
                      </div>
                   </div>
                </div>
@@ -241,3 +124,177 @@
    <!-- /container -->
 </div>
 <!-- /main -->
+<form class="modal multi-step" id="contact-modal-3" name="companyForm">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body step-1" data-step="1" style="padding: 0;">
+               <div>
+                  <div class="row" style="margin: 0;">
+                     <div>
+                        <div class="widget" style="margin-bottom: 0; box-shadow: none;">
+                           <div class="widget-header">
+                              <i class="icon-pencil"></i>
+                              <i class="fa fa-tasks" aria-hidden="true"></i>
+                              <h3>Add a New Contact</h3>
+                              <div class="clearfix"></div>
+                           </div>
+                           <div class="widget-content" style="padding-left: 0; padding-right: 0; border-bottom: 0;">
+                              <div class="col-xs-12">
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>First Name</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.firstName" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Last Name</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.lastName" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                              <div class="col-xs-12">
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Title</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.title" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Email</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="email" ng-model="data.email" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                              <div class="col-xs-12">
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Username</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.userName" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Password</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="password" ng-model="data.password" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                              <div class="col-xs-12">
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Work Phone</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.workPhone" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Mobile Phone</b></label>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 15px;">
+                                       <input type="tel" ng-model="data.mobilePhone" class="form-control" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                              <div class="col-xs-12">
+                                  <div class="col-md-12">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Address</b></label>
+                                    </div>
+                                    <div class="pull-right" style="width: calc(100% - 123px);">
+                                       <input type="tel" class="form-control" ng-model="data.address" id="Address" placeholder="">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                              <div class="col-xs-12">
+                                  <div class="col-md-12">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Company</b></label>
+                                    </div>
+                                    <div class="pull-right" style="width: calc(100% - 123px);">
+                                       <select class="form-control" ng-model="data.companyId">
+                                          <option value="{{company.id}}" ng-repeat="company in companies">{{company.companyName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                              
+                               
+                              <div class="clearfix"></div>
+                              <br/>
+                              <div class="col-xs-12">
+                                 <div class="col-md-3">
+                                    <div class="pull-left my-toggle-switch">
+                                       <div style="color: #ff9a01;">Price Email &nbsp &nbsp
+                                          <input id="price-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="On" data-off="Off">
+                                       </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="pull-left my-toggle-switch">
+                                       <div style="color: #ff9a01;">Primary Contact &nbsp &nbsp
+                                          <input type="checkbox" ng-model="data.primaryContact">
+                                       </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <label class="new-input-label"><b>Internal Note</b></label>
+                                    </div>
+                                    <div class="pull-left" style="width: calc(100% - 110px);">
+                                       <textarea  name="message" ng-model="data.note" rows="4" cols="34"></textarea>
+                                    </div>
+                                 </div>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="clearfix"></div><br>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="modal-footer" style="border-top: 0;">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="addContact()">Save</button>
+            </div>
+        </div>
+    </div>
+</form>
