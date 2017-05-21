@@ -4,7 +4,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService) {
+	.controller('ViewFuelVendorController', ['$scope','$uibModal', '$stateParams', 'ViewFuelVendorService', 'CustomersService', function($scope , $uibModal, $stateParams, ViewFuelVendorService, CustomersService) {
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
@@ -35,10 +35,10 @@
         })
 
         var value = "";
-        var companyId = $stateParams.id;
-        ViewCompanyService.getCompany(companyId).then(function(result) {
-          $scope.companyData = result;
-          if($scope.companyData.activate == true){
+        var vendorId = $stateParams.id;
+        ViewFuelVendorService.getFuelOrder(vendorId).then(function(result) {
+          $scope.vendorData = result;
+          if($scope.vendorData.activate == true){
             value = 'on';
           }else{
             value = 'off'
@@ -48,25 +48,25 @@
 
         getContactList();
         function getContactList(){
-          ViewCompanyService.getContact(companyId).then(function(result) {
-            $scope.companyContactList = result;
-            for(var i=0;i<$scope.companyContactList.length; i++){
-              if($scope.companyContactList[i].priceEmail == true){
-                $scope.companyContactList[i].value1 = 'on';
+          ViewFuelVendorService.getContact(vendorId).then(function(result) {
+            $scope.vendorContactList = result;
+            for(var i=0;i<$scope.vendorContactList.length; i++){
+              if($scope.vendorContactList[i].priceEmail == true){
+                $scope.vendorContactList[i].value1 = 'on';
                 console.log('aya')
               }else{
-                $scope.companyContactList[i].value1 = 'off';
+                $scope.vendorContactList[i].value1 = 'off';
 
               }
-              console.log($scope.companyContactList[i])
-              $('#'+$scope.companyContactList[i].id).bootstrapToggle($scope.companyContactList[i].value1)
+              console.log($scope.vendorContactList[i])
+              $('#'+$scope.vendorContactList[i].id).bootstrapToggle($scope.vendorContactList[i].value1)
             }
           })
         }
 
         getAircraftList();
         function getAircraftList(){
-          ViewCompanyService.getAircraft(companyId).then(function(result) {
+          ViewFuelVendorService.getAircraft(vendorId).then(function(result) {
             $scope.contactAircraftList = result;
           })
         }
@@ -75,9 +75,9 @@
         $scope.contactData = {};
         $scope.contactData.contactList = [];
         $scope.addContact = function(){
-          $scope.data.companyId = companyId;
+          $scope.data.vendorId = vendorId;
           $scope.contactData.contactList.push($scope.data);
-          ViewCompanyService.addContact($scope.contactData).then(function(result) {
+          ViewFuelVendorService.addContact($scope.contactData).then(function(result) {
             if(result.success){
               toastr.success(''+result.success+'', {
                   closeButton: true
@@ -134,7 +134,7 @@
 
         $scope.aircraftListData = {};
         $scope.addData = [];
-        $scope.saveCompanyData = function(){
+        $scope.saveVendorData = function(){
           for(var i=0; i<$scope.aircraftDetails.length;i++){
             $scope.addData.push({ 
                 'tail': $scope.aircraftDetails[i].tail,
@@ -145,7 +145,7 @@
           }
           console.log($scope.addData)
           $scope.aircraftListData.aircraftList = $scope.addData;
-          $scope.aircraftListData.accountId = companyId;
+          $scope.aircraftListData.accountId = vendorId;
           
           CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
             if(result != null && result.success){
@@ -178,7 +178,7 @@
         }
 
         $scope.editData = function(inputName) {
-            console.log($scope.companyData)
+            console.log($scope.vendorData)
             if(inputName == 'showNoteData'){
               $scope.showNoteData = true;
             }else if(inputName == 'showCompanyName'){
@@ -187,14 +187,14 @@
               $scope.showAddress = true;              
             }
 
-            var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
-              + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
-              + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
-              + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
-              + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
-              + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
+            var vendorData = "companyName=" + $scope.vendorData.companyName + "&masterMargin=" + $scope.vendorData.masterMargin 
+              + "&addressOne=" + $scope.vendorData.addressOne + "&addressTwo=" + $scope.vendorData.addressTwo + "&city=" + $scope.vendorData.city + "&state=" 
+              + $scope.vendorData.state + "&country=" + $scope.vendorData.country + "&zipcode=" + $scope.vendorData.zipcode + "&internalNote=" 
+              + $scope.vendorData.internalNote + "&certificateType=" + $scope.vendorData.certificateType + "&baseTenant=" + $scope.vendorData.baseTenant
+              + "&fuelerlinxCustomer=" + $scope.vendorData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.vendorData.contractFuelVendor 
+              + "&activate=" + $scope.vendorData.activate + "&baseIcao=" + $scope.vendorData.baseIcao + "&vendorId=" + vendorId;
 
-            ViewCompanyService.updateContact(companyData).then(function(result) {
+            ViewFuelVendorService.updateContact(vendorData).then(function(result) {
               if(result != null && result.success){
                 toastr.success(''+result.success+'', {
                   closeButton: true
@@ -209,7 +209,7 @@
         }
 
         $scope.sendMail = function(){
-          ViewCompanyService.sendMail(companyId).then(function(result) {
+          ViewFuelVendorService.sendMail(vendorId).then(function(result) {
               if(result != null && result.success){
                 toastr.success(''+result.success+'', {
                   closeButton: true

@@ -12,10 +12,14 @@
 		$scope.aircraft = {};
 		$scope.data.activate = true;
 		
-		CustomersService.getAllCompanies().then(function(result) {
-			console.log(result)
-			$scope.companyList = result;
-		})
+		getAllCompanies();
+
+		function getAllCompanies(){
+			CustomersService.getAllCompanies().then(function(result) {
+				console.log(result)
+				$scope.companyList = result;
+			})
+		}
 
         $(function() {
 	     	$('#toggle-one2').bootstrapToggle();
@@ -57,7 +61,7 @@
             'tail':'',
             'make': '',
             'model': '',
-            'size' : ''
+            'sizeId' : ''
         }];
     
         $scope.addNew = function(){
@@ -65,7 +69,7 @@
                 'tail':'',
 	            'make': '',
 	            'model': '',
-	            'size' : ''
+	            'sizeId' : ''
             });
             console.log($scope.aircraftDetails)
         };
@@ -95,7 +99,7 @@
 	                'tail': $scope.aircraftDetails[i].tail,
 		            'make': $scope.aircraftDetails[i].make,
 		            'model': $scope.aircraftDetails[i].model,
-		            'size' : $scope.aircraftDetails[i].size
+		            'sizeId' : $scope.aircraftDetails[i].sizeId
 	            });
       		}
 	        $scope.aircraftListData.aircraftList = $scope.addData;
@@ -103,11 +107,13 @@
 	        
 	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
 	        	console.log(result)
+
 	        	if(result != null && result.success){
 	        		toastr.success(''+result.success+'', {
 		            	closeButton: true
 		          	})
 		          	$('#demo-modal-3').modal('hide');
+		          	getAllCompanies();
 	        	}else{
 	        		toastr.error(''+result.statusText+'', {
 		            	closeButton: true

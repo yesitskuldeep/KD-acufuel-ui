@@ -9,6 +9,16 @@
             </div>
             <div class="widget-content" style="padding-left: 0; padding-right: 0; ">
                <div class="container">
+                  <div style="margin-bottom: 25px;">
+                    <button ng-disabled="disablePrev" class="newButtons" ng-click="prevContact()">
+                      <i class="fa fa-long-arrow-left" aria-hidden="true"></i> 
+                      Previous Contact
+                    </button>
+                    <button ng-disabled="disableNext" class="newButtons" ng-click="nextContact()">
+                      Next Contact
+                      <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
+                    </button>
+                  </div>
                   <div class="row">
                      <div class="col-md-6" style="margin-left: 20px;">
                      <div class="widget stacked">
@@ -24,15 +34,17 @@
                            <div class="row" style="margin-left:0px">
                               <div class="col-md-6" style="padding-left: 0px;">
                                  <h3>
-                                    <b style="color:#F90;">{{contactDetail.firstName}} {{contactDetail.lastName}}</b>
-                                    &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i>
+                                    <b ng-show="editName" style="color:#F90;">{{contactDetail.firstName}} {{contactDetail.lastName}}</b>
+                                    <input type="text" ng-hide="editName" class="form-control" ng-blur="updateContact(contactDetail)" style="width: 49%; float: left;" ng-model="contactDetail.firstName">
+                                    <input type="text" ng-hide="editName" class="form-control" ng-blur="updateContact(contactDetail)" style="width: 49%;" ng-model="contactDetail.lastName">
+                                    &nbsp;<i class="fa fa-pencil-square-o" ng-show="editName" ng-click="nameEdit()" style="font-size: 11px;" aria-hidden="true"></i>
                                  </h3>
                                  {{contactDetail.owner.companyName}}
                               </div>
                               <div class="col-md-6">
                                   <div style="margin-bottom: 10px" class="input-group email-password">
                                       <span class="input-group-addon email-password"><i class="glyphicon glyphicon-user email-password-icon"></i></span>
-                                      <input id="login-username" type="text" ng-model="contatctDetail.userName" class="form-control email-password" name="username" value="" placeholder="username or email">                                        
+                                      <input id="login-username" type="text" ng-blur="updateContact(contactDetail)" ng-model="contactDetail.userName" class="form-control email-password" placeholder="username or email">                                        
                                   </div>
                               
                                  <!--  <div class="input-group email-password">
@@ -42,14 +54,38 @@
                               </div>
                            </div>
                            <div>
-                              <p><i class="fa fa-map-marker"></i> {{contactDetail.address}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
-                              <p><i class="fa fa-phone"></i> (310) 2342-3433 &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
-                              <p><i class="fa fa-envelope"></i> {{contactDetail.email}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p>
+                                <span ng-show="editAddress">
+                                  <i class="fa fa-map-marker"></i> {{contactDetail.address}} &nbsp;
+                                  <i class="fa fa-pencil-square-o" ng-click="addressEdit()" style="font-size: 11px;" aria-hidden="true"></i>
+                                </span>
+
+                                <input type="text" ng-hide="editAddress" class="form-control" ng-model="contactDetail.address" ng-blur="updateContact(contactDetail)">
+                              </p>
+
+                              <p ng-show="editPhone"><i class="fa fa-phone"></i> {{contactDetail.mobilePhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="phoneEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editPhone">
+                                <input type="text" ng-model="contactDetail.mobilePhone" ng-blur="updateContact(contactDetail)" class="form-control">
+                              </p>
+
+                              <p ng-show="editMobile"><i class="fa fa-mobile"></i> {{contactDetail.workPhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="mobileEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editMobile">
+                                <input type="text" ng-model="contactDetail.workPhone" ng-blur="updateContact(contactDetail)" class="form-control">
+                              </p>
+
+                              <p ng-show="editEmail"><i class="fa fa-envelope"></i> {{contactDetail.email}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="emailEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editEmail">
+                                <input type="email" ng-model="contactDetail.email" ng-blur="updateContact(contactDetail)" class="form-control">
+                              </p>
                            </div>
                            </br>
                            <div>
-                              <p><b>Contact Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 11px;" aria-hidden="true"></i>
-                              <p>{{contactDetail.note}}</p>
+                              <p><b>Contact Notes</b> &nbsp;<i ng-show="editContactNotes" class="fa fa-pencil-square-o" ng-click="notesEdit()" style="font-size: 11px;" aria-hidden="true"></i>
+                              <p ng-show="editContactNotes">{{contactDetail.note}}</p>
+                              <p ng-hide="editContactNotes">
+                                <input type="text" ng-model="contactDetail.note" ng-blur="updateContact(contactDetail)" class="form-control">
+                              </p>
+                              
                               <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
                            </div>
                            <!-- <div class="col-md-6">
