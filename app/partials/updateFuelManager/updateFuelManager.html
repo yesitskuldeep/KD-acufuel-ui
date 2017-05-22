@@ -69,165 +69,267 @@
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <!-- <section id="accordions">
-                  <div class="panel-group accordion">
-                     <div class="panel panel-default open">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" style="float:left;" data-toggle="collapse" data-parent=".accordion" href="#collapseOne">
-                              Margin 1  
-                              </a>
-                              <span style="color:#ff9900;font-size:12px;margin-left:50px">Retail- (minus) </span><span style="font-size:12px">$1.1500</span>
-                           </h4>
+               <section id="accordions">
+                  <div class="newCustomAccordian">
+                     <!-- tab 1 -->
+                     <div class="customAccordianHeader customActive" id="customTabs1">
+                        <span>Jet Aircraft</span>
+                        <select class="form-control">
+                           <option>Pricing Structure</option>
+                           <option>Retail-(minus)</option>
+                           <option>Cost+(plus)</option>
+                           <option>Direct=(equals)</option>
+                        </select>
+                        <input type="text" name="" class="form-control" value="$1.7500">
+                        <div class="pull-right">
+                           <button class="btn btn-success">Save</button>
+                           <button class="btn btn-danger">Delete</button>
+                           <button class="btn btn-default" id="customTabToggle1" style="display: none;">Edit</button>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                           <div class="panel-body">
-                              <div id="editor2" style="visibility: hidden;">
-                              </div>
-                           </div>
-                        </div>
+                        <div class="clearfix"></div>
                      </div>
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseTwo">
-                              TurboPop AirCraft
-                              </a>
-                           </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                           <div class="panel-body">
-                              <div class="row" style="margin-left: 0px;">
-                                 <div class="col-md-8">
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <h5 style="color: blue;font-weight: bold;">Omit</h5>
-                                       </div>
-                                       <div class="col-md-5">
-                                          <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
-                                       </div>
-                                    </div>
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <input type="checkbox" name="validateCheckbox" value="1">
-                                       </div>
-                                       <div class="col-md-5">
-                                          <p>Very Light Jet
-                                          </p>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                    </div>
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <input type="checkbox" name="validateCheckbox" value="1">
-                                       </div>
-                                       <div class="col-md-5">
-                                          <p> Light Jet
-                                          </p>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-4">
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+                     <div class="customAccordianTabBody" id="customTabsBody1">
+                        <table class="customTableWithFilter">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <input type="text" placeholder="min" name=""> - 
+                                    <input type="text" placeholder="max" name="">
+                                    <span>gal.</span>
+                                 </th>
+                                 <th> &nbsp; </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span>$</span>
+                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
+                                    <button class="addTierButton">Add Tier</button>
+                                 </td>
+                                 <td>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
                      </div>
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseThree">
-                              Collapsible Group Item #3
-                              </a>
-                           </h4>
+
+                     <!--  tab 2  -->
+
+                     <div class="customAccordianHeader" id="customTabs2">
+                        <span>Jet Aircraft</span>
+                        <select class="form-control" disabled="true">
+                           <option>Pricing Structure</option>
+                           <option>Retail-(minus)</option>
+                           <option>Cost+(plus)</option>
+                           <option>Direct=(equals)</option>
+                        </select>
+                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
+                        <div class="pull-right">
+                           <button class="btn btn-success" style="display: none;">Save</button>
+                           <button class="btn btn-danger" style="display: none;">Delete</button>
+                           <button class="btn btn-default" id="customTabToggle2">Edit</button>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                           <div class="panel-body">
-                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                           </div>
+                        <div class="clearfix"></div>
+                     </div>
+                     <div class="customAccordianTabBody" id="customTabsBody2" style="display: none;">
+                        <table class="customTableWithFilter">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <input type="text" placeholder="min" name=""> - 
+                                    <input type="text" placeholder="max" name="">
+                                    <span>gal.</span>
+                                 </th>
+                                 <th> &nbsp; </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span>$</span>
+                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
+                                    <button class="addTierButton">Add Tier</button>
+                                 </td>
+                                 <td>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+                     </div>
+
+                     <!--  tab 3  -->
+
+                     <div class="customAccordianHeader" id="customTabs3">
+                        <span>Jet Aircraft</span>
+                        <select class="form-control" disabled="true">
+                           <option>Pricing Structure</option>
+                           <option>Retail-(minus)</option>
+                           <option>Cost+(plus)</option>
+                           <option>Direct=(equals)</option>
+                        </select>
+                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
+                        <div class="pull-right">
+                           <button class="btn btn-success" style="display: none;">Save</button>
+                           <button class="btn btn-danger" style="display: none;">Delete</button>
+                           <button class="btn btn-default" id="customTabToggle3">Edit</button>
                         </div>
+                        <div class="clearfix"></div>
+                     </div>
+                     <div class="customAccordianTabBody" id="customTabsBody3" style="display: none;">
+                        <table class="customTableWithFilter">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <input type="text" placeholder="min" name=""> - 
+                                    <input type="text" placeholder="max" name="">
+                                    <span>gal.</span>
+                                 </th>
+                                 <th> &nbsp; </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span>$</span>
+                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
+                                    <button class="addTierButton">Add Tier</button>
+                                 </td>
+                                 <td>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+                     </div>
+
+                     <!--  tab 4  -->
+
+                     <div class="customAccordianHeader" id="customTabs4">
+                        <span>Jet Aircraft</span>
+                        <select class="form-control" disabled="true">
+                           <option>Pricing Structure</option>
+                           <option>Retail-(minus)</option>
+                           <option>Cost+(plus)</option>
+                           <option>Direct=(equals)</option>
+                        </select>
+                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
+                        <div class="pull-right">
+                           <button class="btn btn-success" style="display: none;">Save</button>
+                           <button class="btn btn-danger" style="display: none;">Delete</button>
+                           <button class="btn btn-default" id="customTabToggle4">Edit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                     </div>
+                     <div class="customAccordianTabBody" id="customTabsBody4" style="display: none;">
+                        <table class="customTableWithFilter">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <span class="pull-left">1-250 gal.</span>
+                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                 </th>
+                                 <th>
+                                    <input type="text" placeholder="min" name=""> - 
+                                    <input type="text" placeholder="max" name="">
+                                    <span>gal.</span>
+                                 </th>
+                                 <th> &nbsp; </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span class="pull-left">-$0.0000</span> &nbsp; 
+                                    <span class="pull-right">($1.7500)</span>
+                                 </td>
+                                 <td>
+                                    <span>$</span>
+                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
+                                    <button class="addTierButton">Add Tier</button>
+                                 </td>
+                                 <td>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                 </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+                     </div>
+
+
+                  </div>
+               </section>
+               <div class="row">&nbsp;</div>
+               <div class="row">
+                  <div class="form-group">
+                     <div class="col-lg-12 text-right">
+                        <button type="submit" class="btn btn-success"><i class="icon-ok"></i> Save Form</button>&nbsp;&nbsp;
+                        <button type="reset" class="btn btn-default">Cancel</button>
                      </div>
                   </div>
-                  </section> -->
-               <uib-accordion close-others="oneAtATime">
-                  <div uib-accordion-group class="panel-default" heading="Margin 1 Retail- (minus) $1.1500">
-                     <div id="editor2" style="visibility: hidden;"></div>
-                  </div>
-                  <div uib-accordion-group class="panel-default" heading="TurboPop AirCraft">
-                     <div class="panel-body">
-                        <div class="row" style="margin-left: 0px;">
-                           <div class="col-md-8">
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <h5 style="color: blue;font-weight: bold;">Omit</h5>
-                                 </div>
-                                 <div class="col-md-5">
-                                    <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
-                                 </div>
-                              </div>
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <input type="checkbox" name="validateCheckbox" value="1">
-                                 </div>
-                                 <div class="col-md-5">
-                                    <p>Very Light Jet
-                                    </p>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                              </div>
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <input type="checkbox" name="validateCheckbox" value="1">
-                                 </div>
-                                 <div class="col-md-5">
-                                    <p> Light Jet
-                                    </p>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div uib-accordion-group class="panel-default" heading="Collapsible Group Item #3">
-                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                  </div>
-               </uib-accordion>
+               </div>
             </div>
             <!-- /widget-content -->
          </div>
