@@ -54,7 +54,7 @@
         }
 
         this.updateFullList = function(data){
-          console.log('service data', data);
+          
           var deferred = $q.defer();
           $http({
               method : 'POST',

@@ -64,7 +64,7 @@
                <i class="fa fa-pencil"></i>
                <h3><b>JET-A</b> Customer Margin Template</h3>
                <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewMarginBtn()" style="margin-top: 4px; margin-right: 10px;"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
                </div>
             </div>
             <!-- /widget-header -->
@@ -72,69 +72,72 @@
                <section id="accordions">
                   <div class="newCustomAccordian">
                      <!-- tab 1 -->
-                     <div class="customAccordianHeader customActive" id="customTabs1">
-                        <span>Jet Aircraft</span>
-                        <select class="form-control">
-                           <option>Pricing Structure</option>
-                           <option>Retail-(minus)</option>
-                           <option>Cost+(plus)</option>
-                           <option>Direct=(equals)</option>
-                        </select>
-                        <input type="text" name="" class="form-control" value="$1.7500">
-                        <div class="pull-right">
-                           <button class="btn btn-success">Save</button>
-                           <button class="btn btn-danger">Delete</button>
-                           <button class="btn btn-default" id="customTabToggle1" style="display: none;">Edit</button>
+                     <div ng-repeat="jets in aTypeJets">
+                        <div class="customAccordianHeader" id="{{jets.id}}">
+                           <span>{{jets.marginName}}</span>
+                           <select class="form-control" disabled="true" ng-model="jets.pricingStructure">
+                              <option value="" disabled selected>Pricing Structure</option>
+                              <option value="minus">Retail-(minus)</option>
+                              <option value="plus">Cost+(plus)</option>
+                              <option value="equal">Direct=(equal)</option>
+                           </select>
+                           <span style="margin-right: 0;">$</span>
+                           <input type="text" disabled="true" class="form-control" ng-model="jets.marginValue">
+                           <div class="pull-right">
+                              <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
+                              <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
+                              <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id)">Edit</button>
+                           </div>
+                           <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                     </div>
-                     <div class="customAccordianTabBody" id="customTabsBody1">
-                        <table class="customTableWithFilter">
-                           <thead>
-                              <tr>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <input type="text" placeholder="min" name=""> - 
-                                    <input type="text" placeholder="max" name="">
-                                    <span>gal.</span>
-                                 </th>
-                                 <th> &nbsp; </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span>$</span>
-                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
-                                    <button class="addTierButton">Add Tier</button>
-                                 </td>
-                                 <td>
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+                        <div class="customAccordianTabBody {{jets.id}}" style="display: none;">
+                           <table class="customTableWithFilter">
+                              <thead>
+                                 <tr>
+                                    <th>
+                                       <span class="pull-left">1-250 gal.</span>
+                                       <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th>
+                                       <span class="pull-left">1-250 gal.</span>
+                                       <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
+                                    </th>
+                                    <th>
+                                       <input type="text" placeholder="min" name=""> - 
+                                       <input type="text" placeholder="max" name="">
+                                       <span>gal.</span>
+                                    </th>
+                                    <th> &nbsp; </th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td>
+                                       <span class="pull-left">-$0.0000</span> &nbsp; 
+                                       <span class="pull-right">($1.7500)</span>
+                                    </td>
+                                    <td>
+                                       <span class="pull-left">-$0.0000</span> &nbsp; 
+                                       <span class="pull-right">($1.7500)</span>
+                                    </td>
+                                    <td>
+                                       <span>$</span>
+                                       <input type="text" placeholder="margin" class="tierTextBox" name="">
+                                       <button class="addTierButton">Add Tier</button>
+                                    </td>
+                                    <td>
+                                       <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+                        </div>
                      </div>
 
                      <!--  tab 2  -->
 
-                     <div class="customAccordianHeader" id="customTabs2">
+                     <!-- <div class="customAccordianHeader" id="customTabs2">
                         <span>Jet Aircraft</span>
                         <select class="form-control" disabled="true">
                            <option>Pricing Structure</option>
@@ -192,11 +195,11 @@
                            </tbody>
                         </table>
                         <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div>
+                     </div> -->
 
                      <!--  tab 3  -->
 
-                     <div class="customAccordianHeader" id="customTabs3">
+                     <!-- <div class="customAccordianHeader" id="customTabs3">
                         <span>Jet Aircraft</span>
                         <select class="form-control" disabled="true">
                            <option>Pricing Structure</option>
@@ -254,11 +257,11 @@
                            </tbody>
                         </table>
                         <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div>
+                     </div> -->
 
                      <!--  tab 4  -->
 
-                     <div class="customAccordianHeader" id="customTabs4">
+                     <!-- <div class="customAccordianHeader" id="customTabs4">
                         <span>Jet Aircraft</span>
                         <select class="form-control" disabled="true">
                            <option>Pricing Structure</option>
@@ -316,7 +319,7 @@
                            </tbody>
                         </table>
                         <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div>
+                     </div> -->
 
 
                   </div>
@@ -574,6 +577,49 @@
 </div>
 </div>
 </div> <!-- /container -->
+
+
+<div class="addNewMargin" style="display: none;">
+   <div class="customBackdrop">
+      <div class="customModalInner" style="max-width: 700px;">
+         <div class="customModelHead">
+            <p class="pull-left">
+               <i class="fa fa-list-alt" aria-hidden="true"></i>
+               Add New JET-A Customer Margin
+            </p>
+            <p class="pull-right">
+               <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;" ng-click="closeMarginPopup()"></i>
+            </p>
+            <div class="clearfix"></div>
+         </div>
+         <div class="customModelBody">
+            
+            <div class="customAccordianHeader customActive">
+               <input type="text" class="form-control" style="width: 120px; margin-right: 10px;" placeholder="Margin Name" ng-model="newJet.marginName">
+               <select class="form-control" ng-model="newJet.pricingStructure">
+                  <option value="" disabled selected>Pricing Structure</option>
+                  <option value="minus">Retail-(minus)</option>
+                  <option value="plus">Cost+(plus)</option>
+                  <option value="equal">Direct=(equal)</option>
+               </select>
+               <span style="margin-right: 0;">$</span>
+               <input type="text" class="form-control" style="width: 120px;" placeholder="Margin Price" ng-model="newJet.marginValue">
+               <div class="clearfix"></div>
+            </div>
+            <div class="customAccordianTabBody">
+               <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+            </div>
+
+         </div>
+         <div class="customModelFooter text-center">
+            <input type="submit" value="Save" class="btn" ng-click="addNewATypeJet()">
+            <button class="btn" ng-click="closeMarginPopup()">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
 <!-- Le javascript
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

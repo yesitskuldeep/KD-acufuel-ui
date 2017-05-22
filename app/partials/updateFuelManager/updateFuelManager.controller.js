@@ -5,8 +5,8 @@
   angular.module('acufuel')
 
 
-      .controller('updateFuelManagerController', ['$scope','$uibModal', function($scope , $uibModal) {
-		console.log("$uibModal",$uibModal);
+      .controller('updateFuelManagerController', ['$scope','$uibModal', 'updateFuelManagerService', function($scope , $uibModal, updateFuelManagerService) {
+		
         $scope.yes = function(data){
             console.log('========');
             console.log('value', data);
@@ -17,128 +17,93 @@
             })
         }
 
-        $(document).ready(function(){
-            $('#customTabToggle1').click(function(){
-              console.log('tab 1');
-              $('#customTabsBody1').slideDown();
-              $('#customTabsBody2').slideUp();
-              $('#customTabsBody3').slideUp();
-              $('#customTabsBody4').slideUp();
-              $('#customTabs1').addClass('customActive');
-              $('#customTabs2').removeClass('customActive');
-              $('#customTabs3').removeClass('customActive');
-              $('#customTabs4').removeClass('customActive');
-              $('.customAccordianHeader > select, .customAccordianHeader > input').prop("disabled", true);
-              $('.customAccordianHeader.customActive > select, .customAccordianHeader.customActive > input').prop("disabled", false);
+        $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
-              $('#customTabs1 > .pull-right > .btn-default').css('display', 'none');
-              $('#customTabs1 > .pull-right > .btn-success').css('display', 'inline-block');
-              $('#customTabs1 > .pull-right > .btn-danger').css('display', 'inline-block');
-
-              $('#customTabs2 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs2 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs2 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs3 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs3 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs3 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs4 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs4 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs4 > .pull-right > .btn-danger').css('display', 'none');
-
-            })
-            $('#customTabToggle2').click(function(){
-              console.log('tab 2');
-              $('#customTabsBody1').slideUp();
-              $('#customTabsBody2').slideDown();
-              $('#customTabsBody3').slideUp();
-              $('#customTabsBody4').slideUp();
-              $('#customTabs1').removeClass('customActive');
-              $('#customTabs2').addClass('customActive');
-              $('#customTabs3').removeClass('customActive');
-              $('#customTabs4').removeClass('customActive');
-              $('.customAccordianHeader > select, .customAccordianHeader > input').prop("disabled", true);
-              $('.customAccordianHeader.customActive > select, .customAccordianHeader.customActive > input').prop("disabled", false);
-
-              $('#customTabs1 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs1 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs1 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs2 > .pull-right > .btn-default').css('display', 'none');
-              $('#customTabs2 > .pull-right > .btn-success').css('display', 'inline-block');
-              $('#customTabs2 > .pull-right > .btn-danger').css('display', 'inline-block');
-
-              $('#customTabs3 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs3 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs3 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs4 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs4 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs4 > .pull-right > .btn-danger').css('display', 'none');
-
-            })
-            $('#customTabToggle3').click(function(){
-              console.log('tab 3');
-              $('#customTabsBody1').slideUp();
-              $('#customTabsBody2').slideUp();
-              $('#customTabsBody3').slideDown();
-              $('#customTabsBody4').slideUp();
-              $('#customTabs1').removeClass('customActive');
-              $('#customTabs2').removeClass('customActive');
-              $('#customTabs3').addClass('customActive');
-              $('#customTabs4').removeClass('customActive');
-              $('.customAccordianHeader > select, .customAccordianHeader > input').prop("disabled", true);
-              $('.customAccordianHeader.customActive > select, .customAccordianHeader.customActive > input').prop("disabled", false);
-
-              $('#customTabs1 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs1 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs1 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs2 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs2 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs2 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs3 > .pull-right > .btn-default').css('display', 'none');
-              $('#customTabs3 > .pull-right > .btn-success').css('display', 'inline-block');
-              $('#customTabs3 > .pull-right > .btn-danger').css('display', 'inline-block');
-
-              $('#customTabs4 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs4 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs4 > .pull-right > .btn-danger').css('display', 'none');
-
-            })
-            $('#customTabToggle4').click(function(){
-              console.log('tab 4');
-              $('#customTabsBody1').slideUp();
-              $('#customTabsBody2').slideUp();
-              $('#customTabsBody3').slideUp();
-              $('#customTabsBody4').slideDown();
-              $('#customTabs1').removeClass('customActive');
-              $('#customTabs2').removeClass('customActive');
-              $('#customTabs3').removeClass('customActive');
-              $('#customTabs4').addClass('customActive');
-              $('.customAccordianHeader > select, .customAccordianHeader > input').prop("disabled", true);
-              $('.customAccordianHeader.customActive > select, .customAccordianHeader.customActive > input').prop("disabled", false);
-
-              $('#customTabs1 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs1 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs1 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs2 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs2 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs2 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs3 > .pull-right > .btn-default').css('display', 'inline-block');
-              $('#customTabs3 > .pull-right > .btn-success').css('display', 'none');
-              $('#customTabs3 > .pull-right > .btn-danger').css('display', 'none');
-
-              $('#customTabs4 > .pull-right > .btn-default').css('display', 'none');
-              $('#customTabs4 > .pull-right > .btn-success').css('display', 'inline-block');
-              $('#customTabs4 > .pull-right > .btn-danger').css('display', 'inline-block');
-
-            })
+        updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
+          console.log('result', result);
+          $scope.aTypeJets = result;
         })
+
+        $scope.toggleJestAccordian = function(id){
+            $('.'+id).slideDown();
+            $('#'+id).addClass('customActive');
+            $('#'+id+' select, #'+id+' input').prop("disabled", false);
+            $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
+            $('#'+id+' .btn-default').css('display', 'none');
+        }
+
+        $scope.saveJetAccordian = function(jets){
+            $scope.jetsDetail = jets;
+            $scope.jetsDetail.userProfileId = $scope.userProfileId;
+            //console.log('jets', $scope.jetsDetail);
+            $('.'+$scope.jetsDetail.id).slideUp();
+            $('#'+$scope.jetsDetail.id).removeClass('customActive');
+            $('#'+$scope.jetsDetail.id+' select, #'+$scope.jetsDetail.id+' input').prop("disabled", true);
+            $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
+            $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
+
+            var editJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id;
+
+            updateFuelManagerService.editAtypeJetMargin(editJetData).then(function(result) {
+                console.log('newJet', editJetData);
+                toastr.success('Successfully Updated', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
+                  console.log('result', result);
+                  $scope.aTypeJets = result;
+                })
+            })
+
+        }
+
+        $scope.addNewMarginBtn = function(){
+            $('.addNewMargin').css('display', 'block');
+        }
+        $scope.closeMarginPopup = function(){
+            $('.addNewMargin').css('display', 'none');
+        }
+
+        $scope.newJet = {};
+        $scope.newJet.productType = '';
+
+        $scope.addNewATypeJet = function(){
+            $scope.newJet.productType = 'JET-A';
+            $scope.newJet.userProfileId = $scope.userProfileId;
+
+            var jetData = 'productType='+$scope.newJet.productType+'&marginName='+$scope.newJet.marginName+'&pricingStructure='+$scope.newJet.pricingStructure+'&marginValue='+$scope.newJet.marginValue+'&userProfileId='+$scope.newJet.userProfileId;
+
+            updateFuelManagerService.addNewAtypeJetMargin(jetData).then(function(result) {
+                console.log('newJet', jetData);
+                toastr.success('Successfully Added', {
+                  closeButton: true
+                })
+                $('.addNewMargin').css('display', 'none');
+                updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
+                  console.log('result', result);
+                  $scope.aTypeJets = result;
+                })
+            })
+        }
+
+       /* $scope.addNewATypeJet = function(){
+            $scope.newJet.productType = 'JET-A';
+            $scope.newJet.userProfileId = $scope.userProfileId;
+
+            var jetData = 'productType='+$scope.newJet.productType+'&marginName='+$scope.newJet.marginName+'&pricingStructure='+$scope.newJet.pricingStructure+'&marginValue='+$scope.newJet.marginValue+'&userProfileId='+$scope.newJet.userProfileId;
+
+            updateFuelManagerService.addNewAtypeJetMargin(jetData).then(function(result) {
+                console.log('newJet', jetData);
+                toastr.success('Successfully Added', {
+                  closeButton: true
+                })
+                $('.addNewMargin').css('display', 'none');
+                updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
+                  console.log('result', result);
+                  $scope.aTypeJets = result;
+                })
+            })
+        }*/
 
 
     }]);
