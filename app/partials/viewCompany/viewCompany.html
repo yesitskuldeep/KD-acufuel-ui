@@ -137,7 +137,7 @@
                            <h3>Company Details</h3>
                            <label>BASE ICAO</label>
                            <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
-                           <div class="pull-right my-toggle-switch" style="margin-top: 10px; margin-right: 10px;">
+                           <div class="pull-right my-toggle-switch" ng-click="changeStatus()" style="margin-top: 10px; margin-right: 10px;">
                               <div><input id="company-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Dactive">
                               </div>
                            </div>

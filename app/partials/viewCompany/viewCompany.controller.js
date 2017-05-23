@@ -57,7 +57,7 @@
           $('#company-one2').bootstrapToggle(value)
         })
 
-        $(function() {
+        $scope.changeStatus = function(){
           $('#company-one2').bootstrapToggle();
           $('#company-one2').change(function() {
             $('#console-event').html('Toggle: ' + $(this).prop('checked'));
@@ -65,10 +65,14 @@
             console.log($scope.companyData.activate)
             var statusData = "status=" + $scope.companyData.activate;
             ViewCompanyService.changeStatus(companyId, statusData).then(function(result) {
-
+              if(result.success){
+                  toastr.success(''+result.success+'', {
+                      closeButton: true
+                  })
+              }
             })
           })
-        })
+        }
 
         
         getContactList();

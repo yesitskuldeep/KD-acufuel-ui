@@ -5,7 +5,7 @@
 
 	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', function($scope, $uibModal, ContactViewService, ViewCompanyService) {
       	$(function() {
-      		$('#toggle-one12').bootstrapToggle();
+      		$('#toggle-one120').bootstrapToggle();
       		$('#toggle-two21').bootstrapToggle();
         }) 
         
@@ -16,6 +16,21 @@
         ContactViewService.getContacts().then(function(result) {
         	console.log('==========',result);
         	$scope.contactList = result;
+          for(var i=0; i<$scope.contactList.length; i++){
+            console.log("adadas")
+            $scope.contactList[i].value = ""
+            console.log($scope.contactList[i].priceEmail)
+            if($scope.contactList[i].priceEmail == 'true'){
+                console.log(aaya)
+                $scope.contactList[i].value = 'on';
+            }else{
+                console.log("nai")
+                $scope.contactList[i].value = 'off'
+            }
+
+            $('#toggle-one12'+ [i]).bootstrapToggle($scope.contactList[i].value)
+          }
+          console.log($scope.contactList)
           
         })
         

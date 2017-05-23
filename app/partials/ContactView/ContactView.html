@@ -38,32 +38,41 @@
                                  <tr>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Last Name <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">First Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    </th>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
                                        <label class="font-company">Company Name <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Main Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Work Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                    <th>
+                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
+                                       <label class="font-company">Mobile Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Primary Contact <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Title <i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Status <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    <th>
-                                       <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Source <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Price Email<i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">Margin Setting <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Username<i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                     <th>
                                        <input type="text" class="form-control" style="height:31px;" name="name" id="name">
-                                       <label class="font-company">All In <i class="fa fa-sort" aria-hidden="true"></i></label>
+                                       <label class="font-company">Password<i class="fa fa-sort" aria-hidden="true"></i></label>
                                     </th>
                                  </tr>
                               </thead>
@@ -75,8 +84,15 @@
 										<td>{{contact.workPhone}}</td>
 										<td>{{contact.mobilePhone}}</td>
 										<td>{{contact.title}}</td>
-										<td>{{contact.username}}</td>
-										<td>{{contact.priceEmail}}</td>
+										<td>
+                                 <div class="my-toggle-switch" ng-click="changePriceEmail()">
+                                     <div>
+                                        <input id="toggle-one12{{$index}}" checked type="checkbox" data-size="mini" data-width="110" data-toggle="toggle" data-on="PRICE EMAIL ON" data-off="PRICE EMAIL OFF">
+                                     </div>
+                                  </div>
+                              </td>
+                              <td>{{contact.userName}}</td>
+                              <td>{{contact.password}}</td>
 									</tr>
 								</tbody>
                            </table>
