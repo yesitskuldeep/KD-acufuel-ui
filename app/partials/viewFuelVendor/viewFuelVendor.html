@@ -293,7 +293,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in vendorContactList">
-                                       <td class="my-toggle-switch"><input id="{{contact.id}}" checked type="checkbox" data-size="mini" data-toggle="toggle"></td>
+                                       <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)"></toggle></td>
                                        <td>
                                           <a href="#!/viewContact/{{contact.id}}">
                                             {{contact.firstName}}

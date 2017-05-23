@@ -4,10 +4,6 @@
   angular.module('acufuel')
 
 	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', 'ViewcontactService', function($scope, $uibModal, ContactViewService, ViewCompanyService, ViewcontactService) {
-      	// $(function() {
-      	// 	$('#toggle-one120').bootstrapToggle();
-      	// 	$('#toggle-two21').bootstrapToggle();
-       //  }) 
         
         $(document).ready(function() {
             $('#contacts').DataTable();

@@ -12,6 +12,7 @@
 
         $(function() {
          $('#company-one2').bootstrapToggle();
+         
         })
 
         $(function() {
