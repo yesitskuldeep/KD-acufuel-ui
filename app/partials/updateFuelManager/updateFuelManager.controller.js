@@ -67,13 +67,12 @@
 
         }
 
-        $scope.deleteTier = function(id){
-            console.log('delete id', id);
+        $scope.deleteTier = function(id, jetid){
             updateFuelManagerService.deleteTier(id).then(function(result) {
-                toastr.success('Successfully Deleted', {
+                toastr.success(''+result.success+'', {
                   closeButton: true
                 })
-                updateFuelManagerService.getJetTiers(tier.marginTemplate.id).then(function(tiers) {
+                updateFuelManagerService.getJetTiers(jetid).then(function(tiers) {
                   $scope.tierList = tiers;
                 })
             })
