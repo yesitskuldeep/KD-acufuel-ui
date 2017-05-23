@@ -91,46 +91,54 @@
                            <div class="clearfix"></div>
                         </div>
                         <div class="customAccordianTabBody {{jets.id}}" style="display: none;">
-                           <table class="customTableWithFilter">
-                              <thead>
-                                 <tr>
-                                    <th>
-                                       <span class="pull-left">1-250 gal.</span>
-                                       <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th>
-                                       <span class="pull-left">1-250 gal.</span>
-                                       <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                    </th>
-                                    <th>
-                                       <input type="text" placeholder="min" name=""> - 
-                                       <input type="text" placeholder="max" name="">
-                                       <span>gal.</span>
-                                    </th>
-                                    <th> &nbsp; </th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>
-                                       <span class="pull-left">-$0.0000</span> &nbsp; 
-                                       <span class="pull-right">($1.7500)</span>
-                                    </td>
-                                    <td>
-                                       <span class="pull-left">-$0.0000</span> &nbsp; 
-                                       <span class="pull-right">($1.7500)</span>
-                                    </td>
-                                    <td>
-                                       <span>$</span>
-                                       <input type="text" placeholder="margin" class="tierTextBox" name="">
-                                       <button class="addTierButton">Add Tier</button>
-                                    </td>
-                                    <td>
-                                       <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
+                           <div class="tierListWrap" ng-repeat="tier in tierList">
+                              <div class="tierListHead" style="height: 36px;">
+                                 <span class="pull-left tierHeadingSpan" ng-hide="showEditTier">{{tier.minTierBreak}}-{{tier.maxTierBreak}} gal.
+                                 </span>
+                                 <i class="fa fa-pencil-square-o pull-right" ng-click="showEditTier = ! showEditTier" ng-hide="showEditTier" style="margin-top: 5px; cursor: pointer;" aria-hidden="true"></i>
+                                 
+                                 <input type="text" placeholder="min" style="width: 36px;" ng-model="tier.minTierBreak" ng-show="showEditTier">
+                                 <span ng-show="showEditTier">-</span> 
+                                 <input type="text" placeholder="max" style="width: 36px;" ng-model="tier.maxTierBreak" ng-show="showEditTier"> <b ng-show="showEditTier">gal.</b>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="tierListBody" style="height: 35px;">
+                                 <span class="pull-left minTierSpan" ng-hide="showEditTier">-${{tier.margin}}</span> 
+
+                                 <input type="text" placeholder="max" style="width: 36px;" ng-model="tier.margin" ng-show="showEditTier"> &nbsp; 
+
+                                 <span class="pull-right maxTierSpan" ng-hide="showEditTier">(${{tier.marginTotal}})</span>
+
+                                 <button class="addTierBtn" ng-click="editTier(tier)" ng-show="showEditTier">Save</button>
+
+                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteTier(tier.id)" aria-hidden="true" ng-show="showEditTier"></i>
+
+                                 <div class="clearfix"></div>
+                              </div>
+                           </div>
+                           <div class="tierListWrap" style="width: 160px;">
+                              <div class="tierListHead" style="border-right: 1px solid #ddd;">
+                                 <input type="text" placeholder="min" ng-model="tr.minTierBreak">
+                                 <span>-</span> 
+                                 <input type="text" placeholder="max" ng-model="tr.maxTierBreak"> <b>gal.</b>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="tierListBody" style="border-right: 1px solid #ddd;">
+                                 <span style="color: #449d44;">$</span>
+                                 <input type="text" placeholder="margin" ng-model="tr.margin" class="tierTextBox" style="width: 70px; height: 24px;">
+                                 <button class="addTierBtn" ng-click="addNewTier(jets.id)">Add Tier</button>
+                                 <div class="clearfix"></div>
+                              </div>
+                           </div>
+                           <!-- <div class="tierListWrap" style="width: 32px;">
+                              <div class="tierListHead" style="height: 36px; border-right: 1px solid #ddd;">
+                                 &nbsp;
+                              </div>
+                              <div class="tierListBody" style="height: 35px; border-right: 1px solid #ddd;">
+                                 <i class="fa fa-trash-o deleteTierIcon" aria-hidden="true"></i>
+                              </div>
+                           </div> -->
+                           <div class="clearfix"></div>
                            <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
                         </div>
                      </div>

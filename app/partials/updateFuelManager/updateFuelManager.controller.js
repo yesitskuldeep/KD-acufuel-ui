@@ -20,16 +20,63 @@
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
         updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
-          console.log('result', result);
           $scope.aTypeJets = result;
         })
-
         $scope.toggleJestAccordian = function(id){
             $('.'+id).slideDown();
             $('#'+id).addClass('customActive');
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
             $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
             $('#'+id+' .btn-default').css('display', 'none');
+
+            updateFuelManagerService.getJetTiers(id).then(function(tiers) {
+              $scope.tierList = tiers;
+            })
+        }
+        $scope.tr = {};
+        $scope.addNewTier = function(id){
+            $scope.tr.marginTotal = '1.00';
+            $scope.tr.marginTemplateId = id;
+
+            var tierData = 'minTierBreak='+$scope.tr.minTierBreak+'&maxTierBreak='+$scope.tr.maxTierBreak+'&margin='+$scope.tr.margin+
+            '&marginTotal='+$scope.tr.marginTotal+'&marginTemplateId='+$scope.tr.marginTemplateId;
+
+            updateFuelManagerService.addNewTier(tierData).then(function(result) {
+                toastr.success('Successfully Added', {
+                  closeButton: true
+                })
+                $scope.tr = {};
+                updateFuelManagerService.getJetTiers(id).then(function(tiers) {
+                  $scope.tierList = tiers;
+                })
+            })
+        }
+
+        $scope.editTier = function(tier){
+            var editTierData = 'minTierBreak='+tier.minTierBreak+'&maxTierBreak='+tier.maxTierBreak+'&margin='+tier.margin+
+            '&marginTotal='+tier.marginTotal+'&marginTemplateId='+tier.marginTemplate.id+'&marginId='+tier.id;
+
+            updateFuelManagerService.editTier(editTierData).then(function(result) {
+                toastr.success('Successfully Updated', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getJetTiers(tier.marginTemplate.id).then(function(tiers) {
+                  $scope.tierList = tiers;
+                })
+            })
+
+        }
+
+        $scope.deleteTier = function(id){
+            console.log('delete id', id);
+            updateFuelManagerService.deleteTier(id).then(function(result) {
+                toastr.success('Successfully Deleted', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getJetTiers(tier.marginTemplate.id).then(function(tiers) {
+                  $scope.tierList = tiers;
+                })
+            })
         }
 
         $scope.saveJetAccordian = function(jets){
