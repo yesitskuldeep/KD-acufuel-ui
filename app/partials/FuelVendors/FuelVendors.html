@@ -147,10 +147,12 @@
                                     </td>
                                     <td class="font-company">{{vendor.source}}</td>
                                     <td class="font-company">
-                                       <select class="form-control" style="height:31px;">
+                                      <select class="form-control" ng-blur="editMargin(vendor)" style="height:31px;" ng-model="vendor.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+
+                                       <!-- <select class="form-control" style="height:31px;">
                                           <option>Margin1</option>
                                           <option>Margin2</option>
-                                       </select>
+                                       </select> -->
                                     </td>
                                     <td class="font-company">{{vendor.allIn}}</td>
                                  </tr>
@@ -353,13 +355,14 @@
                                        <b>Master Margin</b>
                                     </div>
                                     <div class="pull-left">
-                                       <select required class="form-control" style="max-width: 250px;" ng-model="data.masterMargin">
+                                       <!-- <select required class="form-control" style="max-width: 250px;" ng-model="data.masterMargin">
                                           <option value="" disabled selected hidden>Select </option>
                                           <option value="margin1">Margin1</option>
                                           <option value="margin2">Margin2</option>
                                           <option value="vendorsonly">Vendors Only</option>
                                           <option value="margintenants">Margin Tenants</option>
-                                       </select>
+                                       </select> -->
+                                       <select class="form-control" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList"></select>
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -544,6 +547,7 @@
                                                 <th>Make</th>
                                                 <th>Model</th>
                                                 <th>Size</th>
+                                                <th>Margin</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -569,6 +573,9 @@
                                                     <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
                                                     </select> -->
+                                                </td>
+                                                <td>
+                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in marginList"></select>
                                                 </td>
                                             </tr>
                                           </tbody>

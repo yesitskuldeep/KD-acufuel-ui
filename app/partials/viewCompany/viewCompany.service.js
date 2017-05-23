@@ -42,7 +42,39 @@
           var deferred = $q.defer();
           $http({
               method : 'POST',
-              url : BASE_URL.url +'/company/add/contact',
+              url : BASE_URL.url +'/company/contact',
+              data : data,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result);
+          },function (result){
+              deferred.resolve(result);
+          })
+          return deferred.promise;
+        }
+
+        this.addCustomField = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/company/custom/contacts',
+              data : data,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.addPrimaryContact = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/company/contact/createPrimaryContact',
               data : data,
               headers : {'Content-Type': 'application/json'},
           })
@@ -68,6 +100,22 @@
               deferred.resolve(result.data);
           })
           return deferred.promise;
+        }
+
+        this.changeStatus = function(companyId, data){
+            var deferred = $q.defer();
+            $http({
+                method : 'PUT',
+                url : BASE_URL.url +'/company/status/'+companyId,
+                data : data,
+                headers : {'Content-Type': 'application/json'},
+            })
+            .then(function (result){
+                deferred.resolve(result.data);
+            },function (result){
+                deferred.resolve(result.data);
+            })
+            return deferred.promise;
         }
 
         this.updateContact = function(data) {
@@ -99,6 +147,21 @@
               deferred.resolve(result.data);
           },function (result){
               deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.checkPrimaryContact = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/company/contact/check/primaryContact/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result);
+          },function (result){
+              deferred.resolve(result);
           })
           return deferred.promise;
         }

@@ -222,4 +222,14 @@
           })
         }
 
+
+        $scope.openConfirmMail = function(){
+          $('#confirm2').css('display', 'block');
+        }
+
+
+        $scope.cancelAndCloseConfirm = function(){
+          $('#confirm2').css('display', 'none');
+        }
+
   }]);

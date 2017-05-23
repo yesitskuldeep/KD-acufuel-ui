@@ -8,6 +8,7 @@
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
+        $scope.primayData = {};
 
         $(function() {
          $('#company-one2').bootstrapToggle();
@@ -34,10 +35,20 @@
           })
         })
 
+        
+
+        CustomersService.getMargin().then(function(result) {
+          $scope.marginList = result;
+        })
+
         var value = "";
         var companyId = $stateParams.id;
         ViewCompanyService.getCompany(companyId).then(function(result) {
           $scope.companyData = result;
+          if(result.margin != null){
+             $scope.companyData.masterMargin = result.margin.id;
+          }
+         
           if($scope.companyData.activate == true){
             value = 'on';
           }else{
@@ -46,6 +57,20 @@
           $('#company-one2').bootstrapToggle(value)
         })
 
+        $(function() {
+          $('#company-one2').bootstrapToggle();
+          $('#company-one2').change(function() {
+            $('#console-event').html('Toggle: ' + $(this).prop('checked'));
+            $scope.companyData.activate = $(this).prop('checked');
+            console.log($scope.companyData.activate)
+            var statusData = "status=" + $scope.companyData.activate;
+            ViewCompanyService.changeStatus(companyId, statusData).then(function(result) {
+
+            })
+          })
+        })
+
+        
         getContactList();
         function getContactList(){
           ViewCompanyService.getContact(companyId).then(function(result) {
@@ -78,11 +103,14 @@
           $scope.data.companyId = companyId;
           $scope.contactData.contactList.push($scope.data);
           ViewCompanyService.addContact($scope.contactData).then(function(result) {
-            if(result.success){
-              toastr.success(''+result.success+'', {
-                  closeButton: true
-                })
+            console.log(result)
+            if(result.status == 200){
+                // toastr.success(''+result.success+'', {
+                //   closeButton: true
+                // })
                 $('#contact-modal-3').modal('hide');
+                $scope.primayData.id = result.data;
+                $scope.sendPrimaryContact();
                 getContactList();
             }else{
               toastr.error(''+result.statusText+'', {
@@ -103,7 +131,8 @@
             'tail':'',
             'make': '',
             'model': '',
-            'sizeId' : ''
+            'sizeId' : '',
+            'marginId': ''
         }];
     
         $scope.addNew = function(){
@@ -111,7 +140,8 @@
               'tail':'',
               'make': '',
               'model': '',
-              'sizeId' : ''
+              'sizeId' : '',
+              'marginId': ''
             });
             console.log($scope.aircraftDetails)
         };
@@ -140,7 +170,8 @@
                 'tail': $scope.aircraftDetails[i].tail,
                 'make': $scope.aircraftDetails[i].make,
                 'model': $scope.aircraftDetails[i].model,
-                'sizeId' : $scope.aircraftDetails[i].sizeId
+                'sizeId' : $scope.aircraftDetails[i].sizeId,
+                'marginId': $scope.aircraftDetails[i].marginId
               });
           }
           console.log($scope.addData)
@@ -214,6 +245,7 @@
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
+                $('#confirm1').css('display', 'none');
               }else{
                 toastr.error(''+result.statusText+'', {
                   closeButton: true
@@ -222,4 +254,68 @@
           })
         }
 
+        $scope.openConfirmMail = function(){
+          $('#confirm1').css('display', 'block');
+        }
+
+
+        $scope.cancelAndCloseConfirm = function(){
+          $('#confirm1').css('display', 'none');
+        }
+
+        $scope.cancelPrimaryContact = function(){
+          $('#primaryContact').css('display', 'none');
+        }
+
+        $scope.checkPrimaryContact = function(){
+          if($scope.primaryContact == true){
+            ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+              console.log(result)
+              if(result.status == 422){
+                $('#primaryContact').css('display', 'block');
+              }
+            })
+          }
+        }
+
+        $scope.sendPrimaryContact = function(){
+          $scope.primaryContact = true;
+          $('#primaryContact').css('display', 'none');
+          if($scope.primayData.id != null || $scope.primayData.id != undefined){
+            var priamryContactData = "companyContactId=" + $scope.primayData.id + "&primary=" + $scope.primaryContact;
+
+            ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
+              console.log(result)
+            })
+          }
+          
+        }
+
+        var contactName = '';
+        $scope.addCustom = function(value){
+          console.log(value)
+          if(value != null){
+            contactName = value;
+            $('#customField').css('display', 'block');
+          }
+          
+        }
+        $scope.acceptCustomField = function(){
+          console.log(contactName)
+          if(contactName == 'phone'){
+            var customData = "companyId=" + companyId + "&contactNumber=" + $scope.custom.content 
+              + "&title=" + $scope.custom.title;
+          }else{
+            var customData = "companyId=" + companyId + "&email=" + $scope.custom.content 
+              + "&title=" + $scope.custom.title;
+          }
+          ViewCompanyService.addCustomField(customData).then(function(result) {
+            console.log(result)
+            if(result != null && result.success){
+              $('#customField').css('display', 'none');
+            }
+          })
+
+        }
+        
   }]);

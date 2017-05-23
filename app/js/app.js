@@ -82,6 +82,13 @@
               templateUrl: "partials/customers/customers.html",
               controller: "customersController"
             })
+
+            .state("app.accountSetting", {
+              url: "/accountSetting",
+              templateUrl: "partials/accountSetting/accountSetting.html",
+              controller: "AccountSettingController"
+            })
+
             .state("app.ContactView", {
               url: "/ContactView",
               templateUrl: "partials/ContactView/ContactView.html",
@@ -105,7 +112,7 @@
               controller: "accountController"
             })
             
-              .state("app.dashboard", {
+            .state("app.dashboard", {
               url: "/dashboard",
               templateUrl: "partials/dashboard/dashboard.html",
               controller: "dashboardController"
@@ -116,13 +123,6 @@
               templateUrl: "partials/elements/elements.html",
               controller: "elementsController"
             })
-
-            .state("app.charts", {
-              url: "/charts",
-              templateUrl: "partials/charts/charts.html",
-              controller: "chartsController"
-            })
-
 
             .state("app.error", {
               url: "/error",
@@ -204,18 +204,19 @@
               controller: "DispatchFuelController"
             })
 
-             .state("app.searchDispatchFuel", {
+            .state("app.searchDispatchFuel", {
               url: "/searchDispatchFuel",
               templateUrl: "partials/searchDispatchFuel/searchDispatchFuel.html",
               controller: "searchDispatchFuelController"
             })
 
-             .state("app.Accept", {
+            .state("app.Accept", {
               url: "/Accept",
               templateUrl: "partials/Accept/Accept.html",
               controller: "AcceptController"
             })
-             .state("app.delselected", {
+
+            .state("app.delselected", {
               url: "/delselected",
               templateUrl: "partials/delselected/delselected.html",
               controller: "delselectedController"
@@ -227,7 +228,7 @@
               controller: "pricingcontactController"
             })
 
-             .state("app.viewContact", {
+            .state("app.viewContact", {
               url: "/viewContact/:id",
               templateUrl: "partials/viewcontact/viewcontact.html",
               controller: "viewcontactController"

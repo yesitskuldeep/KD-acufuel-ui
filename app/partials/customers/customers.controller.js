@@ -2,9 +2,9 @@
 
  //Load controller
   angular.module('acufuel')
-	.controller('customersController', ['$scope', '$rootScope', '$uibModal', '$filter', '$http', 'CustomersService', customersController]);
+	.controller('customersController', ['$scope', '$rootScope', '$uibModal', '$filter', '$http', 'CustomersService', 'ViewCompanyService', customersController]);
 
- 	function customersController($scope, $rootScope, $uibModal, $filter, $http, CustomersService) {
+ 	function customersController($scope, $rootScope, $uibModal, $filter, $http, CustomersService, ViewCompanyService) {
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
@@ -18,6 +18,9 @@
 			CustomersService.getAllCompanies().then(function(result) {
 				console.log(result)
 				$scope.companyList = result;
+				for(var i=0; i<$scope.companyList.length; i++){
+					$scope.companyList[i].masterMargin = $scope.companyList[i].margin.id;
+				}
 			})
 		}
 
@@ -29,6 +32,29 @@
 		    })
         })
 
+        $scope.editMargin = function(customer){
+        	console.log(customer.masterMargin)
+
+        	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 
+              + "&addressOne=" + customer.addressOne + "&addressTwo=" + customer.addressTwo + "&city=" + customer.city + "&state=" 
+              + customer.state + "&country=" + customer.country + "&zipcode=" + customer.zipcode + "&internalNote=" 
+              + customer.internalNote + "&certificateType=" + customer.certificateType + "&baseTenant=" + customer.baseTenant
+              + "&fuelerlinxCustomer=" + customer.fuelerlinxCustomer + "&contractFuelVendor=" + customer.contractFuelVendor 
+              + "&activate=" + customer.activate + "&baseIcao=" + customer.baseIcao + "&companyId=" + customer.id;
+
+        	ViewCompanyService.updateContact(companyMargin).then(function(result) {
+              if(result != null && result.success){
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+              }else{
+                toastr.error(''+result.statusText+'', {
+                  closeButton: true
+                })
+              }
+            })
+        }
+
         
 
         getData();
@@ -37,31 +63,45 @@
 			  $scope.aircraftMakeList = result;
 			})
 		}
-      
+      	
+		CustomersService.getMargin().then(function(result) {
+		  $scope.marginList = result;
+		})
+
 	    $scope.addFirstData = function(sel, step){
 	    	// console.log($scope.data)
+	    	if($scope.data.companyName == undefined){
+	    		toastr.error('Please enter Company Name', {
+	            	closeButton: true
+	          	})
+	    	}else if($scope.data.masterMargin == undefined){
+	    		toastr.error('Please select Master Margin', {
+	            	closeButton: true
+	          	})
+	    	}else{
+	    		var companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
+		    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
+		    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
+		    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
+		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
+		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
 
-	    	var companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
-	    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
-	    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
-	    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
-	    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
-	    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
-
-	    	CustomersService.addCompany(companyData).then(function(result) {
-            	console.log(result)
-            	$scope.accountId = result;
-      			$scope.aircraft.accountId = $scope.accountId;
-          	})
-    	 	$(sel).trigger('next.m.' + step);
-    	 	getData();
+		    	CustomersService.addCompany(companyData).then(function(result) {
+	            	console.log(result)
+	            	$scope.accountId = result;
+	      			$scope.aircraft.accountId = $scope.accountId;
+	          	})
+	    	 	$(sel).trigger('next.m.' + step);
+	    	 	getData();
+	    	}
 	    }
 
 	    $scope.aircraftDetails = [{ 
             'tail':'',
             'make': '',
             'model': '',
-            'sizeId' : ''
+            'sizeId' : '',
+            'marginId': $scope.data.masterMargin
         }];
     
         $scope.addNew = function(){
@@ -69,7 +109,8 @@
                 'tail':'',
 	            'make': '',
 	            'model': '',
-	            'sizeId' : ''
+	            'sizeId' : '',
+	            'marginId': ''
             });
             console.log($scope.aircraftDetails)
         };
@@ -99,7 +140,8 @@
 	                'tail': $scope.aircraftDetails[i].tail,
 		            'make': $scope.aircraftDetails[i].make,
 		            'model': $scope.aircraftDetails[i].model,
-		            'sizeId' : $scope.aircraftDetails[i].sizeId
+		            'sizeId' : $scope.aircraftDetails[i].sizeId,
+		            'marginId': $scope.aircraftDetails[i].marginId
 	            });
       		}
 	        $scope.aircraftListData.aircraftList = $scope.addData;

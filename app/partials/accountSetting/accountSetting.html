@@ -1,0 +1,95 @@
+<div class="col-xs-12 col-md-11">
+   <div class="row" style="margin-left:0px">
+      <div class="col-md-5">
+         <div class="widget">
+            <div class="widget-header">
+               <i class="fa fa-user" aria-hidden="true"></i>
+               <h3>Account Sertting</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <h3 style="color: #666;margin-left: 10px;">Castle & Cooke FBO</h3></br>
+               <form role="form">
+                    <div class="col-sm-6">
+                            <div class="form-group"><label>Username</label> <input type="email" placeholder="Username" ng-model="user.email" class="form-control"></div>
+                            <div class="form-group"><label>First Name</label> <input type="text" placeholder="First Name" ng-model="user.firstName" class="form-control"></div>
+                            <div class="form-group"><label>Last Name</label> <input type="text" placeholder="Last Name" ng-model="user.lastName" class="form-control"></div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group"><label>Password</label> <input type="password" ng-model="user.password" placeholder="Password" class="form-control"></div>
+                        <div class="form-group"><label>Phone</label> <input type="number" ng-model="user.phone" placeholder="Phone" class="form-control"></div>
+                        <div class="form-group"><label>Mobile</label> <input type="number" ng-model="user.mobile" placeholder="Mobile" class="form-control"></div>
+                    </div>
+                    <div class="col-xs-12">
+                      <div class="col-xs-12">
+                        <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-5">
+                                <label class="new-input-label"><b>Fuel Types Offered&nbsp;</b></label>
+                              </div>
+                              <div class="col-md-7">
+                                <input type="checkbox" ng-model="data.baseTenant" name="vehicle" value="Bike"> Jet-A: Full Service<br>
+                                <input type="checkbox" ng-model="data.fuelerlinxCustomer" name="vehicle" value="Car" checked> Jet-A: w/Additive<br>
+                                <input type="checkbox" ng-model="data.contractFuelVendor" name="vehicle" value="Car" checked> Jet-A: Self Service <br>
+                                <input type="checkbox" ng-model="data.contractFuelVendor" name="vehicle" value="Car" checked> 100LL: Full Service <br>
+                                <input type="checkbox" ng-model="data.contractFuelVendor" name="vehicle" value="Car" checked> 100LL: Self Service
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->
+      </div>
+      <div class="col-md-7">
+         <div class="widget">
+            <div class="widget-header">
+               <i class="fa fa-tasks" aria-hidden="true"></i>
+               <h3>Additional User Accounts</h3>
+               <div class="pull-right">
+                   <button type="submit" style="margin-top: 4px;margin-right: 9px;" data-toggle="modal" data-target="#vendor-modal-3" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add Contact</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <div class="table-responsive">
+                   <table class="table table-bordered table-hover table-striped">
+                      <thead>
+                         <tr>
+                            <th></th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email Username</th>
+                            <th>Password</th>
+                            <th>Control</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                         <tr>
+                            <td rowspan="2">1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>otto@email.com</td>
+                            <td>@otto</td>
+                            <td><input id="toggle-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Deactive"></td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->
+      </div>
+      <!-- /span6 -->
+   </div>
+   <!-- /widget -->
+</div>
+<!-- /container -->
+<div class="clearfix"></div>
+

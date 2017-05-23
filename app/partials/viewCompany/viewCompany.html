@@ -164,11 +164,9 @@
                            <div>
                               <p class="new-label">
                                  <span>Master Margin Setting </span> 
+                                 <!-- <select class="form-control" ng-model="companyData.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList"></select> -->
                                  <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="companyData.masterMargin" ng-click="editData()">
-                                    <option value="margin1">Margin1</option>
-                                    <option value="margin2">Margin2</option>
-                                    <option value="vendorsonly">Vendors Only</option>
-                                    <option value="margintenants">Margin Tenants</option>
+                                    <option ng-repeat="margin in marginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
                                  <span>&nbsp;See Aircrart List</span>
                                  <div class="clearfix"></div>
@@ -196,14 +194,14 @@
                                  <input type="tel" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" ng-blur="editData('showAddress')"/>
                               </div>
                               
-                              <p><i class="fa fa-phone"></i> (310) 2342-3433 &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
-                              <p><i class="fa fa-envelope"></i> freed@gmail.com &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null"><i class="fa fa-phone"></i> {{data.contactNumber}} &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.email != null"><i class="fa fa-envelope"></i> {{data.email}} &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
                            </div>
                            <div class="new-add-select">
-                              <select class="form-control" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
+                              <select class="form-control" ng-model="value" ng-click="addCustom(value)" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
                                  <option disabled selected>Add Field</option>
-                                 <option class="optionclass">Add Phone</option>
-                                 <option class="optionclass">Add Email</option>
+                                 <option value="phone" class="optionclass">Add Phone</option>
+                                 <option value="email" class="optionclass">Add Email</option>
                               </select>
                            </div>
                            <div>
@@ -212,7 +210,7 @@
                               <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="companyData.internalNote" ng-blur="editData('showNoteData')" rows="4" cols="34"></textarea>
                            </div>
                            <div class="dis">
-                              <button type="button" data-toggle="modal" data-target="#distribute-modal-3" class="btn btn-primary">Distribute Price to Company Contacts</button>
+                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
                            </div>
                            <div><button type="button" class="btn btn-info">Setup Fuel</button></div>
                         </div>
@@ -506,7 +504,7 @@
                                  <div class="col-md-3">
                                     <div class="pull-left my-toggle-switch">
                                        <div style="color: #ff9a01;">Primary Contact &nbsp &nbsp
-                                          <input type="checkbox" ng-model="data.primaryContact">
+                                          <input type="checkbox" ng-click="checkPrimaryContact()" ng-model="primaryContact">
                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -568,6 +566,7 @@
                                                 <th>Make</th>
                                                 <th>Model</th>
                                                 <th>Size</th>
+                                                <th>Margin</th>
                                              </tr>
                                           </thead>
                                           <tbody>
@@ -593,6 +592,9 @@
                                                    <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
                                                    </select> -->
+                                                </td>
+                                                <td>
+                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in marginList"></select>
                                                 </td>
                                              </tr>
                                           </tbody>
@@ -620,23 +622,69 @@
     </div>
 </form>
 
-<form class="modal multi-step" id="distribute-modal-3" name="aircraftForm">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body step-2" data-step="2" style="padding: 0;">
-               <div>
-                  <div class="row" style="margin: 0;">
-                     <p>Are you sure that you want to email pricing to everyone in your contact list</p>
-                  </div>
-               </div>
+<div class="customConfirmPopBackdrop" id="confirm1">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to email pricing to everyone in your contact list?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="sendMail()">Yes</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseConfirm()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="primaryContact">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure you want to set this person as your primary contact?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="sendPrimaryContact()">Yes</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelPrimaryContact()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="customField">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <div class="col-md-2"><img class="src-image" src="img/images.jpg"></div>
+            <div class="col-md-10">
+                <form>
+                  Title:<br>
+                  <input type="text" name="firstname" ng-model="custom.title"><br>
+                  Content:<br>
+                  <input type="text" name="lastname" ng-model="custom.content">
+                </form>
             </div>
-            <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="sendMail()">Save</button>
-            </div>
-        </div>
-    </div>
-</form>
+            <div class="clearfix"></div>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptCustomField()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelPrimaryContact()">Cancel</button>
+      </div>
+   </div>
+</div>
+
 <!-- Le javascript
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

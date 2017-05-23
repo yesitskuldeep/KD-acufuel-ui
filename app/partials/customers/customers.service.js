@@ -21,6 +21,22 @@
           return deferred.promise;
         }
 
+        this.getMargin = function() {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/user/margins',
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
       	this.addCompany = function(data) {
 
           var deferred = $q.defer();
