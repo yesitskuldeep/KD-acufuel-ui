@@ -24,14 +24,6 @@
 			})
 		}
 
-        $(function() {
-	     	$('#toggle-one2').bootstrapToggle();
-	     	$('#toggle-one2').change(function() {
-		      $('#console-event').html('Toggle: ' + $(this).prop('checked'));
-		      $scope.data.activate = $(this).prop('checked');
-		    })
-        })
-
         $scope.editMargin = function(customer){
         	console.log(customer.masterMargin)
 

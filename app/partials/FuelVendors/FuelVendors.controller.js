@@ -26,15 +26,6 @@
 			})
 		}
 		
-
-        $(function() {
-	     	$('#vendor-toggle-one2').bootstrapToggle();
-	     	$('#vendor-toggle-one2').change(function() {
-		      $('#console-event').html('Toggle: ' + $(this).prop('checked'));
-		      $scope.data.activate = $(this).prop('checked');
-		    })
-        })
-
         $scope.editMargin = function(vendor){
         	console.log(vendor.masterMargin)
 

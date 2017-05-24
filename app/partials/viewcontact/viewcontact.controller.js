@@ -5,16 +5,11 @@
 
 	.controller('viewcontactController', ['$scope', '$stateParams', 'ViewcontactService', function($scope, $stateParams, ViewcontactService) {
 
-	  	$(function() {
-	         $('#toggle-five').bootstrapToggle();
-	    })
-
 	    var contactId = $stateParams.id;
 	    $scope.contactDetail = {};
         var value = "";
         ViewcontactService.getContact(contactId).then(function(result) {
           $scope.contactDetail = result;
-          checkValue($scope.contactDetail.priceEmail);
         })
 
         $scope.contactIdList = {};
@@ -33,7 +28,6 @@
         	selectedId = $scope.contactIdList[index];
 		        ViewcontactService.getContact(selectedId).then(function(result) {
 			    $scope.contactDetail = result;
-                checkValue($scope.contactDetail.priceEmail);
 			})
         }
 
@@ -42,33 +36,17 @@
         	selectedId = $scope.contactIdList[index];
 		        ViewcontactService.getContact(selectedId).then(function(result) {
 			       $scope.contactDetail = result;
-                   checkValue($scope.contactDetail.priceEmail);
 			})
         }
 
-        function checkValue(priceEmail){
-            if(priceEmail == true){
-                value = 'on';
-            }else{
-                console.log("nai")
-                value = 'off'
-            }
-            $('#toggle-five').bootstrapToggle(value)
-        }
-
-        $scope.changePriceEmail = function(){
-            $('#toggle-five').bootstrapToggle();
-            $('#toggle-five').change(function() {
-                $scope.activate = $(this).prop('checked');
-                console.log($scope.activate)
-                var statusData = "status=" + $scope.activate;
-                ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
-                    if(result.success){
-                        toastr.success(''+result.success+'', {
-                            closeButton: true
-                        })
-                    }
-                })
+        $scope.changePriceEmail = function(id){
+            var statusData = "status=" + $scope.contactDetail.priceEmail;
+            ViewcontactService.changePriceEmail(id, statusData).then(function(result) {
+                if(result.success){
+                    toastr.success(''+result.success+'', {
+                        closeButton: true
+                    })
+                }
             })
         }
 

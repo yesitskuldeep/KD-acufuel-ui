@@ -9,58 +9,16 @@
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
 
-        $(function() {
-         $('#company-one2').bootstrapToggle();
-        })
-
-        $(function() {
-         $('#toggle-one1').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-two').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-three').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-four').bootstrapToggle();
-        })
-
-        $(function() {
-          $('#price-one2').bootstrapToggle();
-          $('#price-one2').change(function() {
-            $('#console-event').html('Toggle: ' + $(this).prop('checked'));
-            $scope.data.priceEmail = $(this).prop('checked');
-          })
-        })
-
         var value = "";
         var vendorId = $stateParams.id;
         ViewFuelVendorService.getFuelOrder(vendorId).then(function(result) {
           $scope.vendorData = result;
-          if($scope.vendorData.activate == true){
-            value = 'on';
-          }else{
-            value = 'off'
-          }
-          $('#company-one2').bootstrapToggle(value)
         })
 
         getContactList();
         function getContactList(){
           ViewFuelVendorService.getContact(vendorId).then(function(result) {
             $scope.vendorContactList = result;
-            for(var i=0;i<$scope.vendorContactList.length; i++){
-              if($scope.vendorContactList[i].priceEmail == true){
-                $scope.vendorContactList[i].value1 = 'on';
-                console.log('aya')
-              }else{
-                $scope.vendorContactList[i].value1 = 'off';
-
-              }
-              console.log($scope.vendorContactList[i])
-              $('#'+$scope.vendorContactList[i].id).bootstrapToggle($scope.vendorContactList[i].value1)
-            }
           })
         }
 

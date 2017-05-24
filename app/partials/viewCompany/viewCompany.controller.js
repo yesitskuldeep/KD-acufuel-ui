@@ -10,33 +10,6 @@
         $scope.aircraft = {};
         $scope.primayData = {};
 
-        $(function() {
-         $('#company-one2').bootstrapToggle();
-         
-        })
-
-        $(function() {
-         $('#toggle-one1').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-two').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-three').bootstrapToggle();
-        })   
-        $(function() {
-         $('#toggle-four').bootstrapToggle();
-        })
-
-        $(function() {
-          $('#price-one2').bootstrapToggle();
-          $('#price-one2').change(function() {
-            $('#console-event').html('Toggle: ' + $(this).prop('checked'));
-            $scope.data.priceEmail = $(this).prop('checked');
-          })
-        })
-
-        
 
         CustomersService.getMargin().then(function(result) {
           $scope.marginList = result;
@@ -49,21 +22,9 @@
           if(result.margin != null){
              $scope.companyData.masterMargin = result.margin.id;
           }
-         
-          if($scope.companyData.activate == true){
-            value = 'on';
-          }else{
-            value = 'off'
-          }
-          $('#company-one2').bootstrapToggle(value)
         })
 
-        $scope.changeStatus = function(){
-          $('#company-one2').bootstrapToggle();
-          $('#company-one2').change(function() {
-            $('#console-event').html('Toggle: ' + $(this).prop('checked'));
-            $scope.companyData.activate = $(this).prop('checked');
-            console.log($scope.companyData.activate)
+        $scope.changeCompanyStatus = function(){
             var statusData = "status=" + $scope.companyData.activate;
             ViewCompanyService.changeStatus(companyId, statusData).then(function(result) {
               if(result.success){
@@ -72,7 +33,6 @@
                   })
               }
             })
-          })
         }
 
         
@@ -80,17 +40,6 @@
         function getContactList(){
           ViewCompanyService.getContact(companyId).then(function(result) {
             $scope.companyContactList = result;
-            for(var i=0;i<$scope.companyContactList.length; i++){
-              if($scope.companyContactList[i].priceEmail == true){
-                $scope.companyContactList[i].value1 = 'on';
-                console.log('aya')
-              }else{
-                $scope.companyContactList[i].value1 = 'off';
-
-              }
-              console.log($scope.companyContactList[i])
-              $('#'+$scope.companyContactList[i].id).bootstrapToggle($scope.companyContactList[i].value1)
-            }
           })
         }
 

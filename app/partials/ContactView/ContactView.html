@@ -85,7 +85,7 @@
 										<td>{{contact.mobilePhone}}</td>
 										<td>{{contact.title}}</td>
 										<td>
-                                 <toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)"></toggle>
+                                 <toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)" size="customToogle"></toggle>
                               </td>
                               <td>{{contact.userName}}</td>
                               <td>{{contact.password}}</td>
@@ -272,7 +272,7 @@
                                  <div class="col-md-3">
                                     <div class="pull-left my-toggle-switch">
                                        <div style="color: #ff9a01;">Price Email &nbsp &nbsp
-                                          <input id="price-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="On" data-off="Off">
+                                          <toggle ng-model="data.priceEmail" size="customToogle"></toggle>
                                        </div>
                                     </div>
                                     <div class="clearfix"></div>

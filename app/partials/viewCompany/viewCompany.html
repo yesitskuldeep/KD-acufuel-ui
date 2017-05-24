@@ -133,14 +133,15 @@
                   <div class="col-md-6">
                      <div class="widget">
                         <div class="widget-header">
-                           <i class="fa fa-building-o" aria-hidden="true"></i>
-                           <h3>Company Details</h3>
-                           <label>BASE ICAO</label>
-                           <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
-                           <div class="pull-right my-toggle-switch" ng-click="changeStatus()" style="margin-top: 10px; margin-right: 10px;">
-                              <div><input id="company-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Dactive">
-                              </div>
-                           </div>
+                            <i class="fa fa-building-o" aria-hidden="true"></i>
+                            <h3>Company Details</h3>
+                            <label>BASE ICAO</label>
+                            <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
+                           
+                            <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
+                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
+                            </div>
+
                         </div>
                         <div class="widget-content">
                            <div class="row" style="margin-left:0px;">
@@ -291,7 +292,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList">
-                                       <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)"></toggle></td>
+                                       <td><toggle ng-model="contact.priceEmail" size="customToogle"></toggle></td>
                                        <td>
                                           <a href="#!/viewContact/{{contact.id}}">
                                             {{contact.firstName}}
@@ -496,7 +497,7 @@
                                  <div class="col-md-3">
                                     <div class="pull-left my-toggle-switch">
                                        <div style="color: #ff9a01;">Price Email &nbsp &nbsp
-                                          <input id="price-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="On" data-off="Off">
+                                          <toggle ng-model="data.priceEmail" size="customToogle"></toggle>
                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
