@@ -3,7 +3,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewcontactController', ['$scope', '$stateParams', 'ViewcontactService', function($scope, $stateParams, ViewcontactService) {
+	.controller('viewcontactController', ['$scope', '$stateParams', 'ViewcontactService', 'ViewCompanyService', function($scope, $stateParams, ViewcontactService, ViewCompanyService) {
 
 	    var contactId = $stateParams.id;
 	    $scope.contactDetail = {};
@@ -131,6 +131,31 @@
 	                })
 	            }
 	        })
+        }
+
+        $scope.checkPrimaryContact = function(companyId){
+            if($scope.contactDetail.primaryContact == true){
+            ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+              console.log(result)
+              if(result.status == 422){
+                $('#primaryContact').css('display', 'block');
+              }
+            })
+          }
+        }
+
+        $scope.cancelPrimaryContact = function(){
+          $('#primaryContact').css('display', 'none');
+        }
+
+        $scope.sendPrimaryContact = function(id){
+          $('#primaryContact').css('display', 'none');
+            var priamryContactData = "companyContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
+
+            ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
+              console.log(result)
+            })
+          
         }
   
     }]);

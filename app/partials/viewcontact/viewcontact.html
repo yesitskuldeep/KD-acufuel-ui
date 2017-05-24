@@ -77,6 +77,10 @@
                               <p ng-hide="editEmail">
                                 <input type="email" ng-model="contactDetail.email" ng-blur="updateContact(contactDetail)" class="form-control">
                               </p>
+                              <div>
+                                <input type="checkbox" ng-click="checkPrimaryContact(contactDetail.owner.id)" ng-model="contactDetail.primaryContact">&nbsp;
+                                <span>Primary Contact </span>
+                             </div>
                            </div>
                            </br>
                            <div>
@@ -97,6 +101,27 @@
                </div>
             </div>
          </div>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="primaryContact">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure you want to set this person as your primary contact?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="sendPrimaryContact(contactDetail.id)">Yes</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelPrimaryContact()">Cancel</button>
       </div>
    </div>
 </div>
