@@ -10,17 +10,17 @@
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
                <h3>Price Manager</h3>
-               <select style="float: right;margin:10px;" ng-model="priceManager" ng-change="yes(priceManager)">
-                  <option value="1">Send Pricing Email</option>
-                  <option value="2">Margin 1</option>
-                  <option value="3">Margin 2</option>
-                  <option value="4">Margin Tenants</option>
+               <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
+                  <option value="" disabled selected="selected">Send Pricing Email</option>
+                  <option ng-repeat="margins in marginList" value="{{margins.id}}">{{margins.marginName}}</option>
+                  <option disabled>_______________</option>
+                  <option value="all">Distribute All</option>
                </select>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <h6>Update Fuel Price Here</h6>
-               <table class="table table-striped">
+               <h4>Update Fuel Price Here</h4>
+               <table class="table">
                   <thead>
                      <tr>
                         <th> Product</th>
@@ -31,25 +31,28 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr>
-                        <td>Name and inc.</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td>Jemmy</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                     </tr>
-                     <tr>
-                        <td>Name and inc.</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td>Jemmy</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                     <tr ng-repeat="fuelPricing in fuelPricing">
+                        <td>
+                           <span style="line-height: 31px;">{{fuelPricing.product.name}}</span>
+                        </td>
+                        <td>
+                           <input type="text" class="form-control" ng-model="fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                        </td>
+                        <td>
+                           <input type="text" class="form-control" ng-model="fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 0;">
+                        </td>
+                        <td>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.cost -- fuelPricing.papMargin}}</span>
+                        </td>
+                        <td>
+                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
+                        </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right;">
-                     <button type="button" class="btn btn-success btn-xs">Save</button>
+                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFuelPricingClick()">Save</button>
                   </div>
                </div>
             </div>
@@ -627,6 +630,27 @@
    </div>
 </div>
 
+
+<div class="customConfirmPopBackdrop" id="confirm1" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to email pricing to everyone in your contact list?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="saveAndCloseConfirm()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseConfirm()">Cancel</button>
+     </div>
+  </div>
+</div>
 
 <!-- Le javascript
    ================================================== -->
