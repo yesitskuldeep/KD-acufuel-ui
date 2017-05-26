@@ -27,7 +27,7 @@
                         <th> Cost</th>
                         <th> Margin</th>
                         <th> PAP(Total)</th>
-                        <th> Date</th>
+                        <th style="color: #F90;"> Expires</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -45,7 +45,7 @@
                            <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.cost -- fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
+                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
                         </td>
                      </tr>
                   </tbody>
@@ -89,12 +89,12 @@
                            <div class="pull-right">
                               <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
-                              <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id)">Edit</button>
+                              <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)">Edit</button>
                            </div>
                            <div class="clearfix"></div>
                         </div>
                         <div class="customAccordianTabBody {{jets.id}}" style="display: none;">
-                           <div class="tierListWrap" ng-repeat="tier in tierList">
+                           <div class="tierListWrap" ng-repeat="tier in aTypeJets[$index].tierList">
                               <div class="tierListHead" style="height: 36px;">
                                  <span class="pull-left tierHeadingSpan" ng-hide="showEditTier">{{tier.minTierBreak}}-{{tier.maxTierBreak}} gal.
                                  </span>
@@ -121,15 +121,15 @@
                            </div>
                            <div class="tierListWrap" style="width: 160px;">
                               <div class="tierListHead" style="border-right: 1px solid #ddd;">
-                                 <input type="text" placeholder="min" ng-model="tr.minTierBreak">
+                                 <input type="text" placeholder="min" ng-model="trData[$index].minTierBreak">
                                  <span>-</span> 
-                                 <input type="text" placeholder="max" ng-model="tr.maxTierBreak"> <b>gal.</b>
+                                 <input type="text" placeholder="max" ng-model="trData[$index].maxTierBreak"> <b>gal.</b>
                                  <div class="clearfix"></div>
                               </div>
                               <div class="tierListBody" style="border-right: 1px solid #ddd;">
                                  <span style="color: #449d44;">$</span>
-                                 <input type="text" placeholder="margin" ng-model="tr.margin" class="tierTextBox" style="width: 70px; height: 24px;">
-                                 <button class="addTierBtn" ng-click="addNewTier(jets.id)">Add Tier</button>
+                                 <input type="text" placeholder="margin" ng-model="trData[$index].margin" class="tierTextBox" style="width: 70px; height: 24px;">
+                                 <button class="addTierBtn" ng-click="addNewTier(jets.id, trData, $index)">Add Tier</button>
                                  <div class="clearfix"></div>
                               </div>
                            </div>
@@ -145,194 +145,6 @@
                            <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
                         </div>
                      </div>
-
-                     <!--  tab 2  -->
-
-                     <!-- <div class="customAccordianHeader" id="customTabs2">
-                        <span>Jet Aircraft</span>
-                        <select class="form-control" disabled="true">
-                           <option>Pricing Structure</option>
-                           <option>Retail-(minus)</option>
-                           <option>Cost+(plus)</option>
-                           <option>Direct=(equals)</option>
-                        </select>
-                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
-                        <div class="pull-right">
-                           <button class="btn btn-success" style="display: none;">Save</button>
-                           <button class="btn btn-danger" style="display: none;">Delete</button>
-                           <button class="btn btn-default" id="customTabToggle2">Edit</button>
-                        </div>
-                        <div class="clearfix"></div>
-                     </div>
-                     <div class="customAccordianTabBody" id="customTabsBody2" style="display: none;">
-                        <table class="customTableWithFilter">
-                           <thead>
-                              <tr>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <input type="text" placeholder="min" name=""> - 
-                                    <input type="text" placeholder="max" name="">
-                                    <span>gal.</span>
-                                 </th>
-                                 <th> &nbsp; </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span>$</span>
-                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
-                                    <button class="addTierButton">Add Tier</button>
-                                 </td>
-                                 <td>
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div> -->
-
-                     <!--  tab 3  -->
-
-                     <!-- <div class="customAccordianHeader" id="customTabs3">
-                        <span>Jet Aircraft</span>
-                        <select class="form-control" disabled="true">
-                           <option>Pricing Structure</option>
-                           <option>Retail-(minus)</option>
-                           <option>Cost+(plus)</option>
-                           <option>Direct=(equals)</option>
-                        </select>
-                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
-                        <div class="pull-right">
-                           <button class="btn btn-success" style="display: none;">Save</button>
-                           <button class="btn btn-danger" style="display: none;">Delete</button>
-                           <button class="btn btn-default" id="customTabToggle3">Edit</button>
-                        </div>
-                        <div class="clearfix"></div>
-                     </div>
-                     <div class="customAccordianTabBody" id="customTabsBody3" style="display: none;">
-                        <table class="customTableWithFilter">
-                           <thead>
-                              <tr>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <input type="text" placeholder="min" name=""> - 
-                                    <input type="text" placeholder="max" name="">
-                                    <span>gal.</span>
-                                 </th>
-                                 <th> &nbsp; </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span>$</span>
-                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
-                                    <button class="addTierButton">Add Tier</button>
-                                 </td>
-                                 <td>
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div> -->
-
-                     <!--  tab 4  -->
-
-                     <!-- <div class="customAccordianHeader" id="customTabs4">
-                        <span>Jet Aircraft</span>
-                        <select class="form-control" disabled="true">
-                           <option>Pricing Structure</option>
-                           <option>Retail-(minus)</option>
-                           <option>Cost+(plus)</option>
-                           <option>Direct=(equals)</option>
-                        </select>
-                        <input type="text" name="" disabled="true" class="form-control" value="$1.7500">
-                        <div class="pull-right">
-                           <button class="btn btn-success" style="display: none;">Save</button>
-                           <button class="btn btn-danger" style="display: none;">Delete</button>
-                           <button class="btn btn-default" id="customTabToggle4">Edit</button>
-                        </div>
-                        <div class="clearfix"></div>
-                     </div>
-                     <div class="customAccordianTabBody" id="customTabsBody4" style="display: none;">
-                        <table class="customTableWithFilter">
-                           <thead>
-                              <tr>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <span class="pull-left">1-250 gal.</span>
-                                    <i class="fa fa-pencil-square-o pull-right" aria-hidden="true"></i>
-                                 </th>
-                                 <th>
-                                    <input type="text" placeholder="min" name=""> - 
-                                    <input type="text" placeholder="max" name="">
-                                    <span>gal.</span>
-                                 </th>
-                                 <th> &nbsp; </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span class="pull-left">-$0.0000</span> &nbsp; 
-                                    <span class="pull-right">($1.7500)</span>
-                                 </td>
-                                 <td>
-                                    <span>$</span>
-                                    <input type="text" placeholder="margin" class="tierTextBox" name="">
-                                    <button class="addTierButton">Add Tier</button>
-                                 </td>
-                                 <td>
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
-                     </div> -->
-
-
                   </div>
                </section>
                <div class="row">&nbsp;</div>
@@ -360,47 +172,44 @@
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3>Queue Future Pricing </h3>
-               <!-- <select style="float: right;margin:10px;background-color:#cd7b00;">
-                  <option>Send Pricing Email</option>
-                  <option>Margin 1</option>
-                  <option>Margin 2</option>
-                  <option>Margin Tenants</option>
-               </select> -->
+               <h3>Queue Future Pricing</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <h6>Queue Future Fuel Pricing Here</h6>
-               <table class="table table-striped">
+               <h4>Update Queue Future Fuel Pricing Here</h4>
+               <table class="table">
                   <thead>
                      <tr>
                         <th> Product</th>
                         <th> Cost</th>
-                        <th>PAP(Total)</th>
-                        <th>Deploy</th>
-                        <th>Next Expiration</th>
+                        <th> PAP(Total)</th>
+                        <th> Deploy</th>
+                        <th style="color: #F90;"> Next Expiration</th>
                      </tr>
                   </thead>
                   <tbody>
-                     <tr>
-                        <td>Name and inc.</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td>Jemmy</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                     </tr>
-                     <tr>
-                        <td>Name and inc.</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
-                        <td>Jemmy</td>
-                        <td><input type="text" class="form-control" style="height:31px;" name="name" id="name"></td>
+                     <tr ng-repeat="fuelPricing in futureFuelPricing">
+                        <td>
+                           <span style="line-height: 31px;">{{fuelPricing.product.name}}</span>
+                        </td>
+                        <td>
+                           <input type="text" class="form-control" ng-model="fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                        </td>
+                        <td>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.cost -- fuelPricing.papMargin}}</span>
+                        </td>
+                        <td>
+                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
+                        </td>
+                        <td>
+                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
+                        </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right;">
-                     <button type="button" class="btn btn-success btn-xs">Save</button>
+                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFuelPricingClick()">Save</button>
                   </div>
                </div>
             </div>
@@ -412,172 +221,97 @@
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3><b>JET-A</b> Customer Margin Template</h3>
+               <h3><b style="color: 39c;">AVGAS 100LL </b> <i>Customer Margin Template</i></h3>
                <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewVtypePop()" style="margin-top: 4px; margin-right: 10px;"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
                </div>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <!-- <section id="accordions">
-                  <div class="panel-group accordion">
-                     <div class="panel panel-default open">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" style="float:left;" data-toggle="collapse" data-parent=".accordion" href="#collapseOne">
-                              Margin 1  
-                              </a>
-                              <span style="color:#ff9900;font-size:12px;margin-left:50px">Retail- (minus) </span><span style="font-size:12px">$1.1500</span>
-                           </h4>
+               <section id="accordions">
+                  <div class="newCustomAccordian">
+                     <!-- tab 1 -->
+                     <div ng-repeat="jets in vTypeJets">
+                        <div class="customAccordianHeader" id="{{jets.id}}">
+                           <span>{{jets.marginName}}</span>
+                           <select class="form-control" disabled="true" ng-model="jets.pricingStructure">
+                              <option value="" disabled selected>Pricing Structure</option>
+                              <option value="minus">Retail-(minus)</option>
+                              <option value="plus">Cost+(plus)</option>
+                              <option value="equal">Direct=(equal)</option>
+                           </select>
+                           <span style="margin-right: 0;">$</span>
+                           <input type="text" disabled="true" class="form-control" ng-model="jets.marginValue">
+                           <div class="pull-right">
+                              <button class="btn btn-success" style="display: none;" ng-click="saveVtypeJetAccordian(jets)">Save</button>
+                              <button class="btn btn-danger" style="display: none;" ng-click="deleteVtypeJetAccordian(jets.id)">Delete</button>
+                              <button class="btn btn-default" ng-click="toggleVtypeJestAccordian(jets.id, $index)">Edit</button>
+                           </div>
+                           <div class="clearfix"></div>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                           <div class="panel-body">
-                              <div id="editor2" style="visibility: hidden;">
+                        <div class="customAccordianTabBody {{jets.id}}" style="display: none;">
+                           <div class="tierListWrap" ng-repeat="tier in vTypeJets[$index].tierList">
+                              <div class="tierListHead" style="height: 36px;">
+                                 <span class="pull-left tierHeadingSpan" ng-hide="showEditTier">{{tier.minTierBreak}}-{{tier.maxTierBreak}} gal.
+                                 </span>
+                                 <i class="fa fa-pencil-square-o pull-right" ng-click="showEditTier = ! showEditTier" ng-hide="showEditTier" style="margin-top: 5px; cursor: pointer;" aria-hidden="true"></i>
+                                 
+                                 <input type="text" placeholder="min" style="width: 36px;" ng-model="tier.minTierBreak" ng-show="showEditTier">
+                                 <span ng-show="showEditTier">-</span> 
+                                 <input type="text" placeholder="max" style="width: 36px;" ng-model="tier.maxTierBreak" ng-show="showEditTier"> <b ng-show="showEditTier">gal.</b>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="tierListBody" style="height: 35px;">
+                                 <span class="pull-left minTierSpan" ng-hide="showEditTier">-${{tier.margin}}</span> 
+
+                                 <input type="text" placeholder="max" style="width: 36px;" ng-model="tier.margin" ng-show="showEditTier"> &nbsp; 
+
+                                 <span class="pull-right maxTierSpan" ng-hide="showEditTier">(${{tier.marginTotal}})</span>
+
+                                 <button class="addTierBtn" ng-click="editTier(tier)" ng-show="showEditTier">Save</button>
+
+                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteTier(tier.id, jets.id)" aria-hidden="true" ng-show="showEditTier"></i>
+
+                                 <div class="clearfix"></div>
                               </div>
                            </div>
-                        </div>
-                     </div>
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseTwo">
-                              TurboPop AirCraft
-                              </a>
-                           </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                           <div class="panel-body">
-                              <div class="row" style="margin-left: 0px;">
-                                 <div class="col-md-8">
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <h5 style="color: blue;font-weight: bold;">Omit</h5>
-                                       </div>
-                                       <div class="col-md-5">
-                                          <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
-                                       </div>
-                                    </div>
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <input type="checkbox" name="validateCheckbox" value="1">
-                                       </div>
-                                       <div class="col-md-5">
-                                          <p>Very Light Jet
-                                          </p>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                    </div>
-                                    <div class="row" style="margin-bottom: 5px;">
-                                       <div class="col-md-1" style="text-align: right;">
-                                          <input type="checkbox" name="validateCheckbox" value="1">
-                                       </div>
-                                       <div class="col-md-5">
-                                          <p> Light Jet
-                                          </p>
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                       <div class="col-md-3">
-                                          <input type="text" class="form-control" name="name" id="name">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-md-4">
-                                 </div>
+                           <div class="tierListWrap" style="width: 160px;">
+                              <div class="tierListHead" style="border-right: 1px solid #ddd;">
+                                 <input type="text" placeholder="min" ng-model="vtrData[$index].minTierBreak">
+                                 <span>-</span> 
+                                 <input type="text" placeholder="max" ng-model="vtrData[$index].maxTierBreak"> <b>gal.</b>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="tierListBody" style="border-right: 1px solid #ddd;">
+                                 <span style="color: #449d44;">$</span>
+                                 <input type="text" placeholder="margin" ng-model="vtrData[$index].margin" class="tierTextBox" style="width: 70px; height: 24px;">
+                                 <button class="addTierBtn" ng-click="addNewVtypeTier(jets.id, vtrData, $index)">Add Tier</button>
+                                 <div class="clearfix"></div>
                               </div>
                            </div>
-                        </div>
-                     </div>
-                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <h4 class="panel-title">
-                              <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#collapseThree">
-                              Collapsible Group Item #3
-                              </a>
-                           </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                           <div class="panel-body">
-                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                           </div>
+                           <!-- <div class="tierListWrap" style="width: 32px;">
+                              <div class="tierListHead" style="height: 36px; border-right: 1px solid #ddd;">
+                                 &nbsp;
+                              </div>
+                              <div class="tierListBody" style="height: 35px; border-right: 1px solid #ddd;">
+                                 <i class="fa fa-trash-o deleteTierIcon" aria-hidden="true"></i>
+                              </div>
+                           </div> -->
+                           <div class="clearfix"></div>
+                           <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
                         </div>
                      </div>
                   </div>
-                  </section> -->
-               <uib-accordion close-others="oneAtATime">
-                  <div uib-accordion-group class="panel-default" heading="Margin 1 Retail- (minus) $1.1500">
-                     <div id="editor2" style="visibility: hidden;"></div>
-                  </div>
-                  <div uib-accordion-group class="panel-default" heading="TurboPop AirCraft">
-                     <div class="panel-body">
-                        <div class="row" style="margin-left: 0px;">
-                           <div class="col-md-8">
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <h5 style="color: blue;font-weight: bold;">Omit</h5>
-                                 </div>
-                                 <div class="col-md-5">
-                                    <h5 style="color: blue;font-weight: bold;">AirCraft Size</h5>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <h5 style="color: blue;font-weight: bold;">Ramp/Facility Fee</h5>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <h5 style="color: blue;font-weight: bold;">Avoidance</h5>
-                                 </div>
-                              </div>
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <input type="checkbox" name="validateCheckbox" value="1">
-                                 </div>
-                                 <div class="col-md-5">
-                                    <p>Very Light Jet
-                                    </p>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                              </div>
-                              <div class="row" style="margin-bottom: 5px;">
-                                 <div class="col-md-1" style="text-align: right;">
-                                    <input type="checkbox" name="validateCheckbox" value="1">
-                                 </div>
-                                 <div class="col-md-5">
-                                    <p> Light Jet
-                                    </p>
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" name="name" id="name">
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-md-4">
-                           </div>
-                        </div>
+               </section>
+               <div class="row">&nbsp;</div>
+               <div class="row">
+                  <div class="form-group">
+                     <div class="col-lg-12 text-right">
+                        <button type="submit" class="btn btn-success"><i class="icon-ok"></i> Save Form</button>&nbsp;&nbsp;
+                        <button type="reset" class="btn btn-default">Cancel</button>
                      </div>
                   </div>
-                  <div uib-accordion-group class="panel-default" heading="Collapsible Group Item #3">
-                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                  </div>
-               </uib-accordion>
+               </div>
             </div>
             <!-- /widget-content -->
          </div>
@@ -630,6 +364,45 @@
    </div>
 </div>
 
+<div class="addNewVtype" style="display: none;">
+   <div class="customBackdrop">
+      <div class="customModalInner" style="max-width: 700px;">
+         <div class="customModelHead">
+            <p class="pull-left">
+               <i class="fa fa-list-alt" aria-hidden="true"></i>
+               Add New AVGAS 100LL Customer Margin Template
+            </p>
+            <p class="pull-right">
+               <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;" ng-click="closeNewVtypePop()"></i>
+            </p>
+            <div class="clearfix"></div>
+         </div>
+         <div class="customModelBody">
+            
+            <div class="customAccordianHeader customActive">
+               <input type="text" class="form-control" style="width: 120px; margin-right: 10px;" placeholder="Margin Name" ng-model="newVtypeJet.marginName">
+               <select class="form-control" ng-model="newVtypeJet.pricingStructure">
+                  <option value="" disabled selected>Pricing Structure</option>
+                  <option value="minus">Retail-(minus)</option>
+                  <option value="plus">Cost+(plus)</option>
+                  <option value="equal">Direct=(equal)</option>
+               </select>
+               <span style="margin-right: 0;">$</span>
+               <input type="text" class="form-control" style="width: 120px;" placeholder="Margin Price" ng-model="newVtypeJet.marginValue">
+               <div class="clearfix"></div>
+            </div>
+            <div class="customAccordianTabBody">
+               <textarea class="form-control resizeTextarea" placeholder="Message..."></textarea>
+            </div>
+
+         </div>
+         <div class="customModelFooter text-center">
+            <input type="submit" value="Save" class="btn" ng-click="addNewVTypeJet()">
+            <button class="btn" ng-click="closeNewVtypePop()">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
 
 <div class="customConfirmPopBackdrop" id="confirm1" style="display: none;">
   <div class="customModalInner">

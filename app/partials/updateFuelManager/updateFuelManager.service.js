@@ -22,6 +22,22 @@
           return deferred.promise;
         }
 
+        this.getVTypeJets = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/margin/getAVGASType/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.addNewAtypeJetMargin = function(data){
           var deferred = $q.defer();
           $http({
@@ -38,7 +54,39 @@
           return deferred.promise;
         }
 
+        this.addNewVtypeJet = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/margin',
+              headers : {'Content-Type': 'application/json'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.editAtypeJetMargin = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'PUT',
+              url : BASE_URL.url +'/margin',
+              headers : {'Content-Type': 'application/json'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.editVtypeJetMargin = function(data){
           var deferred = $q.defer();
           $http({
               method : 'PUT',
@@ -141,6 +189,22 @@
               url : BASE_URL.url +'/fuelPricing',
               headers : {'Content-Type': 'application/json'},
               data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.getFutureFuelPricing = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/fuelPricing/getFuturePriceManagerProducts/'+id,
+              headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
               deferred.resolve(result.data);

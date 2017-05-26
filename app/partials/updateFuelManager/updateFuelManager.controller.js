@@ -22,32 +22,79 @@
         updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
           $scope.aTypeJets = result;
         })
-        $scope.toggleJestAccordian = function(id){
+        updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
+          $scope.vTypeJets = result;
+          console.log('second jets', result);
+        })
+        $scope.toggleJestAccordian = function(id, index){
             $('.'+id).slideDown();
             $('#'+id).addClass('customActive');
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
             $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
             $('#'+id+' .btn-default').css('display', 'none');
-
+            
             updateFuelManagerService.getJetTiers(id).then(function(tiers) {
-              $scope.tierList = tiers;
+                $scope.aTypeJets[index].tierList = tiers;
             })
         }
-        $scope.tr = {};
-        $scope.addNewTier = function(id){
-            $scope.tr.marginTotal = '1.00';
-            $scope.tr.marginTemplateId = id;
+        $scope.toggleVtypeJestAccordian = function(id, index){
+            $('.'+id).slideDown();
+            $('#'+id).addClass('customActive');
+            $('#'+id+' select, #'+id+' input').prop("disabled", false);
+            $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
+            $('#'+id+' .btn-default').css('display', 'none');
+            
+            updateFuelManagerService.getJetTiers(id).then(function(tiers) {
+                $scope.vTypeJets[index].tierList = tiers;
+            })
+        }
+        //$scope.trData = {};
+        $scope.addNewTier = function(id, trData, index){
+            $scope.tr = {};
+            $scope.tr[index] = {};
+            $scope.tr[index].minTierBreak = trData[index].minTierBreak;
+            $scope.tr[index].maxTierBreak = trData[index].maxTierBreak;
+            $scope.tr[index].margin = trData[index].margin;
+            $scope.tr[index].marginTotal = '1.00';
+            $scope.tr[index].marginTemplateId = id;
 
-            var tierData = 'minTierBreak='+$scope.tr.minTierBreak+'&maxTierBreak='+$scope.tr.maxTierBreak+'&margin='+$scope.tr.margin+
-            '&marginTotal='+$scope.tr.marginTotal+'&marginTemplateId='+$scope.tr.marginTemplateId;
-
+            var tierData = 'minTierBreak='+$scope.tr[index].minTierBreak+'&maxTierBreak='+$scope.tr[index].maxTierBreak+'&margin='+$scope.tr[index].margin+
+            '&marginTotal='+$scope.tr[index].marginTotal+'&marginTemplateId='+$scope.tr[index].marginTemplateId;
+            
             updateFuelManagerService.addNewTier(tierData).then(function(result) {
                 toastr.success('Successfully Added', {
                   closeButton: true
                 })
-                $scope.tr = {};
+                trData[index].minTierBreak = '';
+                trData[index].maxTierBreak = '';
+                trData[index].margin = '';
                 updateFuelManagerService.getJetTiers(id).then(function(tiers) {
-                  $scope.tierList = tiers;
+                  $scope.aTypeJets[index].tierList = tiers;
+                })
+            })
+        }
+
+        $scope.addNewVtypeTier = function(id, vtrData, index){
+            $scope.tr = {};
+            $scope.tr[index] = {};
+            $scope.tr[index].minTierBreak = vtrData[index].minTierBreak;
+            $scope.tr[index].maxTierBreak = vtrData[index].maxTierBreak;
+            $scope.tr[index].margin = vtrData[index].margin;
+            $scope.tr[index].marginTotal = '1.00';
+            $scope.tr[index].marginTemplateId = id;
+
+            var tierData = 'minTierBreak='+$scope.tr[index].minTierBreak+'&maxTierBreak='+$scope.tr[index].maxTierBreak+'&margin='+$scope.tr[index].margin+
+            '&marginTotal='+$scope.tr[index].marginTotal+'&marginTemplateId='+$scope.tr[index].marginTemplateId;
+            
+            updateFuelManagerService.addNewTier(tierData).then(function(result) {
+                toastr.success('Successfully Added', {
+                  closeButton: true
+                })
+                vtrData[index].minTierBreak = '';
+                vtrData[index].maxTierBreak = '';
+                vtrData[index].margin = '';
+                updateFuelManagerService.getJetTiers(id).then(function(tiers) {
+                  $scope.vTypeJets[index].tierList = tiers;
                 })
             })
         }
@@ -103,15 +150,42 @@
 
         }
 
+        $scope.saveVtypeJetAccordian = function(jets){
+            $scope.jetsDetail = jets;
+            $scope.jetsDetail.userProfileId = $scope.userProfileId;
+            //console.log('jets', $scope.jetsDetail);
+            $('.'+$scope.jetsDetail.id).slideUp();
+            $('#'+$scope.jetsDetail.id).removeClass('customActive');
+            $('#'+$scope.jetsDetail.id+' select, #'+$scope.jetsDetail.id+' input').prop("disabled", true);
+            $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
+            $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
+
+            var editVtypeJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id;
+
+            updateFuelManagerService.editVtypeJetMargin(editVtypeJetData).then(function(result) {
+                console.log('newJet', editVtypeJetData);
+                toastr.success('Successfully Updated', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
+                  $scope.vTypeJets = result;
+                  console.log('second jets', result);
+                })
+            })
+
+        }
+
+        $scope.newJet = {};
+
         $scope.addNewMarginBtn = function(){
             $('.addNewMargin').css('display', 'block');
         }
         $scope.closeMarginPopup = function(){
             $('.addNewMargin').css('display', 'none');
+            $scope.newJet = {};
         }
 
-        $scope.newJet = {};
-        $scope.newJet.productType = '';
+        //$scope.newJet.productType = '';
 
         $scope.addNewATypeJet = function(){
             $scope.newJet.productType = 'JET-A';
@@ -131,6 +205,37 @@
                 })
             })
         }
+
+        $scope.newVtypeJet = {};
+
+        $scope.addNewVtypePop = function(){
+            $('.addNewVtype').css('display', 'block');
+        }
+        $scope.closeNewVtypePop = function(){
+            $('.addNewVtype').css('display', 'none');
+            $scope.newVtypeJet = {};
+        }
+
+        $scope.addNewVTypeJet = function(){
+            $scope.newVtypeJet.productType = 'AVGAS';
+            $scope.newVtypeJet.userProfileId = $scope.userProfileId;
+
+            var vJetData = 'productType='+$scope.newVtypeJet.productType+'&marginName='+$scope.newVtypeJet.marginName+'&pricingStructure='+$scope.newVtypeJet.pricingStructure+'&marginValue='+$scope.newVtypeJet.marginValue+'&userProfileId='+$scope.newVtypeJet.userProfileId;
+
+            updateFuelManagerService.addNewVtypeJet(vJetData).then(function(result) {
+                
+                toastr.success('Successfully Added', {
+                  closeButton: true
+                })
+                $('.addNewVtype').css('display', 'none');
+                updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
+                  $scope.vTypeJets = result;
+                  
+                })
+            })
+
+        }
+
 
         $scope.sendEmail = {};
         $scope.sendEmail.pricing = '';
@@ -191,6 +296,16 @@
             })
             
         }
+
+        updateFuelManagerService.getFutureFuelPricing($scope.userProfileId).then(function(result) {
+          $scope.futureFuelPricing = result;
+          console.log('$scope.futureFuelPricing', $scope.futureFuelPricing);
+          /*for (var i = 0; i<$scope.fuelPricing.length; i++) {
+            if ($scope.fuelPricing[i].expirationDate != null) {
+                $scope.fuelPricing[i].expirationDate = new Date($scope.fuelPricing[i].expirationDate)
+            }
+          }*/
+        })
 
 
     }]);
