@@ -10,6 +10,8 @@
         $scope.aircraft = {};
         $scope.primayData = {};
         $scope.showLoader = false;
+        $scope.showLoader = true;
+        $scope.showUpdateBtn = false;
 
         CustomersService.getMargin().then(function(result) {
           $scope.marginList = result;
@@ -22,6 +24,7 @@
           if(result.margin != null){
              $scope.companyData.masterMargin = result.margin.id;
           }
+          $scope.showLoader = false;
         })
 
         $scope.changeCompanyStatus = function(){
@@ -156,25 +159,32 @@
         $scope.showAddress = true;
         $scope.showNote = function(){
           $scope.showNoteData = false;
+          $scope.showUpdateBtn = true;
         }
 
         $scope.company = function(){
           $scope.showCompanyName = false;
+          $scope.showUpdateBtn = true;
         }
 
         $scope.addressChange = function(){
           $scope.showAddress = false;
+          $scope.showUpdateBtn = true;
         }
 
         $scope.editData = function(inputName) {
             console.log($scope.companyData)
-            if(inputName == 'showNoteData'){
+            $scope.showLoader = true;
+            /*if(inputName == 'showNoteData'){
               $scope.showNoteData = true;
             }else if(inputName == 'showCompanyName'){
               $scope.showCompanyName = true;
             }else if(inputName == 'showAddress'){
               $scope.showAddress = true;              
-            }
+            }*/
+            $scope.showNoteData = true;
+            $scope.showCompanyName = true;
+            $scope.showAddress = true;
 
             var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
               + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
@@ -188,11 +198,14 @@
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
+                $scope.showUpdateBtn = false;
               }else{
                 toastr.error(''+result.statusText+'', {
                   closeButton: true
                 })
+                $scope.showUpdateBtn = true;
               }
+              $scope.showLoader = false;
             })
             
         }

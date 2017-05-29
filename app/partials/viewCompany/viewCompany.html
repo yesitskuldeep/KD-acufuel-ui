@@ -118,6 +118,11 @@
    }
 
 </style>
+
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
+
 <div class="col-xs-12 col-md-11">
    <div class="row" style="margin-left:0px">
       <div class="col-md-12">
@@ -136,7 +141,7 @@
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <h3>Company Details</h3>
                             <label>BASE ICAO</label>
-                            <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
+                            <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
@@ -149,7 +154,7 @@
                                  <h4 ng-show="showCompanyName">
                                     <b style="color:#F90;">{{companyData.companyName}}</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 14px;" aria-hidden="true"></i>
                                  </h4>
-                                 <input type="tel" ng-hide="showCompanyName" ng-model="companyData.companyName" class="form-control" ng-blur="editData('showCompanyName')"/>
+                                 <input type="tel" ng-hide="showCompanyName" ng-model="companyData.companyName" class="form-control"/>
                               </div>
                               <div class="col-md-5">
                                  <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType" ng-click="editData()">
@@ -190,9 +195,9 @@
                               
                               <div ng-hide="showAddress">
                                  <label>Address1</label>
-                                 <input type="tel" ng-hide="showAddress" ng-model="companyData.addressOne" class="form-control" ng-blur="editData('showAddress')"/>
+                                 <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="companyData.addressOne" class="form-control" />
                                  <label>Address2</label>
-                                 <input type="tel" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" ng-blur="editData('showAddress')"/>
+                                 <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" />
                               </div>
                               
                               <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
@@ -200,7 +205,7 @@
                                 <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
                                 <i ng-click="showEditContact = ! showEditContact" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 
-                                <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" ng-show="showEditContact">
+                                <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" style="width: 50%;" ng-show="showEditContact">
                                 <!-- <button ng-show="showEditContact">Save</button> -->
                                 <span ng-show="showEditContact"></br></span>
                               </p>
@@ -209,7 +214,7 @@
                                 <span ng-hide="showEditEmail">{{data.email}} &nbsp;</span>
                                 <i ng-click="showEditEmail = ! showEditEmail" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                <input type="tel" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail">
+                                <input type="tel" style="width: 50%;" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail">
                               </p>
                            </div>
                            <div class="new-add-select">
@@ -222,12 +227,16 @@
                            <div>
                               <p style="margin-bottom: 0;"><b>Company Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="showNote()" aria-hidden="true"></i></p>
                               <p ng-show="showNoteData">{{companyData.internalNote}}</p>
-                              <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="companyData.internalNote" ng-blur="editData('showNoteData')" rows="4" cols="34"></textarea>
+                              <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="companyData.internalNote" rows="4" cols="34"></textarea>
                            </div>
-                           <div class="dis">
+                           <div class="pull-left">
+                              <button ng-click="editData()" ng-show="showUpdateBtn" class="btn btn-success">Save</button>
+                           </div>
+                           <div class="pull-right">
                               <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
-                           </div>
-                           <div><button type="button" class="btn btn-info">Setup Fuel</button></div>
+                              <button type="button" class="btn btn-info">Setup Fuel</button>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                      </div>
                   </div>
