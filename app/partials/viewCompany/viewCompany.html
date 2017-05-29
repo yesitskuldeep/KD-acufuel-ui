@@ -305,12 +305,10 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr ng-repeat="contact in companyContactList">
+                                    <tr ng-repeat="contact in companyContactList" style="cursor: pointer;" ui-sref="app.viewContact({id : contact.id})">
                                        <td><toggle ng-model="contact.priceEmail" size="customToogle"></toggle></td>
                                        <td>
-                                          <a href="#!/viewContact/{{contact.id}}">
                                             {{contact.firstName}}
-                                          </a>
                                         </td>
                                        <td>{{contact.lastName}}</td>
                                        <td>{{contact.title}}</td>

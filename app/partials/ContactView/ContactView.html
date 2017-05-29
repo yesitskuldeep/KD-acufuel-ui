@@ -77,7 +77,7 @@
                                  </tr>
                               </thead>
                               <tbody>
-									<tr ng-repeat="contact in contactList">
+									<tr ng-repeat="contact in contactList" style="cursor: pointer;" ui-sref="app.viewContact({id : contact.id})">
 										<td>{{contact.lastName}}</td>
 										<td>{{contact.firstName}}</td>
 										<td>{{contact.owner.companyName}}</td>
