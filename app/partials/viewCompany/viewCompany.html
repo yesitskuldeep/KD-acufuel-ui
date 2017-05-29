@@ -200,21 +200,28 @@
                                  <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" />
                               </div>
                               
-                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
+                              <!-- <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
                                 <i class="fa fa-phone" ng-hide="showEditContact"></i> 
                                 <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
                                 <i ng-click="showEditContact = ! showEditContact" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 
                                 <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" style="width: 50%;" ng-show="showEditContact">
-                                <!-- <button ng-show="showEditContact">Save</button> -->
                                 <span ng-show="showEditContact"></br></span>
+                              </p> -->
+                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
+                                <i class="fa fa-phone" ng-hide="showEditContact"></i> 
+                                <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
+                                <i ng-click="showContact(data, 'phone')" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                
+                                <!-- <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" style="width: 50%;" ng-show="showEditContact">
+                                <span ng-show="showEditContact"></br></span> -->
                               </p>
                               <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.email != null">
                                 <i class="fa fa-envelope" ng-hide="showEditEmail"></i> 
                                 <span ng-hide="showEditEmail">{{data.email}} &nbsp;</span>
-                                <i ng-click="showEditEmail = ! showEditEmail" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <i ng-click="showContact(data, 'email')" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                <input type="tel" style="width: 50%;" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail">
+                                <!-- <input type="tel" style="width: 50%;" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail"> -->
                               </p>
                            </div>
                            <div class="new-add-select">
@@ -703,6 +710,27 @@
       <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptCustomField()">Accept</button>
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelCustomField()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="updateContact">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <div class="col-md-2"><img class="src-image" src="img/images.jpg"></div>
+            <div class="col-md-10">
+                <form>
+                  Title:<br>
+                  <input type="text" name="firstname" ng-model="updateData.title"><br>
+                  Content:<br>
+                  <input type="text" name="lastname" ng-model="updateData.content">
+                </form>
+            </div>
+            <div class="clearfix"></div>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptUpdateField()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelUpdateField()">Cancel</button>
       </div>
    </div>
 </div>

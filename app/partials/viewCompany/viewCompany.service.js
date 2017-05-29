@@ -70,6 +70,22 @@
           return deferred.promise;
         }
 
+        this.updateCustomField = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'PUT',
+              url : BASE_URL.url +'/company/custom/contacts',
+              data : data,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.addPrimaryContact = function(data){
           var deferred = $q.defer();
           $http({

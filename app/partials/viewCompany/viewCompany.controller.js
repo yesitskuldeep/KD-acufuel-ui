@@ -19,13 +19,18 @@
 
         var value = "";
         var companyId = $stateParams.id;
-        ViewCompanyService.getCompany(companyId).then(function(result) {
-          $scope.companyData = result;
-          if(result.margin != null){
-             $scope.companyData.masterMargin = result.margin.id;
-          }
-          $scope.showLoader = false;
-        })
+
+        getCompanyDetail();
+        function getCompanyDetail(){
+          ViewCompanyService.getCompany(companyId).then(function(result) {
+            $scope.companyData = result;
+            if(result.margin != null){
+               $scope.companyData.masterMargin = result.margin.id;
+            }
+            $scope.showLoader = false;
+          })
+        }
+        
 
         $scope.changeCompanyStatus = function(){
             var statusData = "status=" + $scope.companyData.activate;
@@ -263,10 +268,54 @@
           
         }
 
+        var newContactName = "";
+        $scope.updateData = ""
+        $scope.showContact = function(data, value){
+          $('#updateContact').css('display', 'block');
+          $scope.updateData = data;
+          newContactName = value;
+          console.log($scope.updateData)
+          if($scope.updateData.email == null){
+            $scope.updateData.content = data.contactNumber;
+          }else{
+            $scope.updateData.content = data.email;
+          }
+        }
+
+        $scope.acceptUpdateField = function(){
+          console.log($scope.updateData)
+          if($scope.updateData.content == undefined){
+            toastr.error('Please add some content', {
+              closeButton: true
+            })
+          }else{
+            if(newContactName == 'phone'){
+              var updateCustomData = "companyId=" + companyId + "&contactNumber=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
+                + "&title=" + $scope.updateData.title;
+            }else{
+              var updateCustomData = "companyId=" + companyId + "&email=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
+                + "&title=" + $scope.updateData.title;
+            }
+            ViewCompanyService.updateCustomField(updateCustomData).then(function(result) {
+              console.log(result)
+              if(result != null && result.success){
+                $('#updateContact').css('display', 'none');
+                getCompanyDetail();
+              }
+            })
+          }
+        }
+
+        $scope.cancelUpdateField = function(){
+          $('#updateContact').css('display', 'none');
+        }
+
         $scope.showEditTier2 = function(number){
           console.log(number)
           $scope.contactNumber = number;
         }
+
+
 
         var contactName = '';
         $scope.addCustom = function(value){
@@ -300,6 +349,7 @@
               console.log(result)
               if(result != null && result.success){
                 $('#customField').css('display', 'none');
+                getCompanyDetail();
               }
             })
           }
