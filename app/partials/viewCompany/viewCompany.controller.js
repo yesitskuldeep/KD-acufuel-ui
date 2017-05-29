@@ -245,6 +245,11 @@
           
         }
 
+        $scope.showEditTier2 = function(number){
+          console.log(number)
+          $scope.contactNumber = number;
+        }
+
         var contactName = '';
         $scope.addCustom = function(value){
           console.log(value)
@@ -253,6 +258,10 @@
             $('#customField').css('display', 'block');
           }
           
+        }
+
+        $scope.cancelCustomField = function(){
+          $('#customField').css('display', 'none');
         }
         $scope.acceptCustomField = function(){
           console.log(contactName)

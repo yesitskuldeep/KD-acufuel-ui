@@ -195,8 +195,22 @@
                                  <input type="tel" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" ng-blur="editData('showAddress')"/>
                               </div>
                               
-                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null"><i class="fa fa-phone"></i> {{data.contactNumber}} &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
-                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.email != null"><i class="fa fa-envelope"></i> {{data.email}} &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
+                                <i class="fa fa-phone" ng-hide="showEditContact"></i> 
+                                <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
+                                <i ng-click="showEditContact = ! showEditContact" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                
+                                <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" ng-show="showEditContact">
+                                <!-- <button ng-show="showEditContact">Save</button> -->
+                                <span ng-show="showEditContact"></br></span>
+                              </p>
+                              <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.email != null">
+                                <i class="fa fa-envelope" ng-hide="showEditEmail"></i> 
+                                <span ng-hide="showEditEmail">{{data.email}} &nbsp;</span>
+                                <i ng-click="showEditEmail = ! showEditEmail" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                                <input type="tel" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail">
+                              </p>
                            </div>
                            <div class="new-add-select">
                               <select class="form-control" ng-model="value" ng-click="addCustom(value)" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
@@ -681,7 +695,7 @@
       </div>
       <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptCustomField()">Accept</button>
-         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelPrimaryContact()">Cancel</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelCustomField()">Cancel</button>
       </div>
    </div>
 </div>
