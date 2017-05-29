@@ -9,7 +9,7 @@
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
         $scope.primayData = {};
-
+        $scope.showLoader = false;
 
         CustomersService.getMargin().then(function(result) {
           $scope.marginList = result;
@@ -101,16 +101,20 @@
         };
 
         $scope.getModal = function(makeId, index){
+        $scope.showLoader = true;
         $scope.aircraft.make = makeId;
           //var makeId = makeId;
           CustomersService.getModal($scope.aircraft.make).then(function(result) {
+            $scope.showLoader = false;
             $scope.aircraftDetails[index].aircraftModalList = result;
             //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
           })
         }
 
         $scope.getSize = function(model, index){
+          $scope.showLoader = true;
           CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
+            $scope.showLoader = false;
             $scope.aircraftDetails[index].aircraftSizeList = result;
             //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
           })
@@ -219,6 +223,7 @@
 
         $scope.cancelPrimaryContact = function(){
           $('#primaryContact').css('display', 'none');
+          $scope.primaryContact = false;
         }
 
         $scope.checkPrimaryContact = function(){
@@ -263,21 +268,29 @@
         $scope.cancelCustomField = function(){
           $('#customField').css('display', 'none');
         }
+        $scope.custom = {};
         $scope.acceptCustomField = function(){
-          console.log(contactName)
-          if(contactName == 'phone'){
-            var customData = "companyId=" + companyId + "&contactNumber=" + $scope.custom.content 
-              + "&title=" + $scope.custom.title;
+          if($scope.custom.content == undefined){
+            toastr.error('Please add some content', {
+              closeButton: true
+            })
           }else{
-            var customData = "companyId=" + companyId + "&email=" + $scope.custom.content 
-              + "&title=" + $scope.custom.title;
-          }
-          ViewCompanyService.addCustomField(customData).then(function(result) {
-            console.log(result)
-            if(result != null && result.success){
-              $('#customField').css('display', 'none');
+            if(contactName == 'phone'){
+              var customData = "companyId=" + companyId + "&contactNumber=" + $scope.custom.content 
+                + "&title=" + $scope.custom.title;
+            }else{
+              var customData = "companyId=" + companyId + "&email=" + $scope.custom.content 
+                + "&title=" + $scope.custom.title;
             }
-          })
+            console.log(customData.email)
+            ViewCompanyService.addCustomField(customData).then(function(result) {
+              console.log(result)
+              if(result != null && result.success){
+                $('#customField').css('display', 'none');
+              }
+            })
+          }
+          
 
         }
         

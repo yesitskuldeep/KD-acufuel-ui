@@ -11,7 +11,7 @@
 		$scope.data = {};
 		$scope.aircraft = {};
 		$scope.data.activate = true;
-		
+		$scope.showLoader = false;
 		getAllCompanies();
 
 		function getAllCompanies(){
@@ -25,6 +25,8 @@
 		}
 
         $scope.editMargin = function(customer){
+        	event.stopPropagation();
+        	event.preventDefault()
         	console.log(customer.masterMargin)
 
         	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 
@@ -108,16 +110,20 @@
         };
 
         $scope.getModal = function(makeId, index){
+        	$scope.showLoader = true;
 	  		$scope.aircraft.make = makeId;
 	        //var makeId = makeId;
 	        CustomersService.getModal($scope.aircraft.make).then(function(result) {
+	        	$scope.showLoader = false;
 	          $scope.aircraftDetails[index].aircraftModalList = result;
 	          //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
 	        })
       	}
 
       	$scope.getSize = function(model, index){
+      		$scope.showLoader = true;
 	        CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
+	        	$scope.showLoader = false;
 	          $scope.aircraftDetails[index].aircraftSizeList = result;
 	          //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
 	          console.log($scope.aircraftDetails[index].size)

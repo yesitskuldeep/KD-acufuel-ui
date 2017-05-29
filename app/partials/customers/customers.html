@@ -142,9 +142,9 @@
                                     <th> &nbsp; </th>
                               </thead>
                               <tbody>
-                                 <tr ng-repeat="customer in companyList">
+                                 <tr ng-repeat="customer in companyList" style="cursor: pointer;" ui-sref="app.viewCompany({id : customer.id})">
                                     <td class="font-company">
-                                      <a style="color: #333; text-decoration: none;" href="#!/viewCompany/{{customer.id}}">{{customer.companyName}}</a>
+                                      {{customer.companyName}}
                                     </td>
                                     <td class="font-company">{{customer.companyAircraftSize}}</td>
                                     <td class="font-company">{{customer.phone}}</td>
@@ -536,7 +536,9 @@
         </div>
     </div>
 </form>
-
+<div class="myLoader" ng-show="showLoader">
+   <img src="../img/hourglass.gif" width="50px;">
+</div>
 <script src="js/multi-step-modal.js"></script>
 <script>
 sendEvent = function(sel, step) {
