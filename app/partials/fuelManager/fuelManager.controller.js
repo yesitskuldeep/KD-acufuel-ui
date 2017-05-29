@@ -10,14 +10,17 @@
   function fuelManagerController($scope, $rootScope, $uibModal, $filter, $http, fuelManagerService) {
 
       $scope.currentUserData = JSON.parse(localStorage.getItem('userProfileId'));
+      $scope.showLoader = true;
 
       fuelManagerService.getFullList().then(function(result) {
         $scope.fullJetList = result;
+        $scope.showLoader = false;
       })
 
       $scope.avoidanceList = {};
      
       $scope.updateList = function(fullJetList){
+        $scope.showLoader = true;
         $scope.addData = [];
         $scope.newJetList = fullJetList;
         if ($scope.currentUserData == undefined || $scope.currentUserData == null) {
@@ -51,6 +54,7 @@
             })
             fuelManagerService.getFullList().then(function(result) {
               $scope.fullJetList = result;
+              $scope.showLoader = false;
             })
           })
 
