@@ -3,6 +3,9 @@
    color: #ff9900;
    }
 </style>
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
 <div class="container">
    <div class="row">
       <div class="col-md-5">
@@ -112,9 +115,9 @@
 
                                  <span class="pull-right maxTierSpan" ng-hide="showEditTier">(${{tier.marginTotal}})</span>
 
-                                 <button class="addTierBtn" ng-click="editTier(tier)" ng-show="showEditTier">Save</button>
+                                 <button class="addTierBtn" ng-click="editTier(tier, $parent.$index)" ng-show="showEditTier">Save</button>
 
-                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteTier(tier.id, jets.id)" aria-hidden="true" ng-show="showEditTier"></i>
+                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteTier(tier.id, jets.id, $parent.$index)" aria-hidden="true" ng-show="showEditTier"></i>
 
                                  <div class="clearfix"></div>
                               </div>
@@ -268,9 +271,9 @@
 
                                  <span class="pull-right maxTierSpan" ng-hide="showEditTier">(${{tier.marginTotal}})</span>
 
-                                 <button class="addTierBtn" ng-click="editTier(tier)" ng-show="showEditTier">Save</button>
+                                 <button class="addTierBtn" ng-click="editVtypeTier(tier, $parent.$index)" ng-show="showEditTier">Save</button>
 
-                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteTier(tier.id, jets.id)" aria-hidden="true" ng-show="showEditTier"></i>
+                                 <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteVtypeTier(tier.id, jets.id, $parent.$index)" aria-hidden="true" ng-show="showEditTier"></i>
 
                                  <div class="clearfix"></div>
                               </div>

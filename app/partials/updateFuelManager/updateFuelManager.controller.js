@@ -6,7 +6,7 @@
 
 
       .controller('updateFuelManagerController', ['$scope','$uibModal', 'updateFuelManagerService', function($scope , $uibModal, updateFuelManagerService) {
-		
+		$scope.showLoader = true;
         $scope.yes = function(data){
             console.log('========');
             console.log('value', data);
@@ -21,12 +21,14 @@
 
         updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
           $scope.aTypeJets = result;
+          $scope.showLoader = false;
         })
         updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
           $scope.vTypeJets = result;
-          console.log('second jets', result);
+          $scope.showLoader = false;
         })
         $scope.toggleJestAccordian = function(id, index){
+            $scope.showLoader = true;
             $('.'+id).slideDown();
             $('#'+id).addClass('customActive');
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
@@ -35,9 +37,11 @@
             
             updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                 $scope.aTypeJets[index].tierList = tiers;
+                $scope.showLoader = false;
             })
         }
         $scope.toggleVtypeJestAccordian = function(id, index){
+            $scope.showLoader = true;
             $('.'+id).slideDown();
             $('#'+id).addClass('customActive');
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
@@ -46,10 +50,12 @@
             
             updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                 $scope.vTypeJets[index].tierList = tiers;
+                $scope.showLoader = false;
             })
         }
         //$scope.trData = {};
         $scope.addNewTier = function(id, trData, index){
+            $scope.showLoader = true;
             $scope.tr = {};
             $scope.tr[index] = {};
             $scope.tr[index].minTierBreak = trData[index].minTierBreak;
@@ -68,13 +74,16 @@
                 trData[index].minTierBreak = '';
                 trData[index].maxTierBreak = '';
                 trData[index].margin = '';
+
                 updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                   $scope.aTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
                 })
             })
         }
 
         $scope.addNewVtypeTier = function(id, vtrData, index){
+            $scope.showLoader = true;
             $scope.tr = {};
             $scope.tr[index] = {};
             $scope.tr[index].minTierBreak = vtrData[index].minTierBreak;
@@ -95,11 +104,13 @@
                 vtrData[index].margin = '';
                 updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                   $scope.vTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
                 })
             })
         }
 
-        $scope.editTier = function(tier){
+        $scope.editTier = function(tier, index){
+            $scope.showLoader = true;
             var editTierData = 'minTierBreak='+tier.minTierBreak+'&maxTierBreak='+tier.maxTierBreak+'&margin='+tier.margin+
             '&marginTotal='+tier.marginTotal+'&marginTemplateId='+tier.marginTemplate.id+'&marginId='+tier.id;
 
@@ -108,24 +119,58 @@
                   closeButton: true
                 })
                 updateFuelManagerService.getJetTiers(tier.marginTemplate.id).then(function(tiers) {
-                  $scope.tierList = tiers;
+                  $scope.aTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
                 })
             })
 
         }
 
-        $scope.deleteTier = function(id, jetid){
+        $scope.editVtypeTier = function(tier, index){
+            $scope.showLoader = true;
+            var editTierData = 'minTierBreak='+tier.minTierBreak+'&maxTierBreak='+tier.maxTierBreak+'&margin='+tier.margin+
+            '&marginTotal='+tier.marginTotal+'&marginTemplateId='+tier.marginTemplate.id+'&marginId='+tier.id;
+
+            updateFuelManagerService.editTier(editTierData).then(function(result) {
+                toastr.success('Successfully Updated', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getJetTiers(tier.marginTemplate.id).then(function(tiers) {
+                  $scope.vTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
+                })
+            })
+
+        }
+
+        $scope.deleteTier = function(id, jetid, index){
+            $scope.showLoader = true;
             updateFuelManagerService.deleteTier(id).then(function(result) {
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
                 updateFuelManagerService.getJetTiers(jetid).then(function(tiers) {
-                  $scope.tierList = tiers;
+                  $scope.aTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
+                })
+            })
+        }
+
+        $scope.deleteVtypeTier = function(id, jetid, index){
+            $scope.showLoader = true;
+            updateFuelManagerService.deleteTier(id).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getJetTiers(jetid).then(function(tiers) {
+                  $scope.vTypeJets[index].tierList = tiers;
+                  $scope.showLoader = false;
                 })
             })
         }
 
         $scope.saveJetAccordian = function(jets){
+            $scope.showLoader = true;
             $scope.jetsDetail = jets;
             $scope.jetsDetail.userProfileId = $scope.userProfileId;
             //console.log('jets', $scope.jetsDetail);
@@ -145,12 +190,14 @@
                 updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
                   console.log('result', result);
                   $scope.aTypeJets = result;
+                  $scope.showLoader = false;
                 })
             })
 
         }
 
         $scope.saveVtypeJetAccordian = function(jets){
+            $scope.showLoader = true;
             $scope.jetsDetail = jets;
             $scope.jetsDetail.userProfileId = $scope.userProfileId;
             //console.log('jets', $scope.jetsDetail);
@@ -170,6 +217,7 @@
                 updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
                   $scope.vTypeJets = result;
                   console.log('second jets', result);
+                  $scope.showLoader = false;
                 })
             })
 
@@ -188,6 +236,7 @@
         //$scope.newJet.productType = '';
 
         $scope.addNewATypeJet = function(){
+            $scope.showLoader = true;
             $scope.newJet.productType = 'JET-A';
             $scope.newJet.userProfileId = $scope.userProfileId;
 
@@ -202,6 +251,7 @@
                 updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
                   console.log('result', result);
                   $scope.aTypeJets = result;
+                  $scope.showLoader = false;
                 })
             })
         }
@@ -217,6 +267,7 @@
         }
 
         $scope.addNewVTypeJet = function(){
+            $scope.showLoader = true;
             $scope.newVtypeJet.productType = 'AVGAS';
             $scope.newVtypeJet.userProfileId = $scope.userProfileId;
 
@@ -230,7 +281,7 @@
                 $('.addNewVtype').css('display', 'none');
                 updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
                   $scope.vTypeJets = result;
-                  
+                  $scope.showLoader = false;
                 })
             })
 

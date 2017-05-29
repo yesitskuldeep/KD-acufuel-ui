@@ -61,17 +61,28 @@
 		CustomersService.getMargin().then(function(result) {
 		  $scope.marginList = result;
 		})
+		$scope.showCompanyError = false;
+		$scope.showMarginError = false;
+
+		$scope.removeValidation = function(){
+			console.log('key up');
+			$scope.showCompanyError = false;
+	    	$('.companyNameInput').removeClass('customErrorInput');
+		}
+
+		$scope.removeMarginValidation = function(){
+			$scope.showMarginError = false;
+	    	$('.marginSelectBox').removeClass('customErrorInput');
+		}
 
 	    $scope.addFirstData = function(sel, step){
 	    	// console.log($scope.data)
 	    	if($scope.data.companyName == undefined){
-	    		toastr.error('Please enter Company Name', {
-	            	closeButton: true
-	          	})
+	    		$scope.showCompanyError = true;
+	    		$('.companyNameInput').addClass('customErrorInput');
 	    	}else if($scope.data.masterMargin == undefined){
-	    		toastr.error('Please select Master Margin', {
-	            	closeButton: true
-	          	})
+	    		$scope.showMarginError = true;
+	    		$('.marginSelectBox').addClass('customErrorInput');
 	    	}else{
 	    		var companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
 		    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 

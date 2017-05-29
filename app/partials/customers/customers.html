@@ -238,14 +238,15 @@
                                        <label class="new-input-label"><b>Company Name</b></label>
                                     </div>
                                     <div class="pull-left" style="margin-left: 15px;">
-                                       <input type="text" ng-model="data.companyName" class="form-control" id="Address" placeholder="" required>
+                                       <input type="text" ng-model="data.companyName" class="form-control companyNameInput" ng-keyup="removeValidation()" placeholder="" required>
+                                       <label class="customErrorMessage" ng-show="showCompanyError">This field is required.</label>
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
                                  <div class="col-md-4">
                                     
                                     <div class="pull-right">
-                                       <input type="text" ng-model="data.baseIcao" style="width: 100px;" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.baseIcao" style="width: 100px;" class="form-control"  placeholder="">
                                     </div>
                                     <div class="pull-right">
                                        <label style="margin-right: 15px;" class="new-input-label"><b>Base ICAO</b></label>
@@ -275,7 +276,8 @@
                                        <b>Master Margin</b>
                                     </div>
                                     <div class="pull-left">
-                                       <select class="form-control" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+                                       <select class="form-control marginSelectBox" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required ng-change="removeMarginValidation()"></select>
+                                       <label ng-show="showMarginError" class="customErrorMessage">This field is required.</label>
 
                                        <!-- <select required class="form-control" style="max-width: 250px;" ng-model="data.masterMargin">
                                           <option value="" disabled selected hidden>Select </option>
@@ -310,7 +312,7 @@
                                        <label class="new-input-label"><b>Address</b></label>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="text" class="form-control" ng-model="data.addressOne" id="Address" placeholder="">
+                                       <input type="text" class="form-control" ng-model="data.addressOne"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -323,7 +325,7 @@
                                        <label class="new-input-label"><b>Address2</b></label>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="text" ng-model="data.addressTwo" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.addressTwo" class="form-control"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -337,7 +339,7 @@
                                        <label class="new-input-label"><b>City</b></label>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="text" ng-model="data.city" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.city" class="form-control"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -346,7 +348,7 @@
                                        <label class="new-input-label"><b>State</b></label>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="text" ng-model="data.state" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.state" class="form-control"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -355,7 +357,7 @@
                                        <label class="new-input-label"><b>Zip Code</b></label>
                                     </div>
                                     <div class="pull-right" style="width: calc(100% - 60px);">
-                                       <input type="tel" ng-model="data.zipcode" class="form-control" id="Address" placeholder="">
+                                       <input type="tel" ng-model="data.zipcode" class="form-control"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -369,7 +371,7 @@
                                        <label class="new-input-label"><b>Country</b></label>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="text" ng-model="data.country" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.country" class="form-control"  placeholder="">
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
