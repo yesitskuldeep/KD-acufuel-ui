@@ -146,6 +146,8 @@
 
         $scope.cancelPrimaryContact = function(){
           $('#primaryContact').css('display', 'none');
+          $scope.contactDetail.primaryContact = false;
+          console.log($scope.contactDetail.primaryContact)
         }
 
         $scope.sendPrimaryContact = function(id){
