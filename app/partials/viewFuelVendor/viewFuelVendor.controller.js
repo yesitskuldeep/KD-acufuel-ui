@@ -8,7 +8,7 @@
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
-
+        $scope.showLoader = false;
         var value = "";
         var vendorId = $stateParams.id;
         ViewFuelVendorService.getFuelOrder(vendorId).then(function(result) {
@@ -75,16 +75,20 @@
         };
 
         $scope.getModal = function(makeId, index){
-        $scope.aircraft.make = makeId;
+          $scope.showLoader = true;
+          $scope.aircraft.make = makeId;
           //var makeId = makeId;
           CustomersService.getModal($scope.aircraft.make).then(function(result) {
+            $scope.showLoader = false;
             $scope.aircraftDetails[index].aircraftModalList = result;
             //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
           })
         }
 
         $scope.getSize = function(model, index){
+          $scope.showLoader = true;
           CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
+            $scope.showLoader = false;
             $scope.aircraftDetails[index].aircraftSizeList = result;
             //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
           })

@@ -16,6 +16,7 @@
         })
 
         $scope.changePriceEmail = function(id, index){
+          event.stopPropagation();
           var contactId = id;
           console.log($scope.contactList[index].priceEmail)
           var statusData = "status=" + $scope.contactList[index].priceEmail;

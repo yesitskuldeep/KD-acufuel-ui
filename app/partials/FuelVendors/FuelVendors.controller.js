@@ -13,7 +13,7 @@
 		$scope.data = {};
 		$scope.aircraft = {};
 		$scope.data.activate = true;
-		
+		$scope.showLoader = false;
 		getAllVendor();
 
 		function getAllVendor(){
@@ -99,16 +99,20 @@
         };
 
         $scope.getModal = function(makeId, index){
+        	$scope.showLoader = true;
 	  		$scope.aircraft.make = makeId;
 	        //var makeId = makeId;
 	        CustomersService.getModal($scope.aircraft.make).then(function(result) {
+	          $scope.showLoader = false;
 	          $scope.aircraftDetails[index].aircraftModalList = result;
 	          //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
 	        })
       	}
 
       	$scope.getSize = function(model, index){
+      		$scope.showLoader = true;
 	        CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
+	        	$scope.showLoader = false;
 	        	console.log("result",result)
 	          $scope.aircraftDetails[index].aircraftSizeList = result;
 	          //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
