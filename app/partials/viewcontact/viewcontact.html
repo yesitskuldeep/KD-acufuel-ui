@@ -1,3 +1,6 @@
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
 <div class="container">
    <div class="row">
       <div class="col-md-10" style="padding-right: 60px; margin-bottom: 30px;">
@@ -35,8 +38,8 @@
                               <div class="col-md-6" style="padding-left: 0px;">
                                  <h3>
                                     <b ng-show="editName" style="color:#F90;">{{contactDetail.firstName}} {{contactDetail.lastName}}</b>
-                                    <input type="text" ng-hide="editName" class="form-control" ng-blur="updateContact(contactDetail)" style="width: 49%; float: left;" ng-model="contactDetail.firstName">
-                                    <input type="text" ng-hide="editName" class="form-control" ng-blur="updateContact(contactDetail)" style="width: 49%;" ng-model="contactDetail.lastName">
+                                    <input type="text" ng-hide="editName" class="form-control" style="width: 49%; float: left; margin-right: 1%;" ng-model="contactDetail.firstName">
+                                    <input type="text" ng-hide="editName" class="form-control" style="width: 49%;" ng-model="contactDetail.lastName">
                                     &nbsp;<i class="fa fa-pencil-square-o" ng-show="editName" ng-click="nameEdit()" style="font-size: 11px;" aria-hidden="true"></i>
                                  </h3>
                                  {{contactDetail.owner.companyName}}
@@ -44,7 +47,7 @@
                               <div class="col-md-6">
                                   <div style="margin-bottom: 10px" class="input-group email-password">
                                       <span class="input-group-addon email-password"><i class="glyphicon glyphicon-user email-password-icon"></i></span>
-                                      <input id="login-username" type="text" ng-blur="updateContact(contactDetail)" ng-model="contactDetail.userName" class="form-control email-password" placeholder="username or email">                                        
+                                      <input id="login-username" type="text" ng-model="contactDetail.userName" class="form-control email-password" placeholder="username or email">                                        
                                   </div>
                               
                                  <!--  <div class="input-group email-password">
@@ -60,22 +63,22 @@
                                   <i class="fa fa-pencil-square-o" ng-click="addressEdit()" style="font-size: 11px;" aria-hidden="true"></i>
                                 </span>
 
-                                <input type="text" ng-hide="editAddress" class="form-control" ng-model="contactDetail.address" ng-blur="updateContact(contactDetail)">
+                                <input type="text" ng-hide="editAddress" style="width: 50%;" class="form-control" ng-model="contactDetail.address">
                               </p>
 
                               <p ng-show="editPhone"><i class="fa fa-phone"></i> {{contactDetail.mobilePhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="phoneEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
                               <p ng-hide="editPhone">
-                                <input type="text" ng-model="contactDetail.mobilePhone" ng-blur="updateContact(contactDetail)" class="form-control">
+                                <input type="text" style="width: 50%;" ng-model="contactDetail.mobilePhone" class="form-control">
                               </p>
 
                               <p ng-show="editMobile"><i class="fa fa-mobile"></i> {{contactDetail.workPhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="mobileEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
                               <p ng-hide="editMobile">
-                                <input type="text" ng-model="contactDetail.workPhone" ng-blur="updateContact(contactDetail)" class="form-control">
+                                <input type="text" style="width: 50%;" ng-model="contactDetail.workPhone" class="form-control">
                               </p>
 
                               <p ng-show="editEmail"><i class="fa fa-envelope"></i> {{contactDetail.email}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="emailEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
                               <p ng-hide="editEmail">
-                                <input type="email" ng-model="contactDetail.email" ng-blur="updateContact(contactDetail)" class="form-control">
+                                <input type="email" style="width: 50%;" ng-model="contactDetail.email" class="form-control">
                               </p>
                               <div>
                                 <input type="checkbox" ng-checked="contactDetail.primaryContact" ng-click="checkPrimaryContact(contactDetail.owner.id)" ng-model="contactDetail.primaryContact">&nbsp;
@@ -87,10 +90,14 @@
                               <p><b>Contact Notes</b> &nbsp;<i ng-show="editContactNotes" class="fa fa-pencil-square-o" ng-click="notesEdit()" style="font-size: 11px;" aria-hidden="true"></i>
                               <p ng-show="editContactNotes">{{contactDetail.note}}</p>
                               <p ng-hide="editContactNotes">
-                                <input type="text" ng-model="contactDetail.note" ng-blur="updateContact(contactDetail)" class="form-control">
+                                <textarea ng-model="contactDetail.note" class="form-control" style="resize: vertical;"></textarea>
                               </p>
                               
-                              <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
+                              <div>
+                                <button ng-click="updateContact(contactDetail)" ng-show="showUpdateBtn" class="btn btn-success pull-left">Update Contact</button>
+                                <button type="button" class="btn btn-primary pull-right">Send Price to This Contacts</button>
+                                <div class="clearfix"></div>
+                              </div>
                            </div>
                            <!-- <div class="col-md-6">
                               <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
