@@ -89,272 +89,276 @@
         })
       }
       
-      $scope.aircraftDetails = [{ 
+      $scope.clearAircrafts = function(){
+        $scope.aircraftDetails = [];
+        $scope.aircraftDetails = [{ 
             'tail':'',
             'make': '',
             'model': '',
             'sizeId' : '',
             'marginId': ''
         }];
+      }
     
-        $scope.addNew = function(){
-            $scope.aircraftDetails.push({ 
-              'tail':'',
-              'make': '',
-              'model': '',
-              'sizeId' : '',
-              'marginId': ''
-            });
-            console.log($scope.aircraftDetails)
-        };
+      $scope.addNew = function(){
+          $scope.aircraftDetails.push({ 
+            'tail':'',
+            'make': '',
+            'model': '',
+            'sizeId' : '',
+            'marginId': ''
+          });
+          console.log($scope.aircraftDetails)
+      };
 
-        $scope.getModal = function(makeId, index){
+      $scope.getModal = function(makeId, index){
+      $scope.showLoader = true;
+      $scope.aircraft.make = makeId;
+        //var makeId = makeId;
+        CustomersService.getModal($scope.aircraft.make).then(function(result) {
+          $scope.showLoader = false;
+          $scope.aircraftDetails[index].aircraftModalList = result;
+          //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
+        })
+      }
+
+      $scope.getSize = function(model, index){
         $scope.showLoader = true;
-        $scope.aircraft.make = makeId;
-          //var makeId = makeId;
-          CustomersService.getModal($scope.aircraft.make).then(function(result) {
-            $scope.showLoader = false;
-            $scope.aircraftDetails[index].aircraftModalList = result;
-            //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
-          })
-        }
+        CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
+          $scope.showLoader = false;
+          $scope.aircraftDetails[index].aircraftSizeList = result;
+          //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
+        })
+      }
 
-        $scope.getSize = function(model, index){
-          $scope.showLoader = true;
-          CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
-            $scope.showLoader = false;
-            $scope.aircraftDetails[index].aircraftSizeList = result;
-            //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
-          })
+      $scope.aircraftListData = {};
+      //$scope.addData = [];
+      $scope.saveCompanyData = function(){
+        for(var i=0; i<$scope.aircraftDetails.length;i++){
+          $scope.addData = [];
+          $scope.addData.push({ 
+              'tail': $scope.aircraftDetails[i].tail,
+              'make': $scope.aircraftDetails[i].make,
+              'model': $scope.aircraftDetails[i].model,
+              'sizeId' : $scope.aircraftDetails[i].sizeId,
+              'marginId': $scope.aircraftDetails[i].marginId
+            });
         }
-
-        $scope.aircraftListData = {};
-        $scope.addData = [];
-        $scope.saveCompanyData = function(){
-          for(var i=0; i<$scope.aircraftDetails.length;i++){
-            $scope.addData.push({ 
-                'tail': $scope.aircraftDetails[i].tail,
-                'make': $scope.aircraftDetails[i].make,
-                'model': $scope.aircraftDetails[i].model,
-                'sizeId' : $scope.aircraftDetails[i].sizeId,
-                'marginId': $scope.aircraftDetails[i].marginId
-              });
+        console.log($scope.addData)
+        $scope.aircraftListData.aircraftList = $scope.addData;
+        $scope.aircraftListData.accountId = companyId;
+        
+        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
+          if(result != null && result.success){
+            toastr.success(''+result.success+'', {
+                closeButton: true
+              })
+              $('#aircraft-modal-3').modal('hide');
+              getAircraftList();
+          }else{
+            toastr.error(''+result.statusText+'', {
+                closeButton: true
+              })
           }
-          console.log($scope.addData)
-          $scope.aircraftListData.aircraftList = $scope.addData;
-          $scope.aircraftListData.accountId = companyId;
+        });
           
-          CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
+      }
+      $scope.showNoteData = true;
+      $scope.showCompanyName = true;
+      $scope.showAddress = true;
+      $scope.showNote = function(){
+        $scope.showNoteData = false;
+        $scope.showUpdateBtn = true;
+      }
+
+      $scope.company = function(){
+        $scope.showCompanyName = false;
+        $scope.showUpdateBtn = true;
+      }
+
+      $scope.addressChange = function(){
+        $scope.showAddress = false;
+        $scope.showUpdateBtn = true;
+      }
+
+      $scope.editData = function(inputName) {
+          console.log($scope.companyData)
+          $scope.showLoader = true;
+          /*if(inputName == 'showNoteData'){
+            $scope.showNoteData = true;
+          }else if(inputName == 'showCompanyName'){
+            $scope.showCompanyName = true;
+          }else if(inputName == 'showAddress'){
+            $scope.showAddress = true;              
+          }*/
+          $scope.showNoteData = true;
+          $scope.showCompanyName = true;
+          $scope.showAddress = true;
+
+          var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
+            + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
+            + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
+            + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
+            + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
+            + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
+
+          ViewCompanyService.updateContact(companyData).then(function(result) {
             if(result != null && result.success){
               toastr.success(''+result.success+'', {
-                  closeButton: true
-                })
-                $('#aircraft-modal-3').modal('hide');
-                getAircraftList();
+                closeButton: true
+              })
+              $scope.showUpdateBtn = false;
             }else{
               toastr.error(''+result.statusText+'', {
-                  closeButton: true
-                })
+                closeButton: true
+              })
+              $scope.showUpdateBtn = true;
             }
-          });
+            $scope.showLoader = false;
+          })
           
-        }
-        $scope.showNoteData = true;
-        $scope.showCompanyName = true;
-        $scope.showAddress = true;
-        $scope.showNote = function(){
-          $scope.showNoteData = false;
-          $scope.showUpdateBtn = true;
-        }
+      }
 
-        $scope.company = function(){
-          $scope.showCompanyName = false;
-          $scope.showUpdateBtn = true;
-        }
+      $scope.sendMail = function(){
+        ViewCompanyService.sendMail(companyId).then(function(result) {
+            if(result != null && result.success){
+              toastr.success(''+result.success+'', {
+                closeButton: true
+              })
+              $('#confirm1').css('display', 'none');
+            }else{
+              toastr.error(''+result.statusText+'', {
+                closeButton: true
+              })
+            }
+        })
+      }
 
-        $scope.addressChange = function(){
-          $scope.showAddress = false;
-          $scope.showUpdateBtn = true;
-        }
+      $scope.openConfirmMail = function(){
+        $('#confirm1').css('display', 'block');
+      }
 
-        $scope.editData = function(inputName) {
-            console.log($scope.companyData)
-            $scope.showLoader = true;
-            /*if(inputName == 'showNoteData'){
-              $scope.showNoteData = true;
-            }else if(inputName == 'showCompanyName'){
-              $scope.showCompanyName = true;
-            }else if(inputName == 'showAddress'){
-              $scope.showAddress = true;              
-            }*/
-            $scope.showNoteData = true;
-            $scope.showCompanyName = true;
-            $scope.showAddress = true;
 
-            var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
-              + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
-              + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
-              + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
-              + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
-              + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
+      $scope.cancelAndCloseConfirm = function(){
+        $('#confirm1').css('display', 'none');
+      }
 
-            ViewCompanyService.updateContact(companyData).then(function(result) {
-              if(result != null && result.success){
-                toastr.success(''+result.success+'', {
-                  closeButton: true
-                })
-                $scope.showUpdateBtn = false;
-              }else{
-                toastr.error(''+result.statusText+'', {
-                  closeButton: true
-                })
-                $scope.showUpdateBtn = true;
-              }
-              $scope.showLoader = false;
-            })
-            
-        }
+      $scope.cancelPrimaryContact = function(){
+        $('#primaryContact').css('display', 'none');
+        $scope.primaryContact = false;
+      }
 
-        $scope.sendMail = function(){
-          ViewCompanyService.sendMail(companyId).then(function(result) {
-              if(result != null && result.success){
-                toastr.success(''+result.success+'', {
-                  closeButton: true
-                })
-                $('#confirm1').css('display', 'none');
-              }else{
-                toastr.error(''+result.statusText+'', {
-                  closeButton: true
-                })
-              }
+      $scope.checkPrimaryContact = function(){
+        if($scope.primaryContact == true){
+          ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+            console.log(result)
+            if(result.status == 422){
+              $('#primaryContact').css('display', 'block');
+            }
           })
         }
+      }
 
-        $scope.openConfirmMail = function(){
-          $('#confirm1').css('display', 'block');
+      $scope.sendPrimaryContact = function(){
+        $scope.primaryContact = true;
+        $('#primaryContact').css('display', 'none');
+        if($scope.primayData.id != null || $scope.primayData.id != undefined){
+          var priamryContactData = "companyContactId=" + $scope.primayData.id + "&primary=" + $scope.primaryContact;
+
+          ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
+            console.log(result)
+          })
         }
+        
+      }
 
-
-        $scope.cancelAndCloseConfirm = function(){
-          $('#confirm1').css('display', 'none');
+      var newContactName = "";
+      $scope.updateData = ""
+      $scope.showContact = function(data, value){
+        $('#updateContact').css('display', 'block');
+        $scope.updateData = data;
+        newContactName = value;
+        console.log($scope.updateData)
+        if($scope.updateData.email == null){
+          $scope.updateData.content = data.contactNumber;
+        }else{
+          $scope.updateData.content = data.email;
         }
+      }
 
-        $scope.cancelPrimaryContact = function(){
-          $('#primaryContact').css('display', 'none');
-          $scope.primaryContact = false;
-        }
-
-        $scope.checkPrimaryContact = function(){
-          if($scope.primaryContact == true){
-            ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
-              console.log(result)
-              if(result.status == 422){
-                $('#primaryContact').css('display', 'block');
-              }
-            })
-          }
-        }
-
-        $scope.sendPrimaryContact = function(){
-          $scope.primaryContact = true;
-          $('#primaryContact').css('display', 'none');
-          if($scope.primayData.id != null || $scope.primayData.id != undefined){
-            var priamryContactData = "companyContactId=" + $scope.primayData.id + "&primary=" + $scope.primaryContact;
-
-            ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
-              console.log(result)
-            })
-          }
-          
-        }
-
-        var newContactName = "";
-        $scope.updateData = ""
-        $scope.showContact = function(data, value){
-          $('#updateContact').css('display', 'block');
-          $scope.updateData = data;
-          newContactName = value;
-          console.log($scope.updateData)
-          if($scope.updateData.email == null){
-            $scope.updateData.content = data.contactNumber;
+      $scope.acceptUpdateField = function(){
+        console.log($scope.updateData)
+        if($scope.updateData.content == undefined){
+          toastr.error('Please add some content', {
+            closeButton: true
+          })
+        }else{
+          if(newContactName == 'phone'){
+            var updateCustomData = "companyId=" + companyId + "&contactNumber=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
+              + "&title=" + $scope.updateData.title;
           }else{
-            $scope.updateData.content = data.email;
+            var updateCustomData = "companyId=" + companyId + "&email=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
+              + "&title=" + $scope.updateData.title;
           }
-        }
-
-        $scope.acceptUpdateField = function(){
-          console.log($scope.updateData)
-          if($scope.updateData.content == undefined){
-            toastr.error('Please add some content', {
-              closeButton: true
-            })
-          }else{
-            if(newContactName == 'phone'){
-              var updateCustomData = "companyId=" + companyId + "&contactNumber=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
-                + "&title=" + $scope.updateData.title;
-            }else{
-              var updateCustomData = "companyId=" + companyId + "&email=" + $scope.updateData.content + "&contactId=" + $scope.updateData.id
-                + "&title=" + $scope.updateData.title;
+          ViewCompanyService.updateCustomField(updateCustomData).then(function(result) {
+            console.log(result)
+            if(result != null && result.success){
+              $('#updateContact').css('display', 'none');
+              getCompanyDetail();
             }
-            ViewCompanyService.updateCustomField(updateCustomData).then(function(result) {
-              console.log(result)
-              if(result != null && result.success){
-                $('#updateContact').css('display', 'none');
-                getCompanyDetail();
-              }
-            })
-          }
+          })
         }
+      }
 
-        $scope.cancelUpdateField = function(){
-          $('#updateContact').css('display', 'none');
+      $scope.cancelUpdateField = function(){
+        $('#updateContact').css('display', 'none');
+      }
+
+      $scope.showEditTier2 = function(number){
+        console.log(number)
+        $scope.contactNumber = number;
+      }
+
+
+
+      var contactName = '';
+      $scope.addCustom = function(value){
+        console.log(value)
+        if(value != null){
+          contactName = value;
+          $('#customField').css('display', 'block');
         }
+        
+      }
 
-        $scope.showEditTier2 = function(number){
-          console.log(number)
-          $scope.contactNumber = number;
-        }
-
-
-
-        var contactName = '';
-        $scope.addCustom = function(value){
-          console.log(value)
-          if(value != null){
-            contactName = value;
-            $('#customField').css('display', 'block');
-          }
-          
-        }
-
-        $scope.cancelCustomField = function(){
-          $('#customField').css('display', 'none');
-        }
-        $scope.custom = {};
-        $scope.acceptCustomField = function(){
-          if($scope.custom.content == undefined){
-            toastr.error('Please add some content', {
-              closeButton: true
-            })
+      $scope.cancelCustomField = function(){
+        $('#customField').css('display', 'none');
+      }
+      $scope.custom = {};
+      $scope.acceptCustomField = function(){
+        if($scope.custom.content == undefined){
+          toastr.error('Please add some content', {
+            closeButton: true
+          })
+        }else{
+          if(contactName == 'phone'){
+            var customData = "companyId=" + companyId + "&contactNumber=" + $scope.custom.content 
+              + "&title=" + $scope.custom.title;
           }else{
-            if(contactName == 'phone'){
-              var customData = "companyId=" + companyId + "&contactNumber=" + $scope.custom.content 
-                + "&title=" + $scope.custom.title;
-            }else{
-              var customData = "companyId=" + companyId + "&email=" + $scope.custom.content 
-                + "&title=" + $scope.custom.title;
-            }
-            console.log(customData.email)
-            ViewCompanyService.addCustomField(customData).then(function(result) {
-              console.log(result)
-              if(result != null && result.success){
-                $('#customField').css('display', 'none');
-                getCompanyDetail();
-              }
-            })
+            var customData = "companyId=" + companyId + "&email=" + $scope.custom.content 
+              + "&title=" + $scope.custom.title;
           }
-          
-
+          console.log(customData.email)
+          ViewCompanyService.addCustomField(customData).then(function(result) {
+            console.log(result)
+            if(result != null && result.success){
+              $('#customField').css('display', 'none');
+              getCompanyDetail();
+            }
+          })
         }
+        
+
+      }
         
   }]);
