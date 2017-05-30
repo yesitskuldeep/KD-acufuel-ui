@@ -166,12 +166,12 @@
           return deferred.promise;
         }
 
-        this.getFuelPricing = function(id) {
+        this.getFuelPricingNew = function() {
 
           var deferred = $q.defer();
           $http({
               method : 'GET',
-              url : BASE_URL.url +'/fuelPricing/getPriceManagerProducts/'+id,
+              url : BASE_URL.url +'/user/products',
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
@@ -181,7 +181,7 @@
           })
           return deferred.promise;
         }
-
+        
         this.updateFuelPricing = function(data){
           var deferred = $q.defer();
           $http({
@@ -198,21 +198,6 @@
           return deferred.promise;
         }
 
-        this.getFutureFuelPricing = function(id) {
-
-          var deferred = $q.defer();
-          $http({
-              method : 'GET',
-              url : BASE_URL.url +'/fuelPricing/getFuturePriceManagerProducts/'+id,
-              headers : {'Content-Type': 'application/json'},
-          })
-          .then(function (result){
-              deferred.resolve(result.data);
-          },function (result){
-              deferred.resolve(result.data);
-          })
-          return deferred.promise;
-        }
 
         
       }

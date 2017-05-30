@@ -7,6 +7,301 @@
    <img src="../img/hourglass.gif" width="50px;">
 </div>
 
+
+
+
+<div class="container">
+   <div class="row">
+      <div class="col-md-10">
+         <div class="widget stacked">
+            <div class="widget-header">
+               <i class="fa fa-pencil"></i>
+               <h3>Ramp Fee Manager</h3>
+               <select style="float: right; margin: 8px 10px;" ng-model="customRampData.rampFeesAndAvoidanceList.aircraftType" ng-change="openRampModal()">
+                  <option disabled selected value="">Ramp Fee By Category</option>
+                  <option ng-repeat="modals in dropOptions" value="{{modals.size}}">{{modals.size}}</option>
+               </select>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content new-widget-content">
+               <section id="accordions1">
+                  <div class="newCustomAccordian">
+                     
+                     <div class="col-md-9 feeManagerLeft" style="padding: 0;">
+                        
+                        <div ng-repeat="list in fullJetList">
+                           <div class="new-tab-heading">
+                              <i class="fa fa-plus-circle" ng-click="parentOpen($index)" id="parentOpen{{$index}}" aria-hidden="true"></i>
+                              <i class="fa fa-minus-circle" ng-click="parentClose($index)" id="parentClose{{$index}}" aria-hidden="true" style="display: none;"></i>
+                              <span>{{list.type}}</span>
+                           </div>
+                           <div class="new-tab-body" id="parentTogglebody{{$index}}" style="display: none;">
+                              <div class="new-tab-body-th">
+                                 <div class="col-md-4">
+                                    Aircraft Size
+                                 </div>
+                                 <div class="col-md-2">
+                                    Ramp/Facil. Fee
+                                 </div>
+                                 <div class="col-md-2">
+                                    Avoidance
+                                 </div>
+                                 <div class="col-md-2">
+                                    Expiration Date
+                                 </div>
+                                 <div class="col-md-2">
+                                    Applicable
+                                 </div>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="new-tab-body-td" ng-repeat="jets in list.aircraftsSize">
+                                 <div>
+                                    <div class="col-md-4">
+                                       <i class="fa fa-plus-circle {{jets.id}}" ng-click="toggleChild(jets.id)" aria-hidden="true"></i>
+                                       <span style="margin-left: 5px;">{{jets.size}}</span>
+                                    </div>
+                                    <div class="col-md-2">
+                                       <input type="text" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" ng-model="jets.rampFeesAndAvoidance.rampFees" style="padding: 5px 5px;">
+                                    </div>
+                                    <div class="col-md-2">
+                                       <input type="text" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" ng-model="jets.rampFeesAndAvoidance.avoidance" style="padding: 5px 5px;">
+                                    </div>
+                                    <div class="col-md-2">
+                                       <!-- <input type="date" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" name="" ng-model="jets.rampFeesAndAvoidance.expirationDate"> -->
+
+                                       
+                                       <input type="text" ng-model="datePicker" datepicker -disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" ng-model="jets.rampFeesAndAvoidance.expirationDate" style="width: 90px; padding: 5px 5px;" />
+                                       
+                                    </div>
+                                    <div class="col-md-2">
+                                       <!-- <input type="checkbox" ng-model="jets.rampFeesAndAvoidance.applicable"> -->
+                                       <div class="onoffswitch">
+                                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{jets.id}}{{$index}}" ng-model="jets.rampFeesAndAvoidance.applicable">
+                                          <label class="onoffswitch-label" for="{{jets.id}}{{$index}}">
+                                             <span class="onoffswitch-inner"></span>
+                                             <span class="onoffswitch-switch">
+                                                <i class="fa fa-check" ng-show="jets.rampFeesAndAvoidance.applicable" aria-hidden="true"></i>
+                                                <i class="fa fa-times" ng-hide="jets.rampFeesAndAvoidance.applicable" aria-hidden="true"></i>
+                                             </span>
+                                          </label>
+                                       </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                                 <div style="display: none;" class="toggleCHildBody" id="{{jets.id}}">
+                                    <div class="col-xs-12">
+                                       <div class="col-xs-12">
+                                          <div class="appliesTableHeading">Applies To:</div>
+                                          <div class="appliesTableBody">
+                                             <div class="firstDiv">
+                                                <label style="font-weight: normal;" ng-repeat="aircraftList in jets.aircrafts">{{aircraftList.model}}</label>
+                                             </div>
+                                             <div class="lastDiv">
+                                                <textarea ng-model="jets.rampFeesAndAvoidance.notes"></textarea>
+                                                <div class="reportedByTag">
+                                                   <div class="confirmedTag">Confirmed</div>
+                                                   <table>
+                                                      <tr>
+                                                         <td width="50%">
+                                                            Reported By:
+                                                         </td>
+                                                         <td width="50%">
+                                                            {{jets.rampFeesAndAvoidance.reportedBy}}
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td width="50%">
+                                                            Reported On:
+                                                         </td>
+                                                         <td width="50%">
+                                                            {{jets.rampFeesAndAvoidance.reportedOn}}
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td colspan="2">
+                                                            <i>Click the Save Form button to Re-Confirm</i>
+                                                         </td>
+                                                      </tr>
+                                                   </table>
+                                                </div>
+                                             </div>
+                                             <div class="clearfix"></div>
+                                          </div>
+                                       </div>
+                                       <div class="clearfix"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-md-3 text-center feeManagerRight" style="padding: 0;">
+                        <div class="text-center">
+                           <button type="submit" ng-click="updateList(fullJetList)" class="btn btn-success"><i class="icon-ok"></i> Save Form</button>&nbsp;&nbsp;
+                           <button type="reset" class="btn btn-default">Cancel</button>
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <br/>
+                  </div>
+               </section>
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->
+      </div>
+      <!-- /span6 -->
+   </div>
+   <!-- /span12 -->
+</div> <!-- /container 2 -->
+
+<div ng-show="openRampFeeModal">
+   <div class="customBackdrop">
+      <div class="customModalInner">
+         <div class="customModelHead">
+            <p class="pull-left">
+               <i class="fa fa-list-alt" aria-hidden="true"></i>
+               Add Ramp Fee
+            </p>
+            <p class="pull-right">
+               <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;" ng-click="closeRampFeeModel()"></i>
+            </p>
+            <div class="clearfix"></div>
+         </div>
+         <div class="customModelBody">
+            
+            <div class="col-xs-12 col-sm-4">
+               Type:
+            </div>
+            <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+               <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;"  ng-model="customRampData.rampFeesAndAvoidanceList.aircraftType" ng-change="openRampModal()">
+                  <option ng-repeat="modalsNew in dropOptions" value="{{modalsNew.size}}">{{modalsNew.size}}</option>
+               </select>
+            </div>
+            <div class="clearfix"></div>
+            <br/>
+
+            <div ng-show="showAircraft">
+               <div class="col-xs-12 col-sm-4">
+                  Aircraft Make:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;" ng-model="customRampData.rampFeesAndAvoidanceList.aircraftMake">
+                     <option ng-repeat="crafts in aircrafts" value="{{crafts}}">{{crafts}}</option>
+                  </select>
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+            </div>
+
+            <div ng-show="showTail">
+               <div class="col-xs-12 col-sm-4">
+                  Tail Numbers:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;" ng-model="customRampData.rampFeesAndAvoidanceList.tailNumber">
+                     <!-- <option ng-repeat="crafts in aircrafts" value="{{crafts}}">{{crafts}}</option> -->
+                  </select>
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+            </div>
+
+            <div ng-show="showWingspan">
+               <div class="col-xs-12 col-sm-4">
+                  Wingspan Min:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.wingspanMin" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
+                  ft.
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+               <div class="col-xs-12 col-sm-4">
+                  Wingspan Max:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.wingspanMax" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
+                  ft.
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+            </div>
+
+            <div ng-show="showWeight">
+               <div class="col-xs-12 col-sm-4">
+                  Weight Range Min:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.weightRangeMin" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
+                  lbs.
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+               <div class="col-xs-12 col-sm-4">
+                  Weight Range Max:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.weightRangeMax" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
+                  lbs.
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+            </div>
+
+            <div>
+               <div class="col-xs-12 col-sm-4">
+                  Ramp/Facil. Fee($):
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0" ng-model="customRampData.rampFeesAndAvoidanceList.rampFees" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="clearfix"></div>
+               <br/>
+            </div>
+            <div>
+               <div class="col-xs-12 col-sm-4">
+                  Avoidance:
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
+                  <input type="number" value="0" ng-model="customRampData.rampFeesAndAvoidanceList.avoidance" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
+               </div>
+               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
+                  gal.
+               </div>
+               <div class="clearfix"></div>
+            </div>
+
+         </div>
+         <div class="customModelFooter text-center">
+            <input type="submit" value="Save" class="btn" ng-click="addCustomRamp(customRampData)">
+            <button class="btn" ng-click="closeRampFeeModel()">Cancel</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="container" style="display: none;">
    <div class="row">
       <div class="col-md-10">
@@ -304,297 +599,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
 
-
-
-
-
-
-
-
-
-
-
-<div class="container">
-   <div class="row">
-      <div class="col-md-10">
-         <div class="widget stacked">
-            <div class="widget-header">
-               <i class="fa fa-pencil"></i>
-               <h3>Ramp Fee Manager</h3>
-               <select style="float: right; margin: 8px 10px;" ng-model="customRampData.rampFeesAndAvoidanceList.aircraftType" ng-change="openRampModal()">
-                  <option disabled selected value="">Ramp Fee By Category</option>
-                  <option ng-repeat="modals in dropOptions" value="{{modals.size}}">{{modals.size}}</option>
-               </select>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content new-widget-content">
-               <section id="accordions1">
-                  <div class="newCustomAccordian">
-                     
-                     <div class="col-md-9 feeManagerLeft" style="padding: 0;">
-                        
-                        <div ng-repeat="list in fullJetList">
-                           <div class="new-tab-heading">
-                              <i class="fa fa-plus-circle" ng-click="parentOpen($index)" id="parentOpen{{$index}}" aria-hidden="true"></i>
-                              <i class="fa fa-minus-circle" ng-click="parentClose($index)" id="parentClose{{$index}}" aria-hidden="true" style="display: none;"></i>
-                              <span>{{list.type}}</span>
-                           </div>
-                           <div class="new-tab-body" id="parentTogglebody{{$index}}" style="display: none;">
-                              <div class="new-tab-body-th">
-                                 <div class="col-md-4">
-                                    Aircraft Size
-                                 </div>
-                                 <div class="col-md-2">
-                                    Ramp/Facil. Fee
-                                 </div>
-                                 <div class="col-md-2">
-                                    Avoidance
-                                 </div>
-                                 <div class="col-md-2">
-                                    Expiration Date
-                                 </div>
-                                 <div class="col-md-2">
-                                    Applicable
-                                 </div>
-                                 <div class="clearfix"></div>
-                              </div>
-                              <div class="new-tab-body-td" ng-repeat="jets in list.aircraftsSize">
-                                 <div>
-                                    <div class="col-md-4">
-                                       <i class="fa fa-plus-circle {{jets.id}}" ng-click="toggleChild(jets.id)" aria-hidden="true"></i>
-                                       <span style="margin-left: 5px;">{{jets.size}}</span>
-                                    </div>
-                                    <div class="col-md-2">
-                                       <input type="text" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" ng-model="jets.rampFeesAndAvoidance.rampFees" name="">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <input type="text" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" ng-model="jets.rampFeesAndAvoidance.avoidance" name="">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <input type="date" ng-disabled="jets.rampFeesAndAvoidance.applicable == false || jets.rampFeesAndAvoidance.applicable == null" name="" ng-model="jets.rampFeesAndAvoidance.expirationDate">
-                                       <!-- <div class="form-group" id="data_1">
-                                          <div class="input-group date">
-                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                             <input type="text" style="height: 34px;" class="form-control" >
-                                          </div>
-                                       </div> -->
-                                    </div>
-                                    <div class="col-md-2">
-                                       <!-- <input type="checkbox" ng-model="jets.rampFeesAndAvoidance.applicable"> -->
-                                       <div class="onoffswitch">
-                                          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{jets.id}}{{$index}}" ng-model="jets.rampFeesAndAvoidance.applicable">
-                                          <label class="onoffswitch-label" for="{{jets.id}}{{$index}}">
-                                             <span class="onoffswitch-inner"></span>
-                                             <span class="onoffswitch-switch">
-                                                <i class="fa fa-check" ng-show="jets.rampFeesAndAvoidance.applicable" aria-hidden="true"></i>
-                                                <i class="fa fa-times" ng-hide="jets.rampFeesAndAvoidance.applicable" aria-hidden="true"></i>
-                                             </span>
-                                          </label>
-                                       </div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                 </div>
-                                 <div style="display: none;" class="toggleCHildBody" id="{{jets.id}}">
-                                    <div class="col-xs-12">
-                                       <div class="col-xs-12">
-                                          <div class="appliesTableHeading">Applies To:</div>
-                                          <div class="appliesTableBody">
-                                             <div class="firstDiv">
-                                                <label style="font-weight: normal;" ng-repeat="aircraftList in jets.aircrafts">{{aircraftList.model}}</label>
-                                             </div>
-                                             <div class="lastDiv">
-                                                <textarea ng-model="jets.rampFeesAndAvoidance.notes"></textarea>
-                                                <div class="reportedByTag">
-                                                   <div class="confirmedTag">Confirmed</div>
-                                                   <table>
-                                                      <tr>
-                                                         <td width="50%">
-                                                            Reported By:
-                                                         </td>
-                                                         <td width="50%">
-                                                            {{jets.rampFeesAndAvoidance.reportedBy}}
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td width="50%">
-                                                            Reported On:
-                                                         </td>
-                                                         <td width="50%">
-                                                            {{jets.rampFeesAndAvoidance.reportedOn}}
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td colspan="2">
-                                                            <i>Click the Save Form button to Re-Confirm</i>
-                                                         </td>
-                                                      </tr>
-                                                   </table>
-                                                </div>
-                                             </div>
-                                             <div class="clearfix"></div>
-                                          </div>
-                                       </div>
-                                       <div class="clearfix"></div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-3 text-center feeManagerRight" style="padding: 0;">
-                        <div class="text-center">
-                           <button type="submit" ng-click="updateList(fullJetList)" class="btn btn-success"><i class="icon-ok"></i> Save Form</button>&nbsp;&nbsp;
-                           <button type="reset" class="btn btn-default">Cancel</button>
-                        </div>
-                     </div>
-                     <div class="clearfix"></div>
-                     <br/>
-                  </div>
-               </section>
-            </div>
-            <!-- /widget-content -->
-         </div>
-         <!-- /widget -->
-      </div>
-      <!-- /span6 -->
-   </div>
-   <!-- /span12 -->
-</div> <!-- /container 2 -->
-
-<div ng-show="openRampFeeModal">
-   <div class="customBackdrop">
-      <div class="customModalInner">
-         <div class="customModelHead">
-            <p class="pull-left">
-               <i class="fa fa-list-alt" aria-hidden="true"></i>
-               Add Ramp Fee
-            </p>
-            <p class="pull-right">
-               <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;" ng-click="closeRampFeeModel()"></i>
-            </p>
-            <div class="clearfix"></div>
-         </div>
-         <div class="customModelBody">
-            
-            <div class="col-xs-12 col-sm-4">
-               Type:
-            </div>
-            <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-               <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;"  ng-model="customRampData.rampFeesAndAvoidanceList.aircraftType" ng-change="openRampModal()">
-                  <option ng-repeat="modalsNew in dropOptions" value="{{modalsNew.size}}">{{modalsNew.size}}</option>
-               </select>
-            </div>
-            <div class="clearfix"></div>
-            <br/>
-
-            <div ng-show="showAircraft">
-               <div class="col-xs-12 col-sm-4">
-                  Aircraft Make:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;" ng-model="customRampData.rampFeesAndAvoidanceList.aircraftMake">
-                     <option ng-repeat="crafts in aircrafts" value="{{crafts}}">{{crafts}}</option>
-                  </select>
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-            </div>
-
-            <div ng-show="showTail">
-               <div class="col-xs-12 col-sm-4">
-                  Tail Numbers:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <select class="form-control" style="border-radius: 0; height: 26px; padding: 0;" ng-model="customRampData.rampFeesAndAvoidanceList.tailNumber">
-                     <!-- <option ng-repeat="crafts in aircrafts" value="{{crafts}}">{{crafts}}</option> -->
-                  </select>
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-            </div>
-
-            <div ng-show="showWingspan">
-               <div class="col-xs-12 col-sm-4">
-                  Wingspan Min:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.wingspanMin" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
-                  ft.
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-               <div class="col-xs-12 col-sm-4">
-                  Wingspan Max:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.wingspanMax" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
-                  ft.
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-            </div>
-
-            <div ng-show="showWeight">
-               <div class="col-xs-12 col-sm-4">
-                  Weight Range Min:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.weightRangeMin" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
-                  lbs.
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-               <div class="col-xs-12 col-sm-4">
-                  Weight Range Max:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0.00" ng-model="customRampData.rampFeesAndAvoidanceList.weightRangeMax" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
-                  lbs.
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-            </div>
-
-            <div>
-               <div class="col-xs-12 col-sm-4">
-                  Ramp/Facil. Fee($):
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0" ng-model="customRampData.rampFeesAndAvoidanceList.rampFees" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="clearfix"></div>
-               <br/>
-            </div>
-            <div>
-               <div class="col-xs-12 col-sm-4">
-                  Avoidance:
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-right: 0;">
-                  <input type="number" value="0" ng-model="customRampData.rampFeesAndAvoidanceList.avoidance" class="form-control" style="border-radius: 0; height: 26px; padding: 0 5px;" >
-               </div>
-               <div class="col-xs-12 col-sm-4" style="padding-left: 5px;">
-                  gal.
-               </div>
-               <div class="clearfix"></div>
-            </div>
-
-         </div>
-         <div class="customModelFooter text-center">
-            <input type="submit" value="Save" class="btn" ng-click="addCustomRamp(customRampData)">
-            <button class="btn" ng-click="closeRampFeeModel()">Cancel</button>
-         </div>
-      </div>
-   </div>
-</div>
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/plugins/bootstrap-datepicker.js"></script>
