@@ -26,7 +26,6 @@
 
         $scope.editMargin = function(customer){
         	event.stopPropagation();
-        	event.preventDefault()
         	console.log(customer.masterMargin)
 
         	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 

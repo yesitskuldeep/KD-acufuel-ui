@@ -155,7 +155,7 @@
                                        <button type="button" ng-if="customer.activate == false" class="btn btn-warning btn-xs">InActive</button>
                                     </td>
                                     <td class="font-company">
-                                      <select class="form-control" ng-blur="editMargin(customer)" style="height:31px;" ng-model="customer.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+                                      <select class="form-control" ng-click="editMargin(customer)" style="height:31px;" ng-model="customer.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
                                        <!-- <select class="form-control" style="height:31px;">
                                           <option>Margin1</option>
                                           <option>Margin2</option>
