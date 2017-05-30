@@ -4,7 +4,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService) {
+	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', 'updateFuelManagerService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService, updateFuelManagerService) {
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
@@ -12,6 +12,7 @@
         $scope.showLoader = false;
         $scope.showLoader = true;
         $scope.showUpdateBtn = false;
+        $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
         CustomersService.getMargin().then(function(result) {
           $scope.marginList = result;
@@ -357,8 +358,15 @@
             }
           })
         }
-        
-
       }
+
+      updateFuelManagerService.getFuelPricing($scope.userProfileId).then(function(result) {
+        $scope.fuelPricing = result;
+        for (var i = 0; i<$scope.fuelPricing.length; i++) {
+          if ($scope.fuelPricing[i].expirationDate != null) {
+              $scope.fuelPricing[i].expirationDate = new Date($scope.fuelPricing[i].expirationDate)
+          }
+        }
+      })
         
   }]);

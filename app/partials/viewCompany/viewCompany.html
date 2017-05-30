@@ -355,38 +355,13 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
+                                    <tr ng-repeat="fuel in fuelPricing">
                                        <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
+                                       <td>{{fuel.product.name}}</td>
+                                       <td>${{fuel.cost}}</td>
+                                       <td>${{fuel.papMargin}}</td>
+                                       <td style="color:#55AF8B;">${{fuel.papTotal}}</td>
+                                       <td style="color:#F90">{{fuel.expirationDate}}</td>
                                     </tr>
                                  </tbody>
                               </table>
