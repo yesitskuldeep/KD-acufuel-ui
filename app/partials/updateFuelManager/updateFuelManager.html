@@ -34,21 +34,21 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr ng-repeat="fuelPricing in fuelPricing">
+                     <tr ng-repeat="fuelPricing in newFuelPricing">
                         <td>
-                           <span style="line-height: 31px;">{{fuelPricing.product.name}}</span>
+                           <span>{{fuelPricing.name}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 0;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.cost -- fuelPricing.papMargin}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
+                           <input type="date" class="form-control" ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
                         </td>
                      </tr>
                   </tbody>
@@ -191,28 +191,28 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr ng-repeat="fuelPricing in futureFuelPricing">
+                     <tr ng-repeat="fuelPricing in newFuelPricing">
                         <td>
-                           <span style="line-height: 31px;">{{fuelPricing.product.name}}</span>
+                           <span>{{fuelPricing.name}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.cost -- fuelPricing.papMargin}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
+                           <input type="date" class="form-control " ng-model="fuelPricing.futureFuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
+                           <input type="date" class="form-control" ng-model="fuelPricing.futureFuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
                         </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right;">
-                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFuelPricingClick()">Save</button>
+                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFutureFuelPricingClick()">Save</button>
                   </div>
                </div>
             </div>

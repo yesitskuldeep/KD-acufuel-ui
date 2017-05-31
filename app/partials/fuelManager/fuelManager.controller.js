@@ -221,6 +221,24 @@
         $('#'+id).slideToggle();
       }
 
+      $scope.dates = [{date:'01-05-2001'}, {date:'05-05-2014'}, {date:'10-11-2008'}]
+
+      $scope.open = function($event, dt) {
+        $event.preventDefault();
+        $event.stopPropagation();
+
+        dt.opened = true;
+      };
+
+      $scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+      };
+
+
+      $scope.format = 'dd-MMMM-yyyy'
+      
+
       $(document).ready(function(){
 
         setInterval(function(){ 
