@@ -8,6 +8,11 @@
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
+
+		$scope.reset2 = function(){
+			$("input").val("");
+		}
+		
 		$scope.data = {};
 		$scope.aircraft = {};
 		$scope.data.activate = true;
@@ -16,7 +21,6 @@
 
 		function getAllCompanies(){
 			CustomersService.getAllCompanies().then(function(result) {
-				console.log(result)
 				$scope.companyList = result;
 				for(var i=0; i<$scope.companyList.length; i++){
 					$scope.companyList[i].masterMargin = $scope.companyList[i].margin.id;
@@ -26,7 +30,6 @@
 
         $scope.editMargin = function(customer){
         	event.stopPropagation();
-        	console.log(customer.masterMargin)
 
         	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 
               + "&addressOne=" + customer.addressOne + "&addressTwo=" + customer.addressTwo + "&city=" + customer.city + "&state=" 
@@ -64,7 +67,6 @@
 		$scope.showMarginError = false;
 
 		$scope.removeValidation = function(){
-			console.log('key up');
 			$scope.showCompanyError = false;
 	    	$('.companyNameInput').removeClass('customErrorInput');
 		}
@@ -75,7 +77,6 @@
 		}
 
 	    $scope.addFirstData = function(sel, step){
-	    	// console.log($scope.data)
 	    	if($scope.data.companyName == undefined){
 	    		$scope.showCompanyError = true;
 	    		$('.companyNameInput').addClass('customErrorInput');
@@ -91,7 +92,6 @@
 		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
 
 		    	CustomersService.addCompany(companyData).then(function(result) {
-	            	console.log(result)
 	            	$scope.accountId = result;
 	      			$scope.aircraft.accountId = $scope.accountId;
 	          	})
@@ -116,7 +116,6 @@
 	            'sizeId' : '',
 	            'marginId': ''
             });
-            console.log($scope.aircraftDetails)
         };
 
         $scope.getModal = function(makeId, index){
@@ -134,9 +133,8 @@
       		$scope.showLoader = true;
 	        CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
 	        	$scope.showLoader = false;
-	          $scope.aircraftDetails[index].aircraftSizeList = result;
+	          	$scope.aircraftDetails[index].aircraftSizeList = result;
 	          //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
-	          console.log($scope.aircraftDetails[index].size)
 	        })
       	}
 
@@ -156,7 +154,6 @@
 	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
 	        
 	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
-	        	console.log(result)
 
 	        	if(result != null && result.success){
 	        		toastr.success(''+result.success+'', {

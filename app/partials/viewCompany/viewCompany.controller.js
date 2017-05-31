@@ -14,6 +14,12 @@
         $scope.showUpdateBtn = false;
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
+        $(document).ready(function() {
+            $("#reset").click(function() {
+                $("input").val("");
+            });
+        });
+
         CustomersService.getMargin().then(function(result) {
           $scope.marginList = result;
         })
@@ -177,6 +183,10 @@
         $scope.showUpdateBtn = true;
       }
 
+      $scope.base = function(){
+        $scope.showUpdateBtn = true;
+      }
+
       $scope.addressChange = function(){
         $scope.showAddress = false;
         $scope.showUpdateBtn = true;
@@ -218,6 +228,13 @@
             $scope.showLoader = false;
           })
           
+      }
+
+      $scope.cancelData = function(){
+          $scope.showNoteData = true;
+          $scope.showCompanyName = true;
+          $scope.showAddress = true;
+          $scope.showUpdateBtn = false;
       }
 
       $scope.sendMail = function(){
@@ -329,13 +346,13 @@
           contactName = value;
           $('#customField').css('display', 'block');
         }
-        
+        $scope.custom = {};
       }
 
       $scope.cancelCustomField = function(){
         $('#customField').css('display', 'none');
       }
-      $scope.custom = {};
+      
       $scope.acceptCustomField = function(){
         if($scope.custom.content == undefined){
           toastr.error('Please add some content', {
@@ -360,11 +377,11 @@
         }
       }
 
-      updateFuelManagerService.getFuelPricing($scope.userProfileId).then(function(result) {
+      updateFuelManagerService.getFuelPricingNew().then(function(result) {
         $scope.fuelPricing = result;
         for (var i = 0; i<$scope.fuelPricing.length; i++) {
-          if ($scope.fuelPricing[i].expirationDate != null) {
-              $scope.fuelPricing[i].expirationDate = new Date($scope.fuelPricing[i].expirationDate)
+          if ($scope.fuelPricing[i].fuelPricing.expirationDate != null) {
+              $scope.fuelPricing[i].fuelPricing.expirationDate = new Date($scope.fuelPricing[i].fuelPricing.expirationDate)
           }
         }
       })

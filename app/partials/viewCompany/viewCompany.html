@@ -141,7 +141,7 @@
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <h3>Company Details</h3>
                             <label>BASE ICAO</label>
-                            <input type="tel" ng-model="companyData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" />
+                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 50px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
@@ -157,7 +157,7 @@
                                  <input type="tel" ng-hide="showCompanyName" ng-model="companyData.companyName" class="form-control"/>
                               </div>
                               <div class="col-md-5">
-                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType" ng-click="editData()">
+                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType">
                                     <option class="optionclass" disabled selected>Certificate Type</option>
                                     <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
                                     <option class="optionclass" value="charter">Part 135 (Charter)</option>
@@ -171,7 +171,7 @@
                               <p class="new-label">
                                  <span>Master Margin Setting </span> 
                                  <!-- <select class="form-control" ng-model="companyData.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList"></select> -->
-                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="companyData.masterMargin" ng-click="editData()">
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="companyData.masterMargin">
                                     <option ng-repeat="margin in marginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
                                  <span>&nbsp;See Aircrart List</span>
@@ -180,14 +180,14 @@
                            </div>
                            <div class="row"  style="margin-left:0px;"> 
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.baseTenant"> Tenant/Base Customer
+                                 <input type="checkbox" name="" ng-model="companyData.baseTenant"> Tenant/Base Customer
                               </div>
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.fuelerlinxCustomer"> FuelerLinx Customer
+                                 <input type="checkbox" name="" ng-model="companyData.fuelerlinxCustomer"> FuelerLinx Customer
                               </div>
                            </div>
                            <div>
-                              <input type="checkbox" name="" ng-click="editData()" ng-model="companyData.contractFuelVendor"> CAA Member
+                              <input type="checkbox" name="" ng-model="companyData.contractFuelVendor"> CAA Member
                            </div>
                            </br>
                            <div class="new-address">
@@ -238,6 +238,7 @@
                            </div>
                            <div class="pull-left">
                               <button ng-click="editData()" ng-show="showUpdateBtn" class="btn btn-success">Save</button>
+                              <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
                            </div>
                            <div class="pull-right">
                               <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
@@ -356,13 +357,13 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="fuel in fuelPricing">
-                                       <td><input type="checkbox"></td>
-                                       <td>{{fuel.product.name}}</td>
-                                       <td>${{fuel.cost}}</td>
-                                       <td>${{fuel.papMargin}}</td>
-                                       <td style="color:#55AF8B;">${{fuel.papTotal}}</td>
-                                       <td style="color:#F90">{{fuel.expirationDate}}</td>
-                                    </tr>
+                                       <td><input type="checkbox" ng-model="fuel.status"></td>
+                                       <td>{{fuel.name}}</td>
+                                       <td>${{fuel.fuelPricing.cost}}</td>
+                                       <td>${{fuel.fuelPricing.papMargin}}</td>
+                                       <td style="color:#55AF8B;">${{fuel.fuelPricing.papTotal}}</td>
+                                       <td style="color:#F90">{{fuel.fuelPricing.expirationDate}}</td>
+                                    </tr>.
                                  </tbody>
                               </table>
                            </div>
@@ -532,7 +533,7 @@
                </div>
             </div>
             <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" id="reset" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="addContact()">Save</button>
             </div>
         </div>
@@ -619,7 +620,7 @@
                </div>
             </div>
             <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" id="reset" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="saveCompanyData()">Save</button>
             </div>
         </div>

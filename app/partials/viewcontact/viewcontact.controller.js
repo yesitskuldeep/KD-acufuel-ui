@@ -148,6 +148,17 @@
 	        })
         }
 
+        $scope.cancelContact = function(){
+            $scope.editName = true;
+            $scope.editCompany = true;
+            $scope.editAddress = true;
+            $scope.editPhone = true;
+            $scope.editMobile = true;
+            $scope.editEmail = true;
+            $scope.editContactNotes = true;
+            $scope.showUpdateBtn = false;
+        }
+
         $scope.checkPrimaryContact = function(companyId){
             if($scope.contactDetail.primaryContact == true){
             ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {

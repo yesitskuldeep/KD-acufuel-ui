@@ -10,6 +10,11 @@
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
+
+		$scope.reset = function(){
+			$("input").val("");
+		}
+		
 		$scope.data = {};
 		$scope.aircraft = {};
 		$scope.data.activate = true;
