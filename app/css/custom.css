@@ -700,3 +700,6 @@ font-size: 10px !important;
     color: #8a1f11;
     font-weight: bold;
 }
+.ui-datepicker .ui-widget-header{
+	background-image: none !important;
+}

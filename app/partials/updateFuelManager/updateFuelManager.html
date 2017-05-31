@@ -1,3 +1,5 @@
+
+
 <style>
    .subnavbar .mainnav > li:nth-child(2) > a{
    color: #ff9900;
@@ -45,10 +47,10 @@
                            <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 0;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin}} /</span>
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
+                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; width: 100px; padding: 6px 0;">
                         </td>
                      </tr>
                   </tbody>

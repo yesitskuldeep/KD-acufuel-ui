@@ -307,18 +307,29 @@
 
         $scope.newFuelPricing = {};
         updateFuelManagerService.getFuelPricingNew().then(function(result) {
-          $scope.newFuelPricing = result;
+            $scope.newFuelPricing = result;
+              for (var i = 0; i<$scope.newFuelPricing.length; i++) {
+                if ($scope.newFuelPricing[i].fuelPricing.expirationDate != null && $scope.newFuelPricing[i].fuelPricing.expirationDate != '') {
+                    var newTime = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                    var month = newTime.getUTCMonth() + 1; //months from 1-12
+                    var day = newTime.getUTCDate();
+                    var year = newTime.getUTCFullYear();
+                    $scope.newFuelPricing[i].fuelPricing.expirationDate = month+'/'+day+'/'+year;
+                    //$scope.newFuelPricing[i].fuelPricing.expirationDate = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                }
+                 
+              }
+              $scope.showLoader = false;
         })
-
+        $scope.$watch("fuelPricing.fuelPricing.expirationDate",function(old,newv){
+        });
         $scope.updateFuelPricing = {};
         $scope.updateFuelPricing.fuelPricingList = [];
         $scope.updateFuelPricing.userProfileId = $scope.userProfileId;
         $scope.updateFuelPricingClick = function(){
             $scope.showLoader = true;
+
             for (var i = 0; i<$scope.newFuelPricing.length; i++) {
-                /*if ($scope.newFuelPricing[i].expirationDate != null) {
-                    $scope.newFuelPricing[i].expirationDate = $scope.newFuelPricing[i].expirationDate.getTime();
-                }*/
                 if ($scope.newFuelPricing[i].fuelPricing != null) {
                     $scope.newFuelPricing[i].fuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].fuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin);
                     if ($scope.newFuelPricing[i].fuelPricing.cost == null) {
@@ -332,24 +343,46 @@
                     }
                     if ($scope.newFuelPricing[i].fuelPricing.expirationDate == null) {
                         $scope.newFuelPricing[i].fuelPricing.expirationDate = '';
+                    }else{
+                        $scope.newFuelPricing[i].fuelPricing.expirationDate = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                        console.log('$scope.newFuelPricing[i].fuelPricing.expirationDate', $scope.newFuelPricing[i].fuelPricing.expirationDate);
+                        $scope.newFuelPricing[i].fuelPricing.expirationDate = $scope.newFuelPricing[i].fuelPricing.expirationDate.getTime();
                     }
-                    $scope.updateFuelPricing.fuelPricingList.push({
-                        'cost': $scope.newFuelPricing[i].fuelPricing.cost,
-                        'papMargin': $scope.newFuelPricing[i].fuelPricing.papMargin,
-                        'papTotal': $scope.newFuelPricing[i].fuelPricing.papTotal,
-                        'expirationDate': $scope.newFuelPricing[i].fuelPricing.expirationDate,
-                        'productId': $scope.newFuelPricing[i].id,
-                        'id': $scope.newFuelPricing[i].fuelPricing.id,
-                    })
+                    
+                }else{
+                    $scope.newFuelPricing[i].fuelPricing.cost = '';
+                    $scope.newFuelPricing[i].fuelPricing.papMargin = '';
+                    $scope.newFuelPricing[i].fuelPricing.papTotal = '';
+                    $scope.newFuelPricing[i].fuelPricing.expirationDate = '';
                 }
+                
+                $scope.updateFuelPricing.fuelPricingList.push({
+                    'cost': $scope.newFuelPricing[i].fuelPricing.cost,
+                    'papMargin': $scope.newFuelPricing[i].fuelPricing.papMargin,
+                    'papTotal': $scope.newFuelPricing[i].fuelPricing.papTotal,
+                    'expirationDate': $scope.newFuelPricing[i].fuelPricing.expirationDate,
+                    'productId': $scope.newFuelPricing[i].id,
+                    'id': $scope.newFuelPricing[i].fuelPricing.id,
+                })
             }
             updateFuelManagerService.updateFuelPricing($scope.updateFuelPricing).then(function(result) {
                 toastr.success('Successfully Updated', {
                   closeButton: true
                 })
                 updateFuelManagerService.getFuelPricingNew().then(function(result) {
-                  $scope.newFuelPricing = result;
-                  $scope.showLoader = false;
+                    $scope.newFuelPricing = result;
+                      for (var i = 0; i<$scope.newFuelPricing.length; i++) {
+                        if ($scope.newFuelPricing[i].fuelPricing.expirationDate != null && $scope.newFuelPricing[i].fuelPricing.expirationDate != '') {
+                            var newTime = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                            var month = newTime.getUTCMonth() + 1; //months from 1-12
+                            var day = newTime.getUTCDate();
+                            var year = newTime.getUTCFullYear();
+                            $scope.newFuelPricing[i].fuelPricing.expirationDate = month+'/'+day+'/'+year;
+                            //$scope.newFuelPricing[i].fuelPricing.expirationDate = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                        }
+                         
+                      }
+                      $scope.showLoader = false;
                 })
             })
             
@@ -397,6 +430,7 @@
                   $scope.showLoader = false;
                 })
             })
+
             
         }
 
