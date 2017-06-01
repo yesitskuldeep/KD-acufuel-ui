@@ -147,8 +147,8 @@
                                       {{customer.companyName}}
                                     </td>
                                     <td class="font-company">{{customer.companyAircraftSize}}</td>
-                                    <td class="font-company">{{customer.phone}}</td>
-                                    <td class="font-company">{{customer.contact}}</td>
+                                    <td class="font-company">{{customer.companyCustomContacts[0].contactNumber}}</td>
+                                    <td class="font-company">{{customer.companyPrimaryContacts[0].firstName}} {{customer.companyPrimaryContacts[0].lastName}}</td>
                                     <td class="font-company">{{customer.baseIcao}}</td>
                                     <td class="font-company">
                                        <button type="button" ng-if="customer.activate == true" class="btn btn-success btn-xs">Active</button>
@@ -163,7 +163,7 @@
                                     </td>
                                     <td class="font-company">{{customer.allIn}}</td>
                                     <td>
-                                       <button type="button" class="btn btn-info btn-xs">Setup Fuel</button>
+                                       <button type="button" class="btn btn-info btn-xs" ng-click="setFuel()">Setup Fuel</button>
                                     </td>
                                  </tr>
                               </tbody>

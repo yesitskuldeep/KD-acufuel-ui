@@ -390,5 +390,12 @@
           }
         }
       })
+
+      $scope.deleteAircraft = function(id){
+          ViewCompanyService.deleteAircraft(id).then(function(result) {
+            console.log(result)
+            getAircraftList();
+          })
+      }
         
   }]);

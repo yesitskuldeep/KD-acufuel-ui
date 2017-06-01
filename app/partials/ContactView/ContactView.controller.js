@@ -19,15 +19,15 @@
 
         $scope.changePriceEmail = function(id, index){
           event.stopPropagation();
-          var contactId = id;
-          var statusData = "status=" + $scope.contactList[index].priceEmail;
-          ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
-              if(result.success){
-                  toastr.success(''+result.success+'', {
-                      closeButton: true
-                  })
-              }
-          })
+          // var contactId = id;
+          // var statusData = "status=" + $scope.contactList[index].priceEmail;
+          // ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
+          //     if(result.success){
+          //         toastr.success(''+result.success+'', {
+          //             closeButton: true
+          //         })
+          //     }
+          // })
         }
         
         ContactViewService.getCompanies().then(function(result) {

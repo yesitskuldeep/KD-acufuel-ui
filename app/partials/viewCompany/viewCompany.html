@@ -242,7 +242,7 @@
                            </div>
                            <div class="pull-right">
                               <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
-                              <button type="button" class="btn btn-info">Setup Fuel</button>
+                              <button type="button" class="btn btn-info" ui-sref="app.updateFuelManager">Setup Fuel</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -291,7 +291,9 @@
                                           </select>
                                        </td>
                                        <td style="color:#55AF8B;">$3659</td>
-                                       <td></td>
+                                       <td>
+                                        <!-- <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteAircraft(aircraft.id)" aria-hidden="true"></i> -->
+                                       </td>
                                     </tr>
                                  </tbody>
                               </table>

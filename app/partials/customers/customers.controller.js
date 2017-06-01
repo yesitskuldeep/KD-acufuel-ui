@@ -2,9 +2,9 @@
 
  //Load controller
   angular.module('acufuel')
-	.controller('customersController', ['$scope', '$rootScope', '$uibModal', '$filter', '$http', 'CustomersService', 'ViewCompanyService', customersController]);
+	.controller('customersController', ['$scope', '$rootScope', '$uibModal', '$filter', '$http', '$state', 'CustomersService', 'ViewCompanyService', customersController]);
 
- 	function customersController($scope, $rootScope, $uibModal, $filter, $http, CustomersService, ViewCompanyService) {
+ 	function customersController($scope, $rootScope, $uibModal, $filter, $http, $state, CustomersService, ViewCompanyService) {
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
@@ -175,6 +175,11 @@
 	    //   var newRow =  $('<tr> <td> <input type="text" style="width:100px;" ng-model="aircraft.tail" class="form-control"> </td> <td style="width: 25%;"> <select class="form-control" ng-model="aircraft.make" ng-change="getModal()"> <option ng-repeat="make in aircraftMakeList">{{make}}</option> </select> </td> <td style="width: 20%;"> <select class="form-control" ng-model="aircraft.model" ng-change="getSize()"> <option ng-repeat="model in aircraftModalList">{{model}}</option> </select> </td> <td style="width: 25%;"> <select class="form-control" ng-model="aircraft.size"> <option ng-repeat="size in aircraftSizeList">{{size}}</option> </select> </td> <td> <select class="form-control"> <option>Margin1</option> <option>Margin2</option> </select> </td> </tr>');  
 	    //   $('table.addRow').append(newRow);
 	    // }
+
+	    $scope.setFuel = function(){
+	    	event.stopPropagation();
+	    	$state.go('app.updateFuelManager');
+	    }
 
 
     }

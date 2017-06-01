@@ -181,6 +181,21 @@
           })
           return deferred.promise;
         }
+
+        this.deleteAircraft = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'DELETE',
+              url : BASE_URL.url +'/company/aircraft/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result);
+          },function (result){
+              deferred.resolve(result);
+          })
+          return deferred.promise;
+        }
         
       }
       
