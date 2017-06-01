@@ -81,6 +81,7 @@
 
       fuelManagerService.getOptions().then(function(result) {
           $scope.dropOptions = result;
+          console.log('$scope.dropOptions', $scope.dropOptions);
       })
 
       fuelManagerService.getAircrafts().then(function(result) {
@@ -108,8 +109,6 @@
 
       $scope.openRampModal = function(){
         //console.log('$scope.dropOptions', $scope.dropOptions)
-        
-
         if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === 'WEIGHT') {
           $scope.openRampFeeModal = true;
           $scope.showWeight = true;
@@ -173,11 +172,16 @@
           $scope.showTail = false;
           $scope.showAircraft = false;
         }
+        console.log('$scope.dropOptions', $scope.dropOptions);
+        /*fuelManagerService.getRampFeeDetail().then(function(result) { 
+          console.log('result', result) 
+        })*/
         for (var i = 0; $scope.dropOptions.length; i++) {
           if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === $scope.dropOptions[i].size) {
             $scope.customRampData.rampFeesAndAvoidanceList.aircraftSizeId = $scope.dropOptions[i].id;
           }
         }
+
       }
 
       

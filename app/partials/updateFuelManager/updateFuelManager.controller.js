@@ -225,7 +225,7 @@
             $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
             $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
 
-            var editJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id;
+            var editJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id+'&message='+$scope.jetsDetail.message;
 
             updateFuelManagerService.editAtypeJetMargin(editJetData).then(function(result) {
                 console.log('newJet', editJetData);
@@ -252,7 +252,7 @@
             $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
             $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
 
-            var editVtypeJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id;
+            var editVtypeJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id+'&message='+$scope.jetsDetail.message;
 
             updateFuelManagerService.editVtypeJetMargin(editVtypeJetData).then(function(result) {
                 console.log('newJet', editVtypeJetData);
@@ -285,7 +285,7 @@
             $scope.newJet.productType = 'JET-A';
             $scope.newJet.userProfileId = $scope.userProfileId;
 
-            var jetData = 'productType='+$scope.newJet.productType+'&marginName='+$scope.newJet.marginName+'&pricingStructure='+$scope.newJet.pricingStructure+'&marginValue='+$scope.newJet.marginValue+'&userProfileId='+$scope.newJet.userProfileId;
+            var jetData = 'productType='+$scope.newJet.productType+'&marginName='+$scope.newJet.marginName+'&pricingStructure='+$scope.newJet.pricingStructure+'&marginValue='+$scope.newJet.marginValue+'&userProfileId='+$scope.newJet.userProfileId+'&message='+$scope.newJet.message;
 
             updateFuelManagerService.addNewAtypeJetMargin(jetData).then(function(result) {
                 console.log('newJet', jetData);
@@ -316,7 +316,7 @@
             $scope.newVtypeJet.productType = 'AVGAS';
             $scope.newVtypeJet.userProfileId = $scope.userProfileId;
 
-            var vJetData = 'productType='+$scope.newVtypeJet.productType+'&marginName='+$scope.newVtypeJet.marginName+'&pricingStructure='+$scope.newVtypeJet.pricingStructure+'&marginValue='+$scope.newVtypeJet.marginValue+'&userProfileId='+$scope.newVtypeJet.userProfileId;
+            var vJetData = 'productType='+$scope.newVtypeJet.productType+'&marginName='+$scope.newVtypeJet.marginName+'&pricingStructure='+$scope.newVtypeJet.pricingStructure+'&marginValue='+$scope.newVtypeJet.marginValue+'&userProfileId='+$scope.newVtypeJet.userProfileId+'&message='+$scope.newVtypeJet.message;
 
             updateFuelManagerService.addNewVtypeJet(vJetData).then(function(result) {
                 
@@ -334,15 +334,20 @@
 
 
         $scope.sendEmail = {};
-        $scope.sendEmail.pricing = '';
 
         $scope.confirmMail = function(){
-            if ($scope.sendEmail.pricing != '' && $scope.sendEmail.pricing != null) {
+            if ($scope.sendEmail.pricing != '' && $scope.sendEmail.pricing != null && $scope.sendEmail.pricing != undefined) {
                 $('#confirm1').css('display', 'block');
             }
         }
+
         $scope.saveAndCloseConfirm = function(){
             $('#confirm1').css('display', 'none');
+            updateFuelManagerService.sendMailToMargin($scope.sendEmail.pricing).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+            })
         }
         $scope.cancelAndCloseConfirm = function(){
             $scope.sendEmail = {};
@@ -575,6 +580,56 @@
         updateFuelManagerService.getMargin().then(function(result) {
           $scope.marginList = result;
         })
+
+        $scope.marginIdDelete = '';
+        $scope.deleteJetAccordian = function(id){
+            $scope.marginIdDelete = id;
+            $('#deleteMargin').css('display', 'block');
+        }
+
+        $scope.confirmDeleteMargin = function(){
+            $('#deleteMargin').css('display', 'none');
+            $scope.showLoader = true;
+            updateFuelManagerService.deleteMargin($scope.marginIdDelete).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
+                  $scope.aTypeJets = result;
+                  $scope.showLoader = false;
+                })
+            })
+        }
+
+        $scope.cancelMarginDelete = function(){
+            $scope.marginIdDelete = '';
+            $('#deleteMargin').css('display', 'none');
+        }
+
+        $scope.marginVtypeIdDelete = '';
+        $scope.deleteVtypeJetAccordian = function(id){
+            $scope.marginVtypeIdDelete = id;
+            $('#deleteVtypeMargin').css('display', 'block');
+        }
+
+        $scope.confirmDeletVtypeMargin = function(){
+            $('#deleteVtypeMargin').css('display', 'none');
+            $scope.showLoader = true;
+            updateFuelManagerService.deleteMargin($scope.marginVtypeIdDelete).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getVTypeJets($scope.userProfileId).then(function(result) {
+                  $scope.vTypeJets = result;
+                  $scope.showLoader = false;
+                })
+            })
+        }
+
+        $scope.cancelVtypeMarginDelete = function(){
+            $scope.marginVtypeIdDelete = '';
+            $('#deleteVtypeMargin').css('display', 'none');
+        }
 
     }]);
 

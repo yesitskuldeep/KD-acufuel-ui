@@ -229,6 +229,37 @@
           return deferred.promise;
         }
 
+        this.sendMailToMargin = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/fuelPricing/sendPriceEmail/'+id,
+              headers : {'Content-Type': 'application/json'}
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.deleteMargin = function(id) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'DELETE',
+              url : BASE_URL.url +'/margin/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
 
         
       }
