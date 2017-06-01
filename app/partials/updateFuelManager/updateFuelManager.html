@@ -201,13 +201,13 @@
                            <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.papMargin}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.futureFuelPricing.deployDate" style="height:31px; width: 100px; padding: 6px 6px;">
+                           <input type="text" class="form-control" ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" datepicker ng-model="fuelPricing.futureFuelPricing.deployDate" style="height:31px; width: 100px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 100px; padding: 6px 6px;">
+                           <input type="text" class="form-control" datepicker  ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 100px; padding: 6px 6px;">
                         </td>
                      </tr>
                   </tbody>

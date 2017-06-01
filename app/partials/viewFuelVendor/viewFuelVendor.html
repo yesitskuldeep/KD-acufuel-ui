@@ -144,7 +144,7 @@
                         <div class="widget-content">
                            <div class="row" style="margin-left:0px;">
                               <div class="col-md-7" style="padding-left: 0;">
-                                 <h4 ng-show="showCompanyName">
+                                 <h4 ng-show="showCompanyName" ng-if="vendorData.vendorName != 'undefined'">
                                     <b style="color:#F90;">{{vendorData.vendorName}}</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 14px;" aria-hidden="true"></i>
                                  </h4>
                                  <input type="tel" ng-hide="showCompanyName" ng-model="vendorData.vendorName" class="form-control" ng-blur="editData('showCompanyName')"/>
@@ -186,7 +186,10 @@
                            </div>
                            </br>
                            <div class="new-address">
-                              <p ng-show="showAddress"><i class="fa fa-map-marker"></i> {{vendorData.addressOne}} {{vendorData.addressTwo}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="addressChange()" aria-hidden="true"></i> </p>
+                              <p ng-show="showAddress"><i class="fa fa-map-marker"></i> 
+                              <span ng-if="vendorData.addressOne != 'undefined'">{{vendorData.addressOne}} </span>
+                              <span ng-if="vendorData.addressTwo != 'undefined'">{{vendorData.addressTwo}} </span>
+                              &nbsp;<i class="fa fa-pencil-square-o" ng-click="addressChange()" aria-hidden="true"></i> </p>
                               
                               <div ng-hide="showAddress">
                                  <label>Address1</label>
@@ -207,7 +210,7 @@
                            </div>
                            <div>
                               <p style="margin-bottom: 0;"><b>Company Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="showNote()" aria-hidden="true"></i></p>
-                              <p ng-show="showNoteData">{{vendorData.internalNote}}</p>
+                              <p ng-show="showNoteData" ng-if="vendorData.internalNote != 'undefined'">{{vendorData.internalNote}}</p>
                               <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="vendorData.internalNote" ng-blur="editData('showNoteData')" rows="4" cols="34"></textarea>
                            </div>
                            <div class="dis">
