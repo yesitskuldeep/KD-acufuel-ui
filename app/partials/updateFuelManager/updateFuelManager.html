@@ -41,16 +41,16 @@
                            <span>{{fuelPricing.name}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px">
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin}} /</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; width: 100px; padding: 6px 0;">
+                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; width: 100px; padding: 6px 6px;">
                         </td>
                      </tr>
                   </tbody>
@@ -72,11 +72,11 @@
                <i class="fa fa-pencil"></i>
                <h3><b>JET-A</b> Customer Margin Template</h3>
                <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewMarginBtn()" style="margin-top: 4px; margin-right: 10px;"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewMarginBtn()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
                </div>
             </div>
             <!-- /widget-header -->
-            <div class="widget-content">
+            <div class="widget-content" style="padding-top: 10px;">
                <section id="accordions">
                   <div class="newCustomAccordian">
                      <!-- tab 1 -->
@@ -152,7 +152,7 @@
                      </div>
                   </div>
                </section>
-               <div class="row">&nbsp;</div>
+               <!-- <div class="row">&nbsp;</div>
                <div class="row">
                   <div class="form-group">
                      <div class="col-lg-12 text-right">
@@ -160,7 +160,7 @@
                         <button type="reset" class="btn btn-default">Cancel</button>
                      </div>
                   </div>
-               </div>
+               </div> -->
             </div>
             <!-- /widget-content -->
          </div>
@@ -198,16 +198,16 @@
                            <span>{{fuelPricing.name}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 0;">
+                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
                         </td>
                         <td>
                            <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.papMargin}}</span>
                         </td>
                         <td>
-                           <input type="date" class="form-control " ng-model="fuelPricing.futureFuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px;">
+                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.futureFuelPricing.deployDate" style="height:31px; width: 100px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <input type="date" class="form-control" ng-model="fuelPricing.futureFuelPricing.expirationDate" style="height:31px; padding: 6px 0; width: 100px; color: #F90;">
+                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 100px; padding: 6px 6px;">
                         </td>
                      </tr>
                   </tbody>
@@ -228,11 +228,11 @@
                <i class="fa fa-pencil"></i>
                <h3><b style="color: 39c;">AVGAS 100LL </b> <i>Customer Margin Template</i></h3>
                <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewVtypePop()" style="margin-top: 4px; margin-right: 10px;"><i class="icon-ok"></i>+ &nbsp Add Aircraft</button>
+                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewVtypePop()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
                </div>
             </div>
             <!-- /widget-header -->
-            <div class="widget-content">
+            <div class="widget-content" style="padding-top: 10px;">
                <section id="accordions">
                   <div class="newCustomAccordian">
                      <!-- tab 1 -->
@@ -308,7 +308,7 @@
                      </div>
                   </div>
                </section>
-               <div class="row">&nbsp;</div>
+               <!-- <div class="row">&nbsp;</div>
                <div class="row">
                   <div class="form-group">
                      <div class="col-lg-12 text-right">
@@ -316,7 +316,7 @@
                         <button type="reset" class="btn btn-default">Cancel</button>
                      </div>
                   </div>
-               </div>
+               </div> -->
             </div>
             <!-- /widget-content -->
          </div>
@@ -426,6 +426,48 @@
      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="saveAndCloseConfirm()">Yes</button>
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseConfirm()">Cancel</button>
+     </div>
+  </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="deleteTierConfirm" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier ?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="confirmDeleteTier()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelTierDelete()">Cancel</button>
+     </div>
+  </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="deleteVtypeTierConfirm" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier ?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="confirmDeleteVtypeTier()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelVtypeTierDelete()">Cancel</button>
      </div>
   </div>
 </div>

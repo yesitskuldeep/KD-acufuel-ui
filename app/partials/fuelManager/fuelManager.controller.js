@@ -14,6 +14,21 @@
 
       fuelManagerService.getFullList().then(function(result) {
         $scope.fullJetList = result;
+        console.log('$scope.fullJetList', $scope.fullJetList);
+        for (var i = 0; i<$scope.fullJetList.length; i++) {
+          for (var j = 0; j<$scope.fullJetList[i].aircraftsSize.length; j++) {
+            if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance != null) {
+              if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != null && $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != '') {
+                var newTime = new Date($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate);
+                var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                var dday = newTime.getUTCDate();
+                var dyear = newTime.getUTCFullYear();
+                $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = dmonth+'/'+dday+'/'+dyear;
+                console.log('$scope.fullJetList.aircraftsSize.rampFeesAndAvoidance.expirationDate', $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate); 
+              }
+            }
+          }
+        }
         $scope.showLoader = false;
       })
 
@@ -23,14 +38,14 @@
         $scope.showLoader = true;
         $scope.addData = [];
         $scope.newJetList = fullJetList;
-        if ($scope.currentUserData == undefined || $scope.currentUserData == null) {
-
-        }else{
-          
+        if ($scope.currentUserData != undefined || $scope.currentUserData != null) {
           for(var i=0; i<$scope.newJetList.length;i++){
               for(var j = 0; j < $scope.newJetList[i].aircraftsSize.length; j++){
                 if($scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance != null){
-                  console.log('fullJetList', $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance);
+                  if ($scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != null) {
+                    $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = new Date($scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate);
+                    $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate.getTime();
+                  }
                   $scope.addData.push({
                       //'aircraftType': $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.aircraftType,
                       'id': $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.id,
@@ -48,7 +63,7 @@
           $scope.avoidanceList.rampFeesAndAvoidanceList = $scope.addData;
           $scope.avoidanceList.fboUserId = $scope.currentUserData;
 
-          fuelManagerService.updateFullList($scope.avoidanceList).then(function(result) {
+          /*fuelManagerService.updateFullList($scope.avoidanceList).then(function(result) {
             toastr.success(''+result.success+'', {
               closeButton: true
             })
@@ -56,7 +71,7 @@
               $scope.fullJetList = result;
               $scope.showLoader = false;
             })
-          })
+          })*/
 
         }
             

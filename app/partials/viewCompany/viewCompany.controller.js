@@ -381,7 +381,12 @@
         $scope.fuelPricing = result;
         for (var i = 0; i<$scope.fuelPricing.length; i++) {
           if ($scope.fuelPricing[i].fuelPricing.expirationDate != null) {
-              $scope.fuelPricing[i].fuelPricing.expirationDate = new Date($scope.fuelPricing[i].fuelPricing.expirationDate)
+              $scope.fuelPricing[i].fuelPricing.expirationDate = new Date($scope.fuelPricing[i].fuelPricing.expirationDate);
+              var newTime = new Date($scope.fuelPricing[i].fuelPricing.expirationDate);
+              var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+              var dday = newTime.getUTCDate();
+              var dyear = newTime.getUTCFullYear();
+              $scope.fuelPricing[i].fuelPricing.expirationDate = dmonth+'/'+dday+'/'+dyear;
           }
         }
       })
