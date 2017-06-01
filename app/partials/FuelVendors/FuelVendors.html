@@ -318,7 +318,8 @@
                                        <label class="new-input-label"><b>Vendor Name</b></label>
                                     </div>
                                     <div class="pull-left" style="margin-left: 15px;">
-                                       <input type="text" ng-model="data.vendorName" class="form-control" id="Address" placeholder="">
+                                       <input type="text" ng-model="data.vendorName" class="form-control companyNameInput" ng-keyup="removeValidation()" placeholder="" required>
+                                       <label class="customErrorMessage" ng-show="showCompanyError">This field is required.</label>
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
@@ -362,7 +363,8 @@
                                           <option value="vendorsonly">Vendors Only</option>
                                           <option value="margintenants">Margin Tenants</option>
                                        </select> -->
-                                       <select class="form-control" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList"></select>
+                                       <select class="form-control marginSelectBox" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required ng-change="removeMarginValidation()"></select>
+                                       <label ng-show="showMarginError" class="customErrorMessage">This field is required.</label>
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>

@@ -64,24 +64,44 @@
 		CustomersService.getMargin().then(function(result) {
 		  $scope.marginList = result;
 		})
+
+		$scope.showCompanyError = false;
+		$scope.showMarginError = false;
+
+		$scope.removeValidation = function(){
+			$scope.showCompanyError = false;
+	    	$('.companyNameInput').removeClass('customErrorInput');
+		}
+
+		$scope.removeMarginValidation = function(){
+			$scope.showMarginError = false;
+	    	$('.marginSelectBox').removeClass('customErrorInput');
+		}
 		      
 	    $scope.addFirstData = function(sel, step){
 	    	// console.log($scope.data)
+	    	if($scope.data.vendorName == undefined){
+	    		$scope.showCompanyError = true;
+	    		$('.companyNameInput').addClass('customErrorInput');
+	    	}else if($scope.data.masterMargin == undefined){
+	    		$scope.showMarginError = true;
+	    		$('.marginSelectBox').addClass('customErrorInput');
+	    	}else{
+		    	var vendorData = "vendorName=" + $scope.data.vendorName + "&masterMargin=" + $scope.data.masterMargin 
+		    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
+		    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
+		    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
+		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
+		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
 
-	    	var vendorData = "vendorName=" + $scope.data.vendorName + "&masterMargin=" + $scope.data.masterMargin 
-	    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
-	    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
-	    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
-	    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
-	    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
-
-	    	FuelVendorsService.addVendor(vendorData).then(function(result) {
-            	console.log("result",result)
-            	$scope.accountId = result;
-      			$scope.aircraft.accountId = $scope.accountId;
-          	})
-    	 	$(sel).trigger('next.m.' + step);
-    	 	getData();
+		    	FuelVendorsService.addVendor(vendorData).then(function(result) {
+	            	console.log("result",result)
+	            	$scope.accountId = result;
+	      			$scope.aircraft.accountId = $scope.accountId;
+	          	})
+	    	 	$(sel).trigger('next.m.' + step);
+	    	 	getData();
+    	 	}
 	    }
 
 	    $scope.aircraftDetails = [{ 
