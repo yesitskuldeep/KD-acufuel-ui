@@ -100,6 +100,40 @@
                      <br>  
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
+                          <table ng-table="displayCompanyList" class="table table-striped table-condensed" show-filter="true">
+                           <tr ng-repeat="row in $data track by row.id">
+                             <td data-title="'Company Name'" filter="{companyName: 'text'}" sortable="'companyName'">
+                              {{row.companyName}}
+                             </td>
+                             <td data-title="'Fleet'" filter="{companyAircraftSize: 'text'}" sortable="'companyAircraftSize'">
+                              {{row.companyAircraftSize}}
+                             </td>
+                             <td data-title="'Main Phone'" filter="{companyCustomContacts: 'text'}" sortable="'companyCustomContacts[0].contactNumber'">
+                              {{row.companyCustomContacts[0].contactNumber}}
+                             </td>
+                             <td data-title="'Primary Contact'" filter="{companyPrimaryContacts: 'text'}" sortable="'companyPrimaryContacts[0].firstName && companyPrimaryContacts[0].lastName'">
+                              {{row.companyPrimaryContacts[0].firstName}} {{row.companyPrimaryContacts[0].lastName}}
+                             </td>
+                             <td data-title="'Base'" filter="{baseIcao: 'text'}" sortable="'baseIcao'">
+                              {{row.baseIcao}}
+                             </td>
+                             <td data-title="'Status'" filter="{activate: 'select'}" filter-data="statusFilter" sortable="'activate'">
+                              <button type="button" ng-if="row.activate == true" class="btn btn-success btn-xs">Active</button>
+                              <button type="button" ng-if="row.activate == false" class="btn btn-warning btn-xs">InActive</button>
+                             </td>
+                             <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" sortable="'masterMargin'">
+                              <select class="form-control" ng-click="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+                             </td>
+                             <td data-title="'All In'" filter="{allIn: 'text'}" sortable="'allIn'">
+                              {{row.allIn}}
+                             </td>
+                             <td data-title="''">
+                              <button type="button" class="btn btn-info btn-xs" ng-click="setFuel()">Setup Fuel</button>
+                             </td>
+                           </tr>
+                         </table>
+
+                        <!-- 
                            <table class="table table-striped">
                               <thead>
                                  <tr>
@@ -156,10 +190,6 @@
                                     </td>
                                     <td class="font-company">
                                       <select class="form-control" ng-click="editMargin(customer)" style="height:31px;" ng-model="customer.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
-                                       <!-- <select class="form-control" style="height:31px;">
-                                          <option>Margin1</option>
-                                          <option>Margin2</option>
-                                       </select> -->
                                     </td>
                                     <td class="font-company">{{customer.allIn}}</td>
                                     <td>
@@ -197,7 +227,7 @@
                                  </div>
                               </div>
                            </div>
-                        </div>
+                         --></div>
                      </div>
                   </div>
                </div>
