@@ -10,13 +10,12 @@
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
-
+		$scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'))
 		$scope.reset = function(){
 			$("input").val("");
 		}
 		
 		$scope.data = {};
-		$scope.aircraft = {};
 		$scope.data.activate = true;
 		$scope.showLoader = false;
 		getAllVendor();
@@ -54,15 +53,16 @@
             })
         }
 
-        getData();
-    	function getData(){
-			CustomersService.getAircraftMake().then(function(result) {
-			  $scope.aircraftMakeList = result;
-			})
-		}
-		
-		CustomersService.getMargin().then(function(result) {
-		  $scope.marginList = result;
+		// CustomersService.getMargin().then(function(result) {
+		//   $scope.marginList = result;
+		// })
+
+		CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
+		  $scope.jetMarginList = result;
+		})
+
+		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
+		  $scope.avgsMarginList = result;
 		})
 
 		$scope.showCompanyError = false;
@@ -97,83 +97,9 @@
 		    	FuelVendorsService.addVendor(vendorData).then(function(result) {
 	            	console.log("result",result)
 	            	$scope.accountId = result;
-	      			$scope.aircraft.accountId = $scope.accountId;
 	          	})
-	    	 	$(sel).trigger('next.m.' + step);
-	    	 	getData();
     	 	}
+    	 	$('#vendor-modal-3').modal('hide');
 	    }
 
-	    $scope.aircraftDetails = [{ 
-            'tail':'',
-            'make': '',
-            'model': '',
-            'sizeId' : '',
-            'marginId': $scope.data.masterMargin
-        }];
-    
-        $scope.addNew = function(){
-            $scope.aircraftDetails.push({ 
-                'tail':'',
-	            'make': '',
-	            'model': '',
-	            'sizeId' : '',
-	            'marginId': ''
-            });
-            console.log($scope.aircraftDetails)
-        };
-
-        $scope.getModal = function(makeId, index){
-        	$scope.showLoader = true;
-	  		$scope.aircraft.make = makeId;
-	        //var makeId = makeId;
-	        CustomersService.getModal($scope.aircraft.make).then(function(result) {
-	          $scope.showLoader = false;
-	          $scope.aircraftDetails[index].aircraftModalList = result;
-	          //$scope.aircraftDetails[index].model = $scope.aircraftModalList[0];
-	        })
-      	}
-
-      	$scope.getSize = function(model, index){
-      		$scope.showLoader = true;
-	        CustomersService.getAircraftSize($scope.aircraft.make, model).then(function(result) {
-	        	$scope.showLoader = false;
-	        	console.log("result",result)
-	          $scope.aircraftDetails[index].aircraftSizeList = result;
-	          //$scope.aircraftDetails[index].size = $scope.aircraftSizeList[0];
-	          console.log($scope.aircraftDetails[index].size)
-	        })
-      	}
-
-      	$scope.aircraftListData = {};
-      	$scope.addData = [];
-      	$scope.saveVendorData = function(){
-      		for(var i=0; i<$scope.aircraftDetails.length;i++){
-      			$scope.addData.push({ 
-	                'tail': $scope.aircraftDetails[i].tail,
-		            'make': $scope.aircraftDetails[i].make,
-		            'model': $scope.aircraftDetails[i].model,
-		            'sizeId' : $scope.aircraftDetails[i].sizeId,
-		            'marginId': $scope.aircraftDetails[i].marginId
-	            });
-      		}
-	        $scope.aircraftListData.aircraftList = $scope.addData;
-	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
-	        
-	        FuelVendorsService.addVendorAicraft($scope.aircraftListData).then(function(result) {
-	        	console.log(result)
-
-	        	if(result != null && result.success){
-	        		toastr.success(''+result.success+'', {
-		            	closeButton: true
-		          	})
-		          	$('#vendor-modal-3').modal('hide');
-		          	getAllVendor();
-	        	}else{
-	        		toastr.error(''+result.statusText+'', {
-		            	closeButton: true
-		          	})
-	        	}
-	        });
-      	}
     }

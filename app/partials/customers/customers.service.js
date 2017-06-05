@@ -37,6 +37,36 @@
           return deferred.promise;
         }
 
+        this.getJetMargin = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/margin/getJetAType/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
+        this.getAvgMargin = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/margin/getAVGASType/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
       	this.addCompany = function(data) {
 
           var deferred = $q.defer();

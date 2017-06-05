@@ -221,55 +221,63 @@
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="widget">
-                        <div class="widget-header">
-                           <i class="fa fa-plane"></i>
-                           <h3>Aircraft List</h3>
-                           <div class="pull-right">
-                              <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" ng-click="clearAircrafts()" data-target="#aircraft-modal-3" style="margin-top: 4px; margin-right: 9px;"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Aircraft</button>
-                           </div>
-                        </div>
-                        <div class="widget-content" style="padding:0px">
-                           <div class="table-responsive">
-                              <table class="table table-bordered table-hover table-striped">
-                                 <thead>
-                                    <tr>
-                                       <th>Tail #</th>
-                                       <th>Make</th>
-                                       <th>Model</th>
-                                       <th>JET-A</th>
-                                       <th>All in</th>
-                                       <th>AVGAS</th>
-                                       <th>All in</th>
-                                       <th></th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr ng-repeat="aircraft in contactAircraftList">
-                                       <td>{{aircraft.tail}}</td>
-                                       <td>{{aircraft.make}}</td>
-                                       <td>{{aircraft.model}}</td>
-                                       <td>
-                                          <select class="form-control" style="height:31px;">
-                                             <option>Margin1</option>
-                                             <option>Margin2</option>
-                                          </select>
-                                       </td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td>
-                                          <select class="form-control" style="height:31px;">
-                                             <option>Margin1</option>
-                                             <option>Margin2</option>
-                                          </select>
-                                       </td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td></td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
+                   <div class="widget">
+                      <div class="widget-header">
+                         <i class="fa fa-pencil"></i>
+                         <h3>Price Manager Reference</h3>
+                      </div>
+                      <div class="widget-content">
+                         <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                               <thead>
+                                  <tr>
+                                     <th>Omit</th>
+                                     <th>Product</th>
+                                     <th>Cost</th>
+                                     <th>PAP (Margin)</th>
+                                     <th>PAP (Total)</th>
+                                     <th style="color:#F90">Expires</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <tr>
+                                     <td><input type="checkbox"></td>
+                                     <td>Jet-A Full Service</td>
+                                     <td>$2.123</td>
+                                     <td>$23000</td>
+                                     <td style="color:#55AF8B;">$3659</td>
+                                     <td style="color:#F90">3/15/2017</td>
+                                  </tr>
+                                  <tr>
+                                     <td><input type="checkbox"></td>
+                                     <td>Jet-A Full Service</td>
+                                     <td>$2.123</td>
+                                     <td>$23000</td>
+                                     <td style="color:#55AF8B;">$3659</td>
+                                     <td style="color:#F90">3/15/2017</td>
+                                  </tr>
+                                  <tr>
+                                  <tr>
+                                     <td><input type="checkbox"></td>
+                                     <td>Jet-A Full Service</td>
+                                     <td>$2.123</td>
+                                     <td>$23000</td>
+                                     <td style="color:#55AF8B;">$3659</td>
+                                     <td style="color:#F90">3/15/2017</td>
+                                  </tr>
+                                  <tr>
+                                     <td><input type="checkbox"></td>
+                                     <td>Jet-A Full Service</td>
+                                     <td>$2.123</td>
+                                     <td>$23000</td>
+                                     <td style="color:#55AF8B;">$3659</td>
+                                     <td style="color:#F90">3/15/2017</td>
+                                  </tr>
+                               </tbody>
+                            </table>
+                         </div>
+                      </div>
+                   </div>
                   </div>
                </div>
                <div class="row" style="margin-left:0px">
@@ -310,65 +318,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="col-md-6">
-                     <div class="widget">
-                        <div class="widget-header">
-                           <i class="fa fa-pencil"></i>
-                           <h3>Price Manager Reference</h3>
-                        </div>
-                        <div class="widget-content">
-                           <div class="table-responsive">
-                              <table class="table table-hover table-striped">
-                                 <thead>
-                                    <tr>
-                                       <th>Omit</th>
-                                       <th>Product</th>
-                                       <th>Cost</th>
-                                       <th>PAP (Margin)</th>
-                                       <th>PAP (Total)</th>
-                                       <th style="color:#F90">Expires</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                    <tr>
-                                       <td><input type="checkbox"></td>
-                                       <td>Jet-A Full Service</td>
-                                       <td>$2.123</td>
-                                       <td>$23000</td>
-                                       <td style="color:#55AF8B;">$3659</td>
-                                       <td style="color:#F90">3/15/2017</td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+                 
                </div>
             </div>
             <!-- /widget-content -->

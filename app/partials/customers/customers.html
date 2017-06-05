@@ -122,7 +122,7 @@
                               <button type="button" ng-if="row.activate == false" class="btn btn-warning btn-xs">InActive</button>
                              </td>
                              <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" filter-data="marginFilterOptions" sortable="'masterMargin'">
-                              <select class="form-control" ng-click="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-selected="" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+                              <select class="form-control" ng-change="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-selected="" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
                              </td>
                              <td data-title="'All In'" filter="{allIn: 'text'}" sortable="'allIn'">
                               {{row.allIn}}
@@ -286,7 +286,7 @@
                               </div>
                               <div class="clearfix"></div><br>
                               <div class="col-xs-12">
-                                 <div class="col-md-8">
+                                 <div class="col-md-7">
                                     <div class="pull-left">
                                        <label class="new-input-label"><b>Relationship&nbsp;</b></label>
                                     </div>
@@ -297,35 +297,12 @@
                                     </div>
                                     <div class="clearfix"></div>
                                  </div>
-                              </div>
-                              <div class="clearfix"></div>
-                              <br/>
-                              <div class="col-xs-12">
-                                 <div class="col-md-6">
-                                    <div class="pull-left" style="width: 110px;">
-                                       <b>Master Margin</b>
-                                    </div>
-                                    <div class="pull-left">
-                                       <select class="form-control marginSelectBox" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required ng-change="removeMarginValidation()"></select>
-                                       <label ng-show="showMarginError" class="customErrorMessage">This field is required.</label>
-
-                                       <!-- <select required class="form-control" style="max-width: 250px;" ng-model="data.masterMargin">
-                                          <option value="" disabled selected hidden>Select </option>
-                                          <option value="margin1">Margin1</option>
-                                          <option value="margin2">Margin2</option>
-                                          <option value="vendorsonly">Vendors Only</option>
-                                          <option value="margintenants">Margin Tenants</option>
-                                       </select> -->
-                                    </div>
-                                    <div class="clearfix"></div>
-                                 </div>
-                                 
-                                 <div class="col-md-3 Airport" style="text-align: right;">
+                                 <div class="col-md-2 Airport" style="text-align: right;">
                                     <b>Certificate Type</b>
                                  </div>
                                  <div class="col-md-3 Airport">
                                     <select required class="form-control" ng-model="data.certificateType">
-                                       <option value="" disabled selected hidden>Select </option>
+                                       <option value="" disabled selected hidden>Select...</option>
                                        <option value="corporate">Part 91 (Corporate)</option>
                                        <option value="charter">Part 135 (Charter)</option>
                                        <option value="scheduled">Part 121 (Scheduled)</option>
@@ -333,6 +310,34 @@
                                        <option value="government">Government</option>
                                     </select>
                                  </div>
+                                 <div class="clearfix"></div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <br/>
+                              <div class="col-xs-12">
+                                 <div class="col-md-6">
+                                    <div class="pull-left" style="width: 110px;">
+                                       <b>JET A Margin</b>
+                                    </div>
+                                    <div class="pull-left">
+                                      <select class="form-control marginSelectBox" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in jetMarginList" required ng-change="removeMarginValidation()">
+                                       <option value="" disabled>Select...</option>
+                                      </select>
+                                      <label ng-show="showMarginError" class="customErrorMessage">This field is required.</label>
+
+                                      <div class="clearfix"></div>
+                                    </div>
+                                  </div>
+                                 
+                                 <div class="col-md-3 Airport" style="text-align: right;">
+                                    <b>AVGAS 100LL Margin</b>
+                                 </div>
+                                 <div class="col-md-3 Airport">
+                                    <select class="form-control marginSelectBox" ng-model="data.avgasMargin" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
+                                    <option value="" disabled>Select...</option>
+                                    </select>
+                                 </div>
+                                 <div class="clearfix"></div>
                               </div>
                               <div class="clearfix"></div>
                               <br/>
@@ -500,7 +505,8 @@
                                                 <th>Make</th>
                                                 <th>Model</th>
                                                 <th>Size</th>
-                                                <th>Margin</th>
+                                                <th>JET A Margin</th>
+                                                <th>AVGS 100LL Margin</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -508,27 +514,38 @@
                                                 <!-- <td>
                                                     <input type="checkbox" ng-model="aircraftData.selected"/>
                                                 </td> -->
-                                                <td style="width: 20%">
+                                                <td style="width: 15%">
                                                     <input type="text" class="form-control" ng-model="aircraftData.tail" required/>
                                                 </td>
-                                                <td style="width: 20%">
+                                                <td style="width: 17%">
                                                     <select class="form-control" ng-model="aircraftData.make" ng-change="getModal(aircraftData.make, $index)">
                                                       <option ng-repeat="make in aircraftMakeList">{{make}}</option>
+                                                      <option value="" disabled>Select...</option>
                                                     </select>
                                                 </td>
-                                                <td style="width: 20%">
+                                                <td style="width: 17%">
                                                     <select class="form-control" ng-model="aircraftData.model" ng-change="getSize(aircraftData.model, $index)">
                                                         <option ng-repeat="model in aircraftData.aircraftModalList">{{model}}</option>
+                                                        <option value="" disabled>Select...</option>
                                                     </select>
                                                 </td>
-                                                <td style="width: 20%">
-                                                    <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList"></select>
+                                                <td style="width: 17%">
+                                                  <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select>
                                                     <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
                                                     </select> -->
                                                 </td>
-                                                <td>
-                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in marginList"></select>
+                                                <td style="width: 17%">
+                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in jetMarginList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select>
+                                                </td>
+                                                <td style="width: 17%">
+                                                 <select class="form-control marginSelectBox" ng-model="aircraftData.avgasMarginId" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select>
                                                 </td>
                                             </tr>
                                           </tbody>

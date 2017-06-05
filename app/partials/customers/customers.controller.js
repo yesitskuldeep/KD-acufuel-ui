@@ -8,7 +8,7 @@
 		$(document).ready(function() {
 		    $('#example').DataTable();
 		});
-
+		$scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'))
 		$scope.reset2 = function(){
 			$("input").val("");
 		}
@@ -122,9 +122,13 @@
 			})
 		}
       	
-      	$scope.marginFilterOptions = [];
-		CustomersService.getMargin().then(function(result) {
-		  $scope.marginList = result;
+
+		// CustomersService.getMargin().then(function(result) {
+		//   $scope.marginList = result;
+		// })
+		$scope.marginFilterOptions = [];
+		CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
+		  $scope.jetMarginList = result;
 		  $scope.marginFilterOptions.push({
 		  	'id': '', 'title': 'Show All'
 		  });
@@ -134,10 +138,13 @@
 		  		'title': result[i].marginName
 		  	})
 		  }
-		  console.log('$scope.marginFilterOptions', $scope.marginFilterOptions);
-
-		  //$scope.marginFilter = $scope.marginList;
 		})
+
+		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
+		  $scope.avgsMarginList = result;
+		})
+
+
 		$scope.showCompanyError = false;
 		$scope.showMarginError = false;
 
@@ -164,7 +171,7 @@
 		    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
 		    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
 		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
-		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
+		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao + "&avgasMargin=" + $scope.data.avgasMargin;
 
 		    	CustomersService.addCompany(companyData).then(function(result) {
 	            	$scope.accountId = result;
@@ -180,7 +187,8 @@
             'make': '',
             'model': '',
             'sizeId' : '',
-            'marginId': $scope.data.masterMargin
+            'marginId': $scope.data.masterMargin,
+            'avgasMarginId': $scope.data.avgasMargin
         }];
     
         $scope.addNew = function(){
@@ -189,7 +197,8 @@
 	            'make': '',
 	            'model': '',
 	            'sizeId' : '',
-	            'marginId': ''
+	            'marginId': $scope.data.masterMargin,
+            	'avgasMarginId': $scope.data.avgasMargin
             });
         };
 
@@ -222,7 +231,8 @@
 		            'make': $scope.aircraftDetails[i].make,
 		            'model': $scope.aircraftDetails[i].model,
 		            'sizeId' : $scope.aircraftDetails[i].sizeId,
-		            'marginId': $scope.aircraftDetails[i].marginId
+		            'marginId': $scope.aircraftDetails[i].marginId,
+		            'avgasMarginId': $scope.aircraftDetails[i].avgasMarginId
 	            });
       		}
 	        $scope.aircraftListData.aircraftList = $scope.addData;
