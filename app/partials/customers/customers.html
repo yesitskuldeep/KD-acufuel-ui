@@ -121,7 +121,7 @@
                               <button type="button" ng-if="row.activate == true" class="btn btn-success btn-xs">Active</button>
                               <button type="button" ng-if="row.activate == false" class="btn btn-warning btn-xs">InActive</button>
                              </td>
-                             <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" sortable="'masterMargin'">
+                             <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" filter-data="marginFilterOptions" sortable="'masterMargin'">
                               <select class="form-control" ng-click="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-selected="" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
                              </td>
                              <td data-title="'All In'" filter="{allIn: 'text'}" sortable="'allIn'">

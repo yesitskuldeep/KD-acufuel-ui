@@ -703,3 +703,6 @@ font-size: 10px !important;
 .ui-datepicker .ui-widget-header{
 	background-image: none !important;
 }
+.recordCountSelect{
+	background-color: #fff;
+}

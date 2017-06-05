@@ -122,8 +122,21 @@
 			})
 		}
       	
+      	$scope.marginFilterOptions = [];
 		CustomersService.getMargin().then(function(result) {
 		  $scope.marginList = result;
+		  $scope.marginFilterOptions.push({
+		  	'id': '', 'title': 'Show All'
+		  });
+		  for (var i = 0; i < result.length; i++) {
+		  	$scope.marginFilterOptions.push({
+		  		'id': result[i].id,
+		  		'title': result[i].marginName
+		  	})
+		  }
+		  console.log('$scope.marginFilterOptions', $scope.marginFilterOptions);
+
+		  //$scope.marginFilter = $scope.marginList;
 		})
 		$scope.showCompanyError = false;
 		$scope.showMarginError = false;
