@@ -35,7 +35,7 @@
 			{id: "false", title: "Inactive"}
 		]
 
-		function getAllCompanies(){
+		/*function getAllCompanies(){
 			$scope.displayCompanyList = new NgTableParams({
 		       page: 1,
 		       count: 10
@@ -57,9 +57,40 @@
 					})
 		         }
 		    });
+		}*/
+
+		function getAllCompanies(){
+			CustomersService.getAllCompanies().then(function(result) {
+				console.log('log', result);
+				$scope.companyList = result;
+				for (var i = 0; i < $scope.companyList.length; i++) {
+					if ($scope.companyList[i].companyContact != null) {
+						if ($scope.companyList[i].companyContact.contactNumber != null || $scope.companyList[i].companyContact.contactNumber != undefined) {
+							$scope.companyList[i].newContactNumber = $scope.companyList[i].companyContact.contactNumber;
+						}
+					}
+					if ($scope.companyList[i].primaryContact != null) {
+						if ($scope.companyList[i].primaryContact.firstName != null && $scope.companyList[i].primaryContact.lastName != null) {
+							$scope.companyList[i].primaryContactName = $scope.companyList[i].primaryContact.firstName + ' ' + $scope.companyList[i].primaryContact.lastName;
+						}
+					}
+					if ($scope.companyList[i].margin != null) {
+						if ($scope.companyList[i].margin.marginName != null) {
+							$scope.companyList[i].masterMargin = $scope.companyList[i].margin.id;
+						}
+					}
+				}
+				$scope.displayCompanyList = new NgTableParams({
+		        page: 1,
+		        count: 10,
+		      }, {
+		        data: $scope.companyList
+		      });
+			})
 		}
 
         $scope.editMargin = function(customer){
+        	console.log('customer', customer);
         	event.stopPropagation();
 
         	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 

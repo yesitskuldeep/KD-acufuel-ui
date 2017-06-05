@@ -108,11 +108,11 @@
                              <td data-title="'Fleet'" filter="{companyAircraftSize: 'text'}" sortable="'companyAircraftSize'">
                               {{row.companyAircraftSize}}
                              </td>
-                             <td data-title="'Main Phone'" filter="{companyCustomContacts: 'text'}" sortable="'companyCustomContacts[0].contactNumber'">
-                              {{row.companyCustomContacts[0].contactNumber}}
+                             <td data-title="'Main Phone'" filter="{newContactNumber: 'text'}" sortable="'newContactNumber'">
+                              {{row.newContactNumber}}
                              </td>
-                             <td data-title="'Primary Contact'" filter="{companyPrimaryContacts: 'text'}" sortable="'companyPrimaryContacts[0].firstName && companyPrimaryContacts[0].lastName'">
-                              {{row.companyPrimaryContacts[0].firstName}} {{row.companyPrimaryContacts[0].lastName}}
+                             <td data-title="'Primary Contact'" filter="{primaryContactName: 'text'}" sortable="'primaryContactName'">
+                              {{row.primaryContactName}}
                              </td>
                              <td data-title="'Base'" filter="{baseIcao: 'text'}" sortable="'baseIcao'">
                               {{row.baseIcao}}
@@ -122,7 +122,7 @@
                               <button type="button" ng-if="row.activate == false" class="btn btn-warning btn-xs">InActive</button>
                              </td>
                              <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" sortable="'masterMargin'">
-                              <select class="form-control" ng-click="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
+                              <select class="form-control" ng-click="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-selected="" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
                              </td>
                              <td data-title="'All In'" filter="{allIn: 'text'}" sortable="'allIn'">
                               {{row.allIn}}
