@@ -26,7 +26,9 @@
 
         var value = "";
         var companyId = $stateParams.id;
-
+        $scope.companyData = {};
+        $scope.multipleMsg = false;
+        $scope.companyData.masterMargin = "";
         getCompanyDetail();
         function getCompanyDetail(){
           ViewCompanyService.getCompany(companyId).then(function(result) {
@@ -34,6 +36,9 @@
             if(result.margin != null){
                $scope.companyData.masterMargin = result.margin.id;
             }
+            if(result.marginAVGAS != null){
+                $scope.companyData.avgasMargin = result.marginAVGAS.id;
+             }
             $scope.showLoader = false;
           })
         }
@@ -57,14 +62,31 @@
             $scope.companyContactList = result;
           })
         }
-
+        $scope.aircraftmargins = [];
         getAircraftList();
         function getAircraftList(){
           ViewCompanyService.getAircraft(companyId).then(function(result) {
             $scope.contactAircraftList = result;
+            for (var i = 0; i < $scope.contactAircraftList.length; i++) {
+            	if($scope.contactAircraftList[i].aircraftsMargin != null){
+            		$scope.aircraftmargins.push({
+            			'id': $scope.contactAircraftList[i].aircraftsMargin.id
+            		})
+            	}
+            }
+            if($scope.aircraftmargins.length > 0) {
+            	for (var i = 0; i < $scope.aircraftmargins.length; i++) {
+                	if($scope.aircraftmargins[i].id != $scope.companyData.masterMargin){
+                		$scope.multiple = true;
+                		$scope.multipleMsg = true;
+                        if($scope.multiple) {
+                      		$scope.companyData.masterMargin = "multiple";
+                        }
+                	}
+                }
+            }
           })
         }
-        
 
         $scope.contactData = {};
         $scope.contactData.contactList = [];
@@ -206,7 +228,7 @@
           $scope.showCompanyName = true;
           $scope.showAddress = true;
 
-          var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin 
+          var companyData = "companyName=" + $scope.companyData.companyName + "&masterMargin=" + $scope.companyData.masterMargin + "&avgasMargin=" + $scope.companyData.avgasMargin
             + "&addressOne=" + $scope.companyData.addressOne + "&addressTwo=" + $scope.companyData.addressTwo + "&city=" + $scope.companyData.city + "&state=" 
             + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
             + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
@@ -397,5 +419,13 @@
             getAircraftList();
           })
       }
+      
+      	CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
+		  $scope.jetMarginList = result;
+		})
+
+		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
+		  $scope.avgsMarginList = result;
+		})
         
   }]);

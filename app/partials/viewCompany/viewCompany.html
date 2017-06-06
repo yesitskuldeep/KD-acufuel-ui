@@ -169,12 +169,21 @@
                            </div>
                            <div>
                               <p class="new-label">
-                                 <span>Master Margin Setting </span> 
-                                 <!-- <select class="form-control" ng-model="companyData.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList"></select> -->
-                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="companyData.masterMargin">
-                                    <option ng-repeat="margin in marginList" value="{{margin.id}}">{{margin.marginName}}</option>
+                                 <span>JET A Margin </span> 
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="companyData.masterMargin">
+                                 	<option ng-if="multiple" value="multiple">Multiple</option>
+                                    <option ng-repeat="margin in jetMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
-                                 <span>&nbsp;See Aircrart List</span>
+                                 <span ng-show="multipleMsg">&nbsp;See Aircrart List</span>
+                                 <div class="clearfix"></div>
+                              </p>
+                           </div>
+                           <div>
+                              <p class="new-label">
+                                 <span>AVGAS 100LL </span> 
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="companyData.avgasMargin">
+                                    <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
+                                 </select>
                                  <div class="clearfix"></div>
                               </p>
                            </div>
