@@ -129,7 +129,7 @@
          <div class="widget">
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
-               <h3>Antioch Flight Department</h3>
+               <h3>{{companyData.companyName}}</h3>
                <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
@@ -141,7 +141,7 @@
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <h3>Company Details</h3>
                             <label>BASE ICAO</label>
-                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 50px;padding: 0px 9px;" />
+                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 80px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
