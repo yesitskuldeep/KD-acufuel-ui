@@ -11,6 +11,7 @@
 		$scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'))
 		$scope.reset2 = function(){
 			$("input").val("");
+			$scope.removeMarginValidation();
 		}
 		
 		$scope.data = {};

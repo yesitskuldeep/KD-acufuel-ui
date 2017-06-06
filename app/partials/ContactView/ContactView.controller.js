@@ -3,7 +3,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', 'ViewcontactService', function($scope, $uibModal, ContactViewService, ViewCompanyService, ViewcontactService) {
+	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', 'ViewcontactService', 'NgTableParams', function($scope, $uibModal, ContactViewService, ViewCompanyService, ViewcontactService, NgTableParams) {
         
         $(document).ready(function() {
             $('#contacts').DataTable();
@@ -16,6 +16,9 @@
         $scope.reset = function(){
           $("input").val("");
         }
+        
+        $scope.data = {};
+		getAllContacts();
 
         $scope.changePriceEmail = function(id, index){
           event.stopPropagation();
@@ -30,10 +33,32 @@
           // })
         }
         
-        ContactViewService.getCompanies().then(function(result) {
+        
+        function getAllContacts(){
+        	ContactViewService.getContacts().then(function(result) {
+				console.log('log', result);
+				$scope.contactList = result;
+				for (var i = 0; i < $scope.contactList.length; i++) {
+					if ($scope.contactList[i].owner != null) {
+						if ($scope.contactList[i].owner.companyName != null || $scope.contactList[i].owner.companyName != undefined) {
+							$scope.contactList[i].owner = $scope.contactList[i].owner.companyName;
+						}
+					}
+				}
+				$scope.displayContactList = new NgTableParams({
+		        page: 1,
+		        count: 10,
+		      }, {
+		        data: $scope.contactList
+		      });
+			})
+		}
+        
+        
+        /*ContactViewService.getCompanies().then(function(result) {
         	$scope.companies = result;
           
-        })
+        })*/
         
         $scope.contactData = {};
         $scope.contactData.contactList = [];

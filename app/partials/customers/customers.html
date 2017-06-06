@@ -101,7 +101,7 @@
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
                           <table ng-table="displayCompanyList" class="table table-striped table-condensed" show-filter="true">
-                           <tr ng-repeat="row in $data track by row.id">
+                           <tr ng-repeat="row in $data track by row.id" style="cursor: pointer;" ui-sref="app.viewCompany({id : row.id})">
                              <td data-title="'Company Name'" filter="{companyName: 'text'}" sortable="'companyName'">
                               {{row.companyName}}
                              </td>
@@ -265,7 +265,7 @@
                               <div class="col-xs-12">
                                  <div class="col-md-8">
                                     <div class="pull-left">
-                                       <label class="new-input-label"><b>Company Name</b></label>
+                                       <label class="new-input-label"><b>Company Name *</b></label>
                                     </div>
                                     <div class="pull-left" style="margin-left: 15px;">
                                        <input type="text" ng-model="data.companyName" class="form-control companyNameInput" ng-keyup="removeValidation()" placeholder="" required>
@@ -317,7 +317,7 @@
                               <div class="col-xs-12">
                                  <div class="col-md-6">
                                     <div class="pull-left" style="width: 110px;">
-                                       <b>JET A Margin</b>
+                                       <b>JET A Margin *</b>
                                     </div>
                                     <div class="pull-left">
                                       <select class="form-control marginSelectBox" ng-model="data.masterMargin" ng-options="margin.id as margin.marginName for margin in jetMarginList" required ng-change="removeMarginValidation()">
@@ -333,7 +333,7 @@
                                     <b>AVGAS 100LL Margin</b>
                                  </div>
                                  <div class="col-md-3 Airport">
-                                    <select class="form-control marginSelectBox" ng-model="data.avgasMargin" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
+                                    <select class="form-control" ng-model="data.avgasMargin" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
                                     <option value="" disabled>Select...</option>
                                     </select>
                                  </div>
