@@ -123,7 +123,7 @@
   <img src="../img/hourglass.gif" width="50px;">
 </div>
 
-<div class="col-xs-12 col-md-11">
+<div class="col-xs-12 col-md-12">
    <div class="row" style="margin-left:0px">
       <div class="col-md-12">
          <div class="widget">
@@ -182,6 +182,7 @@
                               <p class="new-label">
                                  <span>AVGAS 100LL </span> 
                                  <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="companyData.avgasMargin">
+                                    <option value="">N/A</option>
                                     <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
                                  <div class="clearfix"></div>
@@ -287,17 +288,18 @@
                                        <td>{{aircraft.make}}</td>
                                        <td>{{aircraft.model}}</td>
                                        <td>
-                                          <select class="form-control" style="height:31px;">
+                                          <!-- <select class="form-control" style="height:31px;">
                                              <option>Margin1</option>
                                              <option>Margin2</option>
-                                          </select>
+                                          </select> -->
+                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-selected="" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
                                        </td>
                                        <td style="color:#55AF8B;">$3659</td>
                                        <td>
-                                          <select class="form-control" style="height:31px;">
-                                             <option>Margin1</option>
-                                             <option>Margin2</option>
-                                          </select>
+                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsAVGASMargin.id">
+		                                 	<option value="">N/A</option>
+		                                    <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
+		                                 </select>
                                        </td>
                                        <td style="color:#55AF8B;">$3659</td>
                                        <td>
@@ -582,7 +584,8 @@
                                                 <th>Make</th>
                                                 <th>Model</th>
                                                 <th>Size</th>
-                                                <th>Margin</th>
+                                                <th>JET A Margin</th>
+                                                <th>AVGS 100LL Margin</th>
                                              </tr>
                                           </thead>
                                           <tbody>
@@ -590,27 +593,34 @@
                                                 <!-- <td>
                                                    <input type="checkbox" ng-model="aircraftData.selected"/>
                                                    </td> -->
-                                                <td style="width: 20%">
+                                                <td style="width: 15%">
                                                    <input type="tel" class="form-control" ng-model="aircraftData.tail" required/>
                                                 </td>
-                                                <td style="width: 20%">
+                                                <td style="width: 17%">
                                                    <select class="form-control" ng-model="aircraftData.make" ng-change="getModal(aircraftData.make, $index)">
                                                       <option ng-repeat="make in aircraftMakeList">{{make}}</option>
                                                    </select>
                                                 </td>
-                                                <td style="width: 20%">
+                                                <td style="width: 17%">
                                                    <select class="form-control" ng-model="aircraftData.model" ng-change="getSize(aircraftData.model, $index)">
                                                       <option ng-repeat="model in aircraftData.aircraftModalList">{{model}}</option>
                                                    </select>
                                                 </td>
-                                                <td style="width: 20%">
+                                                <td style="width: 17%">
                                                   <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList"></select>
                                                    <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
                                                    </select> -->
                                                 </td>
-                                                <td>
-                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in marginList"></select>
+                                                <td style="width: 17%">
+                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in jetMarginList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select>
+                                                </td>
+                                                <td style="width: 17%">
+                                                 <select class="form-control marginSelectBox" ng-model="aircraftData.avgasMarginId" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select>
                                                 </td>
                                              </tr>
                                           </tbody>

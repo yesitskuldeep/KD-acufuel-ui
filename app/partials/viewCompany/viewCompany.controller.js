@@ -39,6 +39,7 @@
             if(result.marginAVGAS != null){
                 $scope.companyData.avgasMargin = result.marginAVGAS.id;
              }
+            getAircraftList();
             $scope.showLoader = false;
           })
         }
@@ -63,7 +64,7 @@
           })
         }
         $scope.aircraftmargins = [];
-        getAircraftList();
+       
         function getAircraftList(){
           ViewCompanyService.getAircraft(companyId).then(function(result) {
             $scope.contactAircraftList = result;
@@ -125,7 +126,8 @@
             'make': '',
             'model': '',
             'sizeId' : '',
-            'marginId': ''
+            'marginId': '',
+        	'avgasMarginId': ''
         }];
       }
     
@@ -135,7 +137,8 @@
             'make': '',
             'model': '',
             'sizeId' : '',
-            'marginId': ''
+            'marginId': '',
+        	'avgasMarginId': ''
           });
           console.log($scope.aircraftDetails)
       };
@@ -170,7 +173,8 @@
               'make': $scope.aircraftDetails[i].make,
               'model': $scope.aircraftDetails[i].model,
               'sizeId' : $scope.aircraftDetails[i].sizeId,
-              'marginId': $scope.aircraftDetails[i].marginId
+              'marginId': $scope.aircraftDetails[i].marginId,
+	          'avgasMarginId': $scope.aircraftDetails[i].avgasMarginId
             });
         }
         console.log($scope.addData)
