@@ -75,7 +75,7 @@
           var deferred = $q.defer();
           $http({
               method : 'GET',
-              url : BASE_URL.url +'/getRampFeeBySize/CUSTOM',
+              url : BASE_URL.url +'/rampFeesAndAvoidance/getRampFeeBySize/'+id,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
@@ -85,6 +85,21 @@
           })
           return deferred.promise;
 
+        }
+
+        this.deleteCustomRamp = function(id){
+          var deferred = $q.defer();
+          $http({
+              method : 'DELETE',
+              url : BASE_URL.url +'/rampFeesAndAvoidance/'+id,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
         }
         
       }
