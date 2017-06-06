@@ -100,7 +100,37 @@
                      <br>  
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
-                           <table class="table table-striped">
+                        	<table ng-table="displayVendorList" class="table table-striped table-condensed" show-filter="true">
+	                           <tr ng-repeat="row in $data track by row.id" style="cursor: pointer;" ui-sref="app.viewFuelVendor({id : row.id})">
+	                             <td data-title="'Vendor Name'" filter="{vendorName: 'text'}" sortable="'vendorName'">
+	                              {{row.vendorName}}
+	                             </td>
+	                             <td data-title="'Main Phone'" filter="{newContactNumber: 'text'}" sortable="'newContactNumber'">
+	                              {{row.newContactNumber}}
+	                             </td>
+	                             <td data-title="'Primary Contact'" filter="{primaryContactName: 'text'}" sortable="'primaryContactName'">
+	                              {{row.primaryContactName}}
+	                             </td>
+	                             
+	                             <td data-title="'Status'" filter="{activate: 'select'}" filter-data="statusFilter" sortable="'activate'">
+	                              <button type="button" ng-if="row.activate == true" class="btn btn-success btn-xs">Active</button>
+	                              <button type="button" ng-if="row.activate == false" class="btn btn-warning btn-xs">InActive</button>
+	                             </td>
+	                             <td data-title="'Source'" filter="{source: 'text'}" sortable="'source'">
+	                              Vendor
+	                             </td>
+	                             <td data-title="'Margin Setting'" filter="{masterMargin: 'select'}" filter-data="marginFilterOptions" sortable="'masterMargin'">
+	                              <select class="form-control" ng-change="editMargin(row)" style="height:31px;" ng-model="row.masterMargin" ng-selected="" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
+	                             </td>
+	                             <td data-title="'All In'" filter="{allIn: 'text'}" sortable="'allIn'">
+	                              {{row.allIn}}
+	                             </td>
+	                           </tr>
+	                         </table>
+                        
+                        
+                        
+                           <!-- <table class="table table-striped">
                               <thead>
                                  <tr>
                                     <th>
@@ -149,133 +179,15 @@
                                     <td class="font-company">
                                       <select class="form-control" ng-blur="editMargin(vendor)" style="height:31px;" ng-model="vendor.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
 
-                                       <!-- <select class="form-control" style="height:31px;">
+                                       <select class="form-control" style="height:31px;">
                                           <option>Margin1</option>
                                           <option>Margin2</option>
-                                       </select> -->
+                                       </select>
                                     </td>
                                     <td class="font-company">{{vendor.allIn}}</td>
                                  </tr>
                               </tbody>
-                           </table>
-                           <div class="row" style="margin-left: 0px;">
-                              <div class="col-md-2">
-                                 <button type="button" class="btn btn-warning">Export Customers</button>
-                              </div>
-                              <div class="col-md-10">
-                                 <div class="row" style="margin-left: 0px;">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <select class="form-control">
-                                          <option>20 Records Per Page</option>
-                                          <option>50 Records Per Page</option>
-                                          <option>100 Records Per Page</option>
-                                       </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul class="pagination" style="margin:0px">
-                                          <li><a href="javascript:;">«</a></li>
-                                          <li class="active"><a href="#">1</a></li>
-                                          <li><a href="javascript:;">2</a></li>
-                                          <li><a href="javascript:;">3</a></li>
-                                          <li><a href="javascript:;">4</a></li>
-                                          <li><a href="javascript:;">5</a></li>
-                                          <li><a href="javascript:;">»</a></li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="tab-pane" id="contactView">
-                           <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name"> Last Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">First Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Company Name</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Work Phone</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Mobile Phone</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Title</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Pricing Email</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Username</th>
-                                    <th> <input type="text" class="form-control" style="height:31px;" name="name" id="name">Password</th>
-                                    <th></th>
-                                    <th></th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                    <td>Name and inc.</td>
-                                    <td>3</td>
-                                    <td>03423233</td>
-                                    <td>Jemmy</td>
-                                    <td>KIAD</td>
-                                    <td></td>
-                                    <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
-                                    <td></td>
-                                    <td>$123</td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr>
-                                 <tr>
-                                    <td>Name and inc.</td>
-                                    <td>3</td>
-                                    <td>03423233</td>
-                                    <td>Jemmy</td>
-                                    <td>KIAD</td>
-                                    <td></td>
-                                    <td><input type="checkbox" data-toggle="toggle" data-size="mini"></td>
-                                    <td></td>
-                                    <td>$123</td>
-                                    <td></td>
-                                    <td></td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                           <div class="row" style="margin-left: 0px;">
-                              <div class="col-md-2">
-                                 <button type="button" class="btn btn-info">Export CSV</button>
-                              </div>
-                              <div class="col-md-10">
-                                 <div class="row" style="margin-left: 0px;">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <select class="form-control">
-                                          <option>20 Records Per Page</option>
-                                          <option>50 Records Per Page</option>
-                                          <option>100 Records Per Page</option>
-                                       </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul class="pagination" style="margin:0px">
-                                          <li><a href="javascript:;">«</a></li>
-                                          <li class="active"><a href="#">1</a></li>
-                                          <li><a href="javascript:;">2</a></li>
-                                          <li><a href="javascript:;">3</a></li>
-                                          <li><a href="javascript:;">4</a></li>
-                                          <li><a href="javascript:;">5</a></li>
-                                          <li><a href="javascript:;">»</a></li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="tab-pane" id="fuelVendors">
-                           <table class="table table-striped table-bordered">
-                              <thead>
-                                 <tr>
-                                    <th>Engine</th>
-                                    <th>Browser</th>
-                                    <th class="td-actions"></th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                              </tbody>
-                           </table>
+                           </table> -->
                         </div>
                      </div>
                   </div>
@@ -324,45 +236,9 @@
                                     <div class="clearfix"></div>
                                  </div>
                                  <div class="col-md-4">
-                                    
-                                    <div class="pull-right">
-                                       <input type="text" ng-model="data.baseIcao" style="width: 100px;" class="form-control" id="Address" placeholder="">
-                                    </div>
-                                    <div class="pull-right">
-                                       <label style="margin-right: 15px;" class="new-input-label"><b>Base ICAO</b></label>
-                                    </div>
-                                    <div class="clearfix"></div>
                                  </div>
                               </div>
                               <div class="clearfix"></div><br>
-                              <div class="col-xs-12">
-                                 <div class="col-md-7">
-                                    <div class="pull-left">
-                                       <label class="new-input-label"><b>Relationship&nbsp;</b></label>
-                                    </div>
-                                    <div class="pull-left" style="margin-left: 32px;">
-                                       <input type="checkbox" ng-model="data.baseTenant" name="vehicle" value="Bike"> Check here if this is a Base Tenant<br>
-                                       <input type="checkbox" ng-model="data.fuelerlinxCustomer" name="vehicle" value="Car" checked> Check here if this is a FuelerLinx Customer<br>
-                                       <input type="checkbox" ng-model="data.contractFuelVendor" name="vehicle" value="Car" checked> Check here if this is a Contract Fuel Vendor
-                                    </div>
-                                    <div class="clearfix"></div>
-                                 </div>
-                                 <div class="col-md-2 Airport" style="text-align: right;">
-                                    <b>Certificate Type</b>
-                                 </div>
-                                 <div class="col-md-3 Airport">
-                                    <select required class="form-control" ng-model="data.certificateType">
-                                       <option value="" disabled selected hidden>Select...</option>
-                                       <option value="corporate">Part 91 (Corporate)</option>
-                                       <option value="charter">Part 135 (Charter)</option>
-                                       <option value="scheduled">Part 121 (Scheduled)</option>
-                                       <option value="military">Military</option>
-                                       <option value="government">Government</option>
-                                    </select>
-                                 </div>
-                                 <div class="clearfix"></div>
-                              </div>
-                              <div class="clearfix"></div>
                               <br/>
                               <div class="col-xs-12">
                                  <div class="col-md-6">
@@ -382,7 +258,7 @@
                                     <b>AVGAS 100LL Margin</b>
                                  </div>
                                  <div class="col-md-3 Airport">
-                                    <select class="form-control marginSelectBox" ng-model="data.avgasMargin" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
+                                    <select class="form-control" ng-model="data.avgasMargin" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
                                     <option value="" disabled>Select...</option>
                                     </select>
                                  </div>
