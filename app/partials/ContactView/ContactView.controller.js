@@ -18,41 +18,48 @@
         }
         
         $scope.data = {};
-		getAllContacts();
+		    getAllContacts();
 
         $scope.changePriceEmail = function(id, index){
           event.stopPropagation();
-          // var contactId = id;
-          // var statusData = "status=" + $scope.contactList[index].priceEmail;
-          // ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
-          //     if(result.success){
-          //         toastr.success(''+result.success+'', {
-          //             closeButton: true
-          //         })
-          //     }
-          // })
+          var contactId = id;
+          var statusData = "status=" + $scope.contactList[index].priceEmail;
+          ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
+              if(result.success){
+                  $('#toogleMail').css('display', 'block');
+                  if($scope.contactList[index].priceEmail == true){
+                    $scope.messageText = 'You have enabled price distribution for this contact';
+                  }else{
+                    $scope.messageText = 'You have disabled price distribution for this contact';
+                  }
+              }
+          })
+        }
+
+        $scope.cancelToogle = function(){
+          $('#toogleMail').css('display', 'none');
         }
         
         
         function getAllContacts(){
-        	ContactViewService.getContacts().then(function(result) {
-				console.log('log', result);
-				$scope.contactList = result;
-				for (var i = 0; i < $scope.contactList.length; i++) {
-					if ($scope.contactList[i].owner != null) {
-						if ($scope.contactList[i].owner.companyName != null || $scope.contactList[i].owner.companyName != undefined) {
-							$scope.contactList[i].owner = $scope.contactList[i].owner.companyName;
-						}
-					}
-				}
-				$scope.displayContactList = new NgTableParams({
-		        page: 1,
-		        count: 10,
-		      }, {
-		        data: $scope.contactList
-		      });
-			})
-		}
+          ContactViewService.getContacts().then(function(result) {
+            console.log('log', result);
+            $scope.contactList = result;
+            for (var i = 0; i < $scope.contactList.length; i++) {
+            	if ($scope.contactList[i].owner != null) {
+            		if ($scope.contactList[i].owner.companyName != null || $scope.contactList[i].owner.companyName != undefined) {
+            			$scope.contactList[i].owner = $scope.contactList[i].owner.companyName;
+            		}
+            	}
+            }
+            $scope.displayContactList = new NgTableParams({
+              page: 1,
+              count: 10,
+            }, {
+              data: $scope.contactList
+            });
+          })
+		    }
         
         
         /*ContactViewService.getCompanies().then(function(result) {

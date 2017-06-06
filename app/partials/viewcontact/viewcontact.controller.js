@@ -49,11 +49,18 @@
             var statusData = "status=" + $scope.contactDetail.priceEmail;
             ViewcontactService.changePriceEmail(id, statusData).then(function(result) {
                 if(result.success){
-                    toastr.success(''+result.success+'', {
-                        closeButton: true
-                    })
+                    $('#toogleMail').css('display', 'block');
+                    if($scope.contactDetail.priceEmail == true){
+                        $scope.messageText = 'You have enabled price distribution for this contact';
+                    }else{
+                        $scope.messageText = 'You have disabled price distribution for this contact';
+                    }
                 }
             })
+        }
+
+        $scope.cancelToogle = function(){
+          $('#toogleMail').css('display', 'none');
         }
 
         setInterval(function(){
@@ -184,6 +191,31 @@
               console.log(result)
             })
           
+        }
+
+        var deleteContact = "";
+        $scope.deleteContact = function(id){
+            $('#delete2').css('display', 'block');
+            deleteContact = id;
+        }
+
+        $scope.contactDelete = function(){
+          ViewcontactService.deleteContact(deleteContact).then(function(result) {
+            console.log(result)
+            if(result.success){
+                deleteContact = "";
+                $('#delete2').css('display', 'none');
+                toastr.success(''+result.success+'', {
+                    closeButton: true
+                })
+                location.reload();
+            }
+            
+          })
+        }
+
+        $scope.cancelDelete = function(){
+            $('#delete2').css('display', 'none');
         }
   
     }]);

@@ -68,6 +68,21 @@
           })
           return deferred.promise;
         }
+
+        this.deleteContact = function(contactId){
+          var deferred = $q.defer();
+          $http({
+              method : 'DELETE',
+              url : BASE_URL.url +'/company/contact/'+ contactId,
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
       }
       

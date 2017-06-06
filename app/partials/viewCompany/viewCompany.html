@@ -336,7 +336,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList" style="cursor: pointer;" ui-sref="app.viewContact({id : contact.id})">
-                                       <td><toggle ng-model="contact.priceEmail" size="customToogle"></toggle></td>
+                                       <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)" size="customToogle"></toggle></td>
                                        <td>
                                             {{contact.firstName}}
                                         </td>
@@ -728,6 +728,68 @@
       <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptUpdateField()">Accept</button>
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelUpdateField()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="delete1">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Please confirm! Are you sure you want to DELETE this Aircraft?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="aircraftDelete()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDelete()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="delete3">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">{{statusMessage}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="companyStatus()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelStatus()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="toogleMail">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <!-- <td>
+                  <img src="" style="width: 50px;">
+               </td> -->
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;text-align: center;">{{messageText}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelToogle()">Cancel</button>
       </div>
    </div>
 </div>
