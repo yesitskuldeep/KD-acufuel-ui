@@ -154,7 +154,7 @@
             $scope.showAddress = true;              
           }
 
-          var vendorData = "companyName=" + $scope.vendorData.companyName + "&masterMargin=" + $scope.vendorData.masterMargin 
+          var vendorData = "vendorName=" + $scope.vendorData.vendorName + "&masterMargin=" + $scope.vendorData.masterMargin 
             + "&addressOne=" + $scope.vendorData.addressOne + "&addressTwo=" + $scope.vendorData.addressTwo + "&city=" + $scope.vendorData.city + "&state=" 
             + $scope.vendorData.state + "&country=" + $scope.vendorData.country + "&zipcode=" + $scope.vendorData.zipcode + "&internalNote=" 
             + $scope.vendorData.internalNote + "&certificateType=" + $scope.vendorData.certificateType + "&baseTenant=" + $scope.vendorData.baseTenant

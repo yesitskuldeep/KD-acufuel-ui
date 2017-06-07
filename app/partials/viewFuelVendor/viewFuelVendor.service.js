@@ -42,7 +42,7 @@
           var deferred = $q.defer();
           $http({
               method : 'POST',
-              url : BASE_URL.url +'/vendor/add/contact',
+              url : BASE_URL.url +'/vendor/contact',
               data : data,
               headers : {'Content-Type': 'application/json'},
           })

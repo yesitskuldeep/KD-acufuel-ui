@@ -124,7 +124,7 @@
          <div class="widget">
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
-               <h3>Antioch Flight Department</h3>
+               <h3>{{vendorData.vendorName}}</h3>
                <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
@@ -135,8 +135,6 @@
                         <div class="widget-header">
                            <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3>Company Details</h3>
-                           <label>BASE ICAO</label>
-                           <input type="tel" ng-model="vendorData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="vendorData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
                             </div>
@@ -149,41 +147,21 @@
                                  </h4>
                                  <input type="tel" ng-hide="showCompanyName" ng-model="vendorData.vendorName" class="form-control" ng-blur="editData('showCompanyName')"/>
                               </div>
-                              <div class="col-md-5">
-                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="vendorData.certificateType" ng-click="editData()">
-                                    <option class="optionclass" disabled selected>Certificate Type</option>
-                                    <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
-                                    <option class="optionclass" value="charter">Part 135 (Charter)</option>
-                                    <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
-                                    <option class="optionclass" value="military">Military</option>
-                                    <option class="optionclass" value="government">Government</option>
-                                 </select>
-                              </div>
                            </div>
                            <div>
                               <p class="new-label">
                                  <span>Master Margin Setting </span> 
-                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="vendorData.masterMargin" ng-click="editData()">
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="vendorData.masterMargin" ng-change="editData()">
                                     <option value="margin1">Margin1</option>
                                     <option value="margin2">Margin2</option>
                                     <option value="vendorsonly">Vendors Only</option>
                                     <option value="margintenants">Margin Tenants</option>
                                  </select>
-                                 <span>&nbsp;See Aircrart List</span>
+                                 <span>&nbsp;$1.7500</span>
                                  <div class="clearfix"></div>
                               </p>
                            </div>
-                           <div class="row"  style="margin-left:0px;"> 
-                              <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.baseTenant"> Tenant/Base Customer
-                              </div>
-                              <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.fuelerlinxCustomer"> FuelerLinx Customer
-                              </div>
-                           </div>
-                           <div>
-                              <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.contractFuelVendor"> CAA Member
-                           </div>
+                           
                            </br>
                            <div class="new-address">
                               <p ng-show="showAddress"><i class="fa fa-map-marker"></i> 
