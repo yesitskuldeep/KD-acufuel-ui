@@ -34,7 +34,7 @@
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
 	                        <table ng-table="displayContactList" class="table table-striped table-condensed" show-filter="true">
-	                           <tr ng-repeat="row in $data track by row.id">
+	                           <tr ng-repeat="row in $data track by row.id" style="cursor: pointer;" ui-sref="app.viewContact({id : row.id})">
 	                             <td data-title="'Last Name'" filter="{lastName: 'text'}" sortable="'lastName'">
 	                              {{row.lastName}}
 	                             </td>
