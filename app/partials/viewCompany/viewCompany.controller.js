@@ -62,6 +62,7 @@
                   toastr.success(''+result.success+'', {
                       closeButton: true
                   })
+                  getContactList();
               }
             })
         }
@@ -300,7 +301,8 @@
       $scope.cancelAndCloseConfirm = function(){
         $('#confirm1').css('display', 'none');
       }
-
+      
+      $scope.primaryContact = false;
       $scope.cancelPrimaryContact = function(){
         $('#primaryContact').css('display', 'none');
         $scope.primaryContact = false;
@@ -308,17 +310,17 @@
 
       $scope.checkPrimaryContact = function(){
         if($scope.primaryContact == true){
-          ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
-            console.log(result)
-            if(result.status == 422){
-              $('#primaryContact').css('display', 'block');
-            }
-          })
+        	$scope.primaryContact = true;
+        	ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+        		console.log(result)
+				if(result.status == 422){
+				  $('#primaryContact').css('display', 'block');
+				}
+        	})
         }
       }
 
       $scope.sendPrimaryContact = function(){
-        $scope.primaryContact = true;
         $('#primaryContact').css('display', 'none');
         if($scope.primayData.id != null || $scope.primayData.id != undefined){
           var priamryContactData = "companyContactId=" + $scope.primayData.id + "&primary=" + $scope.primaryContact;
@@ -441,6 +443,7 @@
           ViewCompanyService.deleteAircraft(deleteAircraftId).then(function(result) {
             console.log(result)
             getAircraftList();
+            getCompanyDetail();
             $('#delete1').css('display', 'none');
           })
       }

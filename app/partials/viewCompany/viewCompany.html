@@ -129,7 +129,7 @@
          <div class="widget">
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
-               <h3>{{companyData.companyName}}</h3>
+               <h3>{{companyData.companyName}} <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteCompany(companyData.id)" aria-hidden="true"></i></h3>
                <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
@@ -158,7 +158,7 @@
                               </div>
                               <div class="col-md-5">
                                  <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType">
-                                    <option class="optionclass" disabled selected>Certificate Type</option>
+                                    <option class="optionclass" value="" disabled selected>Certificate Type</option>
                                     <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
                                     <option class="optionclass" value="charter">Part 135 (Charter)</option>
                                     <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
@@ -236,7 +236,7 @@
                            </div>
                            <div class="new-add-select">
                               <select class="form-control" ng-model="value" ng-click="addCustom(value)" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
-                                 <option disabled selected>Add Field</option>
+                                 <option value="" disabled selected>Add Field</option>
                                  <option value="phone" class="optionclass">Add Phone</option>
                                  <option value="email" class="optionclass">Add Email</option>
                               </select>
@@ -259,7 +259,7 @@
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="widget">
+                     <div class="widget" style="min-height: 350px;">
                         <div class="widget-header">
                            <i class="fa fa-plane"></i>
                            <h3>Aircraft List</h3>
@@ -267,7 +267,7 @@
                               <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" ng-click="clearAircrafts()" data-target="#aircraft-modal-3" style="margin-top: 4px; margin-right: 9px;"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Aircraft</button>
                            </div>
                         </div>
-                        <div class="widget-content" style="padding:0px">
+                        <div class="widget-content" style="padding:0px;min-height: 350px;">
                            <div class="table-responsive">
                               <table class="table table-bordered table-hover table-striped">
                                  <thead>
@@ -288,20 +288,16 @@
                                        <td>{{aircraft.make}}</td>
                                        <td>{{aircraft.model}}</td>
                                        <td>
-                                          <!-- <select class="form-control" style="height:31px;">
-                                             <option>Margin1</option>
-                                             <option>Margin2</option>
-                                          </select> -->
-                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-selected="" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
+                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
                                        </td>
-                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td style="color:#55AF8B;">${{aircraft.marginAllIn}}</td>
                                        <td>
                                           <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsAVGASMargin.id">
 		                                 	<option value="">N/A</option>
 		                                    <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
 		                                 </select>
                                        </td>
-                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td style="color:#55AF8B;">${{aircraft.marginAvgasAllIn}}</td>
                                        <td>
                                         <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteAircraft(aircraft.id)" aria-hidden="true"></i>
                                        </td>
@@ -336,7 +332,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList" style="cursor: pointer;" ui-sref="app.viewContact({id : contact.id})">
-                                       <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)" size="customToogle"></toggle></td>
+                                       <td><toggle ng-model="contact.priceEmail" size="customToogle"></toggle></td>
                                        <td>
                                             {{contact.firstName}}
                                         </td>
@@ -668,7 +664,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="primaryContact">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -689,7 +684,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="customField">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -710,7 +704,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="updateContact">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -731,7 +724,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="delete1">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -752,7 +744,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="delete3">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -773,7 +764,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="toogleMail">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -793,7 +783,6 @@
       </div>
    </div>
 </div>
-
 <div class="myLoader" ng-show="showLoader">
    <img src="../img/hourglass.gif" width="50px;">
 </div>
