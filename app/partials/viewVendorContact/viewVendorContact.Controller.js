@@ -3,13 +3,13 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewcontactController', ['$scope', '$stateParams', '$state', 'ViewcontactService', 'ViewCompanyService', function($scope, $stateParams, $state, ViewcontactService, ViewCompanyService) {
+	.controller('viewVendorContactController', ['$scope', '$stateParams', '$state', 'ViewvendorContactService', 'ViewFuelVendorService', function($scope, $stateParams, $state, ViewvendorContactService, ViewFuelVendorService) {
         $scope.showLoader = true;
         $scope.showUpdateBtn = false;
 	    var contactId = $stateParams.id;
 	    $scope.contactDetail = {};
         var contactCompanyId = "";
-        ViewcontactService.getContact(contactId).then(function(result) {
+        ViewvendorContactService.getContact(contactId).then(function(result) {
           $scope.contactDetail = result;
           $scope.showLoader = false;
           contactCompanyId = result.owner.id;
@@ -20,7 +20,7 @@
         var one = 1;
         var selectedId;
 
-        ViewcontactService.getContactsList(contactId).then(function(list){
+        ViewvendorContactService.getContactsList(contactId).then(function(list){
         	$scope.contactIdList = list;
 			index = $scope.contactIdList.indexOf(contactId);
 			selectedId = $scope.contactIdList[index];
@@ -30,7 +30,7 @@
             $scope.showLoader = true;
         	index = index + one;
         	selectedId = $scope.contactIdList[index];
-		        ViewcontactService.getContact(selectedId).then(function(result) {
+		        ViewvendorContactService.getContact(selectedId).then(function(result) {
 			    $scope.contactDetail = result;
                 $scope.showLoader = false;
 			})
@@ -40,7 +40,7 @@
             $scope.showLoader = true;
         	index = index - one;
         	selectedId = $scope.contactIdList[index];
-		        ViewcontactService.getContact(selectedId).then(function(result) {
+		        ViewvendorContactService.getContact(selectedId).then(function(result) {
 			       $scope.contactDetail = result;
                    $scope.showLoader = false;
 			})
@@ -48,7 +48,7 @@
 
         $scope.changePriceEmail = function(id){
             var statusData = "status=" + $scope.contactDetail.priceEmail;
-            ViewcontactService.changePriceEmail(id, statusData).then(function(result) {
+            ViewvendorContactService.changePriceEmail(id, statusData).then(function(result) {
                 if(result.success){
                     $('#toogleMail').css('display', 'block');
                     if($scope.contactDetail.priceEmail == true){
@@ -141,7 +141,7 @@
 
 	        $scope.contactData.contactList.push($scope.conData);
 	        $scope.contactData.contactList.push();
-	        ViewcontactService.updateContact($scope.contactData).then(function(result) {
+	        ViewvendorContactService.updateContact($scope.contactData).then(function(result) {
 	        	if(result.success){
 	            	toastr.success(''+result.success+'', {
 	            		closeButton: true
@@ -169,7 +169,7 @@
 
         $scope.checkPrimaryContact = function(companyId){
             if($scope.contactDetail.primaryContact == true){
-            ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+            ViewFuelVendorService.checkPrimaryContact(companyId).then(function(result) {
               console.log(result)
               if(result.status == 422){
                 $('#primaryContact').css('display', 'block');
@@ -188,7 +188,7 @@
           $('#primaryContact').css('display', 'none');
             var priamryContactData = "companyContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
 
-            ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
+            ViewFuelVendorService.addPrimaryContact(priamryContactData).then(function(result) {
               console.log(result)
             })
           
@@ -201,7 +201,7 @@
         }
 
         $scope.contactDelete = function(){
-          ViewcontactService.deleteContact(deleteContact).then(function(result) {
+          ViewvendorContactService.deleteContact(deleteContact).then(function(result) {
             console.log(result)
             if(result.success){
                 deleteContact = "";
@@ -209,7 +209,7 @@
                 toastr.success(''+result.success+'', {
                     closeButton: true
                 })
-                $state.go('app.viewCompany', {"id": contactCompanyId});
+                $state.go('app.viewFuelVendor', {"id": contactCompanyId});
             }
             
           })

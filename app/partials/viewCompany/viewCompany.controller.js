@@ -10,7 +10,6 @@
         $scope.aircraft = {};
         $scope.primayData = {};
         $scope.showLoader = false;
-        $scope.showLoader = true;
         $scope.showUpdateBtn = false;
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
@@ -20,9 +19,9 @@
             });
         });
 
-        CustomersService.getMargin().then(function(result) {
-          $scope.marginList = result;
-        })
+        // CustomersService.getMargin().then(function(result) {
+        //   $scope.marginList = result;
+        // })
 
         var value = "";
         var companyId = $stateParams.id;
@@ -117,6 +116,7 @@
                 // })
                 $('#contact-modal-3').modal('hide');
                 $scope.primayData.id = result.data;
+                $scope.data = {};
                 $scope.sendPrimaryContact();
                 getContactList();
             }else{
@@ -279,12 +279,12 @@
       }
 
       $scope.sendMail = function(){
+        $('#confirm1').css('display', 'none');
         ViewCompanyService.sendMail(companyId).then(function(result) {
             if(result != null && result.success){
               toastr.success(''+result.success+'', {
                 closeButton: true
               })
-              $('#confirm1').css('display', 'none');
             }else{
               toastr.error(''+result.statusText+'', {
                 closeButton: true

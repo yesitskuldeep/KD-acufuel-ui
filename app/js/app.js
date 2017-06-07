@@ -233,6 +233,13 @@
               templateUrl: "partials/viewcontact/viewcontact.html",
               controller: "viewcontactController"
             })
+
+            .state("app.viewVendorContact", {
+              url: "/viewVendorContact/:id",
+              templateUrl: "partials/viewVendorContact/viewVendorContact.html",
+              controller: "viewVendorContactController"
+            })
+            
         }
   ])
 
