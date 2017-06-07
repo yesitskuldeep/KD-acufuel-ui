@@ -1,0 +1,177 @@
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
+<div class="container">
+   <div class="row">
+      <div class="col-md-10" style="padding-right: 60px; margin-bottom: 30px;">
+         <div class="widget">
+            <div class="widget-header">
+               <i class="icon-pencil"></i>
+                <i class="fa fa-building-o" aria-hidden="true"></i>
+               <h3>Antioch Flight Department</h3>
+            </div>
+            <div class="widget-content" style="padding-left: 0; padding-right: 0; ">
+               <div class="container">
+                  <div style="margin-bottom: 25px;">
+                    <button ng-disabled="disablePrev" class="newButtons" ng-click="prevContact()">
+                      <i class="fa fa-long-arrow-left" aria-hidden="true"></i> 
+                      Previous Contact
+                    </button>
+                    <button ng-disabled="disableNext" class="newButtons" ng-click="nextContact()">
+                      Next Contact
+                      <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
+                    </button>
+                  </div>
+                  <div class="row">
+                     <div class="col-md-6" style="margin-left: 20px;">
+                     <div class="widget stacked">
+                        <div class="widget-header">
+                           <i class="fa fa-building-o" aria-hidden="true"></i>
+                           <h3 style="margin-right: 0px;">Contact Detail</h3>
+                           <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteContact(contactDetail.id)" style="color: white;" aria-hidden="true"></i>
+                            <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
+                              <toggle ng-model="contactDetail.priceEmail" ng-change="changePriceEmail(contactDetail.id)" size="customToogle" on="PRICE EMAIL ON" off="PRICE EMAIL OFF"></toggle>
+                            </div>
+
+                        </div>
+                        <div class="widget-content">
+                           <div class="row" style="margin-left:0px">
+                              <div class="col-md-6" style="padding-left: 0px;">
+                                 <h3>
+                                    <b ng-show="editName" style="color:#F90;">{{contactDetail.firstName}} {{contactDetail.lastName}}</b>
+                                    <input type="text" ng-hide="editName" class="form-control" style="width: 49%; float: left; margin-right: 1%;" ng-model="contactDetail.firstName">
+                                    <input type="text" ng-hide="editName" class="form-control" style="width: 49%;" ng-model="contactDetail.lastName">
+                                    &nbsp;<i class="fa fa-pencil-square-o" ng-show="editName" ng-click="nameEdit()" style="font-size: 11px;" aria-hidden="true"></i>
+                                 </h3>
+                                 {{contactDetail.owner.companyName}}
+                              </div>
+                              <div class="col-md-6">
+                                  <div style="margin-bottom: 10px" class="input-group email-password">
+                                      <span class="input-group-addon email-password"><i class="glyphicon glyphicon-user email-password-icon"></i></span>
+                                      <input id="login-username" type="text" ng-model="contactDetail.userName" class="form-control email-password" placeholder="username or email">                                        
+                                  </div>
+                              
+                                 <!--  <div class="input-group email-password">
+                                      <span class="input-group-addon email-password"><i class="fa fa-key" aria-hidden="true"></i></span>
+                                      <input id="login-password" type="password" class="form-control email-password" name="password" placeholder="password">
+                                  </div> -->
+                              </div>
+                           </div>
+                           <div>
+                              <p>
+                                <span ng-show="editAddress">
+                                  <i class="fa fa-map-marker"></i> {{contactDetail.address}} &nbsp;
+                                  <i class="fa fa-pencil-square-o" ng-click="addressEdit()" style="font-size: 11px;" aria-hidden="true"></i>
+                                </span>
+
+                                <input type="text" ng-hide="editAddress" style="width: 50%;" class="form-control" ng-model="contactDetail.address">
+                              </p>
+
+                              <p ng-show="editPhone"><i class="fa fa-phone"></i> {{contactDetail.mobilePhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="phoneEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editPhone">
+                                <input type="text" style="width: 50%;" ng-model="contactDetail.mobilePhone" class="form-control">
+                              </p>
+
+                              <p ng-show="editMobile"><i class="fa fa-mobile"></i> {{contactDetail.workPhone}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="mobileEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editMobile">
+                                <input type="text" style="width: 50%;" ng-model="contactDetail.workPhone" class="form-control">
+                              </p>
+
+                              <p ng-show="editEmail"><i class="fa fa-envelope"></i> {{contactDetail.email}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="emailEdit()" style="font-size: 11px;" aria-hidden="true"></i></p>
+                              <p ng-hide="editEmail">
+                                <input type="email" style="width: 50%;" ng-model="contactDetail.email" class="form-control">
+                              </p>
+                              <div>
+                                <input type="checkbox" ng-checked="contactDetail.primaryContact" ng-click="checkPrimaryContact(contactDetail.owner.id)" ng-model="contactDetail.primaryContact">&nbsp;
+                                <span>Primary Contact </span>
+                             </div>
+                           </div>
+                           </br>
+                           <div>
+                              <p><b>Contact Notes</b> &nbsp;<i ng-show="editContactNotes" class="fa fa-pencil-square-o" ng-click="notesEdit()" style="font-size: 11px;" aria-hidden="true"></i>
+                              <p ng-show="editContactNotes">{{contactDetail.note}}</p>
+                              <p ng-hide="editContactNotes">
+                                <textarea ng-model="contactDetail.note" class="form-control" style="resize: vertical;"></textarea>
+                              </p>
+                              
+                              <div>
+                                <button ng-click="updateContact(contactDetail)" ng-show="showUpdateBtn" class="btn btn-success pull-left">Update Contact</button>
+                                <button ng-click="cancelContact()" style="margin-left: 5px;" ng-show="showUpdateBtn" class="btn btn-default pull-left">Cancel</button>
+                                <button type="button" class="btn btn-primary pull-right">Send Price to This Contacts</button>
+                                <div class="clearfix"></div>
+                              </div>
+                           </div>
+                           <!-- <div class="col-md-6">
+                              <button type="button" class="btn btn-primary">Send Price to This Contacts</button>
+                           </div> -->
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="primaryContact">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure you want to set this person as your primary contact?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="sendPrimaryContact(contactDetail.id)">Yes</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelPrimaryContact()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="toogleMail">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <!-- <td>
+                  <img src="" style="width: 50px;">
+               </td> -->
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;text-align: center;">{{messageText}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelToogle()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="delete2">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Please confirm! Are you sure you want to DELETE this Contact?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="contactDelete()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDelete()">Cancel</button>
+      </div>
+   </div>
+</div>
