@@ -186,7 +186,7 @@
 
         $scope.sendPrimaryContact = function(id){
           $('#primaryContact').css('display', 'none');
-            var priamryContactData = "companyContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
+            var priamryContactData = "vendorContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
 
             ViewFuelVendorService.addPrimaryContact(priamryContactData).then(function(result) {
               console.log(result)

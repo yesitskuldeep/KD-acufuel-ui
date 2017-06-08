@@ -138,7 +138,7 @@
                      <div class="widget">
                         <div class="widget-header">
                            <i class="fa fa-building-o" aria-hidden="true"></i>
-                           <h3>Company Details</h3>
+                           <h3>Vendor Details</h3>
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="vendorData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
                             </div>
@@ -158,7 +158,7 @@
                                  <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="vendorData.masterMargin">
                                   <option ng-repeat="margin in jetMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
-                                 <span>&nbsp;$1.7500</span>
+                                 <span>&nbsp;${{vendorData.margin.marginValue}}</span>
                                  <div class="clearfix"></div>
                               </p>
                            </div>
@@ -205,7 +205,7 @@
                               <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
                            </div>
                            <div class="pull-right">
-                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
+                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Vendor Contacts</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

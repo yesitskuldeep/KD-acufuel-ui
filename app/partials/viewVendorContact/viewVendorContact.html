@@ -82,7 +82,7 @@
                                 <input type="email" style="width: 50%;" ng-model="contactDetail.email" class="form-control">
                               </p>
                               <div>
-                                <input type="checkbox" ng-checked="contactDetail.primaryContact" ng-click="checkPrimaryContact(contactDetail.owner.id)" ng-model="contactDetail.primaryContact">&nbsp;
+                                <input type="checkbox" ng-checked="contactDetail.primaryContact" ng-change="checkPrimaryContact(contactDetail.owner.id)" ng-model="contactDetail.primaryContact">&nbsp;
                                 <span>Primary Contact </span>
                              </div>
                            </div>
