@@ -1,3 +1,9 @@
+<style type="text/css">
+  .toggle.btn{
+    width: 140px !important;
+  }
+</style>
+
 <div class="myLoader" ng-show="showLoader">
   <img src="../img/hourglass.gif" width="50px;">
 </div>
@@ -30,7 +36,7 @@
                            <h3 style="margin-right: 0px;">Contact Detail</h3>
                            <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteContact(contactDetail.id)" style="color: white;" aria-hidden="true"></i>
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
-                              <toggle ng-model="contactDetail.priceEmail" ng-change="changePriceEmail(contactDetail.id)" size="customToogle" on="PRICE EMAIL ON" off="PRICE EMAIL OFF"></toggle>
+                              <toggle ng-model="contactDetail.priceEmail" style="width: 140px;" ng-change="changePriceEmail(contactDetail.id)" size="customToogle" on="PRICE EMAIL ON" off="PRICE EMAIL OFF"></toggle>
                             </div>
 
                         </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 
-  angular.module('acufuel', ['ngCookies', 'ngResource', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ui.toggle', 'ngTable'])
+  angular.module('acufuel', ['ngCookies', 'ngResource', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ui.toggle', 'ngTable', 'ui.select2'])
 
     .config(['$httpProvider', function($httpProvider) {
       $httpProvider.defaults.withCredentials = true;
@@ -240,6 +240,12 @@
               controller: "viewVendorContactController"
             })
             
+            .state("app.enterFuelOrder", {
+              url: "/enterFuelOrder",
+              templateUrl: "partials/enterFuelOrder/enterFuelOrder.html",
+              controller: "enterFuelOrderController"
+            })
+
         }
   ])
 

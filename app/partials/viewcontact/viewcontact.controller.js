@@ -63,7 +63,8 @@
         $scope.cancelToogle = function(){
           $('#toogleMail').css('display', 'none');
         }
-
+        $scope.disableNext = true;
+        $scope.disablePrev = true;
         setInterval(function(){
         	var checkMaxLength = $scope.contactIdList.length - one;
         	if (index === checkMaxLength) {
@@ -76,7 +77,7 @@
         	}else{
         		$scope.disablePrev = false;
         	}
-        }, 3);
+        }, 1);
 
         $scope.editName = true;
         $scope.editCompany = true;

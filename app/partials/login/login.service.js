@@ -89,10 +89,12 @@
         authService.getUser = function () {
           return JSON.parse(window.localStorage.getItem("currentUser"));
         }
-      
+        
         authService.setUser = function (authData) {
+            console.log('authdata', authData);
             window.localStorage.setItem("currentUser", JSON.stringify(authData.userProfile.userType));
             window.localStorage.setItem("userProfileId", JSON.stringify(authData.userProfile.id));
+            window.localStorage.setItem('currentUserName', JSON.stringify(authData.userProfile.firstName +' '+ authData.userProfile.lastName));
             if(authData.userProfile.userType.type == 'ADMIN' || authData.userProfile.userType.type == 'FBO'){
                 role = USER_ROLES.admin;
                 $rootScope.isAuthenticated = true;

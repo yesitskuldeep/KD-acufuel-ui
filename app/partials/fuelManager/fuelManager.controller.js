@@ -9,6 +9,22 @@
 
   function fuelManagerController($scope, $rootScope, $uibModal, $filter, $http, fuelManagerService) {
 
+      var todayDate = new Date();
+      var ddn = todayDate.getDate();
+      var mmn = todayDate.getMonth()+1; //January is 0!
+      var yyyyn = todayDate.getFullYear();
+
+      if(ddn<10) {
+          ddn ='0'+ddn
+      } 
+
+      if(mmn<10) {
+          mmn ='0'+mmn
+      }
+
+      $scope.todayDateNew = mmn+'/'+ddn+'/'+yyyyn;
+      $scope.currentUserName = JSON.parse(window.localStorage.getItem("currentUserName"));
+
       $scope.currentUserData = JSON.parse(localStorage.getItem('userProfileId'));
       $scope.showLoader = true;
 
@@ -54,9 +70,9 @@
                       'avoidance' : $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.avoidance,
                       'applicable' : $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.applicable,
                       'expirationDate' : $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate,
-                      'notes' : $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.notes
+                      'notes' : $scope.newJetList[i].aircraftsSize[j].rampFeesAndAvoidance.notes,
+                      'reportedBy': $scope.currentUserName
                     });
-
                 }
               }
           }

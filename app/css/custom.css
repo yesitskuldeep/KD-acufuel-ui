@@ -706,3 +706,19 @@ font-size: 10px !important;
 .recordCountSelect{
 	background-color: #fff;
 }
+.exportBtn{
+	margin-top: 20px;
+}
+.select2-container .select2-choice{
+	height: 34px !important;
+	padding: 6px 12px !important;
+	border: 1px solid #ccc !important;
+	background-image: none !important;
+}
+.select2-container .select2-choice .select2-arrow{
+	border-left: none !important;
+	background: transparent !important;
+}
+.select2-container .select2-choice{
+	padding: 2px 12px !important;
+}
