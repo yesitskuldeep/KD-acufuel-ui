@@ -129,7 +129,7 @@
          <div class="widget">
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
-               <h3>Antioch Flight Department</h3>
+               <h3>{{companyData.companyName}} <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteCompany(companyData.id)" aria-hidden="true"></i></h3>
                <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
@@ -141,7 +141,7 @@
                             <i class="fa fa-building-o" aria-hidden="true"></i>
                             <h3>Company Details</h3>
                             <label>BASE ICAO</label>
-                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 50px;padding: 0px 9px;" />
+                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 80px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
@@ -158,7 +158,7 @@
                               </div>
                               <div class="col-md-5">
                                  <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType">
-                                    <option class="optionclass" disabled selected>Certificate Type</option>
+                                    <option class="optionclass" value="" disabled selected>Certificate Type</option>
                                     <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
                                     <option class="optionclass" value="charter">Part 135 (Charter)</option>
                                     <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
@@ -210,33 +210,22 @@
                                  <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="companyData.addressTwo" class="form-control" />
                               </div>
                               
-                              <!-- <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
-                                <i class="fa fa-phone" ng-hide="showEditContact"></i> 
-                                <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
-                                <i ng-click="showEditContact = ! showEditContact" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                
-                                <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" style="width: 50%;" ng-show="showEditContact">
-                                <span ng-show="showEditContact"></br></span>
-                              </p> -->
                               <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.contactNumber != null">
                                 <i class="fa fa-phone" ng-hide="showEditContact"></i> 
                                 <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
                                 <i ng-click="showContact(data, 'phone')" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 
-                                <!-- <input type="tel" class="form-control" placeholder="min" ng-model="data.contactNumber" style="width: 50%;" ng-show="showEditContact">
-                                <span ng-show="showEditContact"></br></span> -->
                               </p>
                               <p ng-repeat="data in companyData.companyCustomContacts" ng-if="data.email != null">
                                 <i class="fa fa-envelope" ng-hide="showEditEmail"></i> 
                                 <span ng-hide="showEditEmail">{{data.email}} &nbsp;</span>
                                 <i ng-click="showContact(data, 'email')" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
-                                <!-- <input type="tel" style="width: 50%;" class="form-control" placeholder="min" ng-model="data.email" ng-show="showEditEmail"> -->
                               </p>
                            </div>
                            <div class="new-add-select">
                               <select class="form-control" ng-model="value" ng-click="addCustom(value)" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
-                                 <option disabled selected>Add Field</option>
+                                 <option value="" disabled selected>Add Field</option>
                                  <option value="phone" class="optionclass">Add Phone</option>
                                  <option value="email" class="optionclass">Add Email</option>
                               </select>
@@ -259,7 +248,7 @@
                      </div>
                   </div>
                   <div class="col-md-6">
-                     <div class="widget">
+                     <div class="widget" style="min-height: 350px;">
                         <div class="widget-header">
                            <i class="fa fa-plane"></i>
                            <h3>Aircraft List</h3>
@@ -267,7 +256,7 @@
                               <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" ng-click="clearAircrafts()" data-target="#aircraft-modal-3" style="margin-top: 4px; margin-right: 9px;"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Aircraft</button>
                            </div>
                         </div>
-                        <div class="widget-content" style="padding:0px">
+                        <div class="widget-content" style="padding:0px;min-height: 350px;">
                            <div class="table-responsive">
                               <table class="table table-bordered table-hover table-striped">
                                  <thead>
@@ -276,9 +265,9 @@
                                        <th>Make</th>
                                        <th>Model</th>
                                        <th>JET-A</th>
-                                       <th>All in</th>
+                                       <th>All In</th>
                                        <th>AVGAS</th>
-                                       <th>All in</th>
+                                       <th>All In</th>
                                        <th></th>
                                     </tr>
                                  </thead>
@@ -288,20 +277,16 @@
                                        <td>{{aircraft.make}}</td>
                                        <td>{{aircraft.model}}</td>
                                        <td>
-                                          <!-- <select class="form-control" style="height:31px;">
-                                             <option>Margin1</option>
-                                             <option>Margin2</option>
-                                          </select> -->
-                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-selected="" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
+                                          <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
                                        </td>
-                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td style="color:#55AF8B;">${{aircraft.marginAllIn}}</td>
                                        <td>
                                           <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsAVGASMargin.id">
 		                                 	<option value="">N/A</option>
 		                                    <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
 		                                 </select>
                                        </td>
-                                       <td style="color:#55AF8B;">$3659</td>
+                                       <td style="color:#55AF8B;">${{aircraft.marginAvgasAllIn}}</td>
                                        <td>
                                         <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteAircraft(aircraft.id)" aria-hidden="true"></i>
                                        </td>
@@ -336,7 +321,7 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="contact in companyContactList" style="cursor: pointer;" ui-sref="app.viewContact({id : contact.id})">
-                                       <td><toggle ng-model="contact.priceEmail" size="customToogle"></toggle></td>
+                                       <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)" size="customToogle"></toggle></td>
                                        <td>
                                             {{contact.firstName}}
                                         </td>
@@ -376,7 +361,7 @@
                                        <td>${{fuel.fuelPricing.papMargin}}</td>
                                        <td style="color:#55AF8B;">${{fuel.fuelPricing.papTotal}}</td>
                                        <td style="color:#F90">{{fuel.fuelPricing.expirationDate}}</td>
-                                    </tr>.
+                                    </tr>
                                  </tbody>
                               </table>
                            </div>
@@ -668,7 +653,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="primaryContact">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -689,7 +673,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="customField">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -710,7 +693,6 @@
       </div>
    </div>
 </div>
-
 <div class="customConfirmPopBackdrop" id="updateContact">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
@@ -731,7 +713,65 @@
       </div>
    </div>
 </div>
-
+<div class="customConfirmPopBackdrop" id="delete1">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Please confirm! Are you sure you want to DELETE this Aircraft?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="aircraftDelete()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDelete()">Cancel</button>
+      </div>
+   </div>
+</div>
+<div class="customConfirmPopBackdrop" id="delete3">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">{{statusMessage}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="companyStatus()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelStatus()">Cancel</button>
+      </div>
+   </div>
+</div>
+<div class="customConfirmPopBackdrop" id="toogleMail">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <!-- <td>
+                  <img src="" style="width: 50px;">
+               </td> -->
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;text-align: center;">{{messageText}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelToogle()">Cancel</button>
+      </div>
+   </div>
+</div>
 <div class="myLoader" ng-show="showLoader">
    <img src="../img/hourglass.gif" width="50px;">
 </div>

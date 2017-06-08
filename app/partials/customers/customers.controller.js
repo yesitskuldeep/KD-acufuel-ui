@@ -114,8 +114,6 @@
             })
         }
 
-        
-
         getData();
     	function getData(){
 			CustomersService.getAircraftMake().then(function(result) {
@@ -158,7 +156,8 @@
 			$scope.showMarginError = false;
 	    	$('.marginSelectBox').removeClass('customErrorInput');
 		}
-
+		
+		var companyData;
 	    $scope.addFirstData = function(sel, step){
 	    	if($scope.data.companyName == undefined){
 	    		$scope.showCompanyError = true;
@@ -167,17 +166,15 @@
 	    		$scope.showMarginError = true;
 	    		$('.marginSelectBox').addClass('customErrorInput');
 	    	}else{
-	    		var companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
+	    		console.log($scope.data);
+	    		companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
 		    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
 		    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
 		    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
 		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
 		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao + "&avgasMargin=" + $scope.data.avgasMargin;
 
-		    	CustomersService.addCompany(companyData).then(function(result) {
-	            	$scope.accountId = result;
-	      			$scope.aircraft.accountId = $scope.accountId;
-	          	})
+		    	
 	    	 	$(sel).trigger('next.m.' + step);
 	    	 	getData();
 	    	}
@@ -226,33 +223,39 @@
       	$scope.aircraftListData = {};
       	$scope.addData = [];
       	$scope.saveCompanyData = function(){
-      		for(var i=0; i<$scope.aircraftDetails.length;i++){
-      			$scope.addData.push({ 
-	                'tail': $scope.aircraftDetails[i].tail,
-		            'make': $scope.aircraftDetails[i].make,
-		            'model': $scope.aircraftDetails[i].model,
-		            'sizeId' : $scope.aircraftDetails[i].sizeId,
-		            'marginId': $scope.aircraftDetails[i].marginId,
-		            'avgasMarginId': $scope.aircraftDetails[i].avgasMarginId
-	            });
-      		}
-	        $scope.aircraftListData.aircraftList = $scope.addData;
-	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
-	        
-	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
+      		CustomersService.addCompany(companyData).then(function(result) {
+            	$scope.accountId = result;
+      			$scope.aircraft.accountId = $scope.accountId;
+      			
+      			for(var i=0; i<$scope.aircraftDetails.length;i++){
+          			$scope.addData.push({ 
+    	                'tail': $scope.aircraftDetails[i].tail,
+    		            'make': $scope.aircraftDetails[i].make,
+    		            'model': $scope.aircraftDetails[i].model,
+    		            'sizeId' : $scope.aircraftDetails[i].sizeId,
+    		            'marginId': $scope.aircraftDetails[i].marginId,
+    		            'avgasMarginId': $scope.aircraftDetails[i].avgasMarginId
+    	            });
+          		}
+    	        $scope.aircraftListData.aircraftList = $scope.addData;
+    	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
+    	        
+    	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
 
-	        	if(result != null && result.success){
-	        		toastr.success(''+result.success+'', {
-		            	closeButton: true
-		          	})
-		          	$('#demo-modal-3').modal('hide');
-		          	getAllCompanies();
-	        	}else{
-	        		toastr.error(''+result.statusText+'', {
-		            	closeButton: true
-		          	})
-	        	}
-	        });
+    	        	if(result != null && result.success){
+    	        		toastr.success(''+result.success+'', {
+    		            	closeButton: true
+    		          	})
+    		          	$('#demo-modal-3').modal('hide');
+    		          	getAllCompanies();
+    	        	}else{
+    	        		toastr.error(''+result.statusText+'', {
+    		            	closeButton: true
+    		          	})
+    	        	}
+    	        });
+          	})
+      		
 	        
       	}
 

@@ -34,7 +34,7 @@
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
 	                        <table ng-table="displayContactList" class="table table-striped table-condensed" show-filter="true">
-	                           <tr ng-repeat="row in $data track by row.id">
+	                           <tr ng-repeat="row in $data track by row.id" style="cursor: pointer;" ui-sref="app.viewContact({id : row.id})">
 	                             <td data-title="'Last Name'" filter="{lastName: 'text'}" sortable="'lastName'">
 	                              {{row.lastName}}
 	                             </td>
@@ -53,8 +53,8 @@
 	                             <td data-title="'Title'" filter="{title: 'text'}" sortable="'title'">
 	                              {{row.title}}
 	                             </td>
-	                             <td data-title="'Status'">
-	                              <toggle ng-model="row.priceEmail" ng-change="changePriceEmail(contact.id, $index)" size="customToogle"></toggle>
+	                             <td data-title="'Pricing Email'">
+	                              <toggle ng-model="row.priceEmail" ng-change="changePriceEmail(row.id, $index)" size="customToogle"></toggle>
 	                             </td>
 	                             <td data-title="'User Name'" filter="{userName: 'text'}" sortable="'userName'">
 	                              {{row.userName}}
@@ -334,3 +334,23 @@
         </div>
     </div>
 </form>
+
+<div class="customConfirmPopBackdrop" id="toogleMail">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <!-- <td>
+                  <img src="" style="width: 50px;">
+               </td> -->
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;text-align: center;">{{messageText}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelToogle()">Cancel</button>
+      </div>
+   </div>
+</div>

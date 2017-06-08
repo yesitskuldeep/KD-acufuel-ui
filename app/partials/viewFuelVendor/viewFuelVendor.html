@@ -118,13 +118,17 @@
    }
 
 </style>
-<div class="col-xs-12 col-md-11">
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
+
+<div class="col-xs-12 col-md-12">
    <div class="row" style="margin-left:0px">
       <div class="col-md-12">
          <div class="widget">
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
-               <h3>Antioch Flight Department</h3>
+               <h3>{{vendorData.vendorName}} <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteVendor(vendorData.id)" aria-hidden="true"></i></h3>
                <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
@@ -135,8 +139,6 @@
                         <div class="widget-header">
                            <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3>Company Details</h3>
-                           <label>BASE ICAO</label>
-                           <input type="tel" ng-model="vendorData.baseIcao" style="line-height: 18px;width: 50px;padding: 0px 9px;" ng-blur="editData()"/>
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
                               <toggle ng-model="vendorData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
                             </div>
@@ -147,76 +149,65 @@
                                  <h4 ng-show="showCompanyName" ng-if="vendorData.vendorName != 'undefined'">
                                     <b style="color:#F90;">{{vendorData.vendorName}}</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 14px;" aria-hidden="true"></i>
                                  </h4>
-                                 <input type="tel" ng-hide="showCompanyName" ng-model="vendorData.vendorName" class="form-control" ng-blur="editData('showCompanyName')"/>
-                              </div>
-                              <div class="col-md-5">
-                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="vendorData.certificateType" ng-click="editData()">
-                                    <option class="optionclass" disabled selected>Certificate Type</option>
-                                    <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
-                                    <option class="optionclass" value="charter">Part 135 (Charter)</option>
-                                    <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
-                                    <option class="optionclass" value="military">Military</option>
-                                    <option class="optionclass" value="government">Government</option>
-                                 </select>
+                                 <input type="tel" ng-hide="showCompanyName" ng-model="vendorData.vendorName" class="form-control">
                               </div>
                            </div>
                            <div>
                               <p class="new-label">
                                  <span>Master Margin Setting </span> 
-                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-model="vendorData.masterMargin" ng-click="editData()">
-                                    <option value="margin1">Margin1</option>
-                                    <option value="margin2">Margin2</option>
-                                    <option value="vendorsonly">Vendors Only</option>
-                                    <option value="margintenants">Margin Tenants</option>
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="vendorData.masterMargin">
+                                  <option ng-repeat="margin in jetMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                  </select>
-                                 <span>&nbsp;See Aircrart List</span>
+                                 <span>&nbsp;$1.7500</span>
                                  <div class="clearfix"></div>
                               </p>
                            </div>
-                           <div class="row"  style="margin-left:0px;"> 
-                              <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.baseTenant"> Tenant/Base Customer
-                              </div>
-                              <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.fuelerlinxCustomer"> FuelerLinx Customer
-                              </div>
-                           </div>
-                           <div>
-                              <input type="checkbox" name="" ng-click="editData()" ng-model="vendorData.contractFuelVendor"> CAA Member
-                           </div>
+                           
                            </br>
                            <div class="new-address">
-                              <p ng-show="showAddress"><i class="fa fa-map-marker"></i> 
-                              <span ng-if="vendorData.addressOne != 'undefined'">{{vendorData.addressOne}} </span>
-                              <span ng-if="vendorData.addressTwo != 'undefined'">{{vendorData.addressTwo}} </span>
-                              &nbsp;<i class="fa fa-pencil-square-o" ng-click="addressChange()" aria-hidden="true"></i> </p>
+
+                            <p ng-show="showAddress"><i class="fa fa-map-marker"></i> {{vendorData.addressOne}} {{vendorData.addressTwo}} &nbsp;<i class="fa fa-pencil-square-o" ng-click="addressChange()" aria-hidden="true"></i> </p>
                               
-                              <div ng-hide="showAddress">
-                                 <label>Address1</label>
-                                 <input type="tel" ng-hide="showAddress" ng-model="vendorData.addressOne" class="form-control" ng-blur="editData('showAddress')"/>
-                                 <label>Address2</label>
-                                 <input type="tel" ng-hide="showAddress" ng-model="vendorData.addressTwo" class="form-control" ng-blur="editData('showAddress')"/>
-                              </div>
+                            <div ng-hide="showAddress">
+                               <label>Address1</label>
+                               <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="vendorData.addressOne" class="form-control" />
+                               <label>Address2</label>
+                               <input type="tel" style="width: 50%;" ng-hide="showAddress" ng-model="vendorData.addressTwo" class="form-control" />
+                            </div>
                               
-                              <p><i class="fa fa-phone"></i> (310) 2342-3433 &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
-                              <p><i class="fa fa-envelope"></i> freed@gmail.com &nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></p>
+                            <p ng-repeat="data in vendorData.vendorCustomContacts" ng-if="data.contactNumber != null">
+                              <i class="fa fa-phone" ng-hide="showEditContact"></i> 
+                              <span ng-hide="showEditContact">{{data.contactNumber}} &nbsp;</span>
+                              <i ng-click="showContact(data, 'phone')" ng-hide="showEditContact" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                              
+                            </p>
+                            <p ng-repeat="data in vendorData.vendorCustomContacts" ng-if="data.email != null">
+                              <i class="fa fa-envelope" ng-hide="showEditEmail"></i> 
+                              <span ng-hide="showEditEmail">{{data.email}} &nbsp;</span>
+                              <i ng-click="showContact(data, 'email')" ng-hide="showEditEmail" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+
+                            </p>
                            </div>
                            <div class="new-add-select">
-                              <select class="form-control" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
-                                 <option disabled selected>Add Field</option>
-                                 <option class="optionclass">Add Phone</option>
-                                 <option class="optionclass">Add Email</option>
+                              <select class="form-control" ng-model="value" ng-click="addCustom(value)" style="background: #ebebeb;padding: 4px 8px;width: 115px;">
+                                 <option value="" disabled selected>Add Field</option>
+                                 <option value="phone" class="optionclass">Add Phone</option>
+                                 <option value="email" class="optionclass">Add Email</option>
                               </select>
                            </div>
                            <div>
-                              <p style="margin-bottom: 0;"><b>Company Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="showNote()" aria-hidden="true"></i></p>
-                              <p ng-show="showNoteData" ng-if="vendorData.internalNote != 'undefined'">{{vendorData.internalNote}}</p>
-                              <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="vendorData.internalNote" ng-blur="editData('showNoteData')" rows="4" cols="34"></textarea>
+                               <p style="margin-bottom: 0;"><b>Company Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="showNote()" aria-hidden="true"></i></p>
+                              <p ng-show="showNoteData">{{vendorData.internalNote}}</p>
+                              <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="vendorData.internalNote" rows="4" cols="34"></textarea>
                            </div>
-                           <div class="dis">
+                           <div class="pull-left">
+                              <button ng-click="editData()" ng-show="showUpdateBtn" class="btn btn-success">Save</button>
+                              <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
+                           </div>
+                           <div class="pull-right">
                               <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
-                           </div>
-                           <div><button type="button" class="btn btn-info">Setup Fuel</button></div>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
                      </div>
                   </div>
@@ -240,38 +231,13 @@
                                   </tr>
                                </thead>
                                <tbody>
-                                  <tr>
-                                     <td><input type="checkbox"></td>
-                                     <td>Jet-A Full Service</td>
-                                     <td>$2.123</td>
-                                     <td>$23000</td>
-                                     <td style="color:#55AF8B;">$3659</td>
-                                     <td style="color:#F90">3/15/2017</td>
-                                  </tr>
-                                  <tr>
-                                     <td><input type="checkbox"></td>
-                                     <td>Jet-A Full Service</td>
-                                     <td>$2.123</td>
-                                     <td>$23000</td>
-                                     <td style="color:#55AF8B;">$3659</td>
-                                     <td style="color:#F90">3/15/2017</td>
-                                  </tr>
-                                  <tr>
-                                  <tr>
-                                     <td><input type="checkbox"></td>
-                                     <td>Jet-A Full Service</td>
-                                     <td>$2.123</td>
-                                     <td>$23000</td>
-                                     <td style="color:#55AF8B;">$3659</td>
-                                     <td style="color:#F90">3/15/2017</td>
-                                  </tr>
-                                  <tr>
-                                     <td><input type="checkbox"></td>
-                                     <td>Jet-A Full Service</td>
-                                     <td>$2.123</td>
-                                     <td>$23000</td>
-                                     <td style="color:#55AF8B;">$3659</td>
-                                     <td style="color:#F90">3/15/2017</td>
+                                  <tr ng-repeat="fuel in fuelPricing">
+                                     <td><input type="checkbox" ng-model="fuel.status"></td>
+                                     <td>{{fuel.name}}</td>
+                                     <td>${{fuel.fuelPricing.cost}}</td>
+                                     <td>${{fuel.fuelPricing.papMargin}}</td>
+                                     <td style="color:#55AF8B;">${{fuel.fuelPricing.papTotal}}</td>
+                                     <td style="color:#F90">{{fuel.fuelPricing.expirationDate}}</td>
                                   </tr>
                                </tbody>
                             </table>
@@ -302,13 +268,9 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr ng-repeat="contact in vendorContactList">
+                                    <tr ng-repeat="contact in vendorContactList" style="cursor: pointer;" ui-sref="app.viewVendorContact({id : contact.id})">
                                        <td><toggle ng-model="contact.priceEmail" ng-change="changePriceEmail(contact.id, $index)"></toggle></td>
-                                       <td>
-                                          <a href="#!/viewContact/{{contact.id}}">
-                                            {{contact.firstName}}
-                                          </a>
-                                        </td>
+                                       <td>{{contact.firstName}}</td>
                                        <td>{{contact.lastName}}</td>
                                        <td>{{contact.title}}</td>
                                     </tr>
@@ -458,7 +420,7 @@
                                  <div class="col-md-3">
                                     <div class="pull-left my-toggle-switch">
                                        <div style="color: #ff9a01;">Primary Contact &nbsp &nbsp
-                                          <input type="checkbox" ng-model="data.primaryContact">
+                                          <input type="checkbox" ng-click="checkPrimaryContact()" ng-model="primaryContact">
                                        </div>
                                     </div>
                                     <div class="clearfix"></div>
@@ -482,95 +444,13 @@
                </div>
             </div>
             <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-default" id="reset" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="addContact()">Save</button>
             </div>
         </div>
     </div>
 </form>
 <div class="clearfix"></div>
-
-<form class="modal multi-step" id="aircraft-modal-3" name="aircraftForm">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body step-2" data-step="2" style="padding: 0;">
-               <div>
-                  <div class="row" style="margin: 0;">
-                     <div>
-                        <div class="widget" style="margin-bottom: 0;box-shadow: none;">
-                           <div class="widget-header">
-                              <i class="icon-pencil"></i>
-                              <i class="fa fa-tasks" aria-hidden="true"></i>
-                              <h3>Add a New Aircraft</h3>
-                              <div class="clearfix"></div>
-                           </div>
-                           <div class="widget-content" style="padding-left: 0; padding-right: 0; border-bottom: 0;">
-                              <div class="col-xs-12">
-                                 <div class="widget-header">
-                                    <i class="fa fa-list"></i>
-                                    <h3>Aircraft List</h3>
-                                 </div>
-                                 <div class="widget-content" style="padding:0px;border: 0px; padding: 0px !important;">
-                                    <div class="table-responsive">
-                                       <table class="table table-striped table-bordered">
-                                          <thead>
-                                             <tr>
-                                                <!-- <th><input type="checkbox" ng-model="selectedAll" ng-click="checkAll()" /></th> -->
-                                                <th>Tail</th>
-                                                <th>Make</th>
-                                                <th>Model</th>
-                                                <th>Size</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             <tr ng-repeat="aircraftData in aircraftDetails track by $index">
-                                                <!-- <td>
-                                                   <input type="checkbox" ng-model="aircraftData.selected"/>
-                                                   </td> -->
-                                                <td style="width: 20%">
-                                                   <input type="tel" class="form-control" ng-model="aircraftData.tail" required/>
-                                                </td>
-                                                <td style="width: 20%">
-                                                   <select class="form-control" ng-model="aircraftData.make" ng-change="getModal(aircraftData.make, $index)">
-                                                      <option ng-repeat="make in aircraftMakeList">{{make}}</option>
-                                                   </select>
-                                                </td>
-                                                <td style="width: 20%">
-                                                   <select class="form-control" ng-model="aircraftData.model" ng-change="getSize(aircraftData.model, $index)">
-                                                      <option ng-repeat="model in aircraftData.aircraftModalList">{{model}}</option>
-                                                   </select>
-                                                </td>
-                                                <td style="width: 20%">
-                                                  <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList"></select>
-                                                   <!-- <select class="form-control" ng-model="aircraftData.size">
-                                                      <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
-                                                   </select> -->
-                                                </td>
-                                             </tr>
-                                          </tbody>
-                                       </table>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                 </div>
-                              </div>
-                              <div class="clearfix"></div>
-                              <div class="col-xs-12" style="margin-bottom: 50px;margin-top: 10px;">
-                                 <button ng-click="addNew()" class="button1 turquoise pull-right"><span>+</span>Add Aircraft</button>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="clearfix"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="modal-footer" style="border-top: 0;">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary step step-1" data-step="1" ng-click="saveVendorData()">Save</button>
-            </div>
-        </div>
-    </div>
-</form>
 
 <div class="customConfirmPopBackdrop" id="confirm2">
    <div class="customModalInner" style="max-width: 400px;">
@@ -592,6 +472,90 @@
       </div>
    </div>
 </div>
+
+<div class="customConfirmPopBackdrop" id="deleteVendor">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">{{statusMessage}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="companyStatus()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelStatus()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="customField">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <div class="col-md-2"><img class="src-image" src="img/images.jpg"></div>
+            <div class="col-md-10">
+                <form>
+                  Title:<br>
+                  <input type="text" name="firstname" ng-model="custom.title"><br>
+                  Content:<br>
+                  <input type="text" name="lastname" ng-model="custom.content">
+                </form>
+            </div>
+            <div class="clearfix"></div>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptCustomField()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelCustomField()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="toogleMail">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <!-- <td>
+                  <img src="" style="width: 50px;">
+               </td> -->
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;text-align: center;">{{messageText}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelToogle()">Cancel</button>
+      </div>
+   </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="updateContact">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <div class="col-md-2"><img class="src-image" src="img/images.jpg"></div>
+            <div class="col-md-10">
+                <form>
+                  Title:<br>
+                  <input type="text" name="firstname" ng-model="updateData.title"><br>
+                  Content:<br>
+                  <input type="text" name="lastname" ng-model="updateData.content">
+                </form>
+            </div>
+            <div class="clearfix"></div>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="acceptUpdateField()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelUpdateField()">Cancel</button>
+      </div>
+   </div>
+</div>
+
 <!-- Le javascript
    ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

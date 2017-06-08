@@ -1,16 +1,16 @@
 (function(){
  'use strict';    
     angular.module('acufuel')
-      .service('ViewcontactService', ['$q', '$http', 'BASE_URL', ViewcontactService]);
+      .service('ViewvendorContactService', ['$q', '$http', 'BASE_URL', ViewvendorContactService]);
 
-      function ViewcontactService($q, $http, BASE_URL) {        
+      function ViewvendorContactService($q, $http, BASE_URL) {        
 
         this.getContact = function(id) {
 
           var deferred = $q.defer();
           $http({
               method : 'GET',
-              url : BASE_URL.url +'/company/contact/'+id,
+              url : BASE_URL.url +'/vendor/contact/'+id,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
@@ -26,7 +26,7 @@
           var deferred = $q.defer();
           $http({
               method : 'GET',
-              url : BASE_URL.url +'/company/contact/idList/'+id,
+              url : BASE_URL.url +'/vendor/contact/idList/'+id,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
@@ -41,7 +41,7 @@
           var deferred = $q.defer();
           $http({
               method : 'PUT',
-              url : BASE_URL.url +'/company/contact',
+              url : BASE_URL.url +'/vendor/contact',
               data : data,
               headers : {'Content-Type': 'application/json'},
           })
@@ -57,7 +57,7 @@
           var deferred = $q.defer();
           $http({
               method : 'PUT',
-              url : BASE_URL.url +'/company/contact/status/'+ contactId,
+              url : BASE_URL.url +'/vendor/contact/status/'+ contactId,
               data : data,
               headers : {'Content-Type': 'application/json'},
           })
@@ -73,7 +73,7 @@
           var deferred = $q.defer();
           $http({
               method : 'DELETE',
-              url : BASE_URL.url +'/company/contact/'+ contactId,
+              url : BASE_URL.url +'/vendor/contact/'+ contactId,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){

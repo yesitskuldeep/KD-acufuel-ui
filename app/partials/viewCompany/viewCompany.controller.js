@@ -4,13 +4,12 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', 'updateFuelManagerService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService, updateFuelManagerService) {
+	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', 'updateFuelManagerService', 'ViewcontactService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService, updateFuelManagerService, ViewcontactService) {
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
         $scope.primayData = {};
         $scope.showLoader = false;
-        $scope.showLoader = true;
         $scope.showUpdateBtn = false;
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
@@ -20,9 +19,9 @@
             });
         });
 
-        CustomersService.getMargin().then(function(result) {
-          $scope.marginList = result;
-        })
+        // CustomersService.getMargin().then(function(result) {
+        //   $scope.marginList = result;
+        // })
 
         var value = "";
         var companyId = $stateParams.id;
@@ -46,16 +45,31 @@
         
 
         $scope.changeCompanyStatus = function(){
+            $('#delete3').css('display', 'block');
+            if($scope.companyData.activate == true){
+              $scope.statusMessage = 'Please confirm! Are you sure you want to ACTIVATE this company?'
+            }else{
+              $scope.statusMessage = 'Please confirm! Are you sure you want to DEACTIVATE this company?'
+            }
+        }
+
+        $scope.companyStatus = function(){
             var statusData = "status=" + $scope.companyData.activate;
             ViewCompanyService.changeStatus(companyId, statusData).then(function(result) {
               if(result.success){
+                  $('#delete3').css('display', 'none');
                   toastr.success(''+result.success+'', {
                       closeButton: true
                   })
+                  getContactList();
               }
             })
         }
 
+        $scope.cancelStatus = function(){
+            $('#delete3').css('display', 'none');
+            $scope.companyData.activate =  !$scope.companyData.activate;
+        }
         
         getContactList();
         function getContactList(){
@@ -102,6 +116,7 @@
                 // })
                 $('#contact-modal-3').modal('hide');
                 $scope.primayData.id = result.data;
+                $scope.data = {};
                 $scope.sendPrimaryContact();
                 getContactList();
             }else{
@@ -264,12 +279,12 @@
       }
 
       $scope.sendMail = function(){
+        $('#confirm1').css('display', 'none');
         ViewCompanyService.sendMail(companyId).then(function(result) {
             if(result != null && result.success){
               toastr.success(''+result.success+'', {
                 closeButton: true
               })
-              $('#confirm1').css('display', 'none');
             }else{
               toastr.error(''+result.statusText+'', {
                 closeButton: true
@@ -286,7 +301,8 @@
       $scope.cancelAndCloseConfirm = function(){
         $('#confirm1').css('display', 'none');
       }
-
+      
+      $scope.primaryContact = false;
       $scope.cancelPrimaryContact = function(){
         $('#primaryContact').css('display', 'none');
         $scope.primaryContact = false;
@@ -294,17 +310,17 @@
 
       $scope.checkPrimaryContact = function(){
         if($scope.primaryContact == true){
-          ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
-            console.log(result)
-            if(result.status == 422){
-              $('#primaryContact').css('display', 'block');
-            }
-          })
+        	$scope.primaryContact = true;
+        	ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
+        		console.log(result)
+				if(result.status == 422){
+				  $('#primaryContact').css('display', 'block');
+				}
+        	})
         }
       }
 
       $scope.sendPrimaryContact = function(){
-        $scope.primaryContact = true;
         $('#primaryContact').css('display', 'none');
         if($scope.primayData.id != null || $scope.primayData.id != undefined){
           var priamryContactData = "companyContactId=" + $scope.primayData.id + "&primary=" + $scope.primaryContact;
@@ -417,19 +433,51 @@
         }
       })
 
+      var deleteAircraftId = "";
       $scope.deleteAircraft = function(id){
-          ViewCompanyService.deleteAircraft(id).then(function(result) {
+          $('#delete1').css('display', 'block');
+          deleteAircraftId = id;
+      }
+
+      $scope.aircraftDelete = function(){
+          ViewCompanyService.deleteAircraft(deleteAircraftId).then(function(result) {
             console.log(result)
             getAircraftList();
+            getCompanyDetail();
+            $('#delete1').css('display', 'none');
           })
       }
-      
-      	CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
-		  $scope.jetMarginList = result;
-		})
 
-		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
-		  $scope.avgsMarginList = result;
-		})
+      $scope.cancelDelete = function(){
+        $('#delete1').css('display', 'none');
+      }
+      
+    	CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
+  		  $scope.jetMarginList = result;
+  		})
+
+  		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
+  		  $scope.avgsMarginList = result;
+  		})
+
+       $scope.changePriceEmail = function(id, index){
+          event.stopPropagation();
+          var contactId = id;
+          var statusData = "status=" + $scope.companyContactList[index].priceEmail;
+          ViewcontactService.changePriceEmail(contactId, statusData).then(function(result) {
+              if(result.success){
+                  $('#toogleMail').css('display', 'block');
+                  if($scope.companyContactList[index].priceEmail == true){
+                    $scope.messageText = 'You have enabled price distribution for this contact';
+                  }else{
+                    $scope.messageText = 'You have disabled price distribution for this contact';
+                  }
+              }
+          })
+        }
+
+        $scope.cancelToogle = function(){
+          $('#toogleMail').css('display', 'none');
+        }
         
   }]);

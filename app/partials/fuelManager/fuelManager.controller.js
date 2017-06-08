@@ -63,15 +63,30 @@
           $scope.avoidanceList.rampFeesAndAvoidanceList = $scope.addData;
           $scope.avoidanceList.fboUserId = $scope.currentUserData;
 
-          /*fuelManagerService.updateFullList($scope.avoidanceList).then(function(result) {
+          fuelManagerService.updateFullList($scope.avoidanceList).then(function(result) {
             toastr.success(''+result.success+'', {
               closeButton: true
             })
             fuelManagerService.getFullList().then(function(result) {
-              $scope.fullJetList = result;
-              $scope.showLoader = false;
-            })
-          })*/
+            $scope.fullJetList = result;
+            console.log('$scope.fullJetList', $scope.fullJetList);
+            for (var i = 0; i<$scope.fullJetList.length; i++) {
+              for (var j = 0; j<$scope.fullJetList[i].aircraftsSize.length; j++) {
+                if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance != null) {
+                  if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != null && $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != '') {
+                    var newTime = new Date($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate);
+                    var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                    var dday = newTime.getUTCDate();
+                    var dyear = newTime.getUTCFullYear();
+                    $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = dmonth+'/'+dday+'/'+dyear;
+                    console.log('$scope.fullJetList.aircraftsSize.rampFeesAndAvoidance.expirationDate', $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate); 
+                  }
+                }
+              }
+            }
+            $scope.showLoader = false;
+          })
+          })
 
         }
             
@@ -88,124 +103,164 @@
           $scope.aircrafts = result;
       })
 
-      $scope.openRampFeeModal = false;
       $scope.customRampData = {};
-      $scope.customRampData.rampFeesAndAvoidanceList = {};
-      $scope.customRampData.rampFeesAndAvoidanceList.aircraftType = null;
+      $scope.customRampDataCraft = {};
+      $scope.customRampDataCraft.aircraftType = '';
+      $scope.customRampDataCraft.aircraftSizeId = '';
 
-      $scope.customRampData.rampFeesAndAvoidanceList.aircraftMake = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.aircraftSizeId = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.tailNumber = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.wingspanMin = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.wingspanMax = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMin = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMax = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMax = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.rampFees = '';
-      $scope.customRampData.rampFeesAndAvoidanceList.avoidance = '';
-      //$scope.customRampData.fboUserId = '';
+      $scope.openRampFeeModal = false;
+      $scope.showWeightForm = false;
+      $scope.showMakeModelForm = false;
+      $scope.showWingspanForm = false;
+      $scope.showTailForm = false;
 
-      //$scope.rampFeeType = '';
+      $scope.customRampData = {};
+      $scope.customMakeData = {};
+      $scope.customWingspanData = {};
+      $scope.customTailData = {};
 
       $scope.openRampModal = function(){
-        //console.log('$scope.dropOptions', $scope.dropOptions)
-        if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === 'WEIGHT') {
-          $scope.openRampFeeModal = true;
-          $scope.showWeight = true;
-          $scope.showWingspan = false;
-          $scope.showTail = false;
-          $scope.showAircraft = false;
-          $scope.customRampData.rampFeesAndAvoidanceList.aircraftMake = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.tailNumber = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.rampFees = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.avoidance = '';
-        }else if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === 'MAKE_AND_MODEL') {
-          $scope.openRampFeeModal = true;
-          $scope.showWeight = false;
-          $scope.showWingspan = false;
-          $scope.showTail = false;
-          $scope.showAircraft = true;
-          $scope.customRampData.rampFeesAndAvoidanceList.tailNumber = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.rampFees = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.avoidance = '';
-        }else if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === 'WINGSPAN') {
-          $scope.openRampFeeModal = true;
-          $scope.showWeight = false;
-          $scope.showWingspan = true;
-          $scope.showTail = false;
-          $scope.showAircraft = false;
-          $scope.customRampData.rampFeesAndAvoidanceList.aircraftMake = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.tailNumber = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.rampFees = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.avoidance = '';
-        }else if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === 'TAIL') {
-          $scope.openRampFeeModal = true;
-          $scope.showWeight = false;
-          $scope.showWingspan = false;
-          $scope.showTail = true;
-          $scope.showAircraft = false;
-          $scope.customRampData.rampFeesAndAvoidanceList.aircraftMake = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.wingspanMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMin = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.weightRangeMax = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.rampFees = '';
-          $scope.customRampData.rampFeesAndAvoidanceList.avoidance = '';
-        }else if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType = null){
-          $scope.openRampFeeModal = false;
-          $scope.showWeight = false;
-          $scope.showWingspan = false;
-          $scope.showTail = false;
-          $scope.showAircraft = false;
+        $scope.showLoader = true;
+        $scope.openRampFeeModal = true;
+        if ($scope.customRampDataCraft.aircraftType != null) {
+          for (var i = 0; i < $scope.dropOptions.length; i++) {
+            if ($scope.customRampDataCraft.aircraftType === $scope.dropOptions[i].size) {
+              $scope.customRampDataCraft.aircraftSizeId = $scope.dropOptions[i].id;
+            }
+          }
+          $scope.OldRampData = {};
+          fuelManagerService.getRampFeeDetail($scope.customRampDataCraft.aircraftSizeId).then(function(result) {
+            $scope.OldRampData = result;
+            if ($scope.customRampDataCraft.aircraftType === 'WEIGHT') {
+              $scope.showWeightForm = true;
+              $scope.showMakeModelForm = false;
+              $scope.showWingspanForm = false;
+              $scope.showTailForm = false;
+              $scope.customRampData = $scope.OldRampData;
+            }else if ($scope.customRampDataCraft.aircraftType === 'MAKE_AND_MODEL') {
+              $scope.showWeightForm = false;
+              $scope.showMakeModelForm = true;
+              $scope.showWingspanForm = false;
+              $scope.showTailForm = false;
+              $scope.customMakeData = $scope.OldRampData;
+              console.log('$scope.customMakeData', $scope.customMakeData);
+            }else if ($scope.customRampDataCraft.aircraftType === 'WINGSPAN') {
+              $scope.showWeightForm = false;
+              $scope.showMakeModelForm = false;
+              $scope.showWingspanForm = true;
+              $scope.showTailForm = false;
+              $scope.customWingspanData = $scope.OldRampData;
+            }else if ($scope.customRampDataCraft.aircraftType === 'TAIL') {
+              $scope.showWeightForm = false;
+              $scope.showMakeModelForm = false;
+              $scope.showWingspanForm = false;
+              $scope.showTailForm = true;
+              $scope.customTailData = $scope.OldRampData;
+            }else{
+              $scope.openRampFeeModal = false;
+              $scope.showWeightForm = false;
+              $scope.showMakeModelForm = false;
+              $scope.showWingspanForm = false;
+              $scope.showTailForm = false;
+            }
+            $scope.showLoader = false;
+          })
         }else{
           $scope.openRampFeeModal = false;
-          $scope.showWeight = false;
-          $scope.showWingspan = false;
-          $scope.showTail = false;
-          $scope.showAircraft = false;
         }
-        console.log('$scope.dropOptions', $scope.dropOptions);
-        /*fuelManagerService.getRampFeeDetail().then(function(result) { 
-          console.log('result', result) 
-        })*/
-        for (var i = 0; $scope.dropOptions.length; i++) {
-          if ($scope.customRampData.rampFeesAndAvoidanceList.aircraftType === $scope.dropOptions[i].size) {
-            $scope.customRampData.rampFeesAndAvoidanceList.aircraftSizeId = $scope.dropOptions[i].id;
-          }
-        }
-
       }
 
-      
-
-      $scope.addCustomRamp = function(){
+      $scope.addCustomRampNew = function(data){
+        $scope.showLoader = true;
+        $scope.newCustomRampData = data;
+        $scope.newRampData = [];
+        if ($scope.newCustomRampData != null) {
+          if ($scope.newCustomRampData.id != null) {
+            $scope.newRampData.push({'id': $scope.newCustomRampData.id});
+          }
+          $scope.newRampData.push({
+            'aircraftSizeId': $scope.customRampDataCraft.aircraftSizeId,
+            'rampFees': $scope.newCustomRampData.rampFees,
+            'avoidance': $scope.newCustomRampData.avoidance,
+            'applicable': $scope.newCustomRampData.applicable,
+            'expirationDate': $scope.newCustomRampData.expirationDate,
+            'notes': $scope.newCustomRampData.notes,
+            'aircraftMake': $scope.newCustomRampData.aircraftMake,
+            'wingspanMin': $scope.newCustomRampData.wingspanMin,
+            'wingspanMax': $scope.newCustomRampData.wingspanMax,
+            'weightRangeMin': $scope.newCustomRampData.weightRangeMin,
+            'weightRangeMax': $scope.newCustomRampData.weightRangeMax,
+            'tailNumber': $scope.newCustomRampData.tailNumber,
+          });
+        }
         
-        $scope.newData = {};
-        $scope.newData.rampFeesAndAvoidanceList = [];
-        $scope.newData.rampFeesAndAvoidanceList.push($scope.customRampData.rampFeesAndAvoidanceList);
-        $scope.newData.fboUserId = $scope.currentUserData;
-        console.log('$scope.customRampData', $scope.newData)
-        fuelManagerService.updateFullList($scope.newData).then(function(result) {
+        $scope.avoidanceList.rampFeesAndAvoidanceList = $scope.newRampData;
+        $scope.avoidanceList.fboUserId = $scope.currentUserData;
+        //console.log('$scope.newRampData', $scope.avoidanceList);
+        fuelManagerService.updateFullList($scope.avoidanceList).then(function(result) {
           toastr.success(''+result.success+'', {
             closeButton: true
-          });
+          })
           $scope.openRampFeeModal = false;
-          $scope.customRampData.rampFeesAndAvoidanceList = {};
-          $scope.customRampData.rampFeesAndAvoidanceList.aircraftType = null;
-          $scope.newData = {};
-          $scope.newData.rampFeesAndAvoidanceList = [];
+          fuelManagerService.getFullList().then(function(result) {
+          $scope.fullJetList = result;
+          console.log('$scope.fullJetList', $scope.fullJetList);
+          for (var i = 0; i<$scope.fullJetList.length; i++) {
+            for (var j = 0; j<$scope.fullJetList[i].aircraftsSize.length; j++) {
+              if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance != null) {
+                if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != null && $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != '') {
+                  var newTime = new Date($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate);
+                  var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                  var dday = newTime.getUTCDate();
+                  var dyear = newTime.getUTCFullYear();
+                  $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = dmonth+'/'+dday+'/'+dyear;
+                  console.log('$scope.fullJetList.aircraftsSize.rampFeesAndAvoidance.expirationDate', $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate); 
+                }
+              }
+            }
+          }
+          $scope.showLoader = false;
+        })
+        })
+      }
+
+      $scope.deleteTemplateId = '';
+
+      $scope.deleteCustomJet = function(id){
+        $('#confirm1').css('display', 'block');
+        $scope.deleteTemplateId = id;
+        console.log('$scope.deleteTemplateId', id);
+      }
+
+      $scope.saveAndCloseConfirm = function(){
+        $scope.showLoader = true;
+        $('#confirm1').css('display', 'none');
+        fuelManagerService.deleteCustomRamp($scope.deleteTemplateId).then(function(result) {
           fuelManagerService.getFullList().then(function(result) {
             $scope.fullJetList = result;
+            console.log('$scope.fullJetList', $scope.fullJetList);
+            for (var i = 0; i<$scope.fullJetList.length; i++) {
+              for (var j = 0; j<$scope.fullJetList[i].aircraftsSize.length; j++) {
+                if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance != null) {
+                  if ($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != null && $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate != '') {
+                    var newTime = new Date($scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate);
+                    var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                    var dday = newTime.getUTCDate();
+                    var dyear = newTime.getUTCFullYear();
+                    $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate = dmonth+'/'+dday+'/'+dyear;
+                    console.log('$scope.fullJetList.aircraftsSize.rampFeesAndAvoidance.expirationDate', $scope.fullJetList[i].aircraftsSize[j].rampFeesAndAvoidance.expirationDate); 
+                  }
+                }
+              }
+            }
+            $scope.showLoader = false;
           })
         })
+      }
+
+      $scope.cancelAndCloseConfirm = function(){
+        $('#confirm1').css('display', 'none');
+        $scope.deleteTemplateId = '';
       }
 
       $scope.closeRampFeeModel = function(){
@@ -215,7 +270,7 @@
         $scope.showTail = false;
         $scope.showAircraft = false;
         $scope.customRampData.rampFeesAndAvoidanceList = {};
-        $scope.customRampData.rampFeesAndAvoidanceList.aircraftType = null;
+        $scope.customRampDataCraft.aircraftType = null;
       }
 
       $scope.parentOpen = function(index){

@@ -107,7 +107,7 @@
           var deferred = $q.defer();
           $http({
               method : 'POST',
-              url : BASE_URL.url +'/mailPriceToContacts/'+id,
+              url : BASE_URL.url +'/company/mailPriceToContacts/'+id,
               headers : {'Content-Type': 'application/json'},
           })
           .then(function (result){
