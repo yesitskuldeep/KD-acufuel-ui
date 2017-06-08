@@ -13,9 +13,16 @@
     		$state.reload();
     	}
 
+          $scope.marginList = {}
+             dashboardService.getMargin().then(function(result) {
+                $scope.marginList = result;
+                console.log("Margin result", result)
+            })
+
         $scope.newFuelPricing = {};
         dashboardService.getFuelPricingNew().then(function(result) {
             $scope.newFuelPricing = result;
+            console.log("Fuel Pricing result", result)
               for (var i = 0; i<$scope.newFuelPricing.length; i++) {
                 if ($scope.newFuelPricing[i].fuelPricing != null) {
                     if ($scope.newFuelPricing[i].fuelPricing.expirationDate != null && $scope.newFuelPricing[i].fuelPricing.expirationDate != '') {
@@ -49,6 +56,7 @@
               }
               $scope.showLoader = false;
         })
+       
 
         $scope.updateFuelPricing = {};
         $scope.updateFuelPricing.fuelPricingList = [];
@@ -94,6 +102,11 @@
                 }
                 
             }
+
+          
+            
+
+            console.log('result',$scope.marginList)
             dashboardService.updateFuelPricing($scope.updateFuelPricing).then(function(result) {
                 toastr.success('Successfully Updated', {
                   closeButton: true
