@@ -21,6 +21,22 @@
             })
             return deferred.promise;
           }
+
+          this.getSearchResults = function(param) {
+
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : BASE_URL.url +'/company/contact/search?param='+param,
+                headers : {'Content-Type': 'application/json'},
+            })
+            .then(function (result){
+                deferred.resolve(result.data);
+            },function (result){
+                deferred.resolve(result.data);
+            })
+            return deferred.promise;
+          }
         
         this.getCompanies = function() {
 

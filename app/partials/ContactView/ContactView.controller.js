@@ -13,6 +13,30 @@
         	$scope.contactList = result;
         })
 
+        $scope.search = "";
+        $scope.minlength = 2;
+         
+
+        $scope.searchString= function(value){
+         ContactViewService.getSearchResults(value).then(function(result) {
+        	$scope.contactList = result;
+          console.log("result", result);
+          	for (var i = 0; i < $scope.contactList.length; i++) {
+                if ($scope.contactList[i].owner != null) {
+                  if ($scope.contactList[i].owner.companyName != null || $scope.contactList[i].owner.companyName != undefined) {
+                    $scope.contactList[i].owner = $scope.contactList[i].owner.companyName;
+                  }
+                }
+              }
+              $scope.displayContactList = new NgTableParams({
+                  page: 1,
+                  count: 10,
+                }, {
+                  data: $scope.contactList
+                });
+        })
+        }
+
         $scope.reset = function(){
           $("input").val("");
         }
@@ -62,10 +86,10 @@
 		    }
         
         
-        /*ContactViewService.getCompanies().then(function(result) {
+        ContactViewService.getCompanies().then(function(result) {
         	$scope.companies = result;
           
-        })*/
+        })
         
         $scope.contactData = {};
         $scope.contactData.contactList = [];
