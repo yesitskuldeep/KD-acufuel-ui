@@ -190,14 +190,14 @@
                            </div>
                            <div class="row"  style="margin-left:0px;"> 
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-model="companyData.baseTenant"> Tenant/Base Customer
+                                 <input type="checkbox" name="" ng-model="companyData.baseTenant" ng-change="checkboxStatus(companyData.baseTenant)"> Tenant/Base Customer
                               </div>
                               <div class="col-md-5" style="padding-left: 0;">
-                                 <input type="checkbox" name="" ng-model="companyData.fuelerlinxCustomer"> FuelerLinx Customer
+                                 <input type="checkbox" name="" ng-model="companyData.fuelerlinxCustomer" ng-change="fuelercheckboxStatus(companyData.fuelerlinxCustomer)"> FuelerLinx Customer
                               </div>
                            </div>
                            <div>
-                              <input type="checkbox" name="" ng-model="companyData.contractFuelVendor"> CAA Member
+                              <input type="checkbox" name="" ng-model="companyData.contractFuelVendor" ng-change="checkboxStatus(companyData.contractFuelVendor)"> CAA Member
                            </div>
                            </br>
                            <div class="new-address">
@@ -632,7 +632,26 @@
         </div>
     </div>
 </form>
-
+<div class="customConfirmPopBackdrop" id="fuelerchange" >
+   <div class="customModalInner" style="max-width: 550px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">{{statusMessage}}</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="fuelerAcceptStatus()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="fuelerCancelStatus()">Cancel</button>
+      </div>
+   </div>
+</div>
 <div class="customConfirmPopBackdrop" id="confirm1">
    <div class="customModalInner" style="max-width: 400px;">
       <div class="customModelBody" style="border-radius: 5px 5px 0 0;">

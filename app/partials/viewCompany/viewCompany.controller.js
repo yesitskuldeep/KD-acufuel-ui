@@ -66,6 +66,7 @@
             })
         }
 
+        
         $scope.cancelStatus = function(){
             $('#delete3').css('display', 'none');
             $scope.companyData.activate =  !$scope.companyData.activate;
@@ -268,6 +269,8 @@
             }
             $scope.showLoader = false;
           })
+
+          
           
       }
 
@@ -478,6 +481,45 @@
 
         $scope.cancelToogle = function(){
           $('#toogleMail').css('display', 'none');
+        }
+
+         $scope.checkboxStatus = function(value){
+           console.log("checkbox",value)
+           $scope.showUpdateBtn = true;
+        }
+
+        $scope.fuelercheckboxStatus = function(value){
+           $('#fuelerchange').css('display', 'block');
+            if(value == true){
+              $scope.statusMessage = 'Please confirm! Enabling FuelerLinx for this customer will enable price distribution web services and disable price emails for the contacts in this company'
+            }else{
+              $scope.statusMessage = 'Please confirm! Disabling FuelerLinx for this customer will disable price distribution web services into their FuelerLinx account. If you proceed then remember to enable price emails for the appropriate contacts in this company.'
+            }
+
+            
+        }
+
+       $scope.fuelerCancelStatus = function(){
+            $('#fuelerchange').css('display', 'none');
+            $scope.companyData.fuelerlinxCustomer =  !$scope.companyData.fuelerlinxCustomer;
+        }
+
+        $scope.fuelerAcceptStatus = function(){
+          var statusData;
+          if($scope.companyData.fuelerlinxCustomer == false){
+            statusData = "status=true";
+          } else {
+            statusData = "status=false";
+          }
+          ViewCompanyService.fuelerPricingChange(companyId, statusData).then(function(result) {
+            if(result.success){
+                  $('#fuelerchange').css('display', 'none');
+                  
+                  $scope.editData();
+                  getContactList();
+                  
+              }
+          })
         }
         
   }]);
