@@ -15,6 +15,10 @@
           contactCompanyId = result.owner.id;
         })
 
+        $scope.goBack = function(){
+            window.history.back();
+        }
+
         $scope.contactIdList = {};
         var index;
         var one = 1;
