@@ -176,9 +176,15 @@
             if($scope.contactDetail.primaryContact == true){
             ViewCompanyService.checkPrimaryContact(companyId).then(function(result) {
               console.log(result)
-              if(result.status == 422){
+              if(result.status == 422 || result.status == 200){
                 $('#primaryContact').css('display', 'block');
               }
+            })
+          }else{
+              var primaryContactData = "companyContactId=" + $scope.contactDetail.id + "&primary=false";
+
+            ViewCompanyService.addPrimaryContact(primaryContactData).then(function(result) {
+              console.log(result)
             })
           }
         }
@@ -191,9 +197,9 @@
 
         $scope.sendPrimaryContact = function(id){
           $('#primaryContact').css('display', 'none');
-            var priamryContactData = "companyContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
+            var primaryContactData = "companyContactId=" + id + "&primary=" + $scope.contactDetail.primaryContact;
 
-            ViewCompanyService.addPrimaryContact(priamryContactData).then(function(result) {
+            ViewCompanyService.addPrimaryContact(primaryContactData).then(function(result) {
               console.log(result)
             })
           

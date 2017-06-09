@@ -38,13 +38,13 @@
           return deferred.promise;
         }
 
-        this.getFuelPricingNew = function() {
-
+       this.updateFuelPricing = function(data){
           var deferred = $q.defer();
           $http({
-              method : 'GET',
-              url : BASE_URL.url +'/user/products',
+              method : 'POST',
+              url : BASE_URL.url +'/fuelPricing',
               headers : {'Content-Type': 'application/json'},
+              data: data
           })
           .then(function (result){
               deferred.resolve(result.data);

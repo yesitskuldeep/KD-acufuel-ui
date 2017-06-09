@@ -171,9 +171,15 @@
             if($scope.contactDetail.primaryContact == true){
             ViewFuelVendorService.checkPrimaryContact(companyId).then(function(result) {
               console.log(result)
-              if(result.status == 422){
+              if(result.status == 422 || result.status == 200){
                 $('#primaryContact').css('display', 'block');
               }
+            })
+          }else{
+              var primaryContactData = "companyContactId=" + $scope.contactDetail.id + "&primary=false";
+
+            ViewCompanyService.addPrimaryContact(primaryContactData).then(function(result) {
+              console.log(result)
             })
           }
         }
