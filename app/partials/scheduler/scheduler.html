@@ -6,6 +6,18 @@
    .subnavbar .mainnav > li:nth-child(4) > a{
    color: #ff9900;
    }
+   .fc button, .fc-button-group, .fc-time-grid .fc-event .fc-time span{
+      display: block;
+   }
+   .fc-state-default{
+      background-color: #fff;
+      background-image: none;
+   }
+   .fc-state-active, .fc-state-down{
+      box-shadow: none;
+      color: #fff;
+      background-color: #ff9900;
+   }
 </style>
 <div class="main">
    <div class="container">
@@ -57,7 +69,14 @@
                </div>
                <!-- /widget-header -->
                <div class="widget-content">
+                  <!-- <div class="btn-group">
+                     <button class="btn btn-success" ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+                     <button class="btn btn-success" ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+                     <button class="btn btn-success" ng-click="changeView('month', 'myCalendar1')">Month</button>
+                  </div>
+                  <div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div> -->
                   <div id='calendar'></div>
+
                   <div style='clear:both'></div>
                </div>
                <!-- /widget-content -->

@@ -15,6 +15,8 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 	})
 
 	$scope.order = {};
+	$scope.dispatchOrder = {};
+	$scope.dispatchOrder.fuelOrderObj = [];
 	$scope.order.upliftDate = '';
 	$scope.order.departingDate = '';
 	$scope.selectedCompanyName = '';
@@ -52,7 +54,6 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 	}
 
 	$scope.dispatchFuel = function(){
-		console.log('$scope.order', $scope.order);
 		$scope.order.companyId = $scope.selectedCompanyId;
 		if ($scope.order.upliftDate != '') {
 			$scope.order.upliftDate = new Date($scope.order.upliftDate);
@@ -62,7 +63,9 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 			$scope.order.departingDate = new Date($scope.order.departingDate);
 			$scope.order.departingDate = $scope.order.departingDate.getTime();
 		}
-		enterFuelOrderService.dispathFuelOrder($scope.order).then(function(result) {
+		$scope.dispatchOrder.fuelOrderObj.push($scope.order);
+		console.log('$scope.order', $scope.dispatchOrder);
+		enterFuelOrderService.dispathFuelOrder($scope.dispatchOrder).then(function(result) {
 			console.log('result', result);
 		})
 	}
