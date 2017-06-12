@@ -108,5 +108,20 @@
             }
           })
         }
+        
+		$scope.exportContacts = function() {
+			$scope.showLoader = true;
+	    	var fileName = "contacts.csv";
+	    	var a = document.createElement("a");
+	    	document.body.appendChild(a);
+	    	ContactViewService.exportContacts().then(function(result) {
+    	        var file = new Blob([result], {type: 'application/csv'});
+    	        var fileURL = URL.createObjectURL(file);
+    	        a.href = fileURL;
+    	        a.download = fileName;
+    	        a.click();
+    	        $scope.showLoader = false;
+	    	 })
+	    }
 
     }]);

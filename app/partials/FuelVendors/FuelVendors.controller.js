@@ -41,6 +41,7 @@
 							$scope.companyList[i].masterMargin = $scope.companyList[i].margin.id;
 						}
 					}
+					$scope.companyList[i].source = "Vendor"
 				}
 				$scope.displayVendorList = new NgTableParams({
 		        page: 1,
@@ -53,7 +54,7 @@
 		
         $scope.editMargin = function(vendor){
         	console.log(vendor.masterMargin)
-
+        	$scope.showLoader = true;
         	var companyMargin = "vendorName=" + vendor.vendorName + "&masterMargin=" + vendor.masterMargin 
               + "&addressOne=" + vendor.addressOne + "&addressTwo=" + vendor.addressTwo + "&city=" + vendor.city + "&state=" 
               + vendor.state + "&country=" + vendor.country + "&zipcode=" + vendor.zipcode + "&internalNote=" 
@@ -63,10 +64,12 @@
 
         	ViewFuelVendorService.updateContact(companyMargin).then(function(result) {
               if(result != null && result.success){
+            	$scope.showLoader = false;
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
               }else{
+            	  $scope.showLoader = false;
                 toastr.error(''+result.statusText+'', {
                   closeButton: true
                 })
@@ -137,6 +140,21 @@
 	          	})
     	 	}
     	 	
+	    }
+		
+		$scope.exportVendors = function() {
+			$scope.showLoader = true;
+	    	var fileName = "vendors.csv";
+	    	var a = document.createElement("a");
+	    	document.body.appendChild(a);
+	    	FuelVendorsService.exportVendors().then(function(result) {
+    	        var file = new Blob([result], {type: 'application/csv'});
+    	        var fileURL = URL.createObjectURL(file);
+    	        a.href = fileURL;
+    	        a.download = fileName;
+    	        a.click();
+    	        $scope.showLoader = false;
+	    	 })
 	    }
 
     }
