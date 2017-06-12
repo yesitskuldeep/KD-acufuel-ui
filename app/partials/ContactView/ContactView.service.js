@@ -53,6 +53,21 @@
             })
             return deferred.promise;
           }
+        
+        this.exportContacts = function(){
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : BASE_URL.url +'/company/contact/export'
+            })
+            .then(function (result){
+                deferred.resolve(result.data);
+            },function (result){
+              console.log(result)
+                deferred.resolve(result.data);
+            })
+            return deferred.promise;
+         }
       }
       
 })();

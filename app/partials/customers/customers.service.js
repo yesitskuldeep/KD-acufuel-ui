@@ -148,8 +148,21 @@
           })
           return deferred.promise;
         }
-
         
+        this.exportCompany = function(){
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : BASE_URL.url +'/company/export'
+            })
+            .then(function (result){
+                deferred.resolve(result.data);
+            },function (result){
+              console.log(result)
+                deferred.resolve(result.data);
+            })
+            return deferred.promise;
+         }
         
       }
       

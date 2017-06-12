@@ -92,6 +92,7 @@
 
         $scope.editMargin = function(customer){
         	console.log('customer', customer);
+        	$scope.showLoader = true;
         	event.stopPropagation();
 
         	var companyMargin = "companyName=" + customer.companyName + "&masterMargin=" + customer.masterMargin 
@@ -103,10 +104,12 @@
 
         	ViewCompanyService.updateContact(companyMargin).then(function(result) {
               if(result != null && result.success){
+            	$scope.showLoader = false;
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
               }else{
+            	$scope.showLoader = false;
                 toastr.error(''+result.statusText+'', {
                   closeButton: true
                 })
@@ -271,6 +274,21 @@
 	    }
 
 	    /*  ng table  */
+	    
+	    $scope.exportCompany = function() {
+	    	$scope.showLoader = true;
+	    	var fileName = "companies.csv";
+	    	var a = document.createElement("a");
+	    	document.body.appendChild(a);
+	    	 CustomersService.exportCompany().then(function(result) {
+    	        var file = new Blob([result], {type: 'application/csv'});
+    	        var fileURL = URL.createObjectURL(file);
+    	        a.href = fileURL;
+    	        a.download = fileName;
+    	        a.click();
+    	        $scope.showLoader = false;
+	    	 })
+	    }
 
 
     }
