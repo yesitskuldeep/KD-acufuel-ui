@@ -17,6 +17,17 @@
             })
         }
 
+        $scope.options = {
+            language: 'en',
+            allowedContent: true,
+            entities: false
+          };
+
+          // Called when the editor is completely ready.
+          $scope.onReady = function () {
+            // ...
+          };
+
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
 
         updateFuelManagerService.getATypeJets($scope.userProfileId).then(function(result) {
@@ -239,6 +250,22 @@
                 })
             })
 
+        }
+
+        $scope.closeAccordian = function(jets){
+            $('.'+jets.id).slideUp();
+            $('#'+jets.id).removeClass('customActive');
+            $('#'+jets.id+' select, #'+jets.id+' input').prop("disabled", true);
+            $('#'+jets.id+' .btn-success, #'+jets.id+' .btn-danger').css('display', 'none');
+            $('#'+jets.id+' .btn-default').css('display', 'inline-block');
+        }
+
+        $scope.closeAccordianVtype = function(jets){
+            $('.'+jets.id).slideUp();
+            $('#'+jets.id).removeClass('customActive');
+            $('#'+jets.id+' select, #'+jets.id+' input').prop("disabled", true);
+            $('#'+jets.id+' .btn-success, #'+jets.id+' .btn-danger').css('display', 'none');
+            $('#'+jets.id+' .btn-default').css('display', 'inline-block');
         }
 
         $scope.saveVtypeJetAccordian = function(jets){

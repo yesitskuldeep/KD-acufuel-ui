@@ -6,10 +6,9 @@ angular.module('acufuel')
    .controller('schedulerController', ['$scope', function($scope) {
 
       $scope.test = "Testing...";
-
-      $(document).ready(function() {
+      
     
-    $('#calendar').fullCalendar({
+    /*$('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -76,7 +75,7 @@ angular.module('acufuel')
       ]
     });
     
-  });
+  });*/
 
 
    }]);
