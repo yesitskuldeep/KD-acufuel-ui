@@ -150,7 +150,7 @@
             return deferred.promise;
         }     
 
-        this.updateContact = function(data) {
+        this.updateCompany = function(data) {
 
           var deferred = $q.defer();
           $http({

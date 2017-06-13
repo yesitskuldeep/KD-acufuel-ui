@@ -83,7 +83,7 @@
               data: $scope.contactList
             });
           })
-		    }
+	    }
         
         
         ContactViewService.getCompanies().then(function(result) {
