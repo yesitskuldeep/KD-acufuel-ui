@@ -34,6 +34,8 @@
     "angular-resource": "~1.6.4",
     "angular-xeditable": "~0.7.1",
     "angular-bootstrap-toggle": "~0.1.2",
-    "angular-ui-select2": "^0.0.5"
+    "angular-ui-select2": "^0.0.5",
+    "angular-ckeditor": "^1.0.3",
+    "angular-ui-calendar": "^1.0.2"
   }
 }

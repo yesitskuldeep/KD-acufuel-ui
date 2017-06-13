@@ -92,6 +92,7 @@
                            <span style="margin-right: 0;">$</span>
                            <input type="text" disabled="true" class="form-control" ng-model="jets.marginValue">
                            <div class="pull-right">
+                              <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordian(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
                               <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)">Edit</button>
@@ -147,7 +148,9 @@
                               </div>
                            </div> -->
                            <div class="clearfix"></div>
-                           <textarea class="form-control resizeTextarea" ng-model="jets.message" placeholder="Message..."></textarea>
+                           <!-- <textarea class="form-control resizeTextarea" ng-model="jets.message" placeholder="Message..."></textarea> -->
+                           <br/>
+                           <div ckeditor="options" ng-model="jets.message" ready="onReady()"></div>
                         </div>
                      </div>
                   </div>
@@ -248,6 +251,7 @@
                            <span style="margin-right: 0;">$</span>
                            <input type="text" disabled="true" class="form-control" ng-model="jets.marginValue">
                            <div class="pull-right">
+                              <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordianVtype(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveVtypeJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteVtypeJetAccordian(jets.id)">Delete</button>
                               <button class="btn btn-default" ng-click="toggleVtypeJestAccordian(jets.id, $index)">Edit</button>
@@ -303,7 +307,8 @@
                               </div>
                            </div> -->
                            <div class="clearfix"></div>
-                           <textarea class="form-control resizeTextarea" ng-model="jets.message" placeholder="Message..."></textarea>
+                           <br/>
+                           <div ckeditor="options" ng-model="jets.message" ready="onReady()"></div>
                         </div>
                      </div>
                   </div>
@@ -357,7 +362,7 @@
                <div class="clearfix"></div>
             </div>
             <div class="customAccordianTabBody">
-               <textarea class="form-control resizeTextarea" ng-model="newJet.message" placeholder="Message..."></textarea>
+               <div ckeditor="options" ng-model="newJet.message" ready="onReady()"></div>
             </div>
 
          </div>
@@ -397,7 +402,7 @@
                <div class="clearfix"></div>
             </div>
             <div class="customAccordianTabBody">
-               <textarea class="form-control resizeTextarea" ng-model="newVtypeJet.message" placeholder="Message..."></textarea>
+               <div ckeditor="options" ng-model="newVtypeJet.message" ready="onReady()"></div>
             </div>
 
          </div>
