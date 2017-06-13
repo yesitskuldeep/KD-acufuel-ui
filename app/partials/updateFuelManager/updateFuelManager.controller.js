@@ -6,7 +6,10 @@
 
 
       .controller('updateFuelManagerController', ['$scope','$uibModal', 'updateFuelManagerService', function($scope , $uibModal, updateFuelManagerService) {
-		$scope.showLoader = true;
+		
+        
+        
+        $scope.showLoader = true;
         $scope.yes = function(data){
             console.log('========');
             console.log('value', data);
@@ -45,6 +48,7 @@
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
             $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
             $('#'+id+' .btn-default').css('display', 'none');
+            $('#'+id+' .btn-primary').css('display', 'none');
             
             updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                 $scope.aTypeJets[index].tierList = tiers;
@@ -58,6 +62,7 @@
             $('#'+id+' select, #'+id+' input').prop("disabled", false);
             $('#'+id+' .btn-success, #'+id+' .btn-danger').css('display', 'inline-block');
             $('#'+id+' .btn-default').css('display', 'none');
+            $('#'+id+' .btn-primary').css('display', 'none');
             
             updateFuelManagerService.getJetTiers(id).then(function(tiers) {
                 $scope.vTypeJets[index].tierList = tiers;
@@ -235,6 +240,7 @@
             $('#'+$scope.jetsDetail.id+' select, #'+$scope.jetsDetail.id+' input').prop("disabled", true);
             $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
             $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
+            $('#'+$scope.jetsDetail.id+' .btn-primary').css('display', 'inline-block');
 
             var editJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id+'&message='+$scope.jetsDetail.message;
 
@@ -258,6 +264,7 @@
             $('#'+jets.id+' select, #'+jets.id+' input').prop("disabled", true);
             $('#'+jets.id+' .btn-success, #'+jets.id+' .btn-danger').css('display', 'none');
             $('#'+jets.id+' .btn-default').css('display', 'inline-block');
+            $('#'+jets.id+' .btn-primary').css('display', 'inline-block');
         }
 
         $scope.closeAccordianVtype = function(jets){
@@ -266,6 +273,7 @@
             $('#'+jets.id+' select, #'+jets.id+' input').prop("disabled", true);
             $('#'+jets.id+' .btn-success, #'+jets.id+' .btn-danger').css('display', 'none');
             $('#'+jets.id+' .btn-default').css('display', 'inline-block');
+            $('#'+jets.id+' .btn-primary').css('display', 'inline-block');
         }
 
         $scope.saveVtypeJetAccordian = function(jets){
@@ -278,6 +286,7 @@
             $('#'+$scope.jetsDetail.id+' select, #'+$scope.jetsDetail.id+' input').prop("disabled", true);
             $('#'+$scope.jetsDetail.id+' .btn-success, #'+$scope.jetsDetail.id+' .btn-danger').css('display', 'none');
             $('#'+$scope.jetsDetail.id+' .btn-default').css('display', 'inline-block');
+            $('#'+jets.id+' .btn-primary').css('display', 'inline-block');
 
             var editVtypeJetData = 'productType='+$scope.jetsDetail.productType+'&marginName='+$scope.jetsDetail.marginName+'&pricingStructure='+$scope.jetsDetail.pricingStructure+'&marginValue='+$scope.jetsDetail.marginValue+'&userProfileId='+$scope.jetsDetail.userProfileId+'&marginId='+$scope.jetsDetail.id+'&message='+$scope.jetsDetail.message;
 
@@ -415,8 +424,26 @@
                         }
                     }
                 }
+
+                var str =""+ $scope.newFuelPricing[i].name
+               if(str.startsWith("J")){
+                  $scope.newFuelPricing[i].jeta = true;
+                  var str1 = str.substring(0,5)
+                  var str2 = str.substring(6, str.length)
+                  $scope.newFuelPricing[i].name = str1
+                  $scope.newFuelPricing[i].namejetrest = str2
+
+
+              }else if(str.startsWith("100")){
+                  $scope.newFuelPricing[i].avgas = true;
+                  var str1 = str.substring(0,5)
+                  var str2 = str.substring(6, str.length)
+                  $scope.newFuelPricing[i].name = str1
+                  $scope.newFuelPricing[i].nameavgasrest = str2
+              }
               }
               $scope.showLoader = false;
+
         })
         $scope.$watch("fuelPricing.fuelPricing.expirationDate",function(old,newv){
         });
@@ -657,6 +684,10 @@
             $scope.marginVtypeIdDelete = '';
             $('#deleteVtypeMargin').css('display', 'none');
         }
+
+       
+
+
 
     }]);
 

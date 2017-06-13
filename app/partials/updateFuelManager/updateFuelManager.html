@@ -8,72 +8,77 @@
 <div class="myLoader" ng-show="showLoader">
   <img src="../img/hourglass.gif" width="50px;">
 </div>
-<div class="container">
+<div style="width: 90%; margin-left: 5%;">
    <div class="row">
-      <div class="col-md-5">
+   
+   <div class="col-md-6">
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3>Price Manager</h3>
-               <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
-                  <option value="" disabled selected="selected">Send Pricing Email</option>
-                  <option ng-repeat="margins in marginList" value="{{margins.id}}">{{margins.marginName}}</option>
-                  <option disabled>_______________</option>
-                  <option value="all">Distribute All</option>
-               </select>
+               <h3>Price Manager Staging</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <h4>Update Fuel Price Here</h4>
+               <h6 style="color:#F90">Queue Pricing for Deployment in the Price Manager below</h6>
+               <form>
                <table class="table">
                   <thead>
                      <tr>
                         <th> Product</th>
                         <th> Cost</th>
-                        <th> Margin</th>
+                        <th> PAP(Margin)</th>
+                        <th> Deploy Date</th>
+                        <th style="color: #F90;">Price Expires</th>
                         <th> PAP(Total)</th>
-                        <th style="color: #F90;"> Expires</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="fuelPricing in newFuelPricing">
                         <td>
-                           <span>{{fuelPricing.name}}</span>
+                           <span style="color: #2196f3" ng-show="fuelPricing.jeta">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.jeta">{{fuelPricing.namejetrest}}</span>
+                           <span style="color: 39c" ng-show="fuelPricing.avgas">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px">
+                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
+                        </td>
+                         <td>
+                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.papMargin" style="height:31px; width: 80px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.fuelPricing.papMargin" style="height:31px; width: 50px; padding: 6px 6px;">
+                           <input type="text" class="form-control" ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" datepicker ng-model="fuelPricing.futureFuelPricing.deployDate" style="height:31px; width: 80px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
+                           <input type="text" class="form-control" datepicker  ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 80px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <input type="text" class="form-control" datepicker ng-model="fuelPricing.fuelPricing.expirationDate" style="height:31px; width: 100px; padding: 6px 6px;">
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2}}</span>
                         </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right;">
-                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFuelPricingClick()">Save</button>
+                     <button type="button" class="btn btn-primary btn-xs" ng-click="updateFutureFuelPricingClick()" style= "text-align: center;  font-size:12px">Save & Deploy Immediately</button>
+                  
+                     <button type="reset" class="btn btn-default btn-xs" style="margin-right:33%">Reset All</button>
+                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFutureFuelPricingClick()" style="margin-right:3%">Save & Stage for Deploy</button>
                   </div>
                </div>
-            </div>
+             </form>
+           </div>
             <!-- /widget-content -->
          </div>
          <!-- /widget -->  
-      </div>
+   </div>
 
-      <div class="col-md-7">
+      <div class="col-md-6">
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3><b>JET-A</b> Customer Margin Template</h3>
-               <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewMarginBtn()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
-               </div>
+               <h3 style="font-style: italic"><b style="color: #2196f3; font-style: normal">JET-A</b> Customer Margin Template</h3>
+               
             </div>
             <!-- /widget-header -->
             <div class="widget-content" style="padding-top: 10px;">
@@ -85,9 +90,8 @@
                            <span>{{jets.marginName}}</span>
                            <select class="form-control" disabled="true" ng-model="jets.pricingStructure">
                               <option value="" disabled selected>Pricing Structure</option>
-                              <option value="minus">Retail-(minus)</option>
+                              <option value="minus">Retail/PAP-(minus)</option>
                               <option value="plus">Cost+(plus)</option>
-                              <option value="equal">Direct=(equal)</option>
                            </select>
                            <span style="margin-right: 0;">$</span>
                            <input type="text" disabled="true" class="form-control" ng-model="jets.marginValue">
@@ -95,7 +99,8 @@
                               <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordian(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
-                              <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)">Edit</button>
+                              <button type="button" class="btn btn-primary" ng-click="updateFutureFuelPricingClick()" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
+                              <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)" style= "text-align: center;  font-size:12px">Edit</button>
                            </div>
                            <div class="clearfix"></div>
                         </div>
@@ -154,6 +159,9 @@
                         </div>
                      </div>
                   </div>
+                   <div class="pull-right">
+                      <button type="submit" class="btn btn-success btn-sm" ng-click="addNewMarginBtn()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
+                  </div>
                </section>
                <!-- <div class="row">&nbsp;</div>
                <div class="row">
@@ -174,65 +182,74 @@
    <!-- /span12 -->
 </div>
 <!-- /row -->
-<div class="container">
+<div style="width: 90%; margin-left: 5%;">
 <div class="row">
-   <div class="col-md-5">
+     <div class="col-md-6">
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3>Queue Future Pricing</h3>
+               <h3>Price Manager</h3>
+               <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="btn btn-primary" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
+                  <option value="" disabled selected="selected">Email All Pricing</option>
+                  <option value="JET-A">Email JET-A pricing only</option>
+                  <option value="AVGAS">Email AVGAS pricing only</option>
+                  <option disabled>_______________________________</option>
+                  <option value="all">Distribute All</option>
+               </select>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
-               <h4>Update Queue Future Fuel Pricing Here</h4>
+               <h4>Update Fuel Price Here</h4>
                <table class="table">
                   <thead>
                      <tr>
                         <th> Product</th>
                         <th> Cost</th>
+                        <th> Margin</th>
                         <th> PAP(Total)</th>
-                        <th> Deploy</th>
-                        <th style="color: #F90;"> Next Expiration</th>
+                        <th style="color: #F90;"> Expires</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="fuelPricing in newFuelPricing">
                         <td>
-                           <span>{{fuelPricing.name}}</span>
+                           <span style="color: #2196f3" ng-show="fuelPricing.jeta">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.jeta">{{fuelPricing.namejetrest}}</span>
+                           <span style="color: 39c" ng-show="fuelPricing.avgas">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
+                          <span>{{fuelPricing.fuelPricing.cost}}</span>
+                          </td>
+                        <td>
+                          <span>{{fuelPricing.fuelPricing.papMargin}}</span>
+                           </td>
+                        <td>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2}}</span>
-                        </td>
-                        <td>
-                           <input type="text" class="form-control" ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" datepicker ng-model="fuelPricing.futureFuelPricing.deployDate" style="height:31px; width: 100px; padding: 6px 6px;">
-                        </td>
-                        <td>
-                           <input type="text" class="form-control" datepicker  ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 100px; padding: 6px 6px;">
+                          <span>{{fuelPricing.fuelPricing.expirationDate}}</span>
                         </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right;">
-                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFutureFuelPricingClick()">Save</button>
+                     <button type="button" class="btn btn-success btn-xs" ng-click="updateFuelPricingClick()" style="font-size:14px; margin-right:3%">Save</button>
                   </div>
                </div>
             </div>
             <!-- /widget-content -->
          </div>
          <!-- /widget -->  
-   </div>
-   <div class="col-md-7">
+      </div>
+    
+   <div class="col-md-6">
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
                <h3><b style="color: 39c;">AVGAS 100LL </b> <i>Customer Margin Template</i></h3>
-               <div class="pull-right">
-                  <button type="submit" class="btn btn-success btn-sm" ng-click="addNewVtypePop()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
-               </div>
+               
             </div>
             <!-- /widget-header -->
             <div class="widget-content" style="padding-top: 10px;">
@@ -254,7 +271,8 @@
                               <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordianVtype(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveVtypeJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteVtypeJetAccordian(jets.id)">Delete</button>
-                              <button class="btn btn-default" ng-click="toggleVtypeJestAccordian(jets.id, $index)">Edit</button>
+                               <button type="button" class="btn btn-primary" ng-click="updateFutureFuelPricingClick()" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
+                              <button class="btn btn-default" ng-click="toggleVtypeJestAccordian(jets.id, $index)" style= "text-align: center;  font-size:12px">Edit</button>
                            </div>
                            <div class="clearfix"></div>
                         </div>
@@ -312,6 +330,9 @@
                         </div>
                      </div>
                   </div>
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-success btn-sm" ng-click="addNewVtypePop()" style="margin-top: 4px; margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i> Add New Margin</button>
+                 </div>
                </section>
                <!-- <div class="row">&nbsp;</div>
                <div class="row">
