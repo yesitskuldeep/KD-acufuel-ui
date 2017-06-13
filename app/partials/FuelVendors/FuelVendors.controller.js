@@ -53,7 +53,6 @@
 		}
 		
         $scope.editMargin = function(vendor){
-        	console.log(vendor.masterMargin)
         	$scope.showLoader = true;
         	var companyMargin = "vendorName=" + vendor.vendorName + "&masterMargin=" + vendor.masterMargin 
               + "&addressOne=" + vendor.addressOne + "&addressTwo=" + vendor.addressTwo + "&city=" + vendor.city + "&state=" 
@@ -132,8 +131,7 @@
 		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
 		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao;
 
-		    	FuelVendorsService.addVendor(vendorData).then(function(result) {
-	            	console.log("result",result)
+		    	FuelVendorsService.addVendor($scope.data).then(function(result) {
 	            	$scope.accountId = result;
 	            	$('#vendor-modal-3').modal('hide');
 			    	getAllVendor();

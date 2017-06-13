@@ -38,9 +38,9 @@
         $scope.changeCompanyStatus = function(){
             $('#deleteVendor').css('display', 'block');
             if($scope.vendorData.activate == true){
-              $scope.statusMessage = 'Please confirm! Are you sure you want to ACTIVATE this company?'
+              $scope.statusMessage = 'Please confirm! Are you sure you want to ACTIVATE this Vendor?'
             }else{
-              $scope.statusMessage = 'Please confirm! Are you sure you want to DEACTIVATE this company?'
+              $scope.statusMessage = 'Please confirm! Are you sure you want to DEACTIVATE this Vendor?'
             }
         }
 
@@ -333,6 +333,27 @@
 
           $scope.cancelToogle = function(){
             $('#toogleMail').css('display', 'none');
+          }
+          
+          $scope.updateOmit = function(fuel, omit) {
+        	  $scope.fuelData = {};
+        	  $scope.fuelData.expirationDate = new Date(fuel.expirationDate);
+        	  $scope.fuelData.id = fuel.id;
+        	  $scope.fuelData.omit = fuel.omit;
+        	  $scope.fuelData.papMargin = fuel.papMargin;
+        	  $scope.fuelData.papTotal = fuel.papTotal;
+        	  $scope.fuelData.cost = fuel.cost;
+        	  ViewFuelVendorService.omitFuelPricing($scope.fuelData).then(function(result) {
+                  if(result.success){
+                	  toastr.success(''+result.success+'', {
+                          closeButton: true
+                      })
+                  }else{
+                	  toastr.error(''+result.statusText+'', {
+                		  closeButton: true
+                	  })
+                  }
+              })
           }
 
   }]);

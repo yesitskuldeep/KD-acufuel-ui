@@ -4,7 +4,7 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', 'updateFuelManagerService', 'ViewcontactService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService, updateFuelManagerService, ViewcontactService) {
+	.controller('viewCompanyController', ['$scope','$uibModal', '$stateParams', 'ViewCompanyService', 'CustomersService', 'updateFuelManagerService', 'ViewFuelVendorService', 'ViewcontactService', function($scope , $uibModal, $stateParams, ViewCompanyService, CustomersService, updateFuelManagerService, ViewFuelVendorService, ViewcontactService) {
         $scope.data = {};
         $scope.data.priceEmail = true;
         $scope.aircraft = {};
@@ -255,12 +255,13 @@
             + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
             + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
 
-          ViewCompanyService.updateContact(companyData).then(function(result) {
+          ViewCompanyService.updateCompany(companyData).then(function(result) {
             if(result != null && result.success){
               toastr.success(''+result.success+'', {
                 closeButton: true
               })
               $scope.showUpdateBtn = false;
+              getCompanyDetail();
             }else{
               toastr.error(''+result.statusText+'', {
                 closeButton: true
@@ -505,6 +506,8 @@
         }
 
         $scope.fuelerAcceptStatus = function(){
+          $('#fuelerchange').css('display', 'none');
+          $scope.showLoader = true;
           var statusData;
           if($scope.companyData.fuelerlinxCustomer == false){
             statusData = "status=true";
@@ -513,13 +516,34 @@
           }
           ViewCompanyService.fuelerPricingChange(companyId, statusData).then(function(result) {
             if(result.success){
-                  $('#fuelerchange').css('display', 'none');
+            	$scope.showLoader = false;
                   
                   $scope.editData();
                   getContactList();
                   
               }
           })
+        }
+        
+        $scope.updateOmit = function(fuel, omit) {
+      	  $scope.fuelData = {};
+      	  $scope.fuelData.expirationDate = new Date(fuel.expirationDate);
+      	  $scope.fuelData.id = fuel.id;
+      	  $scope.fuelData.omit = fuel.omit;
+      	  $scope.fuelData.papMargin = fuel.papMargin;
+      	  $scope.fuelData.papTotal = fuel.papTotal;
+      	  $scope.fuelData.cost = fuel.cost;
+      	  ViewFuelVendorService.omitFuelPricing($scope.fuelData).then(function(result) {
+            if(result.success){
+          	  toastr.success(''+result.success+'', {
+                    closeButton: true
+                })
+            }else{
+          	  toastr.error(''+result.statusText+'', {
+          		  closeButton: true
+          	  })
+            }
+      	  })
         }
         
   }]);

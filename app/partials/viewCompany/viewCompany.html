@@ -354,14 +354,14 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr ng-repeat="fuel in fuelPricing">
-                                       <td><input type="checkbox" ng-model="fuel.status"></td>
-                                       <td>{{fuel.name}}</td>
-                                       <td>${{fuel.fuelPricing.cost}}</td>
-                                       <td>${{fuel.fuelPricing.papMargin}}</td>
-                                       <td style="color:#55AF8B;">${{fuel.fuelPricing.papTotal}}</td>
-                                       <td style="color:#F90">{{fuel.fuelPricing.expirationDate}}</td>
-                                    </tr>
+	                                  <tr ng-repeat="fuel in fuelPricing">
+	                                     <td><input type="checkbox" ng-model="fuel.fuelPricing.omit" ng-change="updateOmit(fuel.fuelPricing, fuel.status)"></td>
+	                                     <td>{{fuel.name}}</td>
+	                                     <td>${{fuel.fuelPricing.cost}}</td>
+	                                     <td>${{fuel.fuelPricing.papMargin}}</td>
+	                                     <td style="color:#55AF8B;">${{fuel.fuelPricing.papTotal}}</td>
+	                                     <td style="color:#F90">{{fuel.fuelPricing.expirationDate}}</td>
+	                                  </tr>
                                  </tbody>
                               </table>
                            </div>

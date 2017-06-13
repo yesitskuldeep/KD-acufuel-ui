@@ -129,7 +129,7 @@
             <div class="widget-header">
                <i class="fa fa-building-o" aria-hidden="true"></i>
                <h3>{{vendorData.vendorName}} <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteVendor(vendorData.id)" aria-hidden="true"></i></h3>
-               <i class="fa fa-times timess" ui-sref="app.customers" aria-hidden="true"></i>
+               <i class="fa fa-times timess" ui-sref="app.FuelVendors" aria-hidden="true"></i>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -232,7 +232,7 @@
                                </thead>
                                <tbody>
                                   <tr ng-repeat="fuel in fuelPricing">
-                                     <td><input type="checkbox" ng-model="fuel.status"></td>
+                                     <td><input type="checkbox" ng-model="fuel.fuelPricing.omit" ng-change="updateOmit(fuel.fuelPricing, fuel.status)"></td>
                                      <td>{{fuel.name}}</td>
                                      <td>${{fuel.fuelPricing.cost}}</td>
                                      <td>${{fuel.fuelPricing.papMargin}}</td>

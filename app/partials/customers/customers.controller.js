@@ -102,7 +102,7 @@
               + "&fuelerlinxCustomer=" + customer.fuelerlinxCustomer + "&contractFuelVendor=" + customer.contractFuelVendor 
               + "&activate=" + customer.activate + "&baseIcao=" + customer.baseIcao + "&companyId=" + customer.id;
 
-        	ViewCompanyService.updateContact(companyMargin).then(function(result) {
+        	ViewCompanyService.updateCompany(companyMargin).then(function(result) {
               if(result != null && result.success){
             	$scope.showLoader = false;
                 toastr.success(''+result.success+'', {
@@ -169,29 +169,19 @@
 	    		$scope.showMarginError = true;
 	    		$('.marginSelectBox').addClass('customErrorInput');
 	    	}else{
-	    		console.log($scope.data);
-	    		companyData = "companyName=" + $scope.data.companyName + "&masterMargin=" + $scope.data.masterMargin 
-		    	+ "&addressOne=" + $scope.data.addressOne + "&addressTwo=" + $scope.data.addressTwo + "&city=" + $scope.data.city + "&state=" 
-		    	+ $scope.data.state + "&country=" + $scope.data.country + "&zipcode=" + $scope.data.zipcode + "&internalNote=" 
-		    	+ $scope.data.internalNote + "&certificateType=" + $scope.data.certificateType + "&baseTenant=" + $scope.data.baseTenant
-		    	+ "&fuelerlinxCustomer=" + $scope.data.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.data.contractFuelVendor 
-		    	+ "&activate=" + $scope.data.activate + "&baseIcao=" + $scope.data.baseIcao + "&avgasMargin=" + $scope.data.avgasMargin;
-
-		    	
+	    		$scope.aircraftDetails = [{ 
+	                'tail':'',
+	                'make': '',
+	                'model': '',
+	                'sizeId' : '',
+	                'marginId': $scope.data.masterMargin,
+	                'avgasMarginId': $scope.data.avgasMargin
+	            }];
+	    	    
 	    	 	$(sel).trigger('next.m.' + step);
 	    	 	getData();
 	    	}
 	    }
-
-	    $scope.aircraftDetails = [{ 
-            'tail':'',
-            'make': '',
-            'model': '',
-            'sizeId' : '',
-            'marginId': $scope.data.masterMargin,
-            'avgasMarginId': $scope.data.avgasMargin
-        }];
-    
         $scope.addNew = function(){
             $scope.aircraftDetails.push({ 
                 'tail':'',
@@ -226,7 +216,7 @@
       	$scope.aircraftListData = {};
       	$scope.addData = [];
       	$scope.saveCompanyData = function(){
-      		CustomersService.addCompany(companyData).then(function(result) {
+      		CustomersService.addCompany($scope.data).then(function(result) {
             	$scope.accountId = result;
       			$scope.aircraft.accountId = $scope.accountId;
       			
@@ -243,6 +233,10 @@
     	        $scope.aircraftListData.aircraftList = $scope.addData;
     	        $scope.aircraftListData.accountId = $scope.aircraft.accountId;
     	        
+    	        if($scope.aircraftListData.aircraftList[0].tail == "" || $scope.aircraftListData.aircraftList[0].make == null || $scope.aircraftListData.aircraftList[0].model == null){
+    	        	$scope.aircraftListData.aircraftList = [];
+    	        }
+    	        
     	        CustomersService.addAircraft($scope.aircraftListData).then(function(result) {
 
     	        	if(result != null && result.success){
@@ -257,6 +251,7 @@
     		          	})
     	        	}
     	        });
+    	        
           	})
       		
 	        
