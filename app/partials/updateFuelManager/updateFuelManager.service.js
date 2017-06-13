@@ -244,6 +244,21 @@
           return deferred.promise;
         }
 
+        this.sendMailToGroupMargin = function(type){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/fuelPricing/sendPriceEmailByType/'+type,
+              headers : {'Content-Type': 'application/json'}
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.deleteMargin = function(id) {
 
           var deferred = $q.defer();

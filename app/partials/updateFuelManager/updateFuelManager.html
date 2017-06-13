@@ -99,7 +99,7 @@
                               <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordian(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
-                              <button type="button" class="btn btn-primary" ng-click="updateFutureFuelPricingClick()" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
+                              <button type="button" class="btn btn-primary" ng-model="" ng-click="emailPricingForMargin(jets.id)" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
                               <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)" style= "text-align: center;  font-size:12px">Edit</button>
                            </div>
                            <div class="clearfix"></div>
@@ -271,7 +271,7 @@
                               <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordianVtype(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveVtypeJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteVtypeJetAccordian(jets.id)">Delete</button>
-                               <button type="button" class="btn btn-primary" ng-click="updateFutureFuelPricingClick()" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
+                               <button type="button" class="btn btn-primary" ng-click="emailPricingForMargin()" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
                               <button class="btn btn-default" ng-click="toggleVtypeJestAccordian(jets.id, $index)" style= "text-align: center;  font-size:12px">Edit</button>
                            </div>
                            <div class="clearfix"></div>
@@ -452,6 +452,26 @@
      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="saveAndCloseConfirm()">Yes</button>
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseConfirm()">Cancel</button>
+     </div>
+  </div>
+</div>
+<div class="customConfirmPopBackdrop" id="confirm2" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to email pricing for this margin?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="saveAndCloseForMarginConfirm()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseForMarginConfirm()">Cancel</button>
      </div>
   </div>
 </div>

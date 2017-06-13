@@ -368,6 +368,23 @@
 
         }
 
+   $scope.emailForMargin;
+          $scope.emailPricingForMargin = function(value){
+              $('#confirm2').css('display', 'block');
+               $scope.emailForMargin = value;
+            
+        }
+        $scope.saveAndCloseForMarginConfirm = function(){
+            $('#confirm2').css('display', 'none');
+            updateFuelManagerService.sendMailToMargin($scope.emailForMargin).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+            })
+        }
+        $scope.cancelAndCloseForMarginConfirm = function(){
+            $('#confirm2').css('display', 'none');
+        }
 
         $scope.sendEmail = {};
 
@@ -379,7 +396,7 @@
 
         $scope.saveAndCloseConfirm = function(){
             $('#confirm1').css('display', 'none');
-            updateFuelManagerService.sendMailToMargin($scope.sendEmail.pricing).then(function(result) {
+            updateFuelManagerService.sendMailToGroupMargin($scope.sendEmail.pricing).then(function(result) {
                 toastr.success(''+result.success+'', {
                   closeButton: true
                 })
