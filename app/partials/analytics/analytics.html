@@ -22,11 +22,11 @@
             <div class="widget stacked">
                <div class="widget-header">
                   <i class="icon-bar-chart"></i>
-                  <h3>Bar Chart</h3>
+                  <h3>Monthly Fuel Sales</h3>
                </div>
                <!-- /widget-header -->
                <div class="widget-content">
-                  <div id="bar-chart" class="chart-holder"></div>
+                  <nvd3 options="optionsmfs" data="datamfs"></nvd3>
                   <!-- /bar-chart -->
                </div>
                <!-- /widget-content -->
@@ -34,7 +34,29 @@
             <!-- /widget -->     
          </div>
          <!-- /.span6 -->
+      </div>
+      <div class="row">
+      
+      </div>
+      <div class="row">
          <div class="col-md-6">
+            <div class="widget stacked">
+               <div class="widget-header">
+                  <i class="icon-bar-chart"></i>
+                  <h3>Customer Sources</h3>
+               </div>
+               <!-- /widget-header -->
+               <div class="widget-content">
+                  <nvd3 options="optionspc" data="datapc"></nvd3>
+                  <!-- /pie-chart -->
+               </div>
+               <!-- /widget-content -->
+            </div>
+            <!-- /widget -->        
+         </div>
+         <!-- /span6 -->
+
+          <div class="col-md-6">
             <div class="widget stacked">
                <div class="widget-header">
                   <i class="icon-bar-chart"></i>
@@ -49,101 +71,9 @@
             <!-- /widget -->     
          </div>
          <!-- /.span6 -->
+        
       </div>
-      <div class="row">
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Cirque Stats</h3>
-               </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <div class="cirque-stats">
-                     <div class="ui-cirque" data-value="2875" data-total="3245" data-arc-color="#FF9900" data-label="ratio"></div>
-                     <div class="ui-cirque" data-value="13" data-arc-color="#222222"></div>
-                     <div class="ui-cirque" data-value="63" data-total="225" data-arc-color="#888888" data-label="ratio"></div>
-                     <div class="ui-cirque" data-value="40" data-arc-color="#222222"></div>
-                     <div class="ui-cirque" data-value="72" data-arc-color="#888888" data-label="ratio"></div>
-                     <div class="ui-cirque" data-value="57" data-arc-color="#FF9900"></div>
-                  </div>
-                  <!-- /.cirque-stats -->
-               </div>
-               <!-- /widget-content -->
-            </div>
-            <!-- /widget -->  
-         </div>
-         <!-- /.span6 -->
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Area Chart</h3>
-               </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <div id="area-chart" class="chart-holder"></div>
-                  <!-- /area-chart -->
-               </div>
-               <!-- /widget-content -->
-            </div>
-            <!-- /widget -->  
-         </div>
-         <!-- /.span6 -->
-      </div>
-      <div class="row">
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Pie Chart</h3>
-               </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <div id="pie-chart" class="chart-holder"></div>
-                  <!-- /pie-chart -->
-               </div>
-               <!-- /widget-content -->
-            </div>
-            <!-- /widget -->        
-         </div>
-         <!-- /span6 -->
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Donut Chart</h3>
-               </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <div id="donut-chart" class="chart-holder"></div>
-                  <!-- /bar-chart -->
-               </div>
-               <!-- /widget-content -->
-            </div>
-            <!-- /widget -->        
-         </div>
-         <!-- /span6 -->
-      </div>
-      <div class="row">
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Line Chart</h3>
-               </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <div id="line-chart" class="chart-holder"></div>
-                  <!-- /line-chart -->
-               </div>
-               <!-- /widget-content -->
-            </div>
-            <!-- /widget -->           
-         </div>
-         <!-- /span6 -->
-      </div>
-      <!-- /row -->
+      
    </div>
    <!-- /container -->
 </div>
@@ -166,71 +96,5 @@
 <script src="./js/charts/pie.js"></script>
 <script src="./js/charts/area.js"></script>
 <script type="text/javascript">
-   $(document).ready(function(){
-      $(function () {
    
-          $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=us-population-density.json&callback=?', function (data) {
-   
-              // Make codes uppercase to match the map data
-              $.each(data, function () {
-                  this.code = this.code.toUpperCase();
-              });
-   
-              // Instanciate the map
-              Highcharts.mapChart('container', {
-   
-                  chart: {
-                      borderWidth: 1
-                  },
-   
-                  title: {
-                      text: 'US population density (/km²)'
-                  },
-   
-                  legend: {
-                      layout: 'horizontal',
-                      borderWidth: 0,
-                      backgroundColor: 'rgba(255,255,255,0.85)',
-                      floating: true,
-                      verticalAlign: 'top',
-                      y: 25
-                  },
-   
-                  mapNavigation: {
-                      enabled: true
-                  },
-   
-                  colorAxis: {
-                      min: 1,
-                      type: 'logarithmic',
-                      minColor: '#EEEEFF',
-                      maxColor: '#000022',
-                      stops: [
-                          [0, '#EFEFFF'],
-                          [0.67, '#4444FF'],
-                          [1, '#000022']
-                      ]
-                  },
-   
-                  series: [{
-                      animation: {
-                          duration: 1000
-                      },
-                      data: data,
-                      mapData: Highcharts.maps['countries/us/us-all'],
-                      joinBy: ['postal-code', 'code'],
-                      dataLabels: {
-                          enabled: true,
-                          color: '#FFFFFF',
-                          format: '{point.code}'
-                      },
-                      name: 'Population density',
-                      tooltip: {
-                          pointFormat: '{point.code}: {point.value}/km²'
-                      }
-                  }]
-              });
-          });
-      });
-   })
 </script>
