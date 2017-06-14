@@ -3,80 +3,59 @@
 //Load controller
 angular.module('acufuel')
 
-   .controller('schedulerController', ['$scope', function($scope) {
+   .controller('schedulerController', ['$scope','$compile', 'uiCalendarConfig', function($scope, $compile, uiCalendarConfig) {
 
       $scope.test = "Testing...";
-      
-    
-    /*$('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listWeek'
-      },
-      defaultDate: '2017-05-12',
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2017-05-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2017-05-07',
-          end: '2017-05-10'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2017-05-09T16:00:00'
-        },
-        {
-          id: 999,
-          title: 'Repeating Event',
-          start: '2017-05-16T16:00:00'
-        },
-        {
-          title: 'Conference',
-          start: '2017-05-11',
-          end: '2017-05-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2017-05-12T10:30:00',
-          end: '2017-05-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2017-05-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2017-05-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2017-05-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2017-05-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2017-05-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          start: '2017-05-28'
-        }
-      ]
-    });
-    
-  });*/
 
+      var date = new Date();
+      var d = date.getDate();
+      var m = date.getMonth();
+      var y = date.getFullYear();
+      
+      
+      $scope.eventList=[
+        {title:'Event 1'},
+        {title:'Event 2'},
+        {title:'Event 3'},
+        {title:'Event 4'}
+        ];
+
+     $scope.eventSources=[];
+
+       $scope.events = [
+        {title: 'All Day Event', start: new Date(y, m, 1)},
+        {title: 'Birthday Party', start: new Date(y, m, d + 1, 19, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false},
+        {title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29)}
+      ];
+
+      $scope.uiConfig = {
+        calendar:{
+          height: 450,
+          editable: true,
+          droppable: true,
+          drop: function (date, allDay, jsEvent, ui) {
+            console.log('Here ,but where is the object?');
+          },
+          header:{
+            left: 'title',
+            center: '',
+            right: 'today prev,next'
+          },
+          eventResize: true,
+        }
+      };
+
+      $scope.eventSources = [$scope.events];
+      //$scope.eventSources = [];
+      //$scope.eventSources.push($scope.events);
+      
+      $scope.addEvent = function(index) {
+        console.log('INDEX', index);
+        console.log('EVENTS', $scope.eventSources);
+        //$scope.events.push($scope.eventList[index]);
+      }
+      
+      console.log($scope.eventSources);
 
    }]);
 

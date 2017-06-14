@@ -8,7 +8,7 @@
 <div class="myLoader" ng-show="showLoader">
   <img src="../img/hourglass.gif" width="50px;">
 </div>
-<div style="width: 90%; margin-left: 5%;">
+<div style="width: 96%; margin-left: 2%;">
    <div class="row">
    
    <div class="col-md-6">
@@ -53,7 +53,7 @@
                            <input type="text" class="form-control" datepicker  ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 80px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.futureFuelPricing.papMargin  | number : 2}}</span>
                         </td>
                      </tr>
                   </tbody>
@@ -104,7 +104,7 @@
                               <button class="btn btn-success" style="display: none; background-image: none; background-color: #f3f3f3; color: #333; border:0;" ng-click="closeAccordian(jets)">Close</button>
                               <button class="btn btn-success" style="display: none;" ng-click="saveJetAccordian(jets)">Save</button>
                               <button class="btn btn-danger" style="display: none;" ng-click="deleteJetAccordian(jets.id)">Delete</button>
-                              <button type="button" class="btn btn-primary" ng-model="" ng-click="emailPricingForMargin(jets.id)" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
+                              <button type="button" class="btn btn-primary" ng-click="emailPricingForMargin(jets.id)" style= "font-weight: normal; text-align: center;  font-size:12px">Email Pricing for this Margin</button>
                               <button class="btn btn-default" ng-click="toggleJestAccordian(jets.id, $index)" style= "text-align: center;  font-size:12px">Edit</button>
                            </div>
                            <div class="clearfix"></div>

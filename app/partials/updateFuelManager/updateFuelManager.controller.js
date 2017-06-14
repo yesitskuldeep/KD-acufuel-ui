@@ -584,10 +584,11 @@
                             $scope.newFuelPricing[i].futureFuelPricing.deployDate = $scope.newFuelPricing[i].futureFuelPricing.deployDate.getTime();
                         }
 
-                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin);
+                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].futureFuelPricing.papMargin);
+                        //$scope.newFuelPricing[i].futureFuelPricing.papTotal;
                         $scope.updateFutureFuelPricing.futureFuelPricingList.push({
                             'cost': $scope.newFuelPricing[i].futureFuelPricing.cost,
-                            'papMargin': $scope.newFuelPricing[i].fuelPricing.papMargin,
+                            'papMargin': $scope.newFuelPricing[i].futureFuelPricing.papMargin,
                             //'papTotal': $scope.newFuelPricing[i].futureFuelPricing.papTotal,
                             'papTotal': $scope.newFuelPricing[i].futureFuelPricing.papTotal,
                             'expirationDate': $scope.newFuelPricing[i].futureFuelPricing.nextExpiration,
@@ -604,6 +605,7 @@
                     $scope.newFuelPricing[i].futureFuelPricing.deployDate = '';*/
                 }
             }
+            //console.log('$scope.updateFutureFuelPricing', $scope.updateFutureFuelPricing);
             updateFuelManagerService.updateFutureFuelPricing($scope.updateFutureFuelPricing).then(function(result) {
                 toastr.success('Successfully Updated', {
                   closeButton: true
