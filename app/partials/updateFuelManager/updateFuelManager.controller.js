@@ -409,6 +409,7 @@
         }
 
         $scope.newFuelPricing = {};
+        $scope.holdFuelPricing = {};
         updateFuelManagerService.getFuelPricingNew().then(function(result) {
             $scope.newFuelPricing = result;
               for (var i = 0; i<$scope.newFuelPricing.length; i++) {
@@ -440,26 +441,60 @@
                             $scope.newFuelPricing[i].futureFuelPricing.deployDate = dmonth+'/'+dday+'/'+dyear;
                         }
                     }
-                }
+                } 
 
                 var str =""+ $scope.newFuelPricing[i].name
-               if(str.startsWith("J")){
-                  $scope.newFuelPricing[i].jeta = true;
-                  var str1 = str.substring(0,5)
-                  var str2 = str.substring(6, str.length)
-                  $scope.newFuelPricing[i].name = str1
-                  $scope.newFuelPricing[i].namejetrest = str2
+                   if(str.startsWith("J")){
+                      $scope.newFuelPricing[i].jeta = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].namejetrest = str2
 
 
-              }else if(str.startsWith("100")){
-                  $scope.newFuelPricing[i].avgas = true;
-                  var str1 = str.substring(0,5)
-                  var str2 = str.substring(6, str.length)
-                  $scope.newFuelPricing[i].name = str1
-                  $scope.newFuelPricing[i].nameavgasrest = str2
-              }
-              }
-              $scope.showLoader = false;
+                  }else if(str.startsWith("100")){
+                      $scope.newFuelPricing[i].avgas = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].nameavgasrest = str2
+                  }
+                }
+
+                for (var i = 0; i<result.length; i++) {
+                    if (result[i].fuelPricing != null) {
+                        if (result[i].fuelPricing.expirationDate != null && result[i].fuelPricing.expirationDate != '') {
+                            var newTime = new Date(result[i].fuelPricing.expirationDate);
+                            var month = newTime.getUTCMonth() + 1; //months from 1-12
+                            var day = newTime.getUTCDate();
+                            var year = newTime.getUTCFullYear();
+                            result[i].fuelPricing.expirationDate = month+'/'+day+'/'+year;
+                        }
+                    }
+                    if (result[i].futureFuelPricing != null) {
+                        if (result[i].futureFuelPricing != null) {
+                            if (result[i].futureFuelPricing.nextExpiration != null && result[i].futureFuelPricing.nextExpiration != '') {
+                                var newTime = new Date($scope.newFuelPricing[i].futureFuelPricing.nextExpiration);
+                                var nextMonth = newTime.getUTCMonth() + 1; //months from 1-12
+                                var nextDay = newTime.getUTCDate();
+                                var nextYear = newTime.getUTCFullYear();
+                                result[i].futureFuelPricing.nextExpiration = nextMonth+'/'+nextDay+'/'+nextYear;
+                            }
+                        }
+                        if (result[i].futureFuelPricing != null) {
+                            if (result[i].futureFuelPricing.deployDate != null && result[i].futureFuelPricing.deployDate != '') {
+                                var newTime = new Date(result[i].futureFuelPricing.deployDate);
+                                var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                                var dday = newTime.getUTCDate();
+                                var dyear = newTime.getUTCFullYear();
+                                result[i].futureFuelPricing.deployDate = dmonth+'/'+dday+'/'+dyear;
+                            }
+                        }
+                    }
+                }
+
+                $scope.holdFuelPricing = result;
+                $scope.showLoader = false;
 
         })
         $scope.$watch("fuelPricing.fuelPricing.expirationDate",function(old,newv){
@@ -545,6 +580,7 @@
                             }
                         }
                       }
+
                       $scope.showLoader = false;
                 })
             })
@@ -642,12 +678,142 @@
                                 }
                             }
                       }
+
+                    var str =""+ $scope.newFuelPricing[i].name
+                   if(str.startsWith("J")){
+                      $scope.newFuelPricing[i].jeta = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].namejetrest = str2
+
+
+                  }else if(str.startsWith("100")){
+                      $scope.newFuelPricing[i].avgas = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].nameavgasrest = str2
+                  }
+                
                   }
                       $scope.showLoader = false;
                 })
             })
 
             
+        }
+
+        $scope.updateFutureFuelPricingImmediatelyClick = function(){
+            $scope.showLoader = true;
+            for (var i = 0; i<$scope.newFuelPricing.length; i++) {
+                //console.log(parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin));
+                if ($scope.newFuelPricing[i].futureFuelPricing != null) {
+                    if ($scope.newFuelPricing[i].futureFuelPricing.cost != null || $scope.newFuelPricing[i].futureFuelPricing.cost != '' || $scope.newFuelPricing[i].futureFuelPricing.cost != undefined) {
+                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin);
+                        if ($scope.newFuelPricing[i].futureFuelPricing.cost == null) {
+                            $scope.newFuelPricing[i].futureFuelPricing.cost = '';
+                        }
+                        if ($scope.newFuelPricing[i].futureFuelPricing.papMargin == null) {
+                            $scope.newFuelPricing[i].futureFuelPricing.papMargin = '';
+                        }
+                        if ($scope.newFuelPricing[i].futureFuelPricing.papTotal == null) {
+                            $scope.newFuelPricing[i].futureFuelPricing.papTotal = '';
+                        }
+                        if ($scope.newFuelPricing[i].futureFuelPricing.nextExpiration == null) {
+                            $scope.newFuelPricing[i].futureFuelPricing.nextExpiration = '';
+                        }else{
+                            $scope.newFuelPricing[i].futureFuelPricing.nextExpiration = new Date($scope.newFuelPricing[i].futureFuelPricing.nextExpiration);
+                            console.log('$scope.newFuelPricing[i].futureFuelPricing.nextExpiration', $scope.newFuelPricing[i].futureFuelPricing.nextExpiration);
+                            $scope.newFuelPricing[i].futureFuelPricing.nextExpiration = $scope.newFuelPricing[i].futureFuelPricing.nextExpiration.getTime();
+                        }
+                        if ($scope.newFuelPricing[i].futureFuelPricing.deployDate == null) {
+                            $scope.newFuelPricing[i].futureFuelPricing.deployDate = '';
+                        }else{
+                            $scope.newFuelPricing[i].futureFuelPricing.deployDate = new Date($scope.newFuelPricing[i].futureFuelPricing.deployDate);
+                            $scope.newFuelPricing[i].futureFuelPricing.deployDate = $scope.newFuelPricing[i].futureFuelPricing.deployDate.getTime();
+                        }
+
+                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].futureFuelPricing.papMargin);
+                        //$scope.newFuelPricing[i].futureFuelPricing.papTotal;
+                        $scope.updateFutureFuelPricing.futureFuelPricingList.push({
+                            'cost': $scope.newFuelPricing[i].futureFuelPricing.cost,
+                            'papMargin': $scope.newFuelPricing[i].futureFuelPricing.papMargin,
+                            //'papTotal': $scope.newFuelPricing[i].futureFuelPricing.papTotal,
+                            'papTotal': $scope.newFuelPricing[i].futureFuelPricing.papTotal,
+                            'expirationDate': $scope.newFuelPricing[i].futureFuelPricing.nextExpiration,
+                            'deployDate': $scope.newFuelPricing[i].futureFuelPricing.deployDate,
+                            'productId': $scope.newFuelPricing[i].id,
+                            'id': $scope.newFuelPricing[i].futureFuelPricing.id,
+                        })
+                    }
+                }else{
+                    /*$scope.newFuelPricing[i].futureFuelPricing.cost = '';
+                    $scope.newFuelPricing[i].futureFuelPricing.papMargin = '';
+                    $scope.newFuelPricing[i].futureFuelPricing.papTotal = '';
+                    $scope.newFuelPricing[i].futureFuelPricing.expirationDate = '';
+                    $scope.newFuelPricing[i].futureFuelPricing.deployDate = '';*/
+                }
+            }
+            //console.log('$scope.updateFutureFuelPricing', $scope.updateFutureFuelPricing);
+            updateFuelManagerService.updateFutureFuelPricingImmediatlly($scope.updateFutureFuelPricing).then(function(result) {
+                toastr.success('Successfully Updated', {
+                  closeButton: true
+                })
+                updateFuelManagerService.getFuelPricingNew().then(function(result) {
+                    $scope.newFuelPricing = result;
+                      for (var i = 0; i<$scope.newFuelPricing.length; i++) {
+                        if ($scope.newFuelPricing[i].fuelPricing != null) {
+                            if ($scope.newFuelPricing[i].fuelPricing.expirationDate != null && $scope.newFuelPricing[i].fuelPricing.expirationDate != '') {
+                                var newTime = new Date($scope.newFuelPricing[i].fuelPricing.expirationDate);
+                                var month = newTime.getUTCMonth() + 1; //months from 1-12
+                                var day = newTime.getUTCDate();
+                                var year = newTime.getUTCFullYear();
+                                $scope.newFuelPricing[i].fuelPricing.expirationDate = month+'/'+day+'/'+year;
+                            }
+                        }
+                        if ($scope.newFuelPricing[i].futureFuelPricing != null) {
+                            if ($scope.newFuelPricing[i].futureFuelPricing != null) {
+                                if ($scope.newFuelPricing[i].futureFuelPricing.nextExpiration != null && $scope.newFuelPricing[i].futureFuelPricing.nextExpiration != '') {
+                                    var newTime = new Date($scope.newFuelPricing[i].futureFuelPricing.nextExpiration);
+                                    var nextMonth = newTime.getUTCMonth() + 1; //months from 1-12
+                                    var nextDay = newTime.getUTCDate();
+                                    var nextYear = newTime.getUTCFullYear();
+                                    $scope.newFuelPricing[i].futureFuelPricing.nextExpiration = nextMonth+'/'+nextDay+'/'+nextYear;
+                                }
+                            }
+                            if ($scope.newFuelPricing[i].futureFuelPricing != null) {
+                                if ($scope.newFuelPricing[i].futureFuelPricing.deployDate != null && $scope.newFuelPricing[i].futureFuelPricing.deployDate != '') {
+                                    var newTime = new Date($scope.newFuelPricing[i].futureFuelPricing.deployDate);
+                                    var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
+                                    var dday = newTime.getUTCDate();
+                                    var dyear = newTime.getUTCFullYear();
+                                    $scope.newFuelPricing[i].futureFuelPricing.deployDate = dmonth+'/'+dday+'/'+dyear;
+                                }
+                            }
+                      }
+
+                    var str =""+ $scope.newFuelPricing[i].name
+                   if(str.startsWith("J")){
+                      $scope.newFuelPricing[i].jeta = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].namejetrest = str2
+
+
+                  }else if(str.startsWith("100")){
+                      $scope.newFuelPricing[i].avgas = true;
+                      var str1 = str.substring(0,5)
+                      var str2 = str.substring(6, str.length)
+                      $scope.newFuelPricing[i].name = str1
+                      $scope.newFuelPricing[i].nameavgasrest = str2
+                  }
+                
+                  }
+                      $scope.showLoader = false;
+                })
+            })
         }
 
         updateFuelManagerService.getMargin().then(function(result) {

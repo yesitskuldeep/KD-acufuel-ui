@@ -213,6 +213,22 @@
           return deferred.promise;
         }
 
+        this.updateFutureFuelPricingImmediatlly = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/fuelPricing/updateImmediateFuelPrice',
+              headers : {'Content-Type': 'application/json'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
         this.getMargin = function() {
 
           var deferred = $q.defer();

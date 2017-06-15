@@ -18,7 +18,16 @@
       color: #fff;
       background-color: #ff9900;
    }
-
+   .stacked:after, .stacked:before{
+      display: none;
+   }
+   .btn-white, .btn-white:hover{
+      background-color: #fff;
+      background-image: none;
+   }
+   .fc-day-grid-event .fc-time{
+      display: none;
+   }
 
    /*#wrap {
       width: 1100px;
@@ -61,30 +70,61 @@
       width: 900px;
    }*/
 </style>
+
+<div class="myLoader" ng-show="showLoader">
+  <img src="../img/hourglass.gif" width="50px;">
+</div>
+
 <div class="main">
    <div class="container">
       <div class="row">
          <div class="col-xs-12">
-            <div id='wrap'>
-
-                     <div id='external-events' class="col-xs-12 col-md-3">
-                        <h4>Draggable Events</h4>
-                        <label ng-repeat="item in eventList" style="width: 100%;">
-                           <div class="fc-event" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
-                              {{item.title}}
-                           </div>
-                        </label>
-                        <!-- <p>
-                           <input type='checkbox' id='drop-remove' />
-                           <label for='drop-remove'>remove after drop</label>
-                        </p> -->
-                     </div>
-
-                     <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="col-xs-12 col-md-9" data-drop="true" jqyoui-droppable="{multiple:true, onDrop: 'addEvent($index)'}"></div>
-
-                     <div style='clear:both'></div>
-
+            <div class="col-xs-12 col-md-3">
+               <div class="widget stacked">
+                  <div class="widget-header">
+                     <i class="fa fa-plane" aria-hidden="true"></i>
+                     <h3>Enter Support Service</h3>
                   </div>
+                  <div class="widget-content">
+                     <label ng-repeat="item in events" ng-click="editEvent(item)" style="width: 100%;">
+                        <!-- <div class="fc-event" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
+                           {{item.title}}
+                        </div> -->
+                        <div class="fc-event">
+                           {{item.title}}
+                        </div>
+                     </label>
+                     <!-- <p>
+                        <input type='checkbox' id='drop-remove' />
+                        <label for='drop-remove'>remove after drop</label>
+                     </p> -->
+                  </div>
+               </div>
+               <div class="text-right">
+                  <button class="btn btn-default btn-white" data-toggle="modal" data-target="#addEvent">Add Event</button>
+               </div>
+            </div>
+
+            <div class="col-xs-12 col-md-9">
+               <div class="widget stacked">
+                  <div class="widget-header">
+                     <i class="fa fa-calendar" aria-hidden="true"></i>
+                     <h3>Schedule</h3>
+                  </div>
+                  <div class="widget-content">
+                     <div ui-calendar="uiConfig.calendar" ng-model="eventSources" data-drop="true"></div>
+                  </div>
+               </div>
+            </div>
+            <div style='clear:both'></div>
+
+            <!-- <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="col-xs-12 col-md-9" data-drop="true" jqyoui-droppable="{multiple:true, onDrop: 'addEvent($index)'}"></div> -->
+
+               
+
+            
+
+            </div>
 
 
 
@@ -98,3 +138,62 @@
    <!-- /container -->
 </div>
 <!-- /main -->
+
+
+<div id="addEvent" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+    <form ng-submit="addNewEvent()">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" ng-click="cancelAdd()" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Schedule New Event</h4>
+        </div>
+        <div class="modal-body">
+           <div class="col-md-6" style="padding-left: 0;">
+            <label>Event Name:</label>
+            <input type="text" ng-model="newEvent.aircraft" class="form-control">
+         </div>
+         <div class="col-md-6" style="padding-right: 0;">
+            <label>Deploy Date:</label>
+            <input type="text" datepicker ng-model="newEvent.deployDate" class="form-control">
+         </div>
+         <div class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+         <input type="submit" value="Add" class="btn btn-primary">
+         <button type="button" class="btn btn-default" ng-click="cancelAdd()" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+   </form>
+
+   </div>
+</div>
+
+<div id="editEvent" class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog">
+    <form ng-submit="updateEvent()">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" ng-click="cancelAdd()" class="close" data-dismiss="modal">&times;</button>
+           <h4 class="modal-title">Schedule New Event</h4>
+        </div>
+        <div class="modal-body">
+           <div class="col-md-6" style="padding-left: 0;">
+            <label>Event Name:</label>
+            <input type="text" ng-model="editData.title" class="form-control">
+         </div>
+         <div class="col-md-6" style="padding-right: 0;">
+            <label>Deploy Date:</label>
+            <input type="text" datepicker ng-model="editData.start" class="form-control">
+         </div>
+         <div class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+         <input type="submit" value="Add" class="btn btn-primary">
+         <button type="button" class="btn btn-default" ng-click="cancelUpdate()" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+   </form>
+
+   </div>
+</div>
