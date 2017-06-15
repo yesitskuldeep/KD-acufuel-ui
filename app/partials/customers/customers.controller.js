@@ -6,18 +6,19 @@
 
  	function customersController($scope, $rootScope, $uibModal, $filter, $http, $state, CustomersService, ViewCompanyService, NgTableParams) {
 		$(document).ready(function() {
-		    $('#example').DataTable();
+		    // $('#example').DataTable();
 		});
 		$scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'))
 		$scope.reset2 = function(){
 			$("input").val("");
 			$scope.removeMarginValidation();
 		}
+
 		
 		$scope.data = {};
 		$scope.aircraft = {};
 		$scope.data.activate = true;
-		$scope.showLoader = false;
+		$scope.showLoader = true;
 		getAllCompanies();
 
 		/*function getAllCompanies(){
@@ -87,6 +88,7 @@
 		      }, {
 		        data: $scope.companyList
 		      });
+			  $scope.showLoader = false;
 			})
 		}
 
@@ -119,8 +121,10 @@
 
         getData();
     	function getData(){
+			$scope.showLoader = true;
 			CustomersService.getAircraftMake().then(function(result) {
 			  $scope.aircraftMakeList = result;
+			  $scope.showLoader = false;
 			})
 		}
       	

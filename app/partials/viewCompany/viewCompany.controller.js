@@ -30,6 +30,7 @@
         $scope.companyData.masterMargin = "";
         getCompanyDetail();
         function getCompanyDetail(){
+          $scope.showLoader = true;
           ViewCompanyService.getCompany(companyId).then(function(result) {
             $scope.companyData = result;
             if(result.margin != null){
@@ -54,6 +55,7 @@
         }
 
         $scope.companyStatus = function(){
+          $scope.showLoader = true;
             var statusData = "status=" + $scope.companyData.activate;
             ViewCompanyService.changeStatus(companyId, statusData).then(function(result) {
               if(result.success){
@@ -64,6 +66,7 @@
                   getContactList();
               }
             })
+            $scope.showLoader = false;
         }
 
         
@@ -107,6 +110,7 @@
         $scope.contactData = {};
         $scope.contactData.contactList = [];
         $scope.addContact = function(){
+          $scope.showLoader = true;
           $scope.data.companyId = companyId;
           $scope.contactData.contactList.push($scope.data);
           ViewCompanyService.addContact($scope.contactData).then(function(result) {
@@ -126,13 +130,16 @@
                 })
             }
           })
+          $scope.showLoader = false;
         }
 
       getData();
       function getData(){
+        $scope.showLoader = true;
         CustomersService.getAircraftMake().then(function(result) {
           $scope.aircraftMakeList = result;
         })
+        $scope.showLoader = false;
       }
       
       $scope.clearAircrafts = function(){

@@ -354,7 +354,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-	                                  <tr ng-repeat="fuel in fuelPricing">
+	                                  <tr ng-repeat="fuel in fuelPricing | filter:{ status: true }">
 	                                     <td><input type="checkbox" ng-model="fuel.fuelPricing.omit" ng-change="updateOmit(fuel.fuelPricing, fuel.status)"></td>
 	                                     <td>{{fuel.name}}</td>
 	                                     <td>${{fuel.fuelPricing.cost}}</td>

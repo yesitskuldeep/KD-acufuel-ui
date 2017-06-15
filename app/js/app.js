@@ -1,7 +1,7 @@
 'use strict';
 
 
-  angular.module('acufuel', ['ngCookies', 'ngResource', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ui.toggle', 'ngTable', 'ui.select2', 'ckeditor', 'ui.calendar', 'ngDragDrop'])
+  angular.module('acufuel', ['nvd3', 'ngCookies', 'ngResource', 'ui.router', 'ngAnimate', 'ui.bootstrap', 'xeditable', 'ui.toggle', 'ngTable', 'ui.select2', 'ckeditor', 'ui.calendar', 'ngDragDrop'])
 
     .config(['$httpProvider', function($httpProvider) {
       $httpProvider.defaults.withCredentials = true;

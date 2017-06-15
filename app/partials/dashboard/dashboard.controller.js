@@ -53,6 +53,22 @@
                         }
                     }
                 }
+                var str =""+ $scope.newFuelPricing[i].name
+               if(str.startsWith("J")){
+                  $scope.newFuelPricing[i].jeta = true;
+                  var str1 = str.substring(0,5)
+                  var str2 = str.substring(6, str.length)
+                  $scope.newFuelPricing[i].name = str1
+                  $scope.newFuelPricing[i].namejetrest = str2
+
+
+              }else if(str.startsWith("100")){
+                  $scope.newFuelPricing[i].avgas = true;
+                  var str1 = str.substring(0,5)
+                  var str2 = str.substring(6, str.length)
+                  $scope.newFuelPricing[i].name = str1
+                  $scope.newFuelPricing[i].nameavgasrest = str2
+              }
               }
               $scope.showLoader = false;
         })
