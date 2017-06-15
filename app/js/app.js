@@ -80,48 +80,72 @@
             .state("app.customers", {
               url: "/customers",
               templateUrl: "partials/customers/customers.html",
-              controller: "customersController"
+              controller: "customersController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.accountSetting", {
               url: "/accountSetting",
               templateUrl: "partials/accountSetting/accountSetting.html",
-              controller: "AccountSettingController"
+              controller: "AccountSettingController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.ContactView", {
               url: "/ContactView",
               templateUrl: "partials/ContactView/ContactView.html",
-              controller: "ContactViewController"
+              controller: "ContactViewController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
             .state("app.FuelVendors", {
               url: "/FuelVendors",
               templateUrl: "partials/FuelVendors/FuelVendors.html",
-              controller: "FuelVendorsController"
+              controller: "FuelVendorsController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.analytics", {
               url: "/analytics",
               templateUrl: "partials/analytics/analytics.html",
-              controller: "analyticsController"
+              controller: "analyticsController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.account", {
               url: "/account",
               templateUrl: "partials/account/account.html",
-              controller: "accountController"
+              controller: "accountController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
             
             .state("app.dashboard", {
               url: "/dashboard",
               templateUrl: "partials/dashboard/dashboard.html",
-              controller: "dashboardController"
+              controller: "dashboardController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.elements", {
               url: "/elements",
               templateUrl: "partials/elements/elements.html",
-              controller: "elementsController"
+              controller: "elementsController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.error", {
@@ -139,31 +163,46 @@
             .state("app.forms", {
               url: "/forms",
               templateUrl: "partials/forms/forms.html",
-              controller: "formsController"
+              controller: "formsController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.fuelManager", {
               url: "/fuelManager",
               templateUrl: "partials/fuelManager/fuelManager.html",
-              controller: "fuelManagerController"
+              controller: "fuelManagerController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.pricing", {
               url: "/pricing",
               templateUrl: "partials/pricing/pricing.html",
-              controller: "pricingController"
+              controller: "pricingController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.reports", {
               url: "/reports",
               templateUrl: "partials/reports/reports.html",
-              controller: "reportsController"
+              controller: "reportsController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.scheduler", {
               url: "/scheduler",
               templateUrl: "partials/scheduler/scheduler.html",
-              controller: "schedulerController"
+              controller: "schedulerController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
             .state("app.signup", {
               url: "/signup",
@@ -175,75 +214,120 @@
               url: "/updateFuelManager",
               templateUrl: "partials/updateFuelManager/updateFuelManager.html",
               controller: "updateFuelManagerController",
-              // data: {
-              //     authorizedRoles: ["fbo"],
-              // }
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.viewCompany", {
               url: "/viewCompany/:id",
               templateUrl: "partials/viewCompany/viewCompany.html",
-              controller: "viewCompanyController"
+              controller: "viewCompanyController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             }) 
 
             .state("app.viewFuelVendor", {
               url: "/viewFuelVendor/:id",
               templateUrl: "partials/viewFuelVendor/viewFuelVendor.html",
-              controller: "ViewFuelVendorController"
+              controller: "ViewFuelVendorController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             }) 
 
             .state("app.fuelOrders", {
               url: "/fuelOrders",
               templateUrl: "partials/fuelOrders/fuelOrders.html",
-              controller: "fuelOrdersController"
+              controller: "fuelOrdersController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
              .state("app.DispatchFuel", {
               url: "/DispatchFuel",
               templateUrl: "partials/DispatchFuel/DispatchFuel.html",
-              controller: "DispatchFuelController"
+              controller: "DispatchFuelController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.searchDispatchFuel", {
               url: "/searchDispatchFuel",
               templateUrl: "partials/searchDispatchFuel/searchDispatchFuel.html",
-              controller: "searchDispatchFuelController"
+              controller: "searchDispatchFuelController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.Accept", {
               url: "/Accept",
               templateUrl: "partials/Accept/Accept.html",
-              controller: "AcceptController"
+              controller: "AcceptController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.delselected", {
               url: "/delselected",
               templateUrl: "partials/delselected/delselected.html",
-              controller: "delselectedController"
+              controller: "delselectedController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
             
             .state("app.pricingcontact", {
               url: "/pricingcontact",
               templateUrl: "partials/pricingcontact/pricingcontact.html",
-              controller: "pricingcontactController"
+              controller: "pricingcontactController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.viewContact", {
               url: "/viewContact/:id",
               templateUrl: "partials/viewcontact/viewcontact.html",
-              controller: "viewcontactController"
+              controller: "viewcontactController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
 
             .state("app.viewVendorContact", {
               url: "/viewVendorContact/:id",
               templateUrl: "partials/viewVendorContact/viewVendorContact.html",
-              controller: "viewVendorContactController"
+              controller: "viewVendorContactController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
             })
             
             .state("app.enterFuelOrder", {
               url: "/enterFuelOrder",
               templateUrl: "partials/enterFuelOrder/enterFuelOrder.html",
-              controller: "enterFuelOrderController"
+              controller: "enterFuelOrderController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
+            })
+
+            .state("app.flightDepDashboard", {
+              url: "/flightDepDashboard",
+              templateUrl: "partials/flightDepDashboard/flightDepDashboard.html",
+              controller: "flightDepDashboardController"
+            })
+
+            .state("app.flightDepOrders", {
+              url: "/flightDepOrders",
+              templateUrl: "partials/flightDepOrders/flightDepOrders.html",
+              controller: "flightDepOrdersController"
             })
 
         }
@@ -279,6 +363,9 @@
               event.preventDefault();
               $state.go('app.dashboard');
             }
+          }else{
+              $state.go('app.flightDepDashboard');
+            
           }
       });
   }])

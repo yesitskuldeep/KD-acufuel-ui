@@ -37,8 +37,30 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
        $('#demo-modal-4').css('display', 'block');
       }
   }
+   $scope.attachmentid = ""
+   $scope.attachment = function(id, value) {
+       console.log(id, value)
+       $scope.attachmentid = id
+       if(value == 'uploadAttachment'){
+       $('#demo-modal-6').css('display', 'block');
+      }
+  }
 
-   $scope.editdata = {};
+   $scope.saveUploadAttachment = function(attachmentData) {
+            $scope.data.media = attachmentData
+            $scope.data.id = $scope.attachmentid
+        fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
+            console.log(result)
+          })
+
+        $('#demo-modal-6').css('display', '');
+  }
+
+  $scope.cancelUploadAttachment = function() {
+        $('#demo-modal-6').css('display', '');
+  }
+
+  $scope.editdata = {};
   $scope.editTableRow = function(rowData){
     console.log('row data', rowData);
     $scope.editdata = rowData;
@@ -51,6 +73,8 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
   $scope.canceleditdata = function() {
         $('#demo-modal-5').css('display', '');
   }
+
+ 
 
 	$scope.companyList = {};
 

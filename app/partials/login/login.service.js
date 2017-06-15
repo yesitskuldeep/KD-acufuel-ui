@@ -61,15 +61,15 @@
             return deferred.promise;
         }
 
-        // authService.setAuth = function(data) {
-        //     localStorage.setItem('loginStatus', data);
-        // }
+        authService.setAuth = function(data) {
+            localStorage.setItem('loginStatus', data);
+        }
 
         authService.logout = function(data) {
 
-          // localStorage.clear();
-          // $rootScope.isAuthenticated = false;
-          // $rootScope.$broadcast(AUTH_EVENTS.updateUser);
+          localStorage.clear();
+          $rootScope.isAuthenticated = false;
+          $rootScope.$broadcast(AUTH_EVENTS.updateUser);
 
           var deferred = $q.defer();
           $http({

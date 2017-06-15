@@ -6,7 +6,13 @@
         .controller('dashboardController', [ '$scope', '$filter', '$rootScope', '$state', 'dashboardService', dashboardController]);
         
     function dashboardController($scope, $filter, $rootScope, $state, dashboardService) {
-    	
+        $scope.getQuote = true;
+        $scope.showQuote = false;
+        $scope.getQuote = function () {
+    		$scope.getQuote = false;
+            $scope.showQuote = true;
+    	}
+
     	$scope.logout = function () {
     		localStorage.removeItem("loginStatus");
     		$rootScope.path = false;

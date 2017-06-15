@@ -34,7 +34,25 @@
             <!-- /widget -->     
          </div>
          <!-- /.span6 -->
+         <div class="col-md-6">
+            <div class="widget stacked">
+               <div class="widget-header">
+                  <i class="icon-bar-chart"></i>
+                  <h3>Historic Fuel Pricing</h3>
+               </div>
+               <!-- /widget-header -->
+               <div class="widget-content">
+                  <nvd3 options="optionshfp" data="datahfp"></nvd3>
+                  <!-- /pie-chart -->
+               </div>
+               <!-- /widget-content -->
+            </div>
+            <!-- /widget -->        
+         </div>
+         <!-- /span6 -->
       </div>
+
+
       <div class="row">
       
       </div>
@@ -47,7 +65,7 @@
                </div>
                <!-- /widget-header -->
                <div class="widget-content">
-                  <nvd3 options="optionspc" data="datapc"></nvd3>
+                  <nvd3 options="optionscs" data="datacs"></nvd3>
                   <!-- /pie-chart -->
                </div>
                <!-- /widget-content -->
@@ -78,23 +96,4 @@
    <!-- /container -->
 </div>
 <!-- /main -->
-<!-- Le javascript
-   ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="./js/libs/jquery-1.9.1.min.js"></script>
-<script src="./js/libs/jquery-ui-1.10.0.custom.min.js"></script>
-<script src="./js/libs/bootstrap.min.js"></script>
-<script src="./js/plugins/cirque/cirque.js"></script>
-<script src="./js/plugins/flot/jquery.flot.js"></script>
-<script src="./js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="./js/plugins/flot/jquery.flot.orderBars.js"></script>
-<script src="./js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="./js/Application.js"></script>
-<script src="./js/charts/bar.js"></script>
-<script src="./js/charts/donut.js"></script>
-<script src="./js/charts/line.js"></script>
-<script src="./js/charts/pie.js"></script>
-<script src="./js/charts/area.js"></script>
-<script type="text/javascript">
-   
-</script>
+
