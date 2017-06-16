@@ -11,10 +11,9 @@
 <div class="myLoader" ng-show="showLoader">
   <img src="../img/hourglass.gif" width="50px;">
 </div>
-<div style="width: 90%; margin-left: 5%;">
-   <div class="row">
+
+<div class="col-xs-12 col-md-6">
    
-   <div class="col-md-6">
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
@@ -79,9 +78,68 @@
             <!-- /widget-content -->
          </div>
          <!-- /widget -->  
-   </div>
 
-      <div class="col-md-6">
+
+
+         <div class="widget stacked">
+            <div class="widget-header">
+               <i class="fa fa-pencil"></i>
+               <h3>Price Manager</h3>
+               <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="btn btn-primary" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
+                  <option value="" disabled selected="selected">Email All Pricing</option>
+                  <option value="JET-A">Email JET-A pricing only</option>
+                  <option value="AVGAS">Email AVGAS pricing only</option>
+                  <option disabled>_______________________________</option>
+                  <option value="all">Distribute All</option>
+               </select>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+               <h4>Deployed Fuel Prices</h4>
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th> Product</th>
+                        <th> Cost</th>
+                        <th> Margin</th>
+                        <th> PAP(Total)</th>
+                        <th style="color: #F90;"> Expires</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="fuelPricing in newFuelPricing | filter:{ status: true }">
+                        <td>
+                           <span style="color: #2196f3" ng-show="fuelPricing.jeta">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.jeta">{{fuelPricing.namejetrest}}</span>
+                           <span style="color: 39c" ng-show="fuelPricing.avgas">{{fuelPricing.name}}</span>
+                           <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
+                        </td>
+                        <td>
+                          <span>{{fuelPricing.fuelPricing.cost}}</span>
+                          </td>
+                        <td>
+                          <span>{{fuelPricing.fuelPricing.papMargin}}</span>
+                           </td>
+                        <td>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
+                        </td>
+                        <td>
+                          <span>{{fuelPricing.fuelPricing.expirationDate}}</span>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+              
+            </div>
+            <!-- /widget-content -->
+         </div>
+         <!-- /widget -->  
+      
+   
+</div>
+<div class="col-xs-12 col-md-6">
+   
+
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
@@ -184,71 +242,9 @@
             <!-- /widget-content -->
          </div>
          <!-- /widget -->
-      </div>
-      <!-- /span6 -->
-   </div>
-   <!-- /span12 -->
-</div>
-<!-- /row -->
-<div style="width: 96%; margin-left: 2%;">
-<div class="row">
-     <div class="col-md-6">
-         <div class="widget stacked">
-            <div class="widget-header">
-               <i class="fa fa-pencil"></i>
-               <h3>Price Manager</h3>
-               <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="btn btn-primary" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
-                  <option value="" disabled selected="selected">Email All Pricing</option>
-                  <option value="JET-A">Email JET-A pricing only</option>
-                  <option value="AVGAS">Email AVGAS pricing only</option>
-                  <option disabled>_______________________________</option>
-                  <option value="all">Distribute All</option>
-               </select>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-               <h4>Deployed Fuel Prices</h4>
-               <table class="table">
-                  <thead>
-                     <tr>
-                        <th> Product</th>
-                        <th> Cost</th>
-                        <th> Margin</th>
-                        <th> PAP(Total)</th>
-                        <th style="color: #F90;"> Expires</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr ng-repeat="fuelPricing in newFuelPricing | filter:{ status: true }">
-                        <td>
-                           <span style="color: #2196f3" ng-show="fuelPricing.jeta">{{fuelPricing.name}}</span>
-                           <span  ng-show="fuelPricing.jeta">{{fuelPricing.namejetrest}}</span>
-                           <span style="color: 39c" ng-show="fuelPricing.avgas">{{fuelPricing.name}}</span>
-                           <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
-                        </td>
-                        <td>
-                          <span>{{fuelPricing.fuelPricing.cost}}</span>
-                          </td>
-                        <td>
-                          <span>{{fuelPricing.fuelPricing.papMargin}}</span>
-                           </td>
-                        <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
-                        </td>
-                        <td>
-                          <span>{{fuelPricing.fuelPricing.expirationDate}}</span>
-                        </td>
-                     </tr>
-                  </tbody>
-               </table>
-              
-            </div>
-            <!-- /widget-content -->
-         </div>
-         <!-- /widget -->  
-      </div>
-    
-   <div class="col-md-6">
+
+
+         
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
@@ -351,13 +347,11 @@
             <!-- /widget-content -->
          </div>
          <!-- /widget -->
-   </div>
-      <!-- /span6 -->
-</div>
-</div>
-</div>
-</div> <!-- /container -->
+   
+      
 
+</div>
+<div class="clearfix"></div>
 
 <div class="addNewMargin" style="display: none;">
    <div class="customBackdrop">
