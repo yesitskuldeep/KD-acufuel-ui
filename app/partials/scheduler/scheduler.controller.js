@@ -10,7 +10,6 @@ angular.module('acufuel')
   $scope.events = [];
   function getEventsList(){
     schedulerService.getEvents().then(function(result) {
-      console.log('result', result);
       for (var i = 0; i < result.length; i++) {
         var newTime = new Date(result[i].deployDate);
         var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
@@ -39,7 +38,6 @@ angular.module('acufuel')
     }
     //var data = 'aircraft='+$scope.newEvent.aircraft+'&deployDate='+$scope.newEvent.deployDate;
     schedulerService.addNewEventService($scope.newEvent).then(function(response){
-      console.log('response', response);
       $scope.newEvent = {};
       $('#addEvent').modal('hide');
       getEventsList();
@@ -49,15 +47,32 @@ angular.module('acufuel')
   $scope.cancelAdd = function(){
     $scope.newEvent = {};
   }
+
   $scope.editData = {};
   $scope.editEvent = function(data){
-    console.log('data', data);
     $scope.editData = data;
-    console.log('$scope.editData', $scope.editData);
     $('#editEvent').modal('show');
-
   }
-
+  $scope.updateEvent = function(){
+    $scope.showLoader = true;
+    $scope.updatedData = {};
+    $scope.updatedData.id = $scope.editData.id;
+    $scope.updatedData.aircraft = $scope.editData.title;
+    $scope.updatedData.deployDate = $scope.editData.start;
+    if ($scope.updatedData.deployDate != undefined) {
+      $scope.updatedData.deployDate = new Date($scope.updatedData.deployDate);
+      $scope.updatedData.deployDate = $scope.updatedData.deployDate.getTime();
+    }
+    schedulerService.updateScheduledEvent($scope.updatedData).then(function(response){
+      console.log('response', response);
+      $scope.updatedData = {};
+      $('#editEvent').modal('hide');
+      toastr.success('Updated Successfully', {
+        closeButton: true
+      })
+      getEventsList();
+    })
+  }
 
 
   /*  code for calendar  */

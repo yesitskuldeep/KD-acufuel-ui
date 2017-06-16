@@ -138,101 +138,7 @@
 
                          <button type="button" ng-click="exportCompany()" class="btn btn-warning exportBtn">Export CSV</button>
 
-                        <!-- 
-                           <table class="table table-striped">
-                              <thead>
-                                 <tr>
-                                    <th>
-                                       <input type="text" class="form-control" name="name" id="name">
-                                       <label class="font-company">Company Name <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" name="name" id="name">
-                                       <label class="font-company">Fleet <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" name="name" id="name">
-                                       <label class="font-company">Main Phone <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" name="name" id="name">
-                                       <label class="font-company">Primary Contact <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control" name="name" id="name">
-                                       <label class="font-company">Base <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <select class="form-control">
-                                          <option value="showAll" selected>Show All</option>
-                                       </select>
-                                       <label class="font-company">Status <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <select class="form-control">
-                                          <option value="showAll" selected>Show All</option>
-                                       </select>
-                                       <label class="font-company">Margin Setting <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th>
-                                       <input type="text" class="form-control"  name="name" id="name">
-                                       <label class="font-company">All In <i class="fa fa-sort" aria-hidden="true"></i></label>
-                                    </th>
-                                    <th> &nbsp; </th>
-                              </thead>
-                              <tbody>
-                                 <tr ng-repeat="customer in companyList" style="cursor: pointer;" ui-sref="app.viewCompany({id : customer.id})">
-                                    <td class="font-company">
-                                      {{customer.companyName}}
-                                    </td>
-                                    <td class="font-company">{{customer.companyAircraftSize}}</td>
-                                    <td class="font-company">{{customer.companyCustomContacts[0].contactNumber}}</td>
-                                    <td class="font-company">{{customer.companyPrimaryContacts[0].firstName}} {{customer.companyPrimaryContacts[0].lastName}}</td>
-                                    <td class="font-company">{{customer.baseIcao}}</td>
-                                    <td class="font-company">
-                                       <button type="button" ng-if="customer.activate == true" class="btn btn-success btn-xs">Active</button>
-                                       <button type="button" ng-if="customer.activate == false" class="btn btn-warning btn-xs">InActive</button>
-                                    </td>
-                                    <td class="font-company">
-                                      <select class="form-control" ng-click="editMargin(customer)" style="height:31px;" ng-model="customer.masterMargin" ng-options="margin.id as margin.marginName for margin in marginList" required></select>
-                                    </td>
-                                    <td class="font-company">{{customer.allIn}}</td>
-                                    <td>
-                                       <button type="button" class="btn btn-info btn-xs" ng-click="setFuel()">Setup Fuel</button>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                           <div class="row" style="margin-left: 0px;">
-                              <div class="col-md-2">
-                                 <button type="button" class="btn btn-warning">Export Customers</button>
-                              </div>
-                              <div class="col-md-10">
-                                 <div class="row" style="margin-left: 0px;">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-2">
-                                       <select class="form-control">
-                                          <option>20 Records Per Page</option>
-                                          <option>50 Records Per Page</option>
-                                          <option>100 Records Per Page</option>
-                                       </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <ul class="pagination" style="margin:0px">
-                                          <li><a href="javascript:;">«</a></li>
-                                          <li class="active"><a href="#">1</a></li>
-                                          <li><a href="javascript:;">2</a></li>
-                                          <li><a href="javascript:;">3</a></li>
-                                          <li><a href="javascript:;">4</a></li>
-                                          <li><a href="javascript:;">5</a></li>
-                                          <li><a href="javascript:;">»</a></li>
-                                       </ul>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                         --></div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -599,3 +505,9 @@ sendEvent = function(sel, step) {
     $(sel).trigger('next.m.' + step);
 }
 </script>
+
+<select ng-model="test">
+  <option value="10" selected>10</option>
+  <option value="50">50</option>
+  <option value="100">100</option>
+</select>
