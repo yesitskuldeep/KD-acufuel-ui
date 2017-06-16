@@ -47,17 +47,16 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
   }
 
    $scope.saveUploadAttachment = function(attachmentData) {
-            $scope.data.media = attachmentData
-            $scope.data.id = $scope.attachmentid
-        fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
-            console.log(result)
-          })
-
-        $('#demo-modal-6').css('display', '');
-  }
+	   	$scope.data.media = attachmentData
+	   	$scope.data.id = $scope.attachmentid
+		fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
+		
+		})
+        $('#demo-modal-6').css('display', 'none');
+   }
 
   $scope.cancelUploadAttachment = function() {
-        $('#demo-modal-6').css('display', '');
+        $('#demo-modal-6').css('display', 'none');
   }
 
   $scope.editdata = {};
