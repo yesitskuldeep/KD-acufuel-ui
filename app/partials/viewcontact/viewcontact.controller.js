@@ -4,6 +4,17 @@
   angular.module('acufuel')
 
 	.controller('viewcontactController', ['$scope', '$stateParams', '$state', 'ViewcontactService', 'ViewCompanyService', function($scope, $stateParams, $state, ViewcontactService, ViewCompanyService) {
+
+        $(document).ready(function() {
+            $('.animation_select').click( function(){
+                $('#animation_box').removeAttr('class').attr('class', '');
+                var animation = $(this).attr("data-animation");
+                $('#animation_box').addClass('animated');
+                $('#animation_box').addClass(animation);
+                return false;
+            });
+        });
+
         $scope.showLoader = true;
         $scope.showUpdateBtn = false;
 	    var contactId = $stateParams.id;
@@ -31,22 +42,22 @@
         })
         
         $scope.nextContact = function(){
-            $scope.showLoader = true;
+            //$scope.showLoader = true;
         	index = index + one;
         	selectedId = $scope.contactIdList[index];
 		        ViewcontactService.getContact(selectedId).then(function(result) {
 			    $scope.contactDetail = result;
-                $scope.showLoader = false;
+                //$scope.showLoader = false;
 			})
         }
 
         $scope.prevContact = function(){
-            $scope.showLoader = true;
+            //$scope.showLoader = true;
         	index = index - one;
         	selectedId = $scope.contactIdList[index];
 		        ViewcontactService.getContact(selectedId).then(function(result) {
 			       $scope.contactDetail = result;
-                   $scope.showLoader = false;
+                   //$scope.showLoader = false;
 			})
         }
 

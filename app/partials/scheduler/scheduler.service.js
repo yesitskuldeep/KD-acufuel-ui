@@ -37,6 +37,22 @@
           return deferred.promise;
         }
 
+        this.updateScheduledEvent = function(data) {
+          var deferred = $q.defer();
+          $http({
+              method : 'PUT',
+              url : BASE_URL.url +'/scheduler',
+              headers : {'Content-Type': 'application/json'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
       }
       
 })();

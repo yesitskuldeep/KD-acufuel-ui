@@ -20,18 +20,18 @@
             <div class="widget-content" style="padding-left: 0; padding-right: 0; ">
                <div class="container">
                   <div style="margin-bottom: 25px;">
-                    <button ng-disabled="disablePrev" class="newButtons" ng-click="prevContact()">
+                    <button ng-disabled="disablePrev" class="newButtons animation_select" ng-click="prevContact()" data-animation="fadeInLeft">
                       <i class="fa fa-long-arrow-left" aria-hidden="true"></i> 
                       Previous Contact
                     </button>
-                    <button ng-disabled="disableNext" class="newButtons" ng-click="nextContact()">
+                    <button ng-disabled="disableNext" class="newButtons animation_select" ng-click="nextContact()" data-animation="fadeInRight">
                       Next Contact
                       <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
                     </button>
                   </div>
                   <div class="row">
                      <div class="col-md-6" style="margin-left: 20px;">
-                     <div class="widget stacked">
+                     <div class="widget stacked" id="animation_box">
                         <div class="widget-header">
                            <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3 style="margin-right: 0px;">Contact Detail</h3>

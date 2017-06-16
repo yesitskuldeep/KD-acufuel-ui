@@ -37,30 +37,6 @@
 			{id: "false", title: "Inactive"}
 		]
 
-		/*function getAllCompanies(){
-			$scope.displayCompanyList = new NgTableParams({
-		       page: 1,
-		       count: 10
-		    }, {
-		       total: 0,
-		       getData: function($defer, params) {
-		       		CustomersService.getAllCompanies().then(function(result) {
-						$scope.companyList = result;
-						for(var i=0; i<$scope.companyList.length; i++){
-							$scope.companyList[i].masterMargin = $scope.companyList[i].margin.id;
-						}
-						var filteredData = params.filter() ?
-		                $filter('filter')($scope.companyList, params.filter()) : $scope.companyList;
-		                var orderedData = params.sorting() ?
-		                $filter('orderBy')(filteredData, params.orderBy()) : $scope.companyList;
-
-		                params.total(orderedData.length);
-		                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-					})
-		         }
-		    });
-		}*/
-
 		function getAllCompanies(){
 			CustomersService.getAllCompanies().then(function(result) {
 				console.log('log', result);
