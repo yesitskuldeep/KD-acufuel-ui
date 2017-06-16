@@ -39,8 +39,5 @@
     "angular-ui-calendar": "^1.0.2",
     "angular-dragdrop": "^1.0.13",
     "angular-nvd3": "^1.0.9"
-  },
-  "resolutions": {
-    "angular": "^1.x"
   }
 }
