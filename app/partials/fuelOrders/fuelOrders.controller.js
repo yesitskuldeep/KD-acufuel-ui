@@ -8,6 +8,7 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
 
     $scope.showFuelOrderModal = false;
     $scope.optionSelected;
+    $scope.orderdata = {}
 
      $scope.data = {};
      
@@ -37,14 +38,18 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
        $('#demo-modal-4').css('display', 'block');
       }
   }
-   $scope.attachmentid = ""
-   $scope.attachment = function(id, value) {
+   $scope.attachmentrowid = ""
+
+   
+   $scope.attachment = function(id, value, url) {
        console.log(id, value)
-       $scope.attachmentid = id
+       $scope.attachmentrowid = id
+      //  $scope.attachmentdeleteid = attachdeleteid
        if(value == 'uploadAttachment'){
        $('#demo-modal-6').css('display', 'block');
       }else if(value == 'viewAttachment'){
-       $('#demo-modal-7').css('display', 'block');
+       var win = window.open(url, '_blank');
+       win.focus();
       }else if(value == 'deleteAttachment'){
        $('#delete1').css('display', 'block');
       }
@@ -55,15 +60,15 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
   }
 
   $scope.deleteAttachment = function() {
-    fuelOrdersService.deleteAttachment($scope.data).then(function(result) {
-            console.log(result)
+    fuelOrdersService.deleteAttachment($scope.attachmentrowid).then(function(result) {
+            console.log(result, $scope.attachmentrowid)
           })
         $('#delete1').css('display', '');
   }
 
    $scope.saveUploadAttachment = function(attachmentData) {
 	   	$scope.data.media = attachmentData
-	   	$scope.data.id = $scope.attachmentid
+	   	$scope.data.id = $scope.attachmentrowid
 		fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
 		
 		})
