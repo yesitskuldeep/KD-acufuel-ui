@@ -885,6 +885,27 @@
 </div>
 </form>
 
+<div class="customConfirmPopBackdrop" id="delete1">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure you want to delete the attachment?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="deleteAttachment()">Yes</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDeleteAttachment()">No</button>
+      </div>
+   </div>
+</div>
+
 
 
 <div class="myLoader" ng-show="showLoader">

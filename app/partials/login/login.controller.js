@@ -11,6 +11,7 @@
           var loginData = "username=" + $scope.data.username + "&password=" + $scope.data.password;
           LoginService.loginUser(loginData).then(function(result) {
                 LoginService.authenticate();
+                console.log("result is " ,result)
                 //LoginService.setAuth(true);
                 
           })

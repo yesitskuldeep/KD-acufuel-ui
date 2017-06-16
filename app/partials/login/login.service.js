@@ -47,9 +47,12 @@
                url : BASE_URL.url+'/user/authenticate',
                headers : {'Content-Type': 'application/x-www-form-urlencoded'}
             }).then(function (result){
-                if(result.data.userProfile.userType.type == 'ADMIN' || result.data.userProfile.userType.type == 'FBO' || result.data.userProfile.userType.type == 'FLIGHT_DEPT'){
+                if(result.data.userProfile.userType.type == 'ADMIN' || result.data.userProfile.userType.type == 'FBO'){
                   authService.setUser(result.data);
                   $state.go('app.dashboard')
+                }else if(result.data.userProfile.userType.type == 'FLIGHT_DEPT'){
+                    authService.setUser(result.data);
+                    $state.go('app.flightDepDashboard')
                 }else{
                   localStorage.clear();
                   toastr.info("Please check username and password");

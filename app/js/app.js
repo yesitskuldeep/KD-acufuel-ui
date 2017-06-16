@@ -364,7 +364,11 @@
               $state.go('app.dashboard');
             }
           }else{
-              $state.go('app.flightDepDashboard');
+            // if (next.name == 'login') {
+            //   event.preventDefault();
+            //   $state.go('app.flightDepDashboard');
+            // }
+              
             
           }
       });
