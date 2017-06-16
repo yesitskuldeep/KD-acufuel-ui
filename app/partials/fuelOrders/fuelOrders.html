@@ -118,7 +118,7 @@
                               {{row.status}}
                              </td>
                              <td data-title="'Attachments'" filter="{allIn: 'text'}" sortable="'allIn'">
-                                    <select class="btn btn-regular" ng-model="attachOptionSelected" ng-change="attachment(row.id,attachOptionSelected)" >
+                                    <select class="btn btn-regular" ng-model="attachOptionSelected" ng-change="attachment(row.id,attachOptionSelected,row.orderInvoice.link, row)" >
                                         <option value="" disabled selected="selected" >Invoice</option>
                                         <option value="viewAttachment" >View</option>
                                         <option value="deleteAttachment" >Delete</option>
@@ -129,7 +129,7 @@
                            </tr>
                          </table>
 
-                                    <select class="btn btn-warning exportBtn" ng-model="optionSelected" ng-change="onDTSelect()">
+                                    <select class="btn btn-primary exportBtn" ng-model="optionSelected" ng-change="onDTSelect()">
                                         <option value="" disabled selected="selected">Fuel Widget</option>
                                         <option value="dt" >Direct Transaction</option>
                                         <option value="efo" >Export Fuel Orders</option>
@@ -858,9 +858,11 @@
                                  <div class="col-md-6">
                                     <div class="pull-left" style="width: 110px;">
                                        <label class="new-input-label"><b>Upload</b></label>
+                                       <br>
+                                       <br>
                                     </div>
                                     <div class="pull-left" style="width: calc(100% - 110px);">
-                                       <input type="file" file-model = "uploadFile.attachment">
+                                       <input type="file" accept=".pdf" file-model = "uploadFile.attachment">
                                        <!--<md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>-->
                                     </div>
                                     <div class="clearfix"></div>
