@@ -68,15 +68,11 @@
                            <li><a href="#">Airport Taxes</a></li>
                         </ul>
                      </li>
-                     <li class="dropdown-submenu" >
-                        <a tabindex="-1" href="#">Fuel Orders</a>
-                        <ul class="dropdown-menu">
-                           <li><a ui-sref="app.fuelOrders">Pending</a></li>
-                           <li><a ui-sref="app.fuelOrders">Invoiced</a></li>
-                           <li><a ui-sref="app.fuelOrders">Canceled</a></li>
-                           <li><a ui-sref="app.fuelOrders">Archived</a></li>
-                        </ul>
-                     </li>
+                      <li ng-if="isAuthenticated">
+                          <a ui-sref="app.fuelOrders">
+                          <span>Fuel Orders</span>
+                          </a>              
+                      </li>
                   </ul>
                </li>
                <li class="dropdown" ng-if="isAuthenticated">
