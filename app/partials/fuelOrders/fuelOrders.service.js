@@ -78,6 +78,32 @@
        return deffered.promise;
      }
 
+         this.deleteAttachment = function (data) {
+           var fd = new FormData();
+           
+           angular.forEach(data, function(value, key) {
+             fd.append(key, value);
+           })
+
+           var deffered = $q.defer();
+           $http({
+             method : 'POST',
+             transformRequest: angular.identity,
+             headers: {'Content-Type': undefined},
+             url : BE+'/fuelOrder/upload/invoice',
+             data : fd
+           })
+           .success(function (data, status, headers, config) {
+             //console.log(data);
+             deffered.resolve(status);
+           })
+           .error(function (data, status, headers, config) {
+             //console.log(data);
+             deffered.reject(status);
+           });
+           return deffered.promise;
+         }
+
 
 
   }

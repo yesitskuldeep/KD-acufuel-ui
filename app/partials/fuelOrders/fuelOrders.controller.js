@@ -43,7 +43,22 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
        $scope.attachmentid = id
        if(value == 'uploadAttachment'){
        $('#demo-modal-6').css('display', 'block');
+      }else if(value == 'viewAttachment'){
+       $('#demo-modal-7').css('display', 'block');
+      }else if(value == 'deleteAttachment'){
+       $('#delete1').css('display', 'block');
       }
+  }
+
+  $scope.cancelDeleteAttachment = function() {
+        $('#delete1').css('display', '');
+  }
+
+  $scope.deleteAttachment = function() {
+    fuelOrdersService.deleteAttachment($scope.data).then(function(result) {
+            console.log(result)
+          })
+        $('#delete1').css('display', '');
   }
 
    $scope.saveUploadAttachment = function(attachmentData) {
