@@ -55,13 +55,13 @@
                            <input type="text" class="form-control" datepicker  ng-disabled="fuelPricing.futureFuelPricing.cost == undefined || fuelPricing.futureFuelPricing.cost == null || fuelPricing.futureFuelPricing.cost == ''" ng-model="fuelPricing.futureFuelPricing.nextExpiration" style="height:31px; width: 80px; padding: 6px 6px;">
                         </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2}}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.futureFuelPricing.papMargin  | number : 2}}</span>
                         </td>
                      </tr>
                   </tbody>
                </table>
                <div class="row" style="margin-left: 0px;">
-                  <div class="col-md-12" style= "text-align: right;">
+                  <div class="col-md-12" style= "text-align: right; padding-left: 0;">
                     <div style="float: left;">
                       <button type="button" class="btn btn-primary btn-xs" ng-click="updateFutureFuelPricingImmediatelyClick()" style= "text-align: center;  font-size:12px">Save & Deploy Immediately</button>
                   
@@ -244,7 +244,7 @@
          <!-- /widget -->
 
 
-         
+
          <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>

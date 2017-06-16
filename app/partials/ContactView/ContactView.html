@@ -26,8 +26,13 @@
                               <i class="fa fa-caret-down" aria-hidden="true"></i>
                            </a>
                         </li>
+
                         <li style="margin: 0px 10px 4px 40px;"><input type="text" style="height:31px;"class="form-control" ng-model="searchText" placeholder="Search In Table" ng-model="search" ng-minlength="minlength"></li>
                         <li><button type="button" class="btn btn-default btn-sm" ng-click="displayContactList.filter({}); searchText=null">Clear Search And Filters</button></li>
+
+                        <!-- <li style="margin: 0px 10px 4px 40px;"><input type="text" style="height:31px;"class="form-control" name="name" id="name" placeholder="Search In Table" ng-model="search" ng-keyup="searchString(search)" ng-minlength="minlength"></li>
+                        <li><button type="button" class="btn btn-default btn-sm">Clear Search And Filters</button></li> -->
+
                         <li style="float: right"> <button type="submit" data-toggle="modal" data-target="#contact-modal-3" class="btn btn-success btn-sm"> <i class="fa fa-plus" aria-hidden="true"></i> Add Contact </button></li>
                      </ul>
                      <br>  
