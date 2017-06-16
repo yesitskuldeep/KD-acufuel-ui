@@ -40,6 +40,7 @@ angular.module('acufuel')
     schedulerService.addNewEventService($scope.newEvent).then(function(response){
       $scope.newEvent = {};
       $('#addEvent').modal('hide');
+      $scope.events = [];
       getEventsList();
     })
   }
@@ -70,6 +71,7 @@ angular.module('acufuel')
       toastr.success('Updated Successfully', {
         closeButton: true
       })
+      $scope.events = [];
       getEventsList();
     })
   }
@@ -111,8 +113,29 @@ $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
       console.log('date', dyear+'-'+dmonth+'-'+dday);
       for (var i = 0; i < $scope.events.length; i++) {
         if ($scope.events[i].id == event.id) {
+
           console.log('events', $scope.events[i]);
-          $scope.events[i].start = dyear+'-'+dmonth+'-'+dday;
+          //$scope.events[i].start = dyear+'-'+dmonth+'-'+dday;
+          $scope.showLoader = true;
+          $scope.updatedDataDrop = {};
+          $scope.updatedDataDrop.id = $scope.events[i].id;
+          $scope.updatedDataDrop.aircraft = $scope.events[i].title;
+          $scope.updatedDataDrop.deployDate = dyear+'-'+dmonth+'-'+dday;
+          if ($scope.updatedDataDrop.deployDate != undefined) {
+            $scope.updatedDataDrop.deployDate = new Date($scope.updatedDataDrop.deployDate);
+            $scope.updatedDataDrop.deployDate = $scope.updatedDataDrop.deployDate.getTime();
+          }
+          schedulerService.updateScheduledEvent($scope.updatedDataDrop).then(function(response){
+            console.log('response', response);
+            $scope.updatedDataDrop = {};
+            $('#editEvent').modal('hide');
+            toastr.success('Updated Successfully', {
+              closeButton: true
+            })
+            $scope.events = [];
+            getEventsList();
+          })
+
         }
       }
       console.log('$scope.events new', $scope.events);
