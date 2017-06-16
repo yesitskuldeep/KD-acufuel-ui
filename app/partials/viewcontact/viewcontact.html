@@ -104,7 +104,7 @@
                               <div>
                                 <button ng-click="updateContact(contactDetail)" ng-show="showUpdateBtn" class="btn btn-success pull-left">Update Contact</button>
                                 <button ng-click="cancelContact()" style="margin-left: 5px;" ng-show="showUpdateBtn" class="btn btn-default pull-left">Cancel</button>
-                                <button type="button" class="btn btn-primary pull-right">Send Price to This Contacts</button>
+                                <button type="button" class="btn btn-primary pull-right" ng-click="confirmMail()">Send Price to This Contacts</button>
                                 <div class="clearfix"></div>
                               </div>
                            </div>
@@ -181,4 +181,25 @@
          <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDelete()">Cancel</button>
       </div>
    </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="confirm1" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to email pricing to this contact?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="saveAndCloseConfirm()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelAndCloseConfirm()">Cancel</button>
+     </div>
+  </div>
 </div>

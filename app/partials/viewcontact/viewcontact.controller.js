@@ -240,5 +240,25 @@
         $scope.cancelDelete = function(){
             $('#delete2').css('display', 'none');
         }
+
+          $scope.confirmMail = function(){
+          
+                $('#confirm1').css('display', 'block');
+            
+        }
+
+        $scope.saveAndCloseConfirm = function(){
+            $('#confirm1').css('display', 'none');
+            ViewcontactService.sendMailTo(contactId).then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+            })
+        }
+        $scope.cancelAndCloseConfirm = function(){
+            $scope.sendEmail = {};
+            $scope.sendEmail.pricing = '';
+            $('#confirm1').css('display', 'none');
+        }
   
     }]);

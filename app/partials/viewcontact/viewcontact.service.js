@@ -83,6 +83,21 @@
           })
           return deferred.promise;
         }
+
+         this.sendMailTo = function(contactid){
+          var deferred = $q.defer();
+          $http({
+              method : 'POST',
+              url : BASE_URL.url +'/company/contact/mailPriceToContacts/'+contactid,
+              headers : {'Content-Type': 'application/json'}
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
       }
       

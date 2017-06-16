@@ -62,7 +62,13 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
   $scope.deleteAttachment = function() {
     fuelOrdersService.deleteAttachment($scope.attachmentrowid).then(function(result) {
             console.log(result, $scope.attachmentrowid)
-          })
+
+            if(result.success){
+             toastr.success(''+result.success+'', {
+                      closeButton: true
+                  })
+            }
+        })
         $('#delete1').css('display', '');
   }
 
@@ -70,8 +76,15 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
 	   	$scope.data.media = attachmentData
 	   	$scope.data.id = $scope.attachmentrowid
 		fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
+      console.log(result)
+      if(result){
+        // console.log(result.success)
+             toastr.success(''+"Upload Successful"+'', {
+                      closeButton: true
+                  })
+            }
 		
-		})
+	  	})
         $('#demo-modal-6').css('display', 'none');
    }
 
