@@ -62,9 +62,9 @@
 								<label>Price Quote</label>
 							</div>
 							<div class="col-md-8 col-md-offset-1">
-								<select class="form-control" ng-model="order.priceQuote">
+								<select class="form-control" ng-model="order.priceQuote" ng-change="setCost(order.priceQuote)">
 									<option value="" selected disabled>Select Price Quote</option>
-									<option ng-repeat="margin in marginList" value="{{margin.fuelPricing.papTotal}}">${{margin.fuelPricing.papTotal}} {{margin.name}}</option>
+									<option ng-repeat="margin in marginList" value="{{margin}}">${{margin.papTotal}} {{margin.productName}}</option>
 								</select>
 							</div>
 							<div class="clearfix"></div>
@@ -76,7 +76,7 @@
 							</div>
 							<div class="col-md-8 col-md-offset-1">
 								<select class="form-control" ng-model="order.tierBreak">
-									<option value="" selected disabled>Select Price Quote</option>
+									<option value="" selected disabled>Select Tier Break</option>
 									<option ng-repeat="list in tierList" value="{{list.minTierBreak}}-{{list.maxTierBreak}}">
 										{{list.minTierBreak | number: 2}}-{{list.maxTierBreak | number: 2}} = ${{list.marginTotal | number: 2}} {{list.marginTemplate.marginName}}
 									</option>

@@ -80,6 +80,51 @@
       })
       return deferred.promise;
     }
+    
+    this.getATypeFuelPricing = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : BASE_URL.url +'/fuelPricing/getJetATypeFuelCost/'+id,
+            headers : {'Content-Type': 'application/json'},
+        })
+        .then(function (result){
+            deferred.resolve(result.data);
+        },function (result){
+            deferred.resolve(result.data);
+        })
+        return deferred.promise;
+    }
+    
+    this.getVTypeFuelPricing = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : BASE_URL.url +'/fuelPricing/getAVGASTypeFuelCost/'+id,
+            headers : {'Content-Type': 'application/json'},
+        })
+        .then(function (result){
+            deferred.resolve(result.data);
+        },function (result){
+            deferred.resolve(result.data);
+        })
+        return deferred.promise;
+    }
+    
+    this.getFuelCost = function(id) {
+        var deferred = $q.defer();
+        $http({
+            method : 'GET',
+            url : BASE_URL.url +'/fuelPricing/getFuelCost/'+id,
+            headers : {'Content-Type': 'application/json'},
+        })
+        .then(function (result){
+            deferred.resolve(result.data);
+        },function (result){
+            deferred.resolve(result.data);
+        })
+        return deferred.promise;
+    }
 
   }
 
