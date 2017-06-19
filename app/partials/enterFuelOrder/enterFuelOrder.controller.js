@@ -23,16 +23,25 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 	$scope.selectedCompanyId = '';
 	$scope.marginId = '';
 
-	enterFuelOrderService.getFuelPricingNew().then(function(margins) {
-		$scope.marginList = margins;
-		//console.log('$scope.marginList', $scope.marginList);
-	})
-
 	$scope.getAircraft = function(company){
 		$scope.selectedCompanyName = company;
 		$scope.showLoader = true;
 		for (var i = 0; i < $scope.companyList.length; i++) {
 			if ($scope.companyList[i].companyName == company) {
+				if($scope.companyList[i].margin != null && $scope.companyList[i].marginAVGAS != null){
+					enterFuelOrderService.getFuelCost($scope.companyList[i].id).then(function(margins) {
+						$scope.marginList = margins;
+						//console.log('$scope.marginList', $scope.marginList);
+					})
+				} else if ($scope.companyList[i].margin != null || $scope.companyList[i].marginAVGAS == null) {
+					enterFuelOrderService.getATypeFuelPricing($scope.companyList[i].id).then(function(margins) {
+						$scope.marginList = margins;
+			        })
+				} else if ($scope.companyList[i].margin == null || $scope.companyList[i].marginAVGAS != null) {
+					enterFuelOrderService.getVTypeFuelPricing($scope.companyList[i].id).then(function(margins) {
+			        	$scope.marginList = margins;
+			        })
+				}
 				$scope.selectedCompanyId = $scope.companyList[i].id;
 				$scope.marginId = $scope.companyList[i].margin.id;
 				if ($scope.selectedCompanyId != '') {
@@ -53,6 +62,15 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 
 	}
 
+	$scope.setCost = function(cost){
+		console.log(cost);
+		if(cost != null) {
+			var obj =JSON.parse(cost);
+			$scope.order.fboCost = obj.cost;
+		}
+			
+	}
+	
 	$scope.dispatchFuel = function(){
 		$scope.showLoader = true;
 		$scope.order.companyId = $scope.selectedCompanyId;
@@ -64,6 +82,10 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 			$scope.order.departingDate = new Date($scope.order.departingDate);
 			$scope.order.departingDate = $scope.order.departingDate.getTime();
 		}
+		console.log($scope.order.quotePrice);
+		var obj =JSON.parse($scope.order.priceQuote);
+		console.log('obj.papMargin',obj.papMargin);
+		$scope.order.priceQuote = obj.papMargin;
 		$scope.dispatchOrder.fuelOrderList.push($scope.order);
 		console.log('$scope.order', $scope.dispatchOrder);
 		enterFuelOrderService.dispathFuelOrder($scope.dispatchOrder).then(function(result) {
