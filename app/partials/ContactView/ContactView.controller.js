@@ -6,11 +6,15 @@
 	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', 'ViewcontactService', 'NgTableParams', function($scope, $uibModal, ContactViewService, ViewCompanyService, ViewcontactService, NgTableParams) {
         
         $(document).ready(function() {
+          $scope.showLoader = true;
             $('#contacts').DataTable();
+            $scope.showLoader = false;
         });
         
         ContactViewService.getContacts().then(function(result) {
+          $scope.showLoader = true;
         	$scope.contactList = result;
+          $scope.showLoader = false;
         })
 
         $scope.search = "";
@@ -45,6 +49,7 @@
 		    getAllContacts();
 
         $scope.changePriceEmail = function(id, index){
+          
           event.stopPropagation();
           var contactId = id;
           var statusData = "status=" + $scope.contactList[index].priceEmail;
@@ -58,6 +63,7 @@
                   }
               }
           })
+
         }
 
         $scope.cancelToogle = function(){
@@ -66,6 +72,7 @@
         
         
         function getAllContacts(){
+          $scope.showLoader = true;
           ContactViewService.getContacts().then(function(result) {
             console.log('log', result);
             $scope.contactList = result;
@@ -83,11 +90,14 @@
               data: $scope.contactList
             });
           })
+          $scope.showLoader = false;
 	    }
         
         
         ContactViewService.getCompanies().then(function(result) {
+          $scope.showLoader = true;
         	$scope.companies = result;
+          $scope.showLoader = true;
           
         })
         

@@ -8,7 +8,9 @@
 	function FuelVendorsController($scope, $rootScope, $uibModal, $filter, $http, FuelVendorsService, CustomersService, ViewFuelVendorService, NgTableParams) {
 
 		$(document).ready(function() {
+		  	$scope.showLoader = true;
 		    $('#example').DataTable();
+				$scope.showLoader = false;
 		});
 		$scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'))
 		$scope.reset = function(){
@@ -23,6 +25,7 @@
 
 		function getAllVendor(){
 			FuelVendorsService.getAllVendor().then(function(result) {
+				$scope.showLoader = true;
 				console.log(result)
 				$scope.companyList = result;
 				for (var i = 0; i < $scope.companyList.length; i++) {
@@ -49,6 +52,7 @@
 		      }, {
 		        data: $scope.companyList
 		      });
+					$scope.showLoader = false;
 			})
 		}
 		

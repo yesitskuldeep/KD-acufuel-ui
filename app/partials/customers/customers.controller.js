@@ -110,6 +110,7 @@
 		// })
 		$scope.marginFilterOptions = [];
 		CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
+			$scope.showLoader = true;
 		  $scope.jetMarginList = result;
 		  $scope.marginFilterOptions.push({
 		  	'id': '', 'title': 'Show All'
@@ -120,6 +121,7 @@
 		  		'title': result[i].marginName
 		  	})
 		  }
+		  $scope.showLoader = false;
 		})
 
 		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
@@ -142,6 +144,7 @@
 		
 		var companyData;
 	    $scope.addFirstData = function(sel, step){
+			$scope.showLoader = true;
 	    	if($scope.data.companyName == undefined){
 	    		$scope.showCompanyError = true;
 	    		$('.companyNameInput').addClass('customErrorInput');
@@ -161,8 +164,10 @@
 	    	 	$(sel).trigger('next.m.' + step);
 	    	 	getData();
 	    	}
+			$scope.showLoader = false;
 	    }
         $scope.addNew = function(){
+			$scope.showLoader = true;
             $scope.aircraftDetails.push({ 
                 'tail':'',
 	            'make': '',
@@ -171,6 +176,7 @@
 	            'marginId': $scope.data.masterMargin,
             	'avgasMarginId': $scope.data.avgasMargin
             });
+			$scope.showLoader = false;
         };
 
         $scope.getModal = function(makeId, index){

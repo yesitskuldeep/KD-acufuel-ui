@@ -9,10 +9,18 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
     $scope.showFuelOrderModal = false;
     $scope.optionSelected;
     $scope.orderdata = {}
+    $scope.showLoader = false;
 
      $scope.data = {};
+
+       $(document).ready(function() {
+          $scope.showLoader = true;
+            $('#example').DataTable();
+            $scope.showLoader = false;
+        });
      
           fuelOrdersService.getOrders().then(function(result) {
+           
             $scope.orderdata = result;
             for(var i=0;i<$scope.orderdata.length;i++){
                 $scope.orderdata[i].departingDate = new Date($scope.orderdata[i].departingDate);
@@ -30,6 +38,7 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
             }, {
               data: $scope.orderdata
             });
+           
           })
          
 
@@ -60,6 +69,7 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
   }
 
   $scope.deleteAttachment = function() {
+    $scope.showLoader = true;
     fuelOrdersService.deleteAttachment($scope.attachmentrowid).then(function(result) {
             console.log(result, $scope.attachmentrowid)
 
@@ -69,10 +79,12 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
                   })
             }
         })
+        $scope.showLoader = false;
         $('#delete1').css('display', '');
   }
 
    $scope.saveUploadAttachment = function(attachmentData) {
+     $scope.showLoader = true;
 	   	$scope.data.media = attachmentData
 	   	$scope.data.id = $scope.attachmentrowid
 		fuelOrdersService.uploadAttachment($scope.data).then(function(result) {
@@ -83,8 +95,9 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
                       closeButton: true
                   })
             }
-		
+            
 	  	})
+        $scope.showLoader = false;
         $('#demo-modal-6').css('display', 'none');
    }
 
@@ -111,9 +124,10 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
 	$scope.companyList = {};
 
 	fuelOrdersService.getAllCompanies().then(function(result) {
-		$scope.showLoader = false;
+		$scope.showLoader = true;
 		$scope.companyList = result;
     console.log(result)
+    $scope.showLoader = false;
 	})
 
   $scope.sourceList = [{source:"Direct Jet-A"},{source:"Direct AVGAS 100LL"}];
