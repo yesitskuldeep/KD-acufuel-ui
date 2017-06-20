@@ -291,6 +291,22 @@
           return deferred.promise;
         }
 
+         this.resetPricing = function(data){
+          var deferred = $q.defer();
+          $http({
+              method : 'DELETE',
+              url : BASE_URL.url +'/fuelPricing/resetAll',
+              headers : {'Content-Type': 'application/json'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
 
         
       }

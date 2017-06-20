@@ -594,9 +594,10 @@
             $scope.showLoader = true;
             for (var i = 0; i<$scope.newFuelPricing.length; i++) {
                 //console.log(parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin));
+                console.log('-----',$scope.newFuelPricing[i].futureFuelPricing);
                 if ($scope.newFuelPricing[i].futureFuelPricing != null) {
                     if ($scope.newFuelPricing[i].futureFuelPricing.cost != null || $scope.newFuelPricing[i].futureFuelPricing.cost != '' || $scope.newFuelPricing[i].futureFuelPricing.cost != undefined) {
-                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin);
+                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].futureFuelPricing.papMargin);
                         if ($scope.newFuelPricing[i].futureFuelPricing.cost == null) {
                             $scope.newFuelPricing[i].futureFuelPricing.cost = '';
                         }
@@ -868,6 +869,34 @@
         $scope.cancelVtypeMarginDelete = function(){
             $scope.marginVtypeIdDelete = '';
             $('#deleteVtypeMargin').css('display', 'none');
+        }
+
+        $scope.resetFutureFuelPricingClick = function(){
+            $('#resetPricing').css('display', 'block');
+        }
+
+        $scope.confirmReset = function(){
+            $('#resetPricing').css('display', 'none');
+            $scope.showLoader = true;
+            updateFuelManagerService.resetPricing().then(function(result) {
+                toastr.success(''+result.success+'', {
+                  closeButton: true
+                })
+                $scope.showLoader = false;
+            })
+        }
+
+        $scope.cancelReset = function(){
+            $('#resetPricing').css('display', 'none');
+        }
+        $scope.noPrices = true;
+        $scope.disableButtons = function(value){
+           if(value.length != 0){
+             $scope.noPrices = false;
+           }
+           else{
+              $scope.noPrices = true;
+           }
         }
 
        

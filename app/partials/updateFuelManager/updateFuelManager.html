@@ -43,7 +43,7 @@
                            <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
                         </td>
                         <td>
-                           <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
+                           <input type="text" class="form-control" ng-keyup="disableButtons(fuelPricing.futureFuelPricing.cost)" ng-model="fuelPricing.futureFuelPricing.cost" style="height:31px; width: 50px; padding: 6px 6px;">
                         </td>
                          <td>
                            <input type="text" class="form-control" ng-model="fuelPricing.futureFuelPricing.papMargin" style="height:31px; width: 80px; padding: 6px 6px;">
@@ -63,12 +63,12 @@
                <div class="row" style="margin-left: 0px;">
                   <div class="col-md-12" style= "text-align: right; padding-left: 0;">
                     <div style="float: left;">
-                      <button type="button" class="btn btn-primary btn-xs" ng-click="updateFutureFuelPricingImmediatelyClick()" style= "text-align: center;  font-size:12px">Save & Deploy Immediately</button>
+                      <button type="button" class="btn btn-primary btn-xs" ng-click="updateFutureFuelPricingImmediatelyClick()" ng-disabled="noPrices" style= "text-align: center;  font-size:12px">Save & Deploy Immediately</button>
                   
-                     <button type="reset" class="btn btn-default btn-xs">Reset All</button>
+                     <button type="button" ng-click="resetFutureFuelPricingClick()" class="btn btn-default btn-xs">Reset All</button>
                     </div>
                     <div style="float: right;">
-                      <button type="button" class="btn btn-success btn-xs" ng-click="updateFutureFuelPricingClick()" style="margin-right:3%">Save & Stage for Deploy</button>
+                      <button type="button" class="btn btn-success btn-xs" ng-click="updateFutureFuelPricingClick()" ng-disabled="noPrices" style="margin-right:3%">Save & Stage for Deploy</button>
                     </div>
                      <div style="clear: both;"></div>
                   </div>
@@ -115,16 +115,16 @@
                            <span  ng-show="fuelPricing.avgas">{{fuelPricing.nameavgasrest}}</span>
                         </td>
                         <td>
-                          <span>{{fuelPricing.fuelPricing.cost}}</span>
+                          <span>{{fuelPricing.futureFuelPricing.cost}}</span>
                           </td>
                         <td>
-                          <span>{{fuelPricing.fuelPricing.papMargin}}</span>
+                          <span>{{fuelPricing.futureFuelPricing.papMargin}}</span>
                            </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.futureFuelPricing.cost -- fuelPricing.futureFuelPricing.papMargin  | number : 2 }}</span>
                         </td>
                         <td>
-                          <span>{{fuelPricing.fuelPricing.expirationDate}}</span>
+                          <span>{{fuelPricing.futureFuelPricing.expirationDate}}</span>
                         </td>
                      </tr>
                   </tbody>
@@ -483,7 +483,7 @@
                  <img src="img/info.png" style="width: 50px;">
               </td>
               <td>
-                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier ?</p>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier?</p>
               </td>
            </tr>
         </table>
@@ -504,7 +504,7 @@
                  <img src="img/info.png" style="width: 50px;">
               </td>
               <td>
-                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier ?</p>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Tier?</p>
               </td>
            </tr>
         </table>
@@ -525,7 +525,7 @@
                  <img src="img/info.png" style="width: 50px;">
               </td>
               <td>
-                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Margin Template ?</p>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Margin Template?</p>
               </td>
            </tr>
         </table>
@@ -546,7 +546,7 @@
                  <img src="img/info.png" style="width: 50px;">
               </td>
               <td>
-                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Margin Template ?</p>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure that you want to delete this Margin Template?</p>
               </td>
            </tr>
         </table>
@@ -554,6 +554,27 @@
      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="confirmDeletVtypeMargin()">Yes</button>
         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelVtypeMarginDelete()">Cancel</button>
+     </div>
+  </div>
+</div>
+
+<div class="customConfirmPopBackdrop" id="resetPricing" style="display: none;">
+  <div class="customModalInner">
+     <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+        <table>
+           <tr>
+              <td>
+                 <img src="img/info.png" style="width: 50px;">
+              </td>
+              <td>
+                 <p style="padding: 5px 10px; margin-bottom: 0;">Are you sure you want to reset and clear all of the staged pricing above and current pricing below?</p>
+              </td>
+           </tr>
+        </table>
+     </div>
+     <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="confirmReset()">Yes</button>
+        <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelReset()">No</button>
      </div>
   </div>
 </div>
