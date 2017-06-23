@@ -57,6 +57,25 @@
 	            
             })
           }
+
+            $scope.addAccount = function(){
+              $('#demo-modal').css('display', 'block');
+          }
+
+           $scope.cancelAddAccount = function(){
+              $('#demo-modal').css('display', '');
+          }
+          
+           $scope.createAddAccount = function(){
+              AccountSettingService.addUserProfile(updateData).then(function(result) {
+
+                toastr.success(''+result.success+'', {
+                    closeButton: true
+                })
+              })
+	        
+          }
+          
       }
 })();
 

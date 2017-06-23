@@ -75,6 +75,25 @@
           return deferred.promise;
         }
 
+
+        this.addUserProfile = function(data) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'PUT',
+              url : BASE_URL.url +'/account/updateProfile',
+              headers : {'Content-Type': 'application/x-www-form-urlencoded'},
+              data: data
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+            //console.log(result.data)
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
+
     }
       
 })();

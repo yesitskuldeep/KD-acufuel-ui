@@ -82,6 +82,9 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 			$scope.order.departingDate = new Date($scope.order.departingDate);
 			$scope.order.departingDate = $scope.order.departingDate.getTime();
 		}
+
+		$scope.order.status = 'Pending';
+		
 		console.log($scope.order.quotePrice);
 		var obj =JSON.parse($scope.order.priceQuote);
 		console.log('obj.papMargin',obj.papMargin);
