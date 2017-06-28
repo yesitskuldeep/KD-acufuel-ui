@@ -44,11 +44,11 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
 		  }
      );
 
-       $(document).ready(function() {
-          $scope.showLoader = true;
-            $('#example').DataTable();
-            $scope.showLoader = false;
-        });
+      //  $(document).ready(function() {
+      //     $scope.showLoader = true;
+      //       $('#example').DataTable();
+      //       $scope.showLoader = false;
+      //   });
      
      $scope.getOrders = function() {
           fuelOrdersService.getOrders().then(function(result) {

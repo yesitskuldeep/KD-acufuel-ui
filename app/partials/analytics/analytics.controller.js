@@ -3,127 +3,271 @@
  //Load controller
   angular.module('acufuel')
 
-	.controller('analyticsController', ['$scope',function($scope) {
+	.controller('analyticsController', ['$scope','analyticsService',function($scope, analyticsService) {
 
     $(document).ready(function(){
-      $(function () {
-   
-          $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=us-population-density.json&callback=?', function (data) {
-   
-              // Make codes uppercase to match the map data
-              $.each(data, function () {
-                  this.code = this.code.toUpperCase();
-              });
-   
-              // Instanciate the map
-              Highcharts.mapChart('container', {
-   
-                  chart: {
-                      borderWidth: 1
-                  },
-   
-                  title: {
-                      text: 'US population density (/km²)'
-                  },
-   
-                  legend: {
-                      layout: 'horizontal',
-                      borderWidth: 0,
-                      backgroundColor: 'rgba(255,255,255,0.85)',
-                      floating: true,
-                      verticalAlign: 'top',
-                      y: 25
-                  },
-   
-                  mapNavigation: {
-                      enabled: true
-                  },
-   
-                  colorAxis: {
-                      min: 1,
-                      type: 'logarithmic',
-                      minColor: '#EEEEFF',
-                      maxColor: '#000022',
-                      stops: [
-                          [0, '#EFEFFF'],
-                          [0.67, '#4444FF'],
-                          [1, '#000022']
-                      ]
-                  },
-   
-                  series: [{
-                      animation: {
-                          duration: 1000
-                      },
-                      data: data,
-                      mapData: Highcharts.maps['countries/us/us-all'],
-                      joinBy: ['postal-code', 'code'],
-                      dataLabels: {
-                          enabled: true,
-                          color: '#FFFFFF',
-                          format: '{point.code}'
-                      },
-                      name: 'Population density',
-                      tooltip: {
-                          pointFormat: '{point.code}: {point.value}/km²'
-                      }
-                  }]
-              });
-          });
-      });
+                $(function(){
+                    new jvm.MultiMap({
+                        container: $('#map'),
+                        maxLevel: 1,
+                        main: {
+                        map: 'us_lcc',
+                        backgroundColor: '#ffce99',
+                       
+                    },
+                        mapUrlByCode: function(code, multiMap){
+                        return '/js/us-counties/jquery-jvectormap-data-'+
+                                code.toLowerCase()+'-'+
+                                multiMap.defaultProjection+'-en.js';
+                        }
+                    });
+            });
    })
 
-      $scope.optionsmfs = {
-                            chart: {
-                                type: 'discreteBarChart',
-                                height: 450,
-                                margin : {
-                                    top: 20,
-                                    right: 20,
-                                    bottom: 60,
-                                    left: 55,
-                                },
-                                color: ["#FF7F0E"],
-                                x: function(d){ return d.label; },
-                                y: function(d){ return d.value; },
-                                showValues: false,
-                                valueFormat: function(d){
-                                    return d3.format(',.4f')(d);
-                                },
-                                transitionDuration: 500,
-                                xAxis: {
-                                    axisLabel: 'X Axis'
-                                },
-                                yAxis: {
-                                    axisLabel: 'Y Axis',
-                                    axisLabelDistance: 30
-                                }
-                            }
-                        };
+$scope.mfsValues = [];
+    $scope.getMFS = function(){
+	        //var makeId = makeId;
+	        analyticsService.getMFS().then(function(result) {
+	        	$scope.mfsValues = result;
+                console.log("mfs data --- ",$scope.mfsValues)
+                        // $scope.optionsmfs = {
+                        //                             chart: {
+                        //                                 type: 'discreteBarChart',
+                        //                                 height: 450,
+                        //                                 margin : {
+                        //                                     top: 20,
+                        //                                     right: 20,
+                        //                                     bottom: 60,
+                        //                                     left: 55,
+                        //                                 },
+                        //                                 x: function(d){ return d.label; },
+                        //                                 y: function(d){ return d.value; },
+                        //                                 showValues: false,
+                        //                                 valueFormat: function(d){
+                        //                                     return d3.format(',.4f')(d);
+                        //                                 },
+                        //                                 transitionDuration: 500,
+                        //                                 xAxis: {
+                        //                                     axisLabel: 'X Axis'
+                        //                                 },
+                        //                                 yAxis: {
+                        //                                     axisLabel: 'Y Axis',
+                        //                                     axisLabelDistance: 30
+                        //                                 }
+                        //                             }
+                        //                         };
 
-           $scope.datamfs = [{
-                            key: "Cumulative Return",
-                            values: [
-                                { "label" : "A" , "value" : 229.765957771107 },
-                                { "label" : "B" , "value" : 0 },
-                                { "label" : "C" , "value" : 32.807804682612 },
-                                { "label" : "D" , "value" : 196.45946739256 },
-                                { "label" : "E" , "value" : 0.19434030906893 },
-                                { "label" : "F" , "value" : 98.079782601442 },
-                                { "label" : "G" , "value" : 13.925743130903 },
-                                { "label" : "H" , "value" : 5.1387322875705 },
-                                { "label" : "I" , "value" : 4.1387322875705 },
-                                { "label" : "J" , "value" : 23.1387322875705 },
-                                { "label" : "K" , "value" : 233.1387322875705 },
-                                { "label" : "L" , "value" : 22.1387322875705 },
-                                ]
-                            }]
+                        //         $scope.datamfs = [{
+                        //                             key: "Cumulative Return",
+                        //                             values: $scope.mfsValues
+                        //                             }]
+                                
+                                    $scope.optionsmfs = {
+                                        chart: {
+                                            type: 'multiBarChart',
+                                            height: 450,
+                                            margin : {
+                                                top: 20,
+                                                right: 20,
+                                                bottom: 45,
+                                                left: 45
+                                            },
+                                            clipEdge: true,
+                                            //staggerLabels: true,
+                                            duration: 500,
+                                            stacked: true,
+                                            color: ["#FEDFC3","#990000","#000099","#009900"],
+                                            xAxis: {
+                                                axisLabel: 'Months',
+                                                showMaxMin: false,
+                                            },
+                                            yAxis: {
+                                                axisLabel: 'Y Axis',
+                                                axisLabelDistance: -20,
+                                                tickFormat: function(d){
+                                                    return d3.format(',.1f')(d);
+                                                }
+                                            }
+                                        }
+                                    };
 
+                                    $scope.datamfs = [{
+                                                "key": "Pending",
+                                                "values": [{
+                                                    "x": "Jan",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Feb",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Mar",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Apr",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "May",
+                                                    "y": 1.5096133160633776
+                                                },{
+                                                    "x": "Jun",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Jul",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Aug",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Sep",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Oct",
+                                                    "y": 1.5096133160633776
+                                                }, {
+                                                    "x": "Nov",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Dec",
+                                                    "y": 1.5096133160633776
+                                                }]
+                                            }, {
+                                                "key": "Cancelled",
+                                                "values": [{
+                                                    "x": "Jan",
+                                                    "y": 0.12566330679904006
+                                                }, {
+                                                    "x": "Feb",
+                                                    "y": 0.1321859413211272
+                                                }, {
+                                                    "x": "Mar",
+                                                    "y": 1.4798247902549135
+                                                }, {
+                                                    "x": "Apr",
+                                                    "y": 0.10870538273358979
+                                                }, {
+                                                    "x": "May",
+                                                    "y": 0.16155091711225184
+                                                },{
+                                                    "x": "Jun",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Jul",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Aug",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Sep",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Oct",
+                                                    "y": 1.5096133160633776
+                                                }, {
+                                                    "x": "Nov",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Dec",
+                                                    "y": 1.5096133160633776
+                                                }]
+                                            },{
+                                                "key": "Invoiced",
+                                                "values": [{
+                                                    "x": "Jan",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Feb",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Mar",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Apr",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "May",
+                                                    "y": 1.5096133160633776
+                                                },{
+                                                    "x": "Jun",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Jul",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Aug",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Sep",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Oct",
+                                                    "y": 1.5096133160633776
+                                                }, {
+                                                    "x": "Nov",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Dec",
+                                                    "y": 1.5096133160633776
+                                                }]
+                                            }, {
+                                                "key": "Paid",
+                                                "values": [{
+                                                    "x": "Jan",
+                                                    "y": 0.12566330679904006
+                                                }, {
+                                                    "x": "Feb",
+                                                    "y": 0.1321859413211272
+                                                }, {
+                                                    "x": "Mar",
+                                                    "y": 1.4798247902549135
+                                                }, {
+                                                    "x": "Apr",
+                                                    "y": 0.10870538273358979
+                                                }, {
+                                                    "x": "May",
+                                                    "y": 0.16155091711225184
+                                                },{
+                                                    "x": "Jun",
+                                                    "y": 0.16284738584101344
+                                                }, {
+                                                    "x": "Jul",
+                                                    "y": 2.370283172738109
+                                                }, {
+                                                    "x": "Aug",
+                                                    "y": 0.1631208266452718
+                                                }, {
+                                                    "x": "Sep",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Oct",
+                                                    "y": 1.5096133160633776
+                                                }, {
+                                                    "x": "Nov",
+                                                    "y": 0.24609871793543797
+                                                }, {
+                                                    "x": "Dec",
+                                                    "y": 1.5096133160633776
+                                                }]
+                                            }]
+
+
+                               
+	                     })
+        	}
+
+          $scope.getMFS();
+
+      
+$scope.csValues = [];
+    $scope.getCS = function(){
+	        //var makeId = makeId;
+	        analyticsService.getCS().then(function(result) {
+	        	$scope.csValues = result;
+                console.log("cs data --- ",$scope.csValues)
            $scope.optionscs = {
                                 chart: {
                                     type: 'pieChart',
                                     height: 500,
-                                    color: ["#FEDFC3","#D89700","#FFE8B3","FFD980","#FF7F0E","#fff2e6","#ffcc99","#ffa64d","#ff8c1a","#B37D00","#f5f5f0","#e0e0d1","#ccccb3","#adad85","#999966","#7a7a52"],
+                                    // color: ["#FEDFC3","#D89700","#FFE8B3","FFD980","#FF7F0E","#fff2e6","#ffcc99","#ffa64d","#ff8c1a","#B37D00","#f5f5f0","#e0e0d1","#ccccb3","#adad85","#999966","#7a7a52"],
                                     x: function(d){return d.key;},
                                     y: function(d){return d.y;},
                                     showLabels: false,
@@ -145,28 +289,12 @@
                                 }
                             };
 
-            $scope.datacs = [
-                                {
-                                    key: "A",
-                                    y: 3
-                                },
-                                {
-                                    key: "B",
-                                    y: 2
-                                },
-                                {
-                                    key: "C",
-                                    y: 3
-                                },
-                                {
-                                    key: "D",
-                                    y: 1
-                                },
-                                {
-                                    key: "E",
-                                    y: 5
-                                }
-                            ];
+            $scope.datacs = $scope.csValues;
+
+        })
+    }
+
+    $scope.getCS();
 
 
            $scope.optionshfp = {
