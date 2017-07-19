@@ -33,6 +33,18 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
      
       );
 
+    function colourFunction() {
+      var myselect = document.getElementById('colorfulSelectbox'),
+      colour = myselect.options[myselect.selectedIndex].className;
+      myselect.style.background = colour;
+      console.log('colour', myselect);
+      myselect.blur();
+    }
+
+    //setInterval(function(){
+     // colourFunction();
+    //}, 1)
+
 
       $scope.attachmentFilterOptions = [];
     $scope.attachmentFilterOptions.push({
@@ -70,6 +82,20 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
             }, {
               data: $scope.orderdata
             });
+            $(document).ready(function(){
+              var myselect = document.getElementsByClassName('colorfulSelectbox');
+
+              for (var i = 0; i < myselect.length; i++) {
+                var colourIndex = $(myselect[i]).prop('selectedIndex');
+                colourIndex = colourIndex + 1;
+                console.log(colourIndex);
+                var getColor = $('.colorfulSelectbox option:nth-child('+colourIndex+')').css('color');
+                $(myselect[i]).css('background-color', getColor);
+                console.log('colour', getColor);
+                myselect[i].blur();
+              }
+
+            })
            
           })
      }
@@ -227,37 +253,35 @@ function fuelOrdersController($scope, $rootScope, $uibModal, $filter, $http, NgT
                               
                             }
     $scope.updateStatus = function(row, status) {
-                          $scope.showLoader = true;
+      $scope.showLoader = true;
+      $scope.fuelData = {};
+      $scope.fuelData.aircraftName = row.aircraftName 
+      $scope.fuelData.companyName = row.companyName 
+      $scope.fuelData.departingDate = row.departingDate 
+      $scope.fuelData.fboCost = row.fboCost 
+      $scope.fuelData.id = row.id 
+      $scope.fuelData.invoiced = row.invoiced 
+      $scope.fuelData.priceQuote = row.priceQuote 
+      $scope.fuelData.volume = row.requestedVolume 
+      $scope.fuelData.source = row.source 
+      $scope.fuelData.status = status 
+      $scope.fuelData.tierBreak = row.tierBreak 
+      $scope.fuelData.total = row.total 
+      $scope.fuelData.upliftDate = row.upliftDate 
 
-                          $scope.fuelData = {};
-                          $scope.fuelData.aircraftName = row.aircraftName 
-                          $scope.fuelData.companyName = row.companyName 
-                          $scope.fuelData.departingDate = row.departingDate 
-                          $scope.fuelData.fboCost = row.fboCost 
-                          $scope.fuelData.id = row.id 
-                          $scope.fuelData.invoiced = row.invoiced 
-                          $scope.fuelData.priceQuote = row.priceQuote 
-                          $scope.fuelData.volume = row.requestedVolume 
-                          $scope.fuelData.source = row.source 
-                          $scope.fuelData.status = status 
-                          $scope.fuelData.tierBreak = row.tierBreak 
-                          $scope.fuelData.total = row.total 
-                          $scope.fuelData.upliftDate = row.upliftDate 
-                          
+      $scope.dispatchOrder.fuelOrderList.push($scope.fuelData);
+      fuelOrdersService.updateFuelOrder($scope.dispatchOrder).then(function(result) {
+        console.log('result', result);
+        $scope.showLoader = false;
+        $scope.editdata = {};
+        $('#demo-modal-5').css('display', '');
+        $scope.getOrders();
+        toastr.success('Fuel Order Updated Successfully', {
+          closeButton: true
+        });
+    })
 
-
-                             $scope.dispatchOrder.fuelOrderList.push($scope.fuelData);
-                              fuelOrdersService.updateFuelOrder($scope.dispatchOrder).then(function(result) {
-                                console.log('result', result);
-                                $scope.showLoader = false;
-                                $scope.editdata = {};
-                                $('#demo-modal-5').css('display', '');
-                                $scope.getOrders();
-                                toastr.success('Fuel Order Updated Successfully', {
-                                        closeButton: true
-                                      })
-                              })
-                            }
+  }
 
       $scope.updateData = function() {
                           $scope.showLoader = true;
