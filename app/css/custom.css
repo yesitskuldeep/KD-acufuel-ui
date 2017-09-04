@@ -723,3 +723,30 @@ font-size: 10px !important;
 .select2-container .select2-choice{
 	padding: 2px 12px !important;
 }
+
+
+.blackOption{
+	color: #000;
+	background-color: #fff;
+}
+.blueOption{
+	color: #1c84c6;
+	background-color: #fff;
+}
+.greenOption{
+	color: #419641;
+	background-color: #fff;
+}
+.redOption{
+	color: #ed5565;
+	background-color: #fff;
+}
+.yellowOption{
+	color: #ff9900;
+	background-color: #fff;
+}
+.colorfulSelectbox, .colorfulSelectbox:focus, .colorfulSelectbox:hover{
+	color: #fff;
+	text-align: center !important;
+	outline: none !important;
+}

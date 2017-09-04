@@ -120,13 +120,13 @@
                               {{row.total}}
                              </td>
                              <td data-title="'Status'" filter="{status: 'select'}" filter-data="statusFilterOptions" sortable="'status'">
-                              <select class="btn btn-regular" ng-model="row.status" ng-style="abc" ng-change="updateStatus(row, row.status)">
-                                        <option value=""  disabled ng-selected="row.status == null"> Select</option>
-                                        <option value="pending" ng-selected="row.status == pending"> Pending</option>
-                                        <option value="invoiced" ng-selected="row.status == invoiced" >Invoiced</option>
-                                        <option value="paid" ng-selected="row.status == paid" >Paid</option>
-                                        <option value="cancelled" ng-selected="row.status == cancelled" >Cancelled</option>
-                                        <option value="archived" ng-selected="row.status == archived" >Archived</option>
+                                    <select class="btn btn-regular colorfulSelectbox" ng-model="row.status" ng-style="abc" ng-change="updateStatus(row, row.status)">
+                                        <!-- <option value=""  disabled ng-selected="row.status == null"> Select</option> -->
+                                        <option class="blackOption" value="pending" ng-selected="row.status == pending"> Pending</option>
+                                        <option class="blueOption" value="invoiced" ng-selected="row.status == invoiced" >Invoiced</option>
+                                        <option class="greenOption" value="paid" ng-selected="row.status == paid" >Paid</option>
+                                        <option class="redOption" value="cancelled" ng-selected="row.status == cancelled" >Cancelled</option>
+                                        <option class="yellowOption" value="archived" ng-selected="row.status == archived" >Archived</option>
                                     </select>
                              </td>
                              <td data-title="'Attachments'" filter="{orderInvoice : 'select'}" filter-data="attachmentFilterOptions" sortable="'orderInvoice '">
