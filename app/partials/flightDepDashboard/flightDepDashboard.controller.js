@@ -3,11 +3,12 @@
     'use strict'
     
     angular.module('acufuel')
-        .controller('flightDepDashboardController', [ '$scope', '$filter', '$rootScope', '$state', 'dashboardService', flightDepDashboardController]);
+        .controller('flightDepDashboardController', [ '$scope', '$filter', '$rootScope', '$state', 'flightDepDashboardService', flightDepDashboardController]);
         
     function flightDepDashboardController($scope, $filter, $rootScope, $state, flightDepDashboardService) {
         $scope.getQuote = true;
         $scope.showQuote = false;
+        getAircraftList();
         $scope.getQuote = function () {
     		$scope.getQuote = false;
             $scope.showQuote = true;
@@ -18,8 +19,22 @@
     		$rootScope.path = false;
     		$state.reload();
     	}
+    	$scope.fboList = [];
+    	$scope.getFBO = function () {
+    		console.log('111111111');
+    		flightDepDashboardService.getFBOs($scope.order.airport).then(function(result) {
+  	          $scope.fboList = result;
+  	        })
+    	}
+    	
+    	$scope.aircraftList = [];
+    	function getAircraftList() {
+    		flightDepDashboardService.getAircrafts().then(function(result) {
+      		  $scope.aircraftList = result;
+              })
+        }
 
-          $scope.marginList = {}
+         /* $scope.marginList = {}
              flightDepDashboardService.getMargin().then(function(result) {
                 $scope.marginList = result;
                 console.log("Margin result", result)
@@ -77,10 +92,10 @@
               }
               }
               $scope.showLoader = false;
-        })
+        })*/
        
 
-        $scope.updateFuelPricing = {};
+        /*$scope.updateFuelPricing = {};
         $scope.updateFuelPricing.fuelPricingList = [];
         $scope.updateFuelPricing.userProfileId = $scope.userProfileId;
         $scope.updateFuelPricingClick = function(){
@@ -117,10 +132,10 @@
                     })
                     
                 }else{
-                    /*$scope.newFuelPricing[i].fuelPricing.cost = '';
+                    $scope.newFuelPricing[i].fuelPricing.cost = '';
                     $scope.newFuelPricing[i].fuelPricing.papMargin = '';
                     $scope.newFuelPricing[i].fuelPricing.papTotal = '';
-                    $scope.newFuelPricing[i].fuelPricing.expirationDate = '';*/
+                    $scope.newFuelPricing[i].fuelPricing.expirationDate = '';
                 }
                 
             }
@@ -170,7 +185,7 @@
                 })
             })
             
-        }
+        }*/
         
 
 

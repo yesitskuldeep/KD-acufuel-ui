@@ -8,6 +8,14 @@
       function AccountSettingController($scope, $filter, $rootScope, $state, AccountSettingService) {
           $scope.addArray = [];
           $scope.userData = {};
+          getAdditionalAccounts();
+          
+          function getAdditionalAccounts() {
+        	  AccountSettingService.getAdditionalAccounts().then(function(result) {
+        		  $scope.additionalAccounts = result;
+                })
+          }
+          
           $scope.userid = JSON.parse(localStorage.getItem('userProfileId'));
           if($scope.userid && $scope.userid != null && $scope.userid != undefined){
           	var id = $scope.userid;
@@ -62,19 +70,59 @@
               $('#demo-modal').css('display', 'block');
           }
 
-           $scope.cancelAddAccount = function(){
+          $scope.cancelAddAccount = function(){
+        	  $scope.accountdata = {};
               $('#demo-modal').css('display', '');
           }
-          
+           $scope.additionalAccnObj = {};
            $scope.createAddAccount = function(){
-              AccountSettingService.addUserProfile(updateData).then(function(result) {
-
+              AccountSettingService.addAdditionalAccount($scope.accountdata).then(function(result) {
+            	  getAdditionalAccounts();
+            	  $scope.accountdata = {};
+            	  $('#demo-modal').css('display', '');
                 toastr.success(''+result.success+'', {
                     closeButton: true
                 })
               })
 	        
           }
+           
+           $scope.changeStatus = function(id, index){
+               event.stopPropagation();
+               var id = id;
+               var statusData = "status=" + $scope.additionalAccounts[index].status + "&id=" + $scope.additionalAccounts[index].id + "&firstName=" + $scope.additionalAccounts[index].firstName 
+               + "&lastName=" + $scope.additionalAccounts[index].lastName + "&username=" + $scope.additionalAccounts[index].userName + "&password=" + $scope.additionalAccounts[index].password
+               + "&allowEpd=" + $scope.additionalAccounts[index].allowEpd + "&allowFma=" + $scope.additionalAccounts[index].allowFma;
+               AccountSettingService.updateStatus(statusData).then(function(result) {
+                   if(result.success){
+                	   toastr.success('Updated Successfully', {
+                           closeButton: true
+                       })
+                   }
+               })
+            }
+           var deleteAccnId = "";
+           $scope.deleteAdditionalAccount = function(id) {
+        	   $('#delete1').css('display', 'block');
+               deleteAccnId = id;
+        	   
+           }
+           
+           $scope.accnDelete = function(){
+        	   AccountSettingService.deleteAccount(deleteAccnId).then(function(result) {
+        		   getAdditionalAccounts();
+        		   $('#delete1').css('display', 'none');
+                   if(result.success){
+                	   toastr.success('Deleted Successfully', {
+                           closeButton: true
+                       })
+                   }
+               })
+           }
+           
+           $scope.cancelDelete = function(){
+	           $('#delete1').css('display', 'none');
+           }
           
       }
 })();

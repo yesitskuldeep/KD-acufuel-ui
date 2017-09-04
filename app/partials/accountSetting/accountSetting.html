@@ -74,13 +74,17 @@
                          </tr>
                       </thead>
                       <tbody>
-                         <tr>
-                            <td rowspan="2">1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>otto@email.com</td>
-                            <td>@otto</td>
-                            <td><input id="toggle-one2" checked type="checkbox" data-size="mini" data-width="55" data-toggle="toggle" data-on="Active" data-off="Deactive"></td>
+                         <tr ng-repeat="additionalAccount in additionalAccounts">
+                            <td>
+                             <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteAdditionalAccount(additionalAccount.id)" aria-hidden="true"></i>
+                            </td>
+                            <td>{{additionalAccount.firstName}}</td>
+                            <td>{{additionalAccount.lastName}}</td>
+                            <td>{{additionalAccount.userName}}</td>
+                            <td>{{additionalAccount.password}}</td>
+                            <td>
+                            	<toggle ng-model="additionalAccount.status" ng-change="changeStatus(additionalAccount.id, $index)" size="customToogle"></toggle>
+                            </td>
                          </tr>
                       </tbody>
                    </table>
@@ -110,7 +114,7 @@
                               <i class="fa fa-user" aria-hidden="true"></i>
                               <h3>Account Settings</h3>
                                 <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
-                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Inactive"></toggle>
+                              <toggle ng-model="accountdata.status" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Inactive"></toggle>
                             </div>
                               <div class="clearfix"></div>
                            </div>
@@ -147,14 +151,14 @@
 
                                   <div class="col-md-6">
                                      <div class="pull-left" style="width: calc(140% - 170px);">
-                                       <input type="text" ng-model="accountdata.fname" placeholder="First Name" class="form-control" >
+                                       <input type="text" ng-model="accountdata.firstName" placeholder="First Name" class="form-control" >
                                     </div>
                                    
                                     <div class="clearfix"></div>
                                  </div>
                                   <div class="col-md-6">
                                      <div class="pull-left" style="width: calc(140% - 170px);">
-                                       <input type="text" ng-model="accountdata.lname" placeholder="Last Name" class="form-control"  >
+                                       <input type="text" ng-model="accountdata.lastName" placeholder="Last Name" class="form-control"  >
                                     </div>
                                    
                                     <div class="clearfix"></div>
@@ -187,14 +191,14 @@
 
                                   <div class="col-md-6">
                                      <div class="pull-left" style="width: calc(140% - 170px);">
-                                       <input type="text" ng-model="accountdata.uname" placeholder="XYZfbo@gmail.com" class="form-control" >
+                                       <input type="text" ng-model="accountdata.userName" placeholder="XYZfbo@gmail.com" class="form-control" >
                                     </div>
                                    
                                     <div class="clearfix"></div>
                                  </div>
                                   <div class="col-md-6">
                                      <div class="pull-left" style="width: calc(140% - 170px);">
-                                       <input type="text" ng-model="accountdata.pwd" placeholder="Password" class="form-control" >
+                                       <input type="text" ng-model="accountdata.password" placeholder="Password" class="form-control" >
                                     </div>
                                    
                                     <div class="clearfix"></div>
@@ -205,9 +209,9 @@
                               <br/>
                               <div class="col-xs-12">
                                 <div class="col-md-6">
-                                <input type="checkbox" id="Weekdays" ng-model="accountdata.fuelMgrAccess" >&nbsp Allow Fuel Manager Access
+                                <input type="checkbox" id="Weekdays" ng-model="accountdata.allowFma" >&nbsp Allow Fuel Manager Access
                                 <br>
-                                <input type="checkbox" id="Weekdays" ng-model="accountdata.fuelMgrAccess" >&nbsp Allow Emailed Price Distribution
+                                <input type="checkbox" id="Weekdays" ng-model="accountdata.allowEpd" >&nbsp Allow Emailed Price Distribution
                                 </div>
                               </div>
                               <div class="clearfix"></div>
@@ -233,5 +237,25 @@
     </div>
 </div>
 </form>
+<div class="customConfirmPopBackdrop" id="delete1">
+   <div class="customModalInner" style="max-width: 400px;">
+      <div class="customModelBody" style="border-radius: 5px 5px 0 0;">
+         <table>
+            <tr>
+               <td>
+                  <img src="img/info.png" style="width: 50px;">
+               </td>
+               <td>
+                  <p style="padding: 5px 10px; margin-bottom: 0;">Please confirm! Are you sure you want to DELETE this Account?</p>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="customModelFooter text-right" style="border-radius: 0 0 5px 5px;">
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="accnDelete()">Accept</button>
+         <button class="btn" style="padding: 4px 0; width: 80px;" ng-click="cancelDelete()">Cancel</button>
+      </div>
+   </div>
+</div>
 
                   
