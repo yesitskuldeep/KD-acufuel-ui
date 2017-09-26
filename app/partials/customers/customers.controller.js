@@ -135,6 +135,10 @@
 		$scope.removeValidation = function(){
 			$scope.showCompanyError = false;
 	    	$('.companyNameInput').removeClass('customErrorInput');
+	    	if($scope.data.companyName == 'undefined' || $scope.data.companyName == '') {
+	    		$('.companyNameInput').addClass('customErrorInput');
+	    		$scope.showCompanyError = true;
+	    	}
 		}
 
 		$scope.removeMarginValidation = function(){
@@ -270,10 +274,9 @@
     	        $scope.showLoader = false;
 	    	 })
 	    }
-	    
-	    $scope.getCompanyName = function(parm){
-      		$scope.showLoader = true;
-	        CustomersService.getCompanyName(parm).then(function(result) {
+	    getCompanyName();
+	    function getCompanyName(){
+	        CustomersService.getCompanyName().then(function(result) {
 	        	$scope.compNameList = result;
 	        })
       	}
