@@ -28,11 +28,13 @@
         $scope.companyData = {};
         $scope.multipleMsg = false;
         $scope.companyData.masterMargin = "";
+        $scope.isGlobal = false;
         getCompanyDetail();
         function getCompanyDetail(){
           $scope.showLoader = true;
           ViewCompanyService.getCompany(companyId).then(function(result) {
             $scope.companyData = result;
+            $scope.isGlobal = result.global;
             if(result.margin != null){
                $scope.companyData.masterMargin = result.margin.id;
             }
@@ -277,9 +279,6 @@
             }
             $scope.showLoader = false;
           })
-
-          
-          
       }
 
       $scope.cancelData = function(){

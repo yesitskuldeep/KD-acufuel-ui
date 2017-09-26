@@ -38,6 +38,22 @@
             return deferred.promise;
         }
         
+        this.getTiers = function(id) {
+
+            var deferred = $q.defer();
+            $http({
+                method : 'GET',
+                url : BASE_URL.url +'/flightDept/getTiers/'+id,
+                headers : {'Content-Type': 'application/json'},
+            })
+            .then(function (result){
+                deferred.resolve(result.data);
+            },function (result){
+                deferred.resolve(result.data);
+            })
+            return deferred.promise;
+        }
+        
         this.getFBOs = function(data) {
             var deferred = $q.defer();
             $http({
@@ -52,9 +68,6 @@
             })
             return deferred.promise;
         }
-        
-        
-        
 
          this.getMargin = function() {
 

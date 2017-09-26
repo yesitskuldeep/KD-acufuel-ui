@@ -73,7 +73,7 @@
 <div class="main">
    <div class="container">
       <div class="row">
-         <div class="col-md-14">
+         <div class="col-md-12">
             <div class="widget stacked ">
                <div class="widget-content">
                   <div class="tabbable">
@@ -86,7 +86,7 @@
                      <div class="tab-content customer-table" style="margin:0px">
                         <div class="tab-pane active" id="companyView">
                           <table ng-table="displayFuelOrderList" class="table table-striped table-condensed" show-filter="true">
-                           <tr ng-repeat="row in $data | filter:searchText" style="cursor: pointer;" ng-click="editTableRow(row)" >
+                           <tr ng-repeat="row in $data | filter:searchText">
                              <td data-title="'Fueling date'" filter="{departingDate: 'text'}" sortable="'departingDate'">
                               {{row.departingDateString}}
                              </td>
@@ -94,7 +94,7 @@
                               {{row.aircraftName}}
                              </td> 
                              <td data-title="'FBO Name'" filter="{source: 'text'}" sortable="'source'">
-                              {{row.source}}
+                              {{row.orderOwner.name}}
                              </td>
                              <td data-title="'Volume'" filter="{requestedVolume: 'text'}" sortable="'requestedVolume'">
                               {{row.requestedVolume}}
@@ -114,14 +114,12 @@
                              <td data-title="'Status'" filter="{status: 'text'}" sortable="'status'">
                               {{row.status}}
                              </td>
-                             <td data-title="'Attachments'" filter="{allIn: 'text'}" sortable="'allIn'">
-                            
+                             <td data-title="'Attachments'" filter="{orderInvoice : 'select'}" filter-data="attachmentFilterOptions" sortable="'orderInvoice '">
+                            	<i class="fa fa-paperclip" ng-if="row.orderInvoice !== null"></i>
                              </td>
                            </tr>
                          </table>
-
-                                   <li style="float:right"><button type="submit"  class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Export Fuel Orders</button></li>
-
+							<button type="button" ng-click="exportOrder()" class="btn btn-warning exportBtn">Export Fuel Orders</button>
                         </div>
                      </div>
                   </div>

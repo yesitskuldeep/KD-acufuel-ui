@@ -270,6 +270,13 @@
     	        $scope.showLoader = false;
 	    	 })
 	    }
+	    
+	    $scope.getCompanyName = function(parm){
+      		$scope.showLoader = true;
+	        CustomersService.getCompanyName(parm).then(function(result) {
+	        	$scope.compNameList = result;
+	        })
+      	}
 
 
     }

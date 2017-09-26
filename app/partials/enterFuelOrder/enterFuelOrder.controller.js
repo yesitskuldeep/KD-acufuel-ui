@@ -28,34 +28,52 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 		$scope.showLoader = true;
 		for (var i = 0; i < $scope.companyList.length; i++) {
 			if ($scope.companyList[i].companyName == company) {
+				console.log($scope.companyList[i].margin);
+				console.log($scope.companyList[i].marginAVGAS);
 				if($scope.companyList[i].margin != null && $scope.companyList[i].marginAVGAS != null){
 					enterFuelOrderService.getFuelCost($scope.companyList[i].id).then(function(margins) {
 						$scope.marginList = margins;
 						//console.log('$scope.marginList', $scope.marginList);
 					})
-				} else if ($scope.companyList[i].margin != null || $scope.companyList[i].marginAVGAS == null) {
+				} else if ($scope.companyList[i].margin != null && $scope.companyList[i].marginAVGAS == null) {
+					console.log('--------------------',$scope.companyList[i].margin);
+					console.log('--------------------',$scope.companyList[i].marginAVGAS);
 					enterFuelOrderService.getATypeFuelPricing($scope.companyList[i].id).then(function(margins) {
 						$scope.marginList = margins;
 			        })
-				} else if ($scope.companyList[i].margin == null || $scope.companyList[i].marginAVGAS != null) {
+				} else if ($scope.companyList[i].margin == null && $scope.companyList[i].marginAVGAS != null) {
 					enterFuelOrderService.getVTypeFuelPricing($scope.companyList[i].id).then(function(margins) {
 			        	$scope.marginList = margins;
 			        })
+				} else if ($scope.companyList[i].margin == null && $scope.companyList[i].marginAVGAS == null) {
+					enterFuelOrderService.getPapFuelPricing($scope.companyList[i].id).then(function(margins) {
+			        	$scope.marginList = margins;
+			        })
+					console.log('--------------------',$scope.companyList[i].margin);
 				}
 				$scope.selectedCompanyId = $scope.companyList[i].id;
-				$scope.marginId = $scope.companyList[i].margin.id;
+				
 				if ($scope.selectedCompanyId != '') {
 					enterFuelOrderService.getAircraft($scope.selectedCompanyId).then(function(aircraft) {
 						$scope.aircraftList = aircraft;
 					})
 				}
-				if ($scope.marginId != '') {
-					enterFuelOrderService.getJetTiers($scope.marginId).then(function(tiers) {
-		                $scope.tierList = tiers;
-		                $scope.showLoader = false;
-		            })
-				}else{
+				if($scope.companyList[i].margin == null) {
+					$scope.tierList = [];
+					$scope.tierList.push({
+	        		  	'minTierBreak': '0', 'maxTierBreak': '∞'
+					});
 					$scope.showLoader = false;
+				} else {
+					$scope.marginId = $scope.companyList[i].margin.id;
+					if ($scope.marginId != '') {
+						enterFuelOrderService.getJetTiers($scope.marginId).then(function(tiers) {
+			                $scope.tierList = tiers;
+			                $scope.showLoader = false;
+			            })
+					}else{
+						$scope.showLoader = false;
+					}
 				}
 			}
 		}
@@ -63,7 +81,6 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 	}
 
 	$scope.setCost = function(cost){
-		console.log(cost);
 		if(cost != null) {
 			var obj =JSON.parse(cost);
 			$scope.order.fboCost = obj.cost;
@@ -83,7 +100,7 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 			$scope.order.departingDate = $scope.order.departingDate.getTime();
 		}
 
-		$scope.order.status = 'Pending';
+		$scope.order.status = 'pending';
 		
 		console.log($scope.order.quotePrice);
 		var obj =JSON.parse($scope.order.priceQuote);

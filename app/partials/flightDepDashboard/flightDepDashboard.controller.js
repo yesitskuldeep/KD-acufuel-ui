@@ -8,6 +8,7 @@
     function flightDepDashboardController($scope, $filter, $rootScope, $state, flightDepDashboardService) {
         $scope.getQuote = true;
         $scope.showQuote = false;
+        $scope.fboList =[];
         getAircraftList();
         $scope.getQuote = function () {
     		$scope.getQuote = false;
@@ -19,7 +20,6 @@
     		$rootScope.path = false;
     		$state.reload();
     	}
-    	$scope.fboList = [];
     	$scope.getFBO = function () {
     		console.log('111111111');
     		flightDepDashboardService.getFBOs($scope.order.airport).then(function(result) {
@@ -31,8 +31,15 @@
     	function getAircraftList() {
     		flightDepDashboardService.getAircrafts().then(function(result) {
       		  $scope.aircraftList = result;
-              })
+    		})
         }
+    	
+    	$scope.getTiers = function(owner) {
+    		console.log('--------owner-----',$scope.order.priceQuote);
+    		/*flightDepDashboardService.getTiers(owner).then(function(result) {
+        		  $scope.aircraftList = result;
+      		})*/
+    	}
 
          /* $scope.marginList = {}
              flightDepDashboardService.getMargin().then(function(result) {

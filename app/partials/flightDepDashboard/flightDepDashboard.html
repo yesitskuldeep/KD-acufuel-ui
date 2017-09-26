@@ -68,9 +68,9 @@
                     </div>
                     <div class="col-md-8 ">
                       <br>
-                      <select class="form-control" ng-model="order.priceQuote">
+                      <select class="form-control" ng-model="order.priceQuote" ng-change="getTiers()" >
                         <option value="" selected disabled>Select FBO</option>
-                        <option ng-repeat="margin in marginList" value="{{margin.fuelPricing.papTotal}}">${{margin.fuelPricing.papTotal}} {{margin.name}}</option>
+                        <option ng-repeat="margin in fboList"  value="{{margin}}">${{margin.papTotal}} {{margin.productName}}: {{margin.companyName}}</option>
                       </select>
                     </div>
                     <div class="clearfix"></div>

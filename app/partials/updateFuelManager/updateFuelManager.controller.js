@@ -6,9 +6,6 @@
 
 
       .controller('updateFuelManagerController', ['$scope','$uibModal', 'updateFuelManagerService', function($scope , $uibModal, updateFuelManagerService) {
-		
-        
-        
         $scope.showLoader = true;
         $scope.yes = function(data){
             console.log('========');
@@ -707,11 +704,12 @@
 
         $scope.updateFutureFuelPricingImmediatelyClick = function(){
             $scope.showLoader = true;
+            console.log('--$scope.newFuelPricing--',$scope.newFuelPricing);
             for (var i = 0; i<$scope.newFuelPricing.length; i++) {
                 //console.log(parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin));
                 if ($scope.newFuelPricing[i].futureFuelPricing != null) {
                     if ($scope.newFuelPricing[i].futureFuelPricing.cost != null || $scope.newFuelPricing[i].futureFuelPricing.cost != '' || $scope.newFuelPricing[i].futureFuelPricing.cost != undefined) {
-                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].fuelPricing.papMargin);
+                        $scope.newFuelPricing[i].futureFuelPricing.papTotal = parseFloat($scope.newFuelPricing[i].futureFuelPricing.cost) + parseFloat($scope.newFuelPricing[i].futureFuelPricing.papMargin);
                         if ($scope.newFuelPricing[i].futureFuelPricing.cost == null) {
                             $scope.newFuelPricing[i].futureFuelPricing.cost = '';
                         }

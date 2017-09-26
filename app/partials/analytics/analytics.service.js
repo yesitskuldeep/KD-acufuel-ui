@@ -20,9 +20,9 @@
                 deferred.resolve(result.data);
             })
             return deferred.promise;
-         }
+        }
 
-           this.getCS = function(){
+        this.getCS = function(){
             var deferred = $q.defer();
             $http({
                 method : 'GET',
@@ -35,7 +35,7 @@
                 deferred.resolve(result.data);
             })
             return deferred.promise;
-         }
+        }
 
       }
       

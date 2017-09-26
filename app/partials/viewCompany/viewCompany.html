@@ -135,7 +135,80 @@
             <!-- /widget-header -->
             <div class="widget-content">
                <div class="row" style="margin-left:0px">
-                  <div class="col-md-6">
+                  <div class="col-md-6" ng-show="isGlobal">
+                     <div class="widget">
+                        <div class="widget-header">
+                            <i class="fa fa-building-o" aria-hidden="true"></i>
+                            <h3>Company Details</h3>
+                            <label>BASE ICAO</label>
+                            <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 80px;padding: 0px 9px;" />
+                           
+                            <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
+                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
+                            </div>
+
+                        </div>
+                        <div class="widget-content" style="min-height: 350px;">
+                           <div class="row" style="margin-left:0px;">
+                              <div class="col-md-7" style="padding-left: 0;">
+                                 <h4 ng-show="showCompanyName">
+                                    <b style="color:#F90;">{{companyData.companyName}}</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="company()" style="font-size: 14px;" aria-hidden="true"></i>
+                                 </h4>
+                                 <input type="tel" ng-hide="showCompanyName" ng-model="companyData.companyName" class="form-control"/>
+                              </div>
+                              <div class="col-md-5">
+                                 <select class="form-control" style="padding: 4px 8px;background: #ebebeb;" ng-model="companyData.certificateType">
+                                    <option class="optionclass" value="" disabled selected>Certificate Type</option>
+                                    <option class="optionclass" value="corporate">Part 91 (Corporate)</option>
+                                    <option class="optionclass" value="charter">Part 135 (Charter)</option>
+                                    <option class="optionclass" value="scheduled">Part 121 (Scheduled)</option>
+                                    <option class="optionclass" value="military">Military</option>
+                                    <option class="optionclass" value="government">Government</option>
+                                 </select>
+                              </div>
+                           </div>
+                           <div>
+                              <p class="new-label">
+                                 <span>JET A Margin </span> 
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="companyData.masterMargin">
+                                 	<option ng-if="multiple" value="multiple">Multiple</option>
+                                    <option ng-repeat="margin in jetMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
+                                 </select>
+                                 <span ng-show="multipleMsg">&nbsp;See Aircrart List</span>
+                                 <div class="clearfix"></div>
+                              </p>
+                           </div>
+                           <div>
+                              <p class="new-label">
+                                 <span>AVGAS 100LL </span> 
+                                 <select class="form-control" style="width: 135px;padding: 4px 8px;" ng-change="editData()" ng-model="companyData.avgasMargin">
+                                    <option value="">N/A</option>
+                                    <option ng-repeat="margin in avgsMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
+                                 </select>
+                                 <div class="clearfix"></div>
+                              </p>
+                           </div>
+                           </br>
+                           <div class="new-address">
+                           </div>
+                           <div>
+                              <p style="margin-bottom: 0;"><b>Company Notes</b> &nbsp;<i class="fa fa-pencil-square-o" ng-click="showNote()" aria-hidden="true"></i></p>
+                              <p ng-show="showNoteData">{{companyData.internalNote}}</p>
+                              <textarea  name="message" ng-hide="showNoteData" style="margin-bottom: 6px;" class="form-control" ng-model="companyData.internalNote" rows="4" cols="34"></textarea>
+                           </div>
+                           <div class="pull-left">
+                              <button ng-click="editData()" ng-show="showUpdateBtn" class="btn btn-success">Save</button>
+                              <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
+                           </div>
+                           <div class="pull-right">
+                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
+                              <button type="button" class="btn btn-info" ui-sref="app.updateFuelManager">Setup Fuel</button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6" ng-hide="isGlobal">
                      <div class="widget">
                         <div class="widget-header">
                             <i class="fa fa-building-o" aria-hidden="true"></i>
@@ -273,9 +346,9 @@
                                  </thead>
                                  <tbody>
                                     <tr ng-repeat="aircraft in contactAircraftList">
-                                       <td>{{aircraft.tail}}</td>
-                                       <td>{{aircraft.make}}</td>
-                                       <td>{{aircraft.model}}</td>
+                                       <td ng-style="aircraft.global && {color:'#9e9696'}">{{aircraft.tail}}</td>
+                                       <td ng-style="aircraft.global && {color:'#9e9696'}">{{aircraft.make}}</td>
+                                       <td ng-style="aircraft.global && {color:'#9e9696'}">{{aircraft.model}}</td>
                                        <td>
                                           <select class="form-control" style="height:31px;" ng-model="aircraft.aircraftsMargin.id" ng-options="margin.id as margin.marginName for margin in jetMarginList" required></select>
                                        </td>
@@ -288,7 +361,7 @@
                                        </td>
                                        <td style="color:#55AF8B;">${{aircraft.marginAvgasAllIn}}</td>
                                        <td>
-                                        <i class="fa fa-trash-o deleteTierIcon" ng-click="deleteAircraft(aircraft.id)" aria-hidden="true"></i>
+                                        <i class="fa fa-trash-o deleteTierIcon" ng-if="!aircraft.global" ng-click="deleteAircraft(aircraft.id)" aria-hidden="true"></i>
                                        </td>
                                     </tr>
                                  </tbody>
