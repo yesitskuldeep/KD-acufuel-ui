@@ -188,6 +188,15 @@
                                  <div class="clearfix"></div>
                               </p>
                            </div>
+                           <div>
+                           <ui-select multiple class="form-control" ng-model="selected" name="name" ng-change="changeValue(selected)">
+                              <ui-select-match placeholder="Select or Search">{{$item.first}}</ui-select-match>
+                              <ui-select-choices repeat="val.first as val in values | filter: $select.search">
+                               {{val.first}}
+                               <!-- <div ng-bind-html="val | highlight: $select"></div> -->
+                              </ui-select-choices>
+                            </ui-select>
+                           </div>
                            </br>
                            <div class="new-address">
                            </div>
