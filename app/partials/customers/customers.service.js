@@ -164,11 +164,11 @@
             return deferred.promise;
          }
         
-        this.getCompanyName = function(parm) {
+        this.getCompanyName = function() {
             var deferred = $q.defer();
             $http({
                 method : 'GET',
-                url : BASE_URL.url +'/company/searchName?query='+parm,
+                url : BASE_URL.url +'/company/searchName',
                 headers : {'Content-Type': 'application/json'},
             })
             .then(function (result){
