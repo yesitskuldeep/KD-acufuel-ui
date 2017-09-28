@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-md-3">
                       <br>
-                      <input type="text" ng-model="order.airport" class="form-control" ng-blur="getFBO();">
+                      <input type="text" ng-model="order.airport" class="form-control" ng-blur="getFBOMarginList();">
                       <span style="font-size:10px">Formats: IATA, ICAO, City or Airport Name</span>
                     </div>
 
@@ -68,9 +68,9 @@
                     </div>
                     <div class="col-md-8 ">
                       <br>
-                      <select class="form-control" ng-model="order.priceQuote" ng-change="getTiers()" >
+                      <select class="form-control" ng-model="order.priceQuote" ng-change="getTiers(); setCost(order.priceQuote)" >
                         <option value="" selected disabled>Select FBO</option>
-                        <option ng-repeat="margin in fboList"  value="{{margin}}">${{margin.papTotal}} {{margin.productName}}: {{margin.companyName}}</option>
+                        <option ng-repeat="margin in marginList"  value="{{margin}}">${{margin.papTotal}} {{margin.productName}}: {{margin.companyName}}</option>
                       </select>
                     </div>
                     <div class="clearfix"></div>
@@ -116,7 +116,7 @@
                   <div class="customInputWrap text-right" ng-show="showQuote">
                     <div class="col-xs-12">
                       <br>
-                      <input type="cancel" value="Cancel" class="btn btn-default" style="margin-right: 15px; width: 100px;">
+                      <input type="cancel" value="Cancel" ng-click="cancelOrder()" class="btn btn-default" style="margin-right: 15px; width: 100px;">
                       <input type="submit" value="Dispatch" ng-click="dispatchFuel()" class="btn btn-primary">
                     </div>
                     <div class="clearfix"></div>

@@ -85,7 +85,10 @@ function enterFuelOrderController($scope, $rootScope, $uibModal, $filter, $http,
 			var obj =JSON.parse(cost);
 			$scope.order.fboCost = obj.cost;
 		}
-			
+	}
+
+	$scope.cancelOrder = function() {
+		$scope.order = {};
 	}
 	
 	$scope.dispatchFuel = function(){
