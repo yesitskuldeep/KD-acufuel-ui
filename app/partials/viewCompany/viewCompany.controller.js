@@ -12,12 +12,53 @@
         $scope.showLoader = false;
         $scope.showUpdateBtn = false;
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
+        $scope.selected = [];
 
         $(document).ready(function() {
             $("#reset").click(function() {
                 $("input").val("");
             });
         });
+
+        $scope.values = [
+          {'id': 1, 'first': 'Tenant/Base Customer'}, 
+          {'id': 2, 'first': 'FuelerLinx Customer'},
+          {'id': 3, 'first': 'CAA Member'}
+        ];
+
+        $scope.changeValue = function(selected){
+          $scope.showUpdateBtn = true;
+          console.log("data to be true", selected);
+          for (var i=0;i<selected.length;i++){
+            console.log(selected[i])
+            if(selected[i] == 'Tenant/Base Customer'){
+              $scope.companyData.baseTenant = true;
+            }else{
+              $scope.companyData.baseTenant = false;
+            }
+            if(selected[i] == 'FuelerLinx Customer'){
+              $scope.companyData.fuelerlinxCustomer = true;
+            }else{
+              $scope.companyData.fuelerlinxCustomer = false;
+            }
+
+            if(selected[i] == 'CAA Member'){
+              $scope.companyData.contractFuelVendor = true;
+            }else{
+              $scope.companyData.contractFuelVendor = false;
+            }
+
+            console.log($scope.companyData)
+            
+          }
+
+        }
+
+        // $scope.selected =[
+        //   {'id': 1, 'first': 'Tenant/Base Customer'}, 
+        //   {'id': 2, 'first': 'FuelerLinx Customer'},
+        //   {'id': 3, 'first': 'CAA Member'}
+        // ];
 
         // CustomersService.getMargin().then(function(result) {
         //   $scope.marginList = result;
@@ -35,12 +76,36 @@
           ViewCompanyService.getCompany(companyId).then(function(result) {
             $scope.companyData = result;
             $scope.isGlobal = result.global;
+            if(result.global == true){
+              $scope.companyData.global = true;
+            }
             if(result.margin != null){
                $scope.companyData.masterMargin = result.margin.id;
             }
             if(result.marginAVGAS != null){
                 $scope.companyData.avgasMargin = result.marginAVGAS.id;
              }
+             
+
+
+             if($scope.companyData.baseTenant){
+              
+              $scope.selected.push({'first': 'Tenant/Base Customer'})
+              console.log("$scope.selected",$scope.selected)
+
+             }
+
+             if($scope.companyData.fuelerlinxCustomer){
+              $scope.selected.push({'first': 'FuelerLinx Customer'})
+              console.log("$scope.selected",$scope.selected)
+             }
+
+             if($scope.companyData.contractFuelVendor){
+              $scope.selected.push({'first': 'CAA Member'})
+              console.log("$scope.selected",$scope.selected)
+             }
+
+             console.log("$scope.companyData",$scope.companyData)
             getAircraftList();
             $scope.showLoader = false;
           })
@@ -262,7 +327,7 @@
             + $scope.companyData.state + "&country=" + $scope.companyData.country + "&zipcode=" + $scope.companyData.zipcode + "&internalNote=" 
             + $scope.companyData.internalNote + "&certificateType=" + $scope.companyData.certificateType + "&baseTenant=" + $scope.companyData.baseTenant
             + "&fuelerlinxCustomer=" + $scope.companyData.fuelerlinxCustomer + "&contractFuelVendor=" + $scope.companyData.contractFuelVendor 
-            + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId;
+            + "&activate=" + $scope.companyData.activate + "&baseIcao=" + $scope.companyData.baseIcao + "&companyId=" + companyId + "&global=" + $scope.companyData.global;
 
           ViewCompanyService.updateCompany(companyData).then(function(result) {
             if(result != null && result.success){
