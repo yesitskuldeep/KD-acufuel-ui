@@ -13,6 +13,11 @@
         $scope.showUpdateBtn = false;
         $scope.userProfileId = JSON.parse(localStorage.getItem('userProfileId'));
         $scope.selected = [];
+        $scope.jetShow = [];
+        $scope.marginShow = [];
+
+        $scope.jetShow[0] = true;
+        $scope.marginShow[0] = true;
 
         $(document).ready(function() {
             $("#reset").click(function() {
@@ -615,6 +620,22 @@
           	  })
             }
       	  })
+        }
+
+       // $scope.aircraftData = {}
+        $scope.checkJetWithTail = function(tail, index){
+
+          console.log("tail==============",tail, index)
+          ViewCompanyService.checkJetType(tail).then(function(result) {
+            console.log("result",result)
+            if(result.jetA == "true"){
+              $scope.jetShow[index] = false;
+              $scope.marginShow[index] = true;
+            }else{
+              $scope.jetShow[index] = true;
+              $scope.marginShow[index] = false;
+            }
+          })
         }
         
   }]);

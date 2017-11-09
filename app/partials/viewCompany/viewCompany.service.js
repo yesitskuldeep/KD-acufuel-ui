@@ -212,7 +212,25 @@
           })
           return deferred.promise;
         }
+
+        this.checkJetType = function(tail) {
+
+          var deferred = $q.defer();
+          $http({
+              method : 'GET',
+              url : BASE_URL.url +'/flightDept/getFboData/'+tail+'/aircraft',
+              headers : {'Content-Type': 'application/json'},
+          })
+          .then(function (result){
+              deferred.resolve(result.data);
+          },function (result){
+              deferred.resolve(result.data);
+          })
+          return deferred.promise;
+        }
         
       }
+
+      
       
 })();

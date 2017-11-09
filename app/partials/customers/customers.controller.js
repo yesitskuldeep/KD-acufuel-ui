@@ -111,17 +111,17 @@
 		$scope.marginFilterOptions = [];
 		CustomersService.getJetMargin($scope.userProfileId).then(function(result) {
 			$scope.showLoader = true;
-		  $scope.jetMarginList = result;
-		  $scope.marginFilterOptions.push({
-		  	'id': '', 'title': 'Show All'
-		  });
-		  for (var i = 0; i < result.length; i++) {
-		  	$scope.marginFilterOptions.push({
-		  		'id': result[i].id,
-		  		'title': result[i].marginName
-		  	})
-		  }
-		  $scope.showLoader = false;
+			$scope.jetMarginList = result;
+			$scope.marginFilterOptions.push({
+				'id': '', 'title': 'Show All'
+			});
+			for (var i = 0; i < result.length; i++) {
+				$scope.marginFilterOptions.push({
+					'id': result[i].id,
+					'title': result[i].marginName
+				})
+			}
+		  	$scope.showLoader = false;
 		})
 
 		CustomersService.getAvgMargin($scope.userProfileId).then(function(result) {
