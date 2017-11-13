@@ -7,7 +7,7 @@
         
     function MainController($scope, $filter, $rootScope, $state) {
      
-    	
+    	$scope.currentUserName = JSON.parse(localStorage.getItem('currentUserName'));
     }
 })();
 

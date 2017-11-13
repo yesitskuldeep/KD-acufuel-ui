@@ -144,7 +144,7 @@
                             <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 80px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
-                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
+                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Inactive"></toggle>
                             </div>
 
                         </div>
@@ -210,7 +210,7 @@
                               <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
                            </div>
                            <div class="pull-right">
-                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
+                              <button type="button" ng-click="sendMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
                               <button type="button" class="btn btn-info" ui-sref="app.updateFuelManager">Setup Fuel</button>
                             </div>
                             <div class="clearfix"></div>
@@ -226,7 +226,7 @@
                             <input type="tel" ng-model="companyData.baseIcao" ng-click="base()" style="line-height: 18px;width: 80px;padding: 0px 9px;" />
                            
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
-                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
+                              <toggle ng-model="companyData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Inactive"></toggle>
                             </div>
 
                         </div>
@@ -322,7 +322,7 @@
                               <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
                            </div>
                            <div class="pull-right">
-                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
+                              <button type="button" ng-click="sendMail()" class="btn btn-primary">Distribute Price to Company Contacts</button>
                               <button type="button" class="btn btn-info" ui-sref="app.updateFuelManager">Setup Fuel</button>
                             </div>
                             <div class="clearfix"></div>
@@ -424,7 +424,7 @@
                         </div>
                         <div class="widget-content">
                            <div class="table-responsive">
-                              <table class="table table-striped" style="position: relative; top: -33px; margin-bottom: 0;">
+                              <table class="table table-striped" style="position: relative; margin-bottom: 0;">
                                  <thead>
                                     <tr>
                                        <th>Omit</th>

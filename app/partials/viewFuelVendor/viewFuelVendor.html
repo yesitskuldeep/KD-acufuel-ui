@@ -140,7 +140,7 @@
                            <i class="fa fa-building-o" aria-hidden="true"></i>
                            <h3>Vendor Details</h3>
                             <div class="pull-right" style="margin-top: 5px; margin-right: 10px;">
-                              <toggle ng-model="vendorData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Dactive"></toggle>
+                              <toggle ng-model="vendorData.activate" ng-change="changeCompanyStatus()" size="customToogle" on="Active" off="Inactive"></toggle>
                             </div>
                         </div>
                         <div class="widget-content">
@@ -205,7 +205,7 @@
                               <button ng-click="cancelData()" ng-show="showUpdateBtn" class="btn btn-default">Cancel</button>
                            </div>
                            <div class="pull-right">
-                              <button type="button" ng-click="openConfirmMail()" class="btn btn-primary">Distribute Price to Vendor Contacts</button>
+                              <button type="button" ng-click="sendMail()" class="btn btn-primary">Distribute Price to Vendor Contacts</button>
                             </div>
                             <div class="clearfix"></div>
                         </div>

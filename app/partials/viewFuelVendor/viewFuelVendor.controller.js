@@ -79,6 +79,7 @@
                 $('#contact-modal-3').modal('hide');
                 $scope.primayData.id = result.data;
                 $scope.sendPrimaryContact();
+                $scope.contactData.contactList = [];
                 $scope.data = {};
                 getContactList();
             }else{

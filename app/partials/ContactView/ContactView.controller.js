@@ -5,17 +5,17 @@
 
 	.controller('ContactViewController', ['$scope', '$uibModal', 'ContactViewService', 'ViewCompanyService', 'ViewcontactService', 'NgTableParams', function($scope, $uibModal, ContactViewService, ViewCompanyService, ViewcontactService, NgTableParams) {
         
-        $(document).ready(function() {
+       /* $(document).ready(function() {
           $scope.showLoader = true;
-            $('#contacts').DataTable();
+           // $('#contacts').DataTable();
             $scope.showLoader = false;
-        });
+        });*/
         
-        ContactViewService.getContacts().then(function(result) {
+       /* ContactViewService.getContacts().then(function(result) {
           $scope.showLoader = true;
         	$scope.contactList = result;
           $scope.showLoader = false;
-        })
+        })*/
 
         $scope.search = "";
         $scope.minlength = 2;
@@ -97,7 +97,7 @@
         ContactViewService.getCompanies().then(function(result) {
           $scope.showLoader = true;
         	$scope.companies = result;
-          $scope.showLoader = true;
+          $scope.showLoader = false;
           
         })
         

@@ -65,11 +65,17 @@
             var statusData = "status=" + $scope.contactDetail.priceEmail;
             ViewcontactService.changePriceEmail(id, statusData).then(function(result) {
                 if(result.success){
-                    $('#toogleMail').css('display', 'block');
+                    //$('#toogleMail').css('display', 'block');
                     if($scope.contactDetail.priceEmail == true){
-                        $scope.messageText = 'You have enabled price distribution for this contact';
+                    	toastr.success('You have enabled price distribution for this contact', {
+    	            		closeButton: true
+    	            	})
+                       // $scope.messageText = 'You have enabled price distribution for this contact';
                     }else{
-                        $scope.messageText = 'You have disabled price distribution for this contact';
+                    	toastr.success('You have disabled price distribution for this contact', {
+    	            		closeButton: true
+    	            	})
+                        //$scope.messageText = 'You have disabled price distribution for this contact';
                     }
                 }
             })

@@ -220,6 +220,25 @@
                   authorizedRoles: ["FBO"],
               }
             })
+            
+            .state("app.flightTracking", {
+              url: "/flightTracking",
+              templateUrl: "partials/flightTracking/flightTracking.html",
+              controller: "flightTrackingController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
+            })
+            
+            .state("app.taxes", {
+              url: "/taxes",
+              templateUrl: "partials/taxes/taxes.html",
+              controller: "taxesController",
+              data: {
+                  authorizedRoles: ["FBO"],
+              }
+            })
+            
             .state("app.signup", {
               url: "/signup",
               templateUrl: "partials/signup/signup.html",

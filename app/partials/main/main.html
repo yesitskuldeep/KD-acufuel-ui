@@ -16,12 +16,11 @@
             <li class="dropdown">
                <a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
                <i class="icon-plane"></i> 
-               Latitude Jet Center
+               {{currentUserName}}
                <b class="caret"></b>
                </a>
                <ul class="dropdown-menu">
                   <li ng-if="!isAuthenticated"><a href="javascript:;">My Profile</a></li>
-                  <li ng-if="isAuthenticated"><a href="javascript:;">FBO Profile</a></li>
                   <li ng-if="isAuthenticated"><a ui-sref="app.accountSetting">Account Settings</a></li>
                   <li class="divider"></li>
                   <li><a href="#" ng-click="logout();">Logout</a></li>
@@ -61,11 +60,11 @@
                      </li>
                      <li><a ui-sref="app.fuelManager" href="#/fuelManager">Ramp Free Manager</a></li>
                      <li class="dropdown-submenu">
-                        <a tabindex="-1" href="#">Tax Manager</a>
+                        <a tabindex="-1" >Tax Manager</a>
                         <ul class="dropdown-menu">
-                           <li><a tabindex="-1" href="#">Federal Taxes</a></li>
-                           <li><a href="#">State & Country Taxes</a></li>
-                           <li><a href="#">Airport Taxes</a></li>
+                           <li><a tabindex="-1" ui-sref="app.taxes">Federal Taxes</a></li>
+                           <li><a ui-sref="app.taxes">State & Country Taxes</a></li>
+                           <li><a ui-sref="app.taxes">Airport Taxes</a></li>
                         </ul>
                      </li>
                       <li ng-if="isAuthenticated">
@@ -78,14 +77,14 @@
                <li class="dropdown" ng-if="isAuthenticated">
                   <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-user"></i>
-                  <span>Customers</span>
+                  <span>Accounts</span>
                   <b class="caret"></b>
                   </a>      
                   <ul class="dropdown-menu">
                     <!--  <li><a  ui-sref="app.viewCompany">View Companies</a></li> -->
-                     <li><a  ui-sref="app.customers">View Contacts</a></li>
+                     <li><a  ui-sref="app.customers">View Customers</a></li>
                      <li><a  ui-sref="app.account">View Fuel Vendors</a></li>
-                     <li><a  ui-sref="app.analytics">Research Flight Dept</a></li>
+                     <li><a  ui-sref="app.analytics">Lookup Flight Dept</a></li>
                   </ul>
                </li>
                <li ng-if="isAuthenticated">
@@ -101,13 +100,18 @@
                   <b class="caret"></b>
                   </a>      
                   <ul class="dropdown-menu">
-                     <li><a href="#">Live Flight tracking</a></li>
-                     <li><a href="#">Research Flight Dept</a></li>
+                    <!--  <li><a href="#">Live Flight tracking</a></li> -->
                      <li><a href="#">Historical Fuel Prices</a></li>
                      <li><a href="#">Regional Pricing</a></li>
                      <li><a href="#">Actual vs. Canceled Fuelings</a></li>
                      <li><a href="#">Customer Lead Sources</a></li>
                   </ul>
+               </li>
+               <li ng-if="isAuthenticated">
+                  <a  ui-sref="app.flightTracking">
+                  <i class="fa fa-plane"></i>
+                  <span>Flight Tracking</span>
+                  </a>              
                </li>
                <li ng-if="!isAuthenticated">
                   <a ui-sref="app.flightDepDashboard">
