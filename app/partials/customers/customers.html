@@ -427,7 +427,7 @@
                                                     <input type="checkbox" ng-model="aircraftData.selected"/>
                                                 </td> -->
                                                 <td style="width: 15%">
-                                                    <input type="text" class="form-control" ng-model="aircraftData.tail" required/>
+                                                    <input type="text" class="form-control" ng-model="aircraftData.tail" ng-blur="checkJetWithTail(aircraftData.tail, $index)" required/>
                                                 </td>
                                                 <td style="width: 17%">
                                                     <select class="form-control" ng-model="aircraftData.make" ng-change="getModal(aircraftData.make, $index)">
@@ -442,22 +442,36 @@
                                                     </select>
                                                 </td>
                                                 <td style="width: 17%">
-                                                  <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList">
-                                                    <option value="" disabled>Select...</option>
+                                                  <select class="form-control" ng-model="aircraftData.sizeId">
+                                                      <option value="" disabled>Select</option>
+                                                      <option ng-repeat="size in aircraftData.aircraftSizeList" value="{{size.aircraftSize.id}}">{{size.aircraftSize.size}}</option>
                                                   </select>
+                                                  <!-- <select class="form-control" ng-model="aircraftData.sizeId" ng-options="size.aircraftSize.id as size.aircraftSize.size for size in aircraftData.aircraftSizeList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select> -->
                                                     <!-- <select class="form-control" ng-model="aircraftData.size">
                                                       <option ng-repeat="size in aircraftData.aircraftSizeList">{{size}}</option>
                                                     </select> -->
                                                 </td>
                                                 <td style="width: 17%">
-                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-options="margin.id as margin.marginName for margin in jetMarginList">
-                                                    <option value="" disabled>Select...</option>
+                                                  <select class="form-control" ng-model="aircraftData.marginId" ng-disabled="jetShow[$index]">
+                                                      <option value="" disabled>Select</option>
+                                                      <option ng-repeat="margin in jetMarginList" value="{{margin.id}}">{{margin.marginName}}</option>
                                                   </select>
+
+                                                 <!--  <select class="form-control" ng-model="aircraftData.marginId" ng-disabled="jetShow[$index]" ng-options="margin.id as margin.marginName for margin in jetMarginList">
+                                                    <option value="" disabled>Select...</option>
+                                                  </select> -->
                                                 </td>
                                                 <td style="width: 17%">
+                                                  <select class="form-control" ng-model="aircraftData.avgasMarginId" ng-disabled="marginShow[$index]">
+                                                      <option value="" disabled>Select</option>
+                                                      <option ng-repeat="avgs in avgsMarginList" value="{{avgs.id}}">{{avgs.marginName}}</option>
+                                                  </select>
+                                                <!--   
                                                  <select class="form-control marginSelectBox" ng-model="aircraftData.avgasMarginId" ng-options="avgs.id as avgs.marginName for avgs in avgsMarginList">
                                                     <option value="" disabled>Select...</option>
-                                                  </select>
+                                                  </select> -->
                                                 </td>
                                             </tr>
                                           </tbody>
