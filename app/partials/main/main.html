@@ -62,14 +62,14 @@
                      <li class="dropdown-submenu">
                         <a tabindex="-1" >Tax Manager</a>
                         <ul class="dropdown-menu">
-                           <li><a tabindex="-1" ui-sref="app.taxes">Federal Taxes</a></li>
-                           <li><a ui-sref="app.taxes">State & Country Taxes</a></li>
-                           <li><a ui-sref="app.taxes">Airport Taxes</a></li>
+                           <li><a tabindex="-1" ui-sref="app.taxes" href="#/taxes">Federal Taxes</a></li>
+                           <li><a ui-sref="app.taxes" href="#/taxes">State & Country Taxes</a></li>
+                           <li><a ui-sref="app.taxes" href="#/taxes">Airport Taxes</a></li>
                         </ul>
                      </li>
                       <li ng-if="isAuthenticated">
-                          <a ui-sref="app.fuelOrders">
-                          <span>Fuel Orders</span>
+                          <a ui-sref="app.fuelOrders" href="#/fuelOrders">
+                          Fuel Orders
                           </a>              
                       </li>
                   </ul>
@@ -108,7 +108,7 @@
                   </ul>
                </li>
                <li ng-if="isAuthenticated">
-                  <a  ui-sref="app.flightTracking">
+                  <a  ui-sref="app.flightTracking()" ng-click="reloadPage()" data-ui-sref-opts="{reload:false}"  >
                   <i class="fa fa-plane"></i>
                   <span>Flight Tracking</span>
                   </a>              
