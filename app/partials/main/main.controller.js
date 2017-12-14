@@ -10,6 +10,8 @@
     	$scope.currentUserName = JSON.parse(localStorage.getItem('currentUserName'));
     	console.log("$state====",$state)
 
+// Flight Tracking page code
+
     	$scope.reloadPage = function(){
     		console.log("if",$state)
             console.log("=========state name",$state.current.name);
@@ -17,7 +19,7 @@
     		//$state.go($state.current, {}, {reload: true});
     		
             if($state.current.name != "app.flightTracking"){
-                $window.location.href = '/#!/flightTracking';
+                $window.location.href = '/flightTracking';
                 setInterval(function(){
                     console.log("come")
                     $window.location.reload()
@@ -28,6 +30,6 @@
             }
     	}
     }
+
 })();
-//
-//
+
