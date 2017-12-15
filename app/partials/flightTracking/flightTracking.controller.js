@@ -3,7 +3,7 @@
 angular.module('acufuel')
 
 .controller('flightTrackingController', ['$scope','$compile', 'uiCalendarConfig', 'flightTrackingService', function($scope, $compile, uiCalendarConfig, flightTrackingService) {
-	
+	$scope.flightInfo = {};
 	var map;
 	var icon = "https://en.spitogatos.gr/visualCaptcha/images/airplane.png";
 	var json = "http://34.214.139.94:8080/ws/liveTracking";
@@ -54,19 +54,34 @@ angular.module('acufuel')
 				            details : details
 				        });
 				        
-				        bindInfoWindow(marker, map, infowindow, details);
+				        bindInfoWindow(marker, map, infowindow, details, data);
 				  	  }
 			      });
 			});
 		},5000);
 	}
 
-	 function bindInfoWindow(marker, map, infowindow, strDescription) {
+	 function bindInfoWindow(marker, map, infowindow, strDescription, data) {
          google.maps.event.addListener(marker, 'click', function() {
-             infowindow.setContent(strDescription);
-             infowindow.open(map, marker);
+        	 $scope.flightInfo = data;
+             //infowindow.setContent(strDescription);
+             //infowindow.open(map, marker);
+             $scope.flightInfo = data;
+             $('#flightid').html($scope.flightInfo.id);
+             $('#depid').html($scope.flightInfo.departurePoint);
+             $('#arrid').html($scope.flightInfo.arrivalPoint);
+             $('#altid').html($scope.flightInfo.altitude);
+             $('#speedid').html($scope.flightInfo.speed);
+             $('#deptimeid').html($scope.flightInfo.departureActualTime);
+             $('#arrtimeid').html($scope.flightInfo.arrivalEstimatedTime);
+             
+             $('.left-panel').animate({width: '300px', padding: '10px'});
          });
      }
+	 
+	 $('.close-left-panel').click(function(){
+		 $('.left-panel').animate({width: '0', padding: '0'});
+	 })
 	 
 	 google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
 	 

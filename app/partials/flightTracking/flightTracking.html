@@ -75,6 +75,22 @@
    .button1.turquoise {
      background: #449d44;
    }
+   
+   /** style for popup sidebar **/
+.left-panel{
+	width: 0;
+	height: 100%;
+	position: absolute;
+	top: 1;
+	background-color: White;
+	overflow-x: hidden;
+	left: 2px;
+    padding: 0;
+    border-radius: 4px 0 0 4px;
+}
+.left-panel table th, td{
+	padding: 10px 0;
+}
 </style>
     
    
@@ -87,6 +103,36 @@
             <div class="widget stacked ">
                <div class="widget-content" style="min-height: 500px">
                   <div id="map" style="border: 2px solid #3872ac;"></div>
+               		<div class="left-panel">
+					<span class="close-left-panel" style="float:right;"><img src="img/back.png"/></span>
+					<br><br><br><br>
+				 	<h1>Aircraft </h1>
+				 	<h2><p id="flightid"></p></h2>
+				  	<table class="table-responsive table-striped" style="border-collapse: separate;border-spacing: 2px 2px;">
+					   	<tbody>
+						   	<tr>
+							<td>Path: </td>
+							<td class="text-nowrap"><strong><span id="depid"/>&nbsp;&nbsp; <span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp; <span id="arrid"/></strong></td>
+							</tr>
+							<tr>
+							<td>Altitude: </td>
+							<td class="text-nowrap"><strong><span id="altid"/>&nbsp;&nbsp; ft </strong></td>
+							</tr>
+							<tr>
+							<td>Speed: </td>
+							<td class="text-nowrap"><strong><span id="speedid"/> &nbsp;&nbsp;Knots</strong></td>
+							</tr>
+							<tr>
+							<td>Departure Time : </td>
+							<td><strong><span id="deptimeid"/><span class="text-muted">(Actual)</span></strong></td>
+							</tr>
+							<tr>
+							<td>Arrival Time : </td>
+							<td><strong><span id="arrtimeid"/><span class="text-muted">(Estimated)</span></strong></td>
+							</tr>
+						</tbody>
+				  </table>
+				</div>
                   
                <!-- /widget-content -->
             </div>
