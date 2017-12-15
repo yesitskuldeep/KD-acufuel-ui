@@ -8,7 +8,6 @@
     function MainController($scope, $filter, $rootScope,$state, $window) {
      
     	$scope.currentUserName = JSON.parse(localStorage.getItem('currentUserName'));
-    	console.log("$state====",$state)
 
 // Flight Tracking page code
 
