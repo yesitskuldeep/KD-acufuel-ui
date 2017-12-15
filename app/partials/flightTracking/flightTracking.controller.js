@@ -10,9 +10,8 @@ angular.module('acufuel')
 	var arr = [];
 	var infowindow = new google.maps.InfoWindow();
 
-	init();
-	function initialize() {
-	var mapProp = {
+	$scope.initialise = function() {
+		var mapProp = {
 	        center: new google.maps.LatLng(36.778259, -98.417931), //LLANDRINDOD WELLS
 	        zoom: 4,
 	        mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -69,10 +68,7 @@ angular.module('acufuel')
          });
      }
 	 
-	 function init(){
-		 console.log('aaaaaa')
-		 google.maps.event.addDomListener(window, 'load', initialize);
-	 }
+	 google.maps.event.addDomListener(document.getElementById("map"), 'load', $scope.initialise());
 	 
 	 
          
