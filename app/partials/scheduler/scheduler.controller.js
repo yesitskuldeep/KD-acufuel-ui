@@ -4,12 +4,16 @@ angular.module('acufuel')
 
 .controller('schedulerController', ['$scope','$compile', 'uiCalendarConfig', 'schedulerService', function($scope, $compile, uiCalendarConfig, schedulerService) {
 
+    
   $scope.showLoader = true;
-  getEventsList();
-
+   getEventsList();
+  
+  /*---get events on calendar---*/
   $scope.events = [];
   function getEventsList(){
     schedulerService.getEvents().then(function(result) {
+    	//console.log('----kd events-------',result);
+    	
       for (var i = 0; i < result.length; i++) {
         var newTime = new Date(result[i].deployDate);
         var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
@@ -18,15 +22,24 @@ angular.module('acufuel')
 
         $scope.events.push({
           'id': result[i].id,
-          'title': result[i].aircraft,
+          'title': result[i].aircraft +',\n' + result[i].make +'/' + result[i].model +',\n' + result[i].requestedVolume +',' +result[i].priceQuote,
           'start': dyear+'-'+dmonth+'-'+dday
         })
-        $scope.showLoader = false;
-      }
+      //  $scope.showEventsList();
+        console.log('==kd events after push===', $scope.events)
+         $scope.showLoader = false;
+        
+     }
+      $('#my-calendar').fullCalendar('removeEvents');
+     $('#my-calendar').fullCalendar('addEventSource',$scope.events);
+    // $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+    
+       // console.log('==eventSource are====',$scope.eventSources);      
+    // $scope.newFuelPricing[i].futureFuelPricing.deployDate = dmonth+'/'+dday+'/'+dyear;
+   })
+}
 
-     // $scope.newFuelPricing[i].futureFuelPricing.deployDate = dmonth+'/'+dday+'/'+dyear;
-    })
-  }
+
 
   $scope.newEvent = {};
   $scope.addNewEvent = function(){
@@ -210,11 +223,15 @@ $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
   $scope.addEvent = function(index) {
     //console.log('INDEX', index);
     //console.log('EVENTS', $scope.eventSources);
-    //$scope.events.push($scope.eventList[index]);
+    // $scope.events.push($scope.eventList[index]);
   }
-
-  $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-  $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-
+ 
+  /*$scope.showEventsList = function(){
+    console.log('testing', $scope.eventsF);
+    
+  };*/
+   $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+    
+    $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
 }]);
 

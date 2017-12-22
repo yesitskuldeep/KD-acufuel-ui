@@ -19,7 +19,7 @@
     		$state.reload();
     	}
 
-          $scope.marginList = {}
+          $scope.marginList = {};
              dashboardService.getMargin().then(function(result) {
                 $scope.marginList = result;
                 console.log("Margin result", result)
@@ -193,5 +193,36 @@
 //        		}
 //        	})*/
 //        }
+        
+        $scope.completeOrderCount = '';
+        $scope.pendingOrderCount= '';
+
+         dashboardService.getFuelordercount().then(function(result) {
+             if(result[0].label=='Completed' && result[1].label=='Pending'){
+                $scope.completeOrderCount=result[0].value;
+                $scope.pendingOrderCount=result[1].value;
+             }
+                            
+            console.log("=========Order counts========", result[0].label);
+            console.log("=========Order counts========", result[0].value);
+            console.log("=========Order counts========", result[1].label);
+            console.log("=========Order counts========", result[1].value); 
+        })
+
+        
+        $scope.pendingMessageRecord=[];
+         dashboardService.getPendingMessage().then(function(result) {
+             $scope.pendingMessageRecord=result;
+
+            console.log('=======message====',result);
+         })
+
+
+
+
+
+
+
+
     }
 })();

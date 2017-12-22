@@ -79,44 +79,48 @@
    <div class="container">
       <div class="row">
          <div class="col-xs-12">
-            <div class="col-xs-12 col-md-3">
-               <div class="widget stacked">
+            <div class="col-xs-12 col-md-1">
+                <!--<div class="widget stacked">
                   <div class="widget-header">
                      <i class="fa fa-plane" aria-hidden="true"></i>
                      <h3>Enter Support Service</h3>
                   </div>
                   <div class="widget-content">
                      <label ng-repeat="item in events" ng-click="editEvent(item)" style="width: 100%;">
-                        <!-- <div class="fc-event" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
+                        <div class="fc-event" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true}">
                            {{item.title}}
-                        </div> -->
+                        </div>
                         <div class="fc-event">
                            {{item.title}}
                         </div>
                      </label>
-                     <!-- <p>
+                     <p>
                         <input type='checkbox' id='drop-remove' />
                         <label for='drop-remove'>remove after drop</label>
-                     </p> -->
+                     </p>
                   </div>
                </div>
                <div class="text-right">
                   <button class="btn btn-default btn-white" data-toggle="modal" data-target="#addEvent">Add Event</button>
-               </div>
+               </div> -->
             </div>
 
-            <div class="col-xs-12 col-md-9">
+            <div class="col-xs-12 col-md-10">
                <div class="widget stacked">
                   <div class="widget-header">
                      <i class="fa fa-calendar" aria-hidden="true"></i>
-                     <h3>Schedule</h3>
+                     <h3>Schedule kd</h3>
                   </div>
                   <div class="widget-content">
-                     <div ui-calendar="uiConfig.calendar" ng-model="eventSources" data-drop="true"></div>
+                     <div id="my-calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" data-drop="true"></div>
+
+
                   </div>
                </div>
             </div>
             <div style='clear:both'></div>
+			<div class="col-xs-12 col-md-1">
+			</div>
 
             <!-- <div ui-calendar="uiConfig.calendar" ng-model="eventSources" class="col-xs-12 col-md-9" data-drop="true" jqyoui-droppable="{multiple:true, onDrop: 'addEvent($index)'}"></div> -->
 

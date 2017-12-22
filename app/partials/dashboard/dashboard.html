@@ -3,7 +3,19 @@
       color: #ff9900;
    }
 </style>
-
+<!-- <style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style> -->
 
 <div class="main">
    <div class="container" ng-if="isAuthenticated">
@@ -19,7 +31,7 @@
                         <div>
                            <div class="col-xs-12">
                               <span class="pull-left">Completed</span>
-                              <button class="btn btn-success btn-xs pull-right">
+                              <button class="btn btn-success btn-xs pull-right" style="cursor: default">
                               <span style="font-size:9px;">Monthly</span>
                               </button>
                               <div class="clearfix"></div>
@@ -28,7 +40,7 @@
                         </div>
                         <hr class="hr">
                         <div class="col-xs-12">
-                           <h2 style="margin-bottom: 0px;">280</h2>
+                           <h2 style="margin-bottom: 0px;">{{completeOrderCount}}</h2>
                            <span>Fuel Orders</span>
                         </div>
                         <div class="clearfix"></div>
@@ -42,7 +54,7 @@
                         <div>
                            <div class="col-xs-12">
                               <span class="pull-left">Pending</span>
-                              <button class="btn btn-success btn-xs pull-right pull-right-color ">
+                              <button class="btn btn-success btn-xs pull-right pull-right-color " style="cursor: default">
                               <span style="font-size:9px;">Monthly</span>
                               </button>
                               <div class="clearfix"></div>
@@ -51,7 +63,7 @@
                         </div>
                         <hr class="hr">
                         <div class="col-xs-12">
-                           <h2 style="margin-bottom: 0px;">280</h2>
+                           <h2 style="margin-bottom: 0px;">{{pendingOrderCount}}</h2>
                            <span>Fuel Orders</span>
                         </div>
                         <div class="clearfix"></div>
@@ -66,7 +78,7 @@
                         <div>
                            <div class="col-xs-12">
                               <span class="pull-left">Activity: Airport Operations</span>
-                              <button class="btn btn-primary btn-xs pull-right">
+                              <button class="btn btn-primary btn-xs pull-right" style="cursor: default">
                               <span style="font-size:9px;">Monthly</span>
                               </button>
                               <div class="clearfix"></div>
@@ -198,7 +210,13 @@
                <div class="widget-content">
                   <h4 style="padding:10px">Messages</h4>
                   <hr class="hr">
-                  <ul class="news-items">
+                  <table>
+                    <tr ng-repeat="msg in pendingMessageRecord">
+                       
+                      <td>Fuel Order is Pending for the company {{ msg[5] }} </td> 
+                    </tr>
+                  </table>
+                                    <!-- <ul class="news-items">
                      <li>
                         <div class="news-item-detail">
                            <a href="javascript:;" class="news-item-title">Duis aute irure dolor in reprehenderit</a>
@@ -219,7 +237,7 @@
                            <span class="news-item-month">Mar</span>
                         </div>
                      </li>
-                  </ul>
+                  </ul> -->
                </div>
                <!-- /widget-content -->
             </div>
