@@ -20,43 +20,55 @@
 	    });
     })
 
+
+    $scope.drf = {};
     $scope.mfsValues = [];
+    $scope.msfarray=[];
     $scope.getMFS = function(){
     	//var makeId = makeId;
     	analyticsService.getMFS().then(function(result) {
 		$scope.mfsValues = result;
-		console.log("mfs data --- ",$scope.mfsValues)
-         //$scope.optionsmfs = {
-        //                             chart: {
-        //                                 type: 'discreteBarChart',
-        //                                 height: 450,
-        //                                 margin : {
-        //                                     top: 20,
-        //                                     right: 20,
-        //                                     bottom: 60,
-        //                                     left: 55,
-        //                                 },
-        //                                 x: function(d){ return d.label; },
-        //                                 y: function(d){ return d.value; },
-        //                                 showValues: false,
-        //                                 valueFormat: function(d){
-        //                                     return d3.format(',.4f')(d);
-        //                                 },
-        //                                 transitionDuration: 500,
-        //                                 xAxis: {
-        //                                     axisLabel: 'X Axis'
-        //                                 },
-        //                                 yAxis: {
-        //                                     axisLabel: 'Y Axis',
-        //                                     axisLabelDistance: 30
-        //                                 }
-        //                             }
-        //                         };
+        
+		//console.log("msf length",$scope.mfsValues.length);
+        //console.log("mfs data kd--- ",$scope.mfsValues)
 
-        //         $scope.datamfs = [{
-        //                             key: "Cumulative Return",
-        //                             values: $scope.mfsValues
-        //                             }]
+        //console.log("==msf data key==",$scope.mfsValues[0].key);
+       // console.log("==msf data values==",$scope.mfsValues[0].values);
+       // console.log("==x===",$scope.mfsValues[0].values[0].x);
+        //console.log("==y===",$scope.mfsValues[0].values[0].y);
+       // console.log("==x===",$scope.mfsValues[0].values[1].x);
+       // console.log("==y===",$scope.mfsValues[0].values[1].y);
+        /* $scope.optionsmfs = {
+                                    chart: {
+                                        type: 'discreteBarChart',
+                                        height: 450,
+                                        margin : {
+                                            top: 20,
+                                            right: 20,
+                                            bottom: 60,
+                                            left: 55,
+                                        },
+                                        x: function(d){ return d.label; },
+                                        y: function(d){ return d.value; },
+                                        showValues: false,
+                                        valueFormat: function(d){
+                                            return d3.format(',.4f')(d);
+                                        },
+                                        transitionDuration: 500,
+                                        xAxis: {
+                                            axisLabel: 'X Axis'
+                                        },
+                                        yAxis: {
+                                            axisLabel: 'Y Axis',
+                                            axisLabelDistance: 30
+                                        }
+                                    }
+                                };
+
+                $scope.datamfs = [{
+                                    key: "Cumulative Return",
+                                    values: $scope.mfsValues
+                                    }]  */
                     
         $scope.optionsmfs = {
             chart: {
@@ -86,8 +98,29 @@
                 }
             }
         };
+       
+        
+            //console.log("==length 1==",$scope.mfsValues);
 
-        $scope.datamfs = [{
+            for (var i = 0; i < $scope.mfsValues.length; i++) {
+                for(var j=0;j<$scope.mfsValues[i].values.length;j++){
+
+                    $scope.msfarray.push({
+                                            "key":$scope.mfsValues[i].key,
+                                            "values": [{
+                                                "x":$scope.mfsValues[i].values[j].x,
+                                                "y":$scope.mfsValues[i].values[j].y 
+                                            }]
+                                     })
+                }
+              
+
+            }
+      //  console.log("new values===",$scope.msfarray);
+        $scope.datamfs=$scope.msfarray;
+
+
+        /*$scope.datamfs = [{
             "key": "Pending",
             "values": [{
                 "x": "Jan",
@@ -244,16 +277,20 @@
                 "y": 1.5096133160633776
             }]
         }]
+        */
      })
 }
 
-	$scope.getMFS();
+
+ 
+	
+    $scope.getMFS();
 	$scope.csValues = [];
     $scope.getCS = function(){
     	//var makeId = makeId;
     	analyticsService.getCS().then(function(result) {
 	    	$scope.csValues = result;
-	        console.log("cs data --- ",$scope.csValues)
+	        //console.log("cs data kd --- ",$scope.csValues)
 	        $scope.optionscs = {
 		        chart: {
 		            type: 'pieChart',
@@ -329,6 +366,71 @@
 	        ,
 	        mean: 250
 	    }];
+      
+         /*Date Range Filter*/
+        $scope.submitDate = function(){
+           /*if($scope.drf == undefined || $scope.drf.fromDate == undefined || $scope.drf.fromDate === '' || $scope.drf.fromDate === null){
+                toastr.error('Please select from date', {
+                    closeButton: true
+                });*/
+                       //$scope.drf === undefined || || $scope.drf.fromDate === ''
+             if ($scope.drf.fromDate === undefined) {
+                
+                   // console.log("==frmdate====",$scope.drf.fromDate);
+                    //console.log("==toDate====",$scope.drf.toDate);
+                    $scope.fillForm = true;
+            }  
+            else if($scope.drf.fromDate != undefined && $scope.drf.toDate === undefined || $scope.drf.toDate ===''){
+                    $scope.fillForm = false;
+                    var today= new Date();
+                    var DefaultToDate= today.getFullYear()+'-'+("0" + (today.getMonth() + 1)).slice(-2)+'-'+("0" + today.getDate()).slice(-2);
+                    //from date format                  
+                    $scope.dat1 = $scope.drf.fromDate;
+                    $scope.fd1 = $scope.dat1.split("/").reverse();
+                    $scope.tmp = $scope.fd1[2];
+                    $scope.fd1[2] = $scope.fd1[1];
+                    $scope.fd1[1] = $scope.tmp;
+                    $scope.fd = $scope.fd1.join("-");
+                   // console.log("===fd====",$scope.fd); 
+                    //console.log("----td curr---",DefaultToDate);
+                    analyticsService.getDRFChart($scope.fd,DefaultToDate).then(function(result) {
+                         //console.log("==date received==",$scope.fd);
+                         //console.log("----to date receivedcurrent---",DefaultToDate)
+                         $scope.datamfs = result;
+                     })
+
+
+            } else if($scope.drf.fromDate != undefined  && $scope.drf.toDate != undefined ){
+                    $scope.fillForm = false;
+                    //from date format
+                    $scope.dat1 = $scope.drf.fromDate;
+                    $scope.fd1 = $scope.dat1.split("/").reverse();
+                    $scope.tmp = $scope.fd1[2];
+                    $scope.fd1[2] = $scope.fd1[1];
+                    $scope.fd1[1] = $scope.tmp;
+                    $scope.fd = $scope.fd1.join("-");
+                    //to date format
+                    $scope.dat2 = $scope.drf.toDate;
+                    $scope.td1 = $scope.dat2.split("/").reverse();
+                    $scope.tmp1 = $scope.td1[2];
+                    $scope.td1[2] = $scope.td1[1];
+                    $scope.td1[1] = $scope.tmp1;
+                    $scope.td = $scope.td1.join("-");
+                   
+                    analyticsService.getDRFChart($scope.fd,$scope.td).then(function(result) {
+                        // console.log("==date received==",$scope.fd);
+                         //console.log("----to date received---",$scope.td)
+                         $scope.datamfs = result;
+                     })
+                
+            }else
+                {
+                    $scope.fillForm = true;
+            }
+            
+           
+        }
+
     }]);
 
 

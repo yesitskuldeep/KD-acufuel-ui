@@ -371,7 +371,7 @@
   .run(['$rootScope', '$state', 'LoginService', 'AUTH_EVENTS', function($rootScope, $state, LoginService, AUTH_EVENTS) {
       $rootScope.$on('$stateChangeStart', function (event, next, nextParams, fromState) {
           $rootScope.currentUser = JSON.parse(window.localStorage.getItem('currentUser'));
-
+         // console.log("nextParams",nextParams)
           LoginService.isAuthorized = function (authorizedRoles) {
               if (!angular.isArray(authorizedRoles)) {
                   authorizedRoles = [authorizedRoles];

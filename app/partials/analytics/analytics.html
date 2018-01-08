@@ -14,45 +14,84 @@
    .subnavbar .mainnav > li:nth-child(3) > a{
    color: #ff9900;
    }
+   .table {
+   border-collapse: separate;
+   padding: 0px;
+    
+   }
+
+   
 
    
 </style>
 <div class="main">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Monthly Fuel Sales</h3>
+   <div class="customInputWrap">
+   
+      <div class="col-md-12" >
+         <!--    <table>
+               <tr><label>Date Range Filter</label></tr>
+               <tr>
+                  <td><input type="text" ng-model="drf.fromDate" datepicker class="form-control" placeholder="From" style="width: 150px" required /></td>
+                   <td width="1"></td>
+                  <td><input type="text" ng-model="drf.toDate" datepicker class="form-control" placeholder="To" style="width: 150px"></td>
+                  <td>
+                     <input type="button" value="Apply" ng-click="submitDate()">
+                  </td>
+             </tr>
+             </table>
+           -->
+                <label>Date Range Filter</label>
+          <form name="myForm">
+                <input  type="text" ng-model="drf.fromDate" datepicker class="form-control" placeholder="From Date" required ng-required="true" style="width: 150px; float: left; margin-right: 15px;"/>
+                
+                <input type="text" ng-model="drf.toDate" datepicker class="form-control" placeholder="To Date" style="width: 150px; float: left; margin-right: 15px;">
+
+                <button class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="submitDate()" style="float: left; display: none;">Apply</button>
+
+                <button class="btn btn-primary" ng-click="submitDate()" style="float: left;">Apply</button>
+                <!--<label ng-if="fillForm">Swarn Singh</label> -->
+                <div class="clearfix"></div>
+         </form>
+       </div>  
+       <div class="clearfix"></div> 
+   </div>    
+   
+   
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6">
+               <div class="widget stacked">
+                  <div class="widget-header">
+                     <i class="icon-bar-chart"></i>
+                     <h3>Monthly Fuel Sales</h3>
+                  </div>
+                  <!-- /widget-header -->
+                  <div class="widget-content">
+                     <nvd3 options="optionsmfs" data="datamfs"></nvd3>
+                     <!-- /bar-chart -->
+                  </div>
+                  <!-- /widget-content -->
                </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <nvd3 options="optionsmfs" data="datamfs"></nvd3>
-                  <!-- /bar-chart -->
-               </div>
-               <!-- /widget-content -->
+               <!-- /widget -->     
             </div>
-            <!-- /widget -->     
-         </div>
-         <!-- /.span6 -->
-         <div class="col-md-6">
-            <div class="widget stacked">
-               <div class="widget-header">
-                  <i class="icon-bar-chart"></i>
-                  <h3>Historic Fuel Pricing</h3>
+            <!-- /.span6 -->
+            <div class="col-md-6">
+               <div class="widget stacked">
+                  <div class="widget-header">
+                     <i class="icon-bar-chart"></i>
+                     <h3>Historic Fuel Pricing</h3>
+                  </div>
+                  <!-- /widget-header -->
+                  <div class="widget-content">
+                     <nvd3 options="optionshfp" data="datahfp"></nvd3>
+                     <!-- /pie-chart -->
+                  </div>
+                  <!-- /widget-content -->
                </div>
-               <!-- /widget-header -->
-               <div class="widget-content">
-                  <nvd3 options="optionshfp" data="datahfp"></nvd3>
-                  <!-- /pie-chart -->
-               </div>
-               <!-- /widget-content -->
+               <!-- /widget -->        
             </div>
-            <!-- /widget -->        
+            <!-- /span6 -->
          </div>
-         <!-- /span6 -->
-      </div>
 
 
       <div class="row">

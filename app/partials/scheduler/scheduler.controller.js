@@ -13,7 +13,8 @@ angular.module('acufuel')
   function getEventsList(){
     schedulerService.getEvents().then(function(result) {
     	//console.log('----kd events-------',result);
-    	
+    	//console.log("==length===",result.length);
+      
       for (var i = 0; i < result.length; i++) {
         var newTime = new Date(result[i].deployDate);
         var dmonth = newTime.getUTCMonth() + 1; //months from 1-12
@@ -26,10 +27,11 @@ angular.module('acufuel')
           'start': dyear+'-'+dmonth+'-'+dday
         })
       //  $scope.showEventsList();
-        console.log('==kd events after push===', $scope.events)
+       // console.log('==kd events after push===', $scope.events)
          $scope.showLoader = false;
         
      }
+ 
       $('#my-calendar').fullCalendar('removeEvents');
      $('#my-calendar').fullCalendar('addEventSource',$scope.events);
     // $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
@@ -43,7 +45,7 @@ angular.module('acufuel')
 
   $scope.newEvent = {};
   $scope.addNewEvent = function(){
-    console.log('newEvent', $scope.newEvent);
+    //console.log('newEvent', $scope.newEvent);
     $scope.showLoader = true;
     if ($scope.newEvent.deployDate != undefined) {
       $scope.newEvent.deployDate = new Date($scope.newEvent.deployDate);
@@ -78,7 +80,7 @@ angular.module('acufuel')
       $scope.updatedData.deployDate = $scope.updatedData.deployDate.getTime();
     }
     schedulerService.updateScheduledEvent($scope.updatedData).then(function(response){
-      console.log('response', response);
+      //console.log('response', response);
       $scope.updatedData = {};
       $('#editEvent').modal('hide');
       toastr.success('Updated Successfully', {
@@ -123,11 +125,11 @@ $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
       var dmonth = event.start._d.getUTCMonth() + 1; //months from 1-12
       var dday = event.start._d.getUTCDate();
       var dyear = event.start._d.getUTCFullYear();
-      console.log('date', dyear+'-'+dmonth+'-'+dday);
+      //console.log('date', dyear+'-'+dmonth+'-'+dday);
       for (var i = 0; i < $scope.events.length; i++) {
         if ($scope.events[i].id == event.id) {
 
-          console.log('events', $scope.events[i]);
+          //console.log('events', $scope.events[i]);
           //$scope.events[i].start = dyear+'-'+dmonth+'-'+dday;
           $scope.showLoader = true;
           $scope.updatedDataDrop = {};
@@ -139,7 +141,7 @@ $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
             $scope.updatedDataDrop.deployDate = $scope.updatedDataDrop.deployDate.getTime();
           }
           schedulerService.updateScheduledEvent($scope.updatedDataDrop).then(function(response){
-            console.log('response', response);
+           // console.log('response', response);
             $scope.updatedDataDrop = {};
             $('#editEvent').modal('hide');
             toastr.success('Updated Successfully', {
@@ -151,7 +153,7 @@ $scope.alertOnDrop = function(event, delta, revertFunc, jsEvent, ui, view){
 
         }
       }
-      console.log('$scope.events new', $scope.events);
+      //console.log('$scope.events new', $scope.events);
       $scope.alertMessage = ('Event Droped to make dayDelta ' + delta);
     };
     
