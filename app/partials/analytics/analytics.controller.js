@@ -366,7 +366,9 @@
 	        ,
 	        mean: 250
 	    }];
-      
+        //console.log("--datahfp---",$scope.datahfp);
+
+
          /*Date Range Filter*/
         $scope.submitDate = function(){
            /*if($scope.drf == undefined || $scope.drf.fromDate == undefined || $scope.drf.fromDate === '' || $scope.drf.fromDate === null){

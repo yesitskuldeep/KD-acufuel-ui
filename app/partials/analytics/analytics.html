@@ -25,9 +25,10 @@
    
 </style>
 <div class="main">
+    <div style="padding: 0 3%; margin-left: 15px;">
    <div class="customInputWrap">
    
-      <div class="col-md-12" >
+      <div style="margin-left: -15px;">
          <!--    <table>
                <tr><label>Date Range Filter</label></tr>
                <tr>
@@ -42,9 +43,9 @@
            -->
                 <label>Date Range Filter</label>
           <form name="myForm">
-                <input  type="text" ng-model="drf.fromDate" datepicker class="form-control" placeholder="From Date" required ng-required="true" style="width: 150px; float: left; margin-right: 15px;"/>
+                <input  type="text" ng-model="drf.fromDate" datepicker class="form-control" placeholder="From Date" required ng-required="true" style="width: 120px; float: left; margin-right: 15px;"/>
                 
-                <input type="text" ng-model="drf.toDate" datepicker class="form-control" placeholder="To Date" style="width: 150px; float: left; margin-right: 15px;">
+                <input type="text" ng-model="drf.toDate" datepicker class="form-control" placeholder="To Date" style="width: 120px; float: left; margin-right: 15px;">
 
                 <button class="btn btn-primary" ng-disabled="myForm.$invalid" ng-click="submitDate()" style="float: left; display: none;">Apply</button>
 
@@ -57,7 +58,7 @@
    </div>    
    
    
-      <div class="container">
+      
          <div class="row">
             <div class="col-md-6">
                <div class="widget stacked">

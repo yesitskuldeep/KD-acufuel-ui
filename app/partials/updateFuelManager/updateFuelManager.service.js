@@ -1,4 +1,4 @@
-(function(){
+  (function(){
  'use strict';    
     angular.module('acufuel')
       .service('updateFuelManagerService', ['$q', '$http', 'BASE_URL', updateFuelManagerService]);
@@ -290,8 +290,11 @@
           })
           return deferred.promise;
         }
-
-         this.resetPricing = function(data){
+        
+        /**
+        Not use for ResetAll
+        **/
+       /*  this.resetPricing = function(data){
           var deferred = $q.defer();
           $http({
               method : 'DELETE',
@@ -305,7 +308,7 @@
               deferred.resolve(result.data);
           })
           return deferred.promise;
-        }
+        }*/
 
 
         

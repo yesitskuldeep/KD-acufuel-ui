@@ -76,6 +76,7 @@ background: #f3f3f3;
 
 .password-field { background: url(../../img/signin/password.png) no-repeat; }
 
+.email-field { background: url(../../img/forgetPassword/forgetPassword.png) no-repeat; }
 
 
 
@@ -318,4 +319,17 @@ background: #f3f3f3;
 .icon-tint-margin{
 	margin-bottom: 5px;
 }
+
+.forget-password{
+    color:#f90;
+    font-size: 21px;
+    
+}
+
+.forget{
+position:relative;
+right:  120px;
+}
+
+
 /* login page css */

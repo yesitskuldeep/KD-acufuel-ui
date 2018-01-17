@@ -186,6 +186,10 @@ font-size: 10px !important;
     color: #FFF;
     border-radius: 3px 3px 0 0;
 }
+.customAccordianHeader.customActive .form-control{
+	margin-left: 5px;
+	margin-right: 5px;
+}
 .customAccordianHeader > span{
 	font-size: 15px;
 	line-height: 22px;
@@ -750,3 +754,11 @@ font-size: 10px !important;
 	text-align: center !important;
 	outline: none !important;
 }
+
+/*--Highlight today date--*/
+.ui-datepicker-today {
+    background: lightgray !important;
+}
+/*.ui-datepicker-current-day {
+    background: #999 !important;
+}*/

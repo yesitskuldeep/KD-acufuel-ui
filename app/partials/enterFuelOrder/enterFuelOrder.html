@@ -23,14 +23,14 @@
 					<h3>Search and Dispatch Fuel</h3>
 				</div>
 				<div class="widget-content new-widget-content">
-					<form>
+					<form name="orderform" novalidate>
 
 						<div class="customInputWrap">
 							<div class="col-md-3 text-right">
 								<label>Company</label>
 							</div>
 							<div class="col-md-9">
-								<select ui-select2 ng-model="order.companyName" ng-change="getAircraft(order.companyName)" style="width: 100%;">
+								<select ui-select2 ng-model="order.companyName" ng-change="getAircraft(order.companyName)" style="width: 100%;" required>
 									<option value="" selected disabled>Select Company</option>
 									<option ng-repeat="list in companyList">{{list.companyName}}</option>
 								</select>
@@ -43,16 +43,16 @@
 								<label>Aircraft</label>
 							</div>
 							<div class="col-md-3">
-								<select class="form-control" ng-model="order.aircraftName">
+								<select class="form-control" ng-model="order.aircraftName" required>
 									<option selected disabled value="">Select Aircraft</option>
-									<option ng-repeat="list in aircraftList" value="{{list.tail}}">{{list.tail}}</option>
+									<option ng-repeat="list in aircraftList" value="{{list}}">{{list.tail}}</option>
 								</select>
 							</div>
 							<div class="col-md-3 text-right">
 								<label>Requested Volume</label>
 							</div>
 							<div class="col-md-3">
-								<input type="text" ng-model="order.volume" class="form-control">
+								<input type="text" ng-model="order.volume" class="form-control" required>
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -62,7 +62,7 @@
 								<label>Price Quote</label>
 							</div>
 							<div class="col-md-8 col-md-offset-1">
-								<select class="form-control" ng-model="order.priceQuote" ng-change="setCost(order.priceQuote)">
+								<select class="form-control" ng-model="order.priceQuote" ng-change="setCost(order.priceQuote)" required>
 									<option value="" selected disabled>Select Price Quote</option>
 									<option ng-repeat="margin in marginList" value="{{margin}}">${{margin.papTotal}} {{margin.productName}}</option>
 								</select>
@@ -90,13 +90,13 @@
 								<label>Uplift Date</label>
 							</div>
 							<div class="col-md-3">
-								<input type="text" ng-model="order.upliftDate" datepicker class="form-control">
+								<input type="text" ng-model="order.upliftDate" datepicker class="form-control" style="width: 100px" required>
 							</div>
 							<div class="col-md-3 text-right">
-								<label>Departing FBO</label>
+								<!-- <label>Departing FBO</label> -->
 							</div>
 							<div class="col-md-3">
-								<input type="text" ng-model="order.departingDate" datepicker class="form-control">
+								<!-- <input type="text" ng-model="order.departingDate" datepicker class="form-control"> -->
 							</div>
 							<div class="clearfix"></div>
 						</div>
@@ -104,7 +104,7 @@
 						<div class="customInputWrap text-right">
 							<div class="col-xs-12">
 								<input type="cancel" value="Cancel" ng-click="cancelOrder()" class="btn btn-default" style="margin-right: 15px; width: 100px;">
-								<input type="submit" value="Dispatch" ng-click="dispatchFuel()" class="btn btn-primary">
+								<input type="submit" value="Dispatch" ng-click="dispatchFuel()" class="btn btn-primary" ng-disabled="orderform.$invalid">
 							</div>
 							<div class="clearfix"></div>
 						</div>

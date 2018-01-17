@@ -365,6 +365,12 @@
               controller: "flightDepOrdersController"
             })
 
+            .state("forgetPassword", {
+             url: "/forgetPassword",
+             templateUrl: "partials/forgetPassword/forgetPassword.html",
+             controller: "forgetPasswordController"
+           })
+
         }
   ])
 
@@ -409,7 +415,7 @@
       });
   }])
 
-  
+     
     .directive("datepicker",function(){
       return {
         restrict:"A",
@@ -418,9 +424,7 @@
         }
       };
     })
- 
   
-
-
+ 
 
 

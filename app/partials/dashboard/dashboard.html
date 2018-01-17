@@ -151,7 +151,7 @@ table tr:nth-child(even) {
             <div class="widget stacked">
             <div class="widget-header">
                <i class="fa fa-pencil"></i>
-               <h3>Price Manager</h3>
+               <h3>Price Manager Active</h3>
                <select style="float: right; margin: 7px 10px; width: 150px; height: 26px; padding: 0 0;" class="btn btn-primary" class="form-control" ng-model="sendEmail.pricing" ng-change="confirmMail()">
                   <option value="" disabled selected="selected">Email All Pricing</option>
                   <option value="JET-A">Email JET-A pricing only</option>
@@ -188,7 +188,7 @@ table tr:nth-child(even) {
                           <span>{{fuelPricing.fuelPricing.papMargin}}</span>
                            </td>
                         <td>
-                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 2 }}</span>
+                           <span style="line-height: 31px; color: #1ab394;">$ {{fuelPricing.fuelPricing.cost -- fuelPricing.fuelPricing.papMargin  | number : 4 }}</span>
                         </td>
                         <td>
                           <span>{{fuelPricing.fuelPricing.expirationDate}}</span>
